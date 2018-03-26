@@ -1,0 +1,1 @@
+# BerryWallet Browser Extension

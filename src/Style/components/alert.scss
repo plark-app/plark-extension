@@ -1,0 +1,14 @@
+.alert {
+    line-height: 1.5;
+    padding: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    color: $color-dark;
+    background: $color-yellow;
+    text-align: center;
+    border-radius: 3px;
+    box-shadow: 0 10px 20px 0 transparentize($color-yellow, 0.6);
+    display: block;
+
+    position: relative;
+}

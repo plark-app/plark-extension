@@ -1,0 +1,60 @@
+.phrase-list {
+    margin: 40px auto 20px auto;
+
+    &-stack {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &__card.stack-card {
+            height: 102px;
+            width: 184px;
+            margin: 0 50px;
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 56px;
+        }
+
+        &__button {
+            transition: all 0.2s;
+            display: block;
+            background: white;
+            cursor: pointer;
+            @include block-shadow;
+            width: 30px;
+            height: 30px;
+            border-radius: 30px;
+            border: none;
+
+            &, &-icon {
+                transition: all 0.2s;
+            }
+
+            &-icon {
+                fill: $color-sub-main;
+            }
+
+            &:hover {
+                transform: translateY(-2px);
+            }
+
+            &:hover &-icon {
+                fill: $color-main;
+            }
+
+            &:active {
+                transform: translateY(0);
+            }
+
+            &:disabled {
+                transform: translateY(0) !important;
+                @include block-shadow(0);
+                opacity: 0.5;
+            }
+        }
+    }
+
+    &-numbers {
+        margin-top: 12px;
+    }
+}

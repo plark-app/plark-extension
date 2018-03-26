@@ -1,0 +1,4 @@
+export const STATE_STORAGE_KEY = 'BERRYWALLET_STATE';
+export const STORE_KEY = 'EXAMPLE_STORE_V1';
+
+export const SEED_WORD_COUNT = 12;

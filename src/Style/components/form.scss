@@ -1,0 +1,25 @@
+input, textarea, select, button {
+    @include font-family;
+}
+
+.input {
+    transition: all 0.2s;
+    border: 1px solid $color-input-border;
+    background: $color-input-background;
+    font-size: 14px;
+    font-weight: 500;
+
+    color: $color-dark;
+
+    padding: 10px 8px;
+    line-height: 1.41;
+    width: 100%;
+
+    &::placeholder {
+        color: $color-grey;
+    }
+
+    &:focus {
+        border-color: $color-sub-main;
+    }
+}

@@ -1,0 +1,39 @@
+.text {
+    @each $coin, $color in $color-coins {
+        &-#{$coin} {
+            color: $color;
+        }
+    }
+
+    &-s {
+        font-size: 12px;
+    }
+
+    &-xs {
+        font-size: 10px;
+    }
+
+    &-link {
+        color: $color-main;
+        cursor: pointer;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+    &-center {
+        text-align: center;
+    }
+
+    &-dark {
+        color: $color-dark;
+    }
+
+    &-light {
+        color: $color-grey;
+    }
+}
+
+/* @deprecated */
+.center {
+    text-align: center;
+}

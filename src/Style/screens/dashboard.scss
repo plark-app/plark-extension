@@ -1,0 +1,514 @@
+@mixin coinLayoutSize {
+    width: 130px;
+    height: 74px;
+}
+
+.dashboard {
+    display: flex;
+    width: 100%;
+
+    &-coins {
+        width: 130px;
+        height: 400px;
+        display: block;
+        margin: -10px 0;
+        overflow: hidden;
+
+        &__wrapper {
+            width: 160px;
+            height: 400px;
+            overflow-y: scroll;
+            overflow-x: hidden;
+            position: relative;
+
+            transition: all 0.4s;
+            opacity: 0;
+            transform: translateY(-400px);
+
+            &.-loaded {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        &__container {
+            padding: 10px 0 94px 0;
+            min-height: 400px;
+        }
+    }
+
+    &-coin {
+        display: block;
+        text-decoration: none;
+        transition: all 0.2s;
+
+        @include coinLayoutSize;
+        margin-bottom: 10px;
+        border-radius: 3px;
+        overflow: hidden;
+        cursor: pointer;
+
+        &:after {
+            z-index: 3;
+            transition: all 0.2s;
+            content: '';
+            position: absolute;
+            display: block;
+            top: 0;
+            bottom: 0;
+            left: -3px;
+            width: 3px;
+            background: $color-main;
+        }
+
+        &.-active {
+            &:after {
+                left: 0;
+            }
+        }
+
+        &:active {
+            transform: scale(0.96);
+        }
+
+        &__head, &__info {
+            z-index: 2;
+        }
+
+        &__head {
+            border-bottom: 1px dotted $color-grey-l;
+            font-weight: 500;
+            line-height: 30px;
+            padding: 0 7px;
+            margin: 0 3px;
+            .coin-icon-wrapper {
+                display: inline-block;
+                vertical-align: middle;
+                margin-right: 6px;
+                margin-bottom: 2px;
+                height: 20px;
+            }
+        }
+
+        &__info {
+            padding: 3px 10px;
+            &-balance {
+                font-weight: 500;
+                color: $color-sub-main;
+            }
+            &-currency {
+                font-weight: 400;
+                color: $color-grey;
+            }
+        }
+
+        &-background {
+            fill: #ffffff;
+
+            &__wrapper {
+                z-index: 1;
+                position: absolute;
+                left: 0;
+                top: 0;
+            }
+        }
+    }
+
+    &-add-coin {
+        display: block;
+        @include coinLayoutSize;
+
+        padding: 16px 0;
+
+        &-background {
+            transition: all 0.2s;
+            fill: rgba(255, 255, 255, 0.1);
+            & > path {
+                stroke-width: 1px;
+                stroke-dasharray: 3px;
+                stroke: white;
+            }
+
+            &__wrapper {
+                z-index: 1;
+                position: absolute;
+                left: 0;
+                top: 0;
+            }
+        }
+
+        &:hover &-background {
+            fill: rgba(235, 235, 235, 0.2);
+        }
+
+        &__icon, &__label {
+            opacity: 0.5;
+            text-align: center;
+            transition: all 0.2s;
+        }
+
+        &__icon {
+            display: block;
+            margin: 0 auto 4px auto;
+            height: 20px;
+        }
+
+        &__label {
+            color: white;
+            font-weight: 500;
+        }
+
+        &:hover &__icon,
+        &:hover &__label {
+            opacity: 1;
+        }
+    }
+
+    &-content {
+        width: 320px;
+        margin: -10px -10px -10px 0;
+        height: 400px;
+        overflow: hidden;
+
+        &-wrapper {
+            height: 400px;
+            padding: 10px;
+            overflow-y: scroll;
+            overflow-x: hidden;
+            width: 340px;
+        }
+
+        &.-loading {
+            text-align: center;
+            font-size: 16px;
+            padding: 32px 0;
+            color: white;
+        }
+    }
+
+    &-page, &-head {
+        width: 300px;
+    }
+
+    &-head {
+        margin-bottom: 5px;
+
+        &-info {
+            background: white;
+            border-radius: 3px 3px 0 0;
+            padding: 15px 0;
+            text-align: center;
+
+            &__coin {
+                width: 40px;
+                height: 40px;
+                margin-left: auto;
+                margin-right: auto;
+                &-wrapper {
+                    display: block;
+                    margin-bottom: 5px;
+                    height: 40px;
+
+                    & > div {
+                        display: block;
+                        height: 40px;
+                    }
+                }
+            }
+
+            &__price {
+                &-coin {
+                    font-size: 20px;
+                    color: $color-dark;
+                    font-weight: 600;
+                    &-value {
+                        margin-right: 4px;
+                    }
+                }
+
+                &-fiat {
+                    font-size: 12px;
+                    color: $color-green;
+                    font-weight: 500;
+
+                    &-value {
+                        font-size: 16px;
+                        margin-right: 4px;
+                    }
+                }
+            }
+        }
+
+        &-nav {
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+
+            &__tab {
+                transition: all 0.2s;
+                line-height: 30px;
+                display: block;
+                width: 33.33%;
+                text-decoration: none;
+                text-transform: uppercase;
+                font-size: 12px;
+                font-weight: 500;
+                color: $color-grey;
+                text-align: center;
+                z-index: 3;
+
+                &.-active {
+                    color: $color-main;
+                }
+            }
+        }
+    }
+
+    &-head {
+    }
+}
+
+.coming-soon {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: absolute;
+    left: 0;
+    bottom: 10px;
+
+    @include coinLayoutSize;
+
+    padding: 0;
+    font-weight: 500;
+    color: white;
+    opacity: 0.5;
+
+    &__label {
+        text-align: center;
+        width: 86px;
+        margin: 0 auto;
+        line-height: 1;
+    }
+
+    &__currencies {
+        text-align: center;
+        margin-bottom: 4px;
+        &-item {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            fill: white;
+
+            &-wrapper {
+                display: inline-block;
+                margin: 0 3px;
+            }
+        }
+    }
+}
+
+.wallet-wrapper {
+    background: white;
+    padding: 10px;
+    border-radius: 3px;
+    width: 300px;
+    height: 220px;
+
+    color: $color-grey;
+}
+
+.send {
+    &.-disabled {
+
+    }
+
+    &-values {
+        display: flex;
+        justify-content: space-between;
+        margin: 10px 0;
+    }
+
+    &-value {
+        width: 135px;
+        font-weight: 500;
+
+        &__fiat-label, &__dummy {
+            position: absolute;
+            z-index: 5;
+            top: 11px;
+            font-size: 14px;
+
+            font-weight: 500;
+            color: $color-grey-d;
+        }
+
+        &__fiat-label {
+            right: 10px;
+        }
+
+        &__dummy {
+            left: 10px;
+        }
+    }
+
+    &-footer {
+        font-size: 12px;
+        color: $color-grey-d;
+
+        position: absolute;
+
+        left: 10px;
+        right: 10px;
+        bottom: 8px;
+
+        &-row {
+            display: flex;
+            justify-content: space-between;
+            line-height: 1.21;
+            height: 16px;
+            transition: all 0.4s;
+
+            &.-error {
+                color: $color-main;
+            }
+
+            &__label {
+            }
+
+            &__value {
+                &-coin, &-fiat {
+                    margin-left: 8px;
+                    max-width: 105px;
+                    display: inline-block;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    text-align: right;
+                }
+
+                &-coin {
+                }
+
+                &-fiat {
+                    font-weight: 600;
+                    min-width: 30px;
+                }
+            }
+
+            &__loading {
+                display: inline-block;
+            }
+        }
+    }
+}
+
+.receive {
+
+    &-qr {
+        display: block;
+        padding: 8px 0;
+        & > canvas {
+            display: block;
+            margin: 0 auto;
+        }
+    }
+
+    &-label {
+        text-align: center;
+        line-height: 1.66;
+        font-size: 12px;
+    }
+
+    &-address {
+        display: block;
+        font-size: 14px;
+        line-height: 24px;
+        font-weight: 500;
+        text-align: center;
+        width: 100%;
+        color: $color-dark;
+        padding: 0;
+        background: none;
+        border: none;
+
+        &::selection {
+            background: $color-main;
+            color: white;
+        }
+
+        &::-moz-selection {
+            background: $color-main;
+            color: white;
+        }
+    }
+
+    &-control {
+        height: 68px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &-copied {
+        width: 162px;
+        position: absolute;
+        top: 30px;
+        z-index: 2;
+        left: 50%;
+        transform: translateX(-50%);
+        transition: all 0.2s;
+
+        opacity: 0;
+        visibility: hidden;
+
+        &.-show {
+            opacity: 1;
+            visibility: visible;
+        }
+    }
+
+    &-button {
+        width: 40px;
+        height: 40px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        position: relative;
+        margin: 0 12px;
+
+        &__icon {
+            transition: opacity 0.2s;
+            fill: $color-input-border;
+            display: inline-block;
+            &-wrapper {
+                text-align: center;
+            }
+        }
+
+        &:hover &__icon {
+            fill: $color-sub-main;
+        }
+
+        &__title {
+            transition: all 0.2s;
+            position: absolute;
+            bottom: -8px;
+            display: inline-block;
+            text-wrap: none;
+            white-space: nowrap;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 12px;
+            color: $color-sub-main;
+            font-weight: 500;
+            opacity: 0;
+        }
+
+        &:hover &__title {
+            opacity: 1;
+        }
+    }
+}
+
+.history {
+
+}

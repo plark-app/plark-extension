@@ -1,0 +1,62 @@
+.input-check {
+    cursor: pointer;
+
+    &__input {
+        display: none;
+    }
+
+    &__item {
+        transition: all 0.2s;
+        width: 18px;
+        height: 18px;
+        border: 2px solid $color-input-border;
+        border-radius: 3px;
+        background: transparent;
+
+        &:after {
+            transition: all 0.2s;
+            position: absolute;
+            display: block;
+            content: '';
+            top: 50%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-50%);
+            opacity: 0;
+        }
+
+        &.-checkbox {
+            &:after {
+                border: solid white;
+                border-width: 0 0 2px 2px;
+                width: 7px;
+                height: 4px;
+                transform: rotate(-45deg) translateX(0) translateY(-100%);
+            }
+        }
+
+        &.-radio {
+            border-radius: 18px;
+            &:after {
+                width: 6px;
+                height: 6px;
+                border-radius: 6px;
+                background: white;
+            }
+        }
+    }
+
+    &:hover {
+        &__item {
+            border-color: $color-main;
+        }
+    }
+
+    &.-checked &__item {
+        border-color: $color-main;
+        background: $color-main;
+
+        &:after {
+            opacity: 1;
+        }
+    }
+}

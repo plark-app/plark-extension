@@ -1,0 +1,30 @@
+.passcode {
+    &-input {
+        transition: all 0.2s;
+        margin: 60px auto 30px auto;
+        color: white;
+        display: block;
+        width: 300px;
+        height: 44px;
+        line-height: 43px;
+        font-weight: 600;
+        letter-spacing: 5px;
+        text-align: center;
+        font-size: 16px;
+        background: transparent;
+        border-radius: 0;
+        border: 1px solid transparentize(white, 0.5) {
+            width: 0 0 1px 0;
+        }
+
+        @include placeholder {
+            color: transparentize(white, 0.5);
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+
+        &.-error {
+            border-color: $color-red;
+        }
+    }
+}

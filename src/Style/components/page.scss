@@ -1,0 +1,17 @@
+.page {
+    &-head {
+        background: white;
+        border-radius: 3px;
+        padding: 10px;
+        height: 98px;
+    }
+
+    &-list {
+        margin: 5px 0 0 -10px;
+        padding-left: 10px;
+        height: 287px;
+        width: 340px;
+        overflow-x: hidden;
+        overflow-y: scroll;
+    }
+}
