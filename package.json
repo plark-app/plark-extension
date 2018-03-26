@@ -3,7 +3,10 @@
   "description": "BerryWallet the tastiest way to keep cryptocurrency",
   "version": "1.0.0",
   "public": true,
-  "scripts": {},
+  "scripts": {
+    "build": "rm -rf ./dist && tsc",
+    "build:prod": "rm -rf ./dist && NODE_ENV=production gulp build && gulp zip"
+  },
   "browserify": {
     "transform": [
       [
