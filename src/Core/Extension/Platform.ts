@@ -1,8 +1,6 @@
 import * as Declarations from './Declarations';
 import {ExtensionProxy} from './ExtensionProxy';
 import CreateProperties = chrome.tabs.CreateProperties;
-import Manifest = chrome.runtime.Manifest;
-
 
 class Platform {
 
@@ -19,30 +17,30 @@ class Platform {
     /**
      * extract Runtime object function
      */
-    getRuntime(): Declarations.RuntimeInterface {
+    getRuntime(): typeof chrome.runtime {
         return this.getExtension().runtime;
     }
 
     /**
      * Extract Tabs function
      */
-    getTabs(): Declarations.TabsInterface {
+    getTabs(): typeof chrome.tabs {
         return this.getExtension().tabs;
     }
 
-    reload() {
+    reload(): void {
         this.getRuntime().reload();
     }
 
-    openWindow(createProperties: CreateProperties, callback: Function = null) {
+    openWindow(createProperties: CreateProperties, callback: (tab: chrome.tabs.Tab) => any = null) {
         this.getExtension().tabs.create(createProperties, callback);
     }
 
-    getManifest(): Manifest {
+    getManifest(): chrome.runtime.Manifest {
         return this.getRuntime().getManifest();
     }
 
-    getNotifications(): any {
+    getNotifications(): typeof chrome.notifications {
         return this.getExtension().notifications;
     }
 }

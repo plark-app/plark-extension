@@ -13,9 +13,9 @@ const manifest = require('./resources/manifest.json');
 
 const PATH = {
     SOURCE: Path.join(__dirname, './src'),
-    TARGET: Path.join(__dirname, './dist')
+    TARGET: Path.join(__dirname, './dist'),
+    BUILDS: Path.join(__dirname, './builds')
 };
-
 
 gulp.task('copy:root', copyTask({
     source: './app/',

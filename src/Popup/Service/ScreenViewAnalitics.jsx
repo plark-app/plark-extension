@@ -1,5 +1,8 @@
 import React from 'react';
 import {AnalyticsObserver} from 'Popup/Service/Analytics';
+import debug from 'debug';
+
+const debugScreenView = debug('screen');
 
 export default class TrackScreenView extends React.PureComponent {
     componentDidMount() {
@@ -9,7 +12,7 @@ export default class TrackScreenView extends React.PureComponent {
         }
 
         AnalyticsObserver.screenview(trackLabel);
-        console.log('Screen view %c' + trackLabel, 'color: blue;');
+        debugScreenView('Screen view %c' + trackLabel, 'color: blue;');
     }
 
     render() {
