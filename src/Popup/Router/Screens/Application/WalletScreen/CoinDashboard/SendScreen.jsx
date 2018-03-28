@@ -21,7 +21,8 @@ export default class SendScreen extends React.Component {
         fee: null,
         value: '',
         address: '',
-        activeInput: null
+        activeInput: null,
+        sendingTransaction: false
     };
 
     onChangeTxValueDebounce;
@@ -37,15 +38,14 @@ export default class SendScreen extends React.Component {
         const {ticker} = this.props;
 
         let dataValue = new BigNumber(parseFloat(value.replace(',', '.')) || 0);
-        dataValue = dataValue.round(8);
 
         switch (activeInput) {
             case 'fiat':
-                return dataValue.div(ticker.priceFiat);
+                return dataValue.div(ticker.priceFiat).round(8);
 
             case 'coin':
             default:
-                return dataValue;
+                return dataValue.round(8);
         }
     }
 
@@ -105,21 +105,30 @@ export default class SendScreen extends React.Component {
         const onSuccess = (response) => {
             this.setState(() => {
                 return {
-                    address: '',
                     value: '',
+                    address: '',
                     activeInput: null
                 };
-            })
+            });
+
+            this.setSending(false);
         };
 
         const onError = (error) => {
             console.log(error);
+            this.setSending(false);
         };
+
+        this.setSending(true);
 
         Background
             .sendRequest(Controller.WalletEvent.CreateTransaction, newTxRequestParams)
             .then(onSuccess)
             .catch(onError);
+    };
+
+    setSending = (sendingTransaction) => {
+        this.setState(() => ({sendingTransaction}));
     };
 
     render() {
@@ -130,7 +139,7 @@ export default class SendScreen extends React.Component {
             balance
         } = this.props;
 
-        const {address, activeInput, value, fee} = this.state;
+        const {address, activeInput, value, fee, sendingTransaction} = this.state;
 
         const coinValue = this.getCoinValue().toNumber();
         const walletBalance = Wallet.Helper.calculateBalance(balance);
@@ -173,8 +182,13 @@ export default class SendScreen extends React.Component {
 
 
         return (
-            <div className={classNames("wallet-wrapper", "send", {})}>
+            <div className={classNames("wallet-wrapper", "send")}>
                 <TrackScreenView trackLabel="wallet-send"/>
+
+                <div className={classNames("send-process", sendingTransaction && "-sending")}>
+                    <div className="send-process__overlay"/>
+                    <div className="send-process__info">Sending...</div>
+                </div>
 
                 <label>
                     <input type="text"

@@ -17,17 +17,15 @@ const mapStateToProps = (store) => {
 @connect(mapStateToProps)
 export default class ExchangeScreen extends React.Component {
     render() {
-        return (
-            <div className="exchange">
-                <TrackScreenView trackLabel="exchange"/>
+        return <div className="exchange">
+            <TrackScreenView trackLabel="exchange"/>
 
-                <div className="exchange-sides">
-                    <div className="exchange-side">{this.props.baseCoin}</div>
-                    <div className="exchange-side">{this.props.quoteCoin}</div>
-                </div>
-
-                <Button className="-full-size" disabled={true}>Exchange</Button>
+            <div className="exchange-sides">
+                <div className="exchange-side">{this.props.baseCoin}</div>
+                <div className="exchange-side">{this.props.quoteCoin}</div>
             </div>
-        );
+
+            <Button className="-full-size" disabled={true}>Exchange</Button>
+        </div>
     }
 }

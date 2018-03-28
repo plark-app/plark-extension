@@ -2,7 +2,17 @@ import React from 'react';
 import classNames from 'classnames';
 import ReactSVG from 'react-svg'
 
-export default class SearchInputComponent extends React.Component {
+export interface ISearchOwnProps {
+    onChangeSearch?: (value: string) => void;
+    placeholder?: string;
+}
+
+export interface ISearchOwnState {
+    search: string;
+    focused: boolean;
+}
+
+export default class SearchInputComponent extends React.Component<ISearchOwnProps, ISearchOwnState> {
 
     state = {
         search: '',
@@ -52,15 +62,16 @@ export default class SearchInputComponent extends React.Component {
 
         return (
             <label className="currency-option-search">
-                <ReactSVG
-                    path="/images/icons/search.svg"
-                    className={classNames("currency-option-search__icon", {'-active': !!search || focused})}
-                    wrapperClassName="currency-option-search__icon-wrapper"
+                <ReactSVG path="/images/icons/search.svg"
+                          className={classNames("currency-option-search__icon", {'-active': !!search || focused})}
+                          wrapperClassName="currency-option-search__icon-wrapper"
                 />
                 <input {...inputProps}/>
                 <div className={classNames("currency-option-search__clear-wrapper", {'-active': !!search})}
                      onClick={this.onClearEvent}>
-                    <ReactSVG path="/images/icons/close-round.svg" className="currency-option-search__clear"/>
+
+                    <ReactSVG path="/images/icons/close-round.svg"
+                              className="currency-option-search__clear"/>
                 </div>
             </label>
         );

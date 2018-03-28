@@ -1,7 +1,13 @@
 import React from 'react';
 import classNames from 'classnames';
 
-export default class NotFoundComponent extends React.Component {
+export interface INotFoundOwnProps {
+    title?: string;
+    description?: string;
+    show?: boolean;
+}
+
+export default class NotFoundComponent extends React.Component<INotFoundOwnProps, any> {
     render() {
         const {title = '', description = '', show = false} = this.props;
 

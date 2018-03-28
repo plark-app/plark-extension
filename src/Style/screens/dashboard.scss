@@ -319,7 +319,10 @@
 
 .send {
     &.-disabled {
+    }
 
+    &.-sending {
+        opacity: 0.7;
     }
 
     &-values {
@@ -348,6 +351,40 @@
 
         &__dummy {
             left: 10px;
+        }
+    }
+
+    &-process {
+        transition: all 0.4s;
+        z-index: 10;
+        opacity: 0;
+        visibility: hidden;
+
+        &.-sending {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        &, &__overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+
+        &__overlay {
+            z-index: 1;
+            background: linear-gradient(-46deg, #B224EF 0%, #630FCD 100%);
+            opacity: 0.6;
+        }
+
+        &__info {
+            font-size: 18px;
+            padding: 24px 0;
+            color: white;
+            z-index: 2;
+            text-align: center;
         }
     }
 

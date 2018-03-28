@@ -84,7 +84,7 @@ export class WalletManager {
         debug("Start generation for coin: " + this.coin.getKey());
 
         const wdGenerator = Core.Wallet.createWDGenerator(this.coin, this.seed);
-        return wdGenerator.generate().then((wdProvider) => {
+        return wdGenerator.fill().then((wdProvider) => {
             const actionPayload = {
                 walletCoinKey: this.coin.getKey(),
                 walletData: wdProvider.getData()

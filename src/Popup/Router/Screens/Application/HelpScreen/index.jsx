@@ -1,18 +1,19 @@
 import React from 'react';
-import classNames from 'classnames';
 import {Route, Switch} from 'react-router-dom';
+import classNames from 'classnames';
 import {connect} from 'react-redux';
 import {filter} from 'lodash';
 
 import MenuLayout from "Popup/Router/Layouts/MenuLayout";
 
-import TutorialScreen from "Popup/Router/Screens/Application/HelpScreen/TutorialScreen";
-import FAQScreen from "Popup/Router/Screens/Application/HelpScreen/FAQScreen";
-import FeedbackScreen from "Popup/Router/Screens/Application/HelpScreen/FeedbackScreen";
-import ContactsScreen from "Popup/Router/Screens/Application/HelpScreen/ContactsScreen";
-import PrivacyPolicyScreen from "Popup/Router/Screens/Application/HelpScreen/PrivacyPolicyScreen";
-import TermsAndConditionsScreen from "Popup/Router/Screens/Application/HelpScreen/TermsAndConditionsScreen";
-import VersionScreen from "Popup/Router/Screens/Application/HelpScreen/VersionScreen";
+import FAQScreen from "./FAQScreen";
+import VersionScreen from "./VersionScreen";
+import TutorialScreen from "./TutorialScreen";
+import FeedbackScreen from "./FeedbackScreen";
+import ContactsScreen from "./ContactsScreen";
+import PrivacyPolicyScreen from "./PrivacyPolicyScreen";
+import TermsAndConditionsScreen from "./TermsAndConditionsScreen";
+
 
 const links = [
     {
