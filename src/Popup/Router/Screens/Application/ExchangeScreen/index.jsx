@@ -4,7 +4,6 @@ import {Button} from "Popup/Router/UIComponents";
 import TrackScreenView from "Popup/Service/ScreenViewAnalitics";
 
 const mapStateToProps = (store) => {
-
     const baseCoin = store.Coin.currentCoinKey;
     const quoteCoin = store.Coin.coins[0];
 

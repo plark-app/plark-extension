@@ -1,6 +1,6 @@
 import React from 'react';
 import {Provider} from 'react-redux';
-import ApplicationRouter from 'Popup/Router';
+import {ApplicationRouter} from 'Popup/Router';
 import proxyStore from 'Popup/Store'
 import {AnalyticsObserver} from "./Service/Analytics";
 

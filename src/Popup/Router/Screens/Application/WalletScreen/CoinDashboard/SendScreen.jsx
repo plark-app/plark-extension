@@ -1,18 +1,18 @@
 import React from 'react';
 import {reverse} from 'lodash';
-import {Wallet} from '@berrywallet/core';
 import BigNumber from 'bignumber.js';
 import {connect} from 'react-redux';
+import {Wallet, Coin} from '@berrywallet/core';
 import classNames from 'classnames';
 import Numeral from 'numeral';
 import debounce from 'debounce';
-
-import {Controller} from 'Core/Actions';
 import {mapWalletCoinToProps} from 'Popup/Store/WalletCoinConnector';
+import {showAlert} from 'Popup/Router/Alert';
+import {Controller} from 'Core/Actions';
 import {Button} from "Popup/Router/UIComponents";
 import TrackScreenView from 'Popup/Service/ScreenViewAnalitics';
 import {Background} from 'Popup/Service';
-import SendDataFooterRow from './SendDataFooterRow';
+import {FooterComponent} from "./SendScreenComponents/FooterComponent";
 
 @connect(mapWalletCoinToProps)
 export default class SendScreen extends React.Component {
@@ -61,13 +61,20 @@ export default class SendScreen extends React.Component {
     onChangeValueInput = (type) => {
         return (event) => {
             const val = event.target.value;
+
+            const valueSet = () => {
+                if (val > 0) {
+                    this.onChangeTxValueDebounce();
+                }
+            };
+
             this.setState(() => {
                 return {
                     value: val,
                     fee: null,
                     activeInput: val ? type : null
                 };
-            }, this.onChangeTxValueDebounce);
+            }, valueSet);
         }
     };
 
@@ -95,12 +102,50 @@ export default class SendScreen extends React.Component {
             .then(resolveFee);
     };
 
-    onSendValue = (event) => {
-        const newTxRequestParams = {
-            coinKey: this.props.coin.key,
+    validateData() {
+
+        const {balance} = this.props;
+        const {fee} = this.state;
+
+        const coinValue = this.getCoinValue().toNumber();
+        const {coin} = this.props;
+
+        if (coinValue <= 0) {
+            throw new Error("Oh snap! Set value to sent");
+        }
+
+        const walletBalance = Wallet.Helper.calculateBalance(balance);
+        const remaining = walletBalance - fee - coinValue;
+
+        if (remaining < 0) {
+            throw new Error("Oh snap! It seems there is not enough funds.");
+        }
+
+        const berryCoin = Coin.makeCoin(coin.getUnit());
+
+        try {
+            berryCoin.getKeyFormat().parseAddress(this.state.address);
+        } catch (error) {
+            throw new Error(`Oh snap! Put valid ${coin.getName()} address`);
+        }
+
+        return {
+            coinKey: coin.key,
             address: this.state.address,
-            value: this.getCoinValue().toNumber()
+            value: coinValue
         };
+    }
+
+    createTransaction = (event) => {
+        event.preventDefault();
+        let newTxRequestParams = null;
+
+        try {
+            newTxRequestParams = this.validateData();
+        } catch (error) {
+            showAlert(error.message);
+            return;
+        }
 
         const onSuccess = (response) => {
             this.setState(() => {
@@ -115,7 +160,7 @@ export default class SendScreen extends React.Component {
         };
 
         const onError = (error) => {
-            console.log(error);
+            showAlert(error.message);
             this.setSending(false);
         };
 
@@ -144,42 +189,39 @@ export default class SendScreen extends React.Component {
         const coinValue = this.getCoinValue().toNumber();
         const walletBalance = Wallet.Helper.calculateBalance(balance);
         const remaining = walletBalance - fee - coinValue;
-        const disabledSend = !this.state.address || coinValue <= 0 || remaining < 0;
+        const disabledSend = !this.state.address || coinValue <= 0;
 
-        const footerElements = [
-            <SendDataFooterRow
-                coin={coin}
-                fiat={fiat}
-                ticker={ticker}
-                value={walletBalance}
-                isError={coinValue > 0 && remaining < 0}
-                label="Spendable balance"
-                key='spendable-balance'
-            />
-        ];
+        const baseRowProps = {
+            coin: coin,
+            fiat: fiat,
+            ticker: ticker,
+        };
 
-        if (this.state.address || coinValue > 0) {
-            footerElements.push(<SendDataFooterRow
-                coin={coin}
-                fiat={fiat}
-                ticker={ticker}
-                loading={!fee}
-                value={remaining > 0 ? remaining : 0}
-                label="Remaining Balance"
-                key='balance'
-            />);
+        const footerRows = [{
+            value: walletBalance,
+            isError: coinValue > 0 && remaining < 0,
+            label: "Spendable balance",
+            key: 'spendable-balance',
+            ...baseRowProps,
+        }];
 
-            footerElements.push(<SendDataFooterRow
-                coin={coin}
-                fiat={fiat}
-                loading={!fee}
-                ticker={ticker}
-                value={fee}
-                label={`${coin.getName()} Network Fee`}
-                key='fee'
-            />);
+        if (coinValue > 0) {
+            footerRows.push({
+                value: remaining > 0 ? remaining : 0,
+                loading: !fee,
+                label: "Remaining Balance",
+                key: 'balance',
+                ...baseRowProps
+            });
+
+            footerRows.push({
+                value: fee,
+                loading: !fee,
+                label: `${coin.getName()} Network Fee`,
+                key: 'fee',
+                ...baseRowProps
+            });
         }
-
 
         return (
             <div className={classNames("wallet-wrapper", "send")}>
@@ -190,42 +232,45 @@ export default class SendScreen extends React.Component {
                     <div className="send-process__info">Sending...</div>
                 </div>
 
-                <label>
-                    <input type="text"
-                           placeholder={`${coin.getName()} address`}
-                           value={address}
-                           className="input"
-                           onChange={this.onChangeAddress}
-                    />
-                </label>
+                <form onSubmit={this.createTransaction}>
+                    <label>
+                        <input type="text"
+                               placeholder={`${coin.getName()} address`}
+                               value={address}
+                               className="input"
+                               onChange={this.onChangeAddress}
+                        />
+                    </label>
 
-                <div className="send-values">
-                    <label className="send-value">
+                    <div className="send-values">
+                        <label className="send-value">
                         <span className="send-value__dummy">
                             {activeInput === 'fiat' ? Numeral(coinValue).format('0,0.00[000000]') : null}
                         </span>
-                        <input placeholder={activeInput ? '' : '0.00'}
-                               value={activeInput === 'coin' ? value : ''}
-                               onChange={this.onChangeValueInput('coin')}
-                               className="input"
-                        />
-                        <span className="send-value__fiat-label">{coin.getKey()}</span>
-                    </label>
+                            <input placeholder={activeInput ? '' : '0.00'}
+                                   value={activeInput === 'coin' ? value : ''}
+                                   onChange={this.onChangeValueInput('coin')}
+                                   className="input"
+                            />
+                            <span className="send-value__fiat-label">{coin.getKey()}</span>
+                        </label>
 
-                    <label className="send-value">
+                        <label className="send-value">
                         <span className="send-value__dummy">
                             {activeInput === 'coin' ? Numeral(coinValue * ticker.priceFiat).format('0,0.00') : null}
                         </span>
-                        <input placeholder={activeInput ? '' : '0.00'}
-                               value={activeInput === 'fiat' ? value : ''}
-                               onChange={this.onChangeValueInput('fiat')}
-                               className="input"
-                        />
-                        <span className="send-value__fiat-label">{fiat.key}</span>
-                    </label>
-                </div>
-                <Button className="-full-size" disabled={disabledSend} onClick={this.onSendValue}>Send</Button>
-                <div className="send-footer">{reverse(footerElements)}</div>
+                            <input placeholder={activeInput ? '' : '0.00'}
+                                   value={activeInput === 'fiat' ? value : ''}
+                                   onChange={this.onChangeValueInput('fiat')}
+                                   className="input"
+                            />
+                            <span className="send-value__fiat-label">{fiat.key}</span>
+                        </label>
+                    </div>
+                    <Button className="-full-size" disabled={disabledSend} type="submit">Send</Button>
+                </form>
+
+                <FooterComponent footerRows={reverse(footerRows)}/>
             </div>
         )
     }
