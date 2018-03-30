@@ -3,7 +3,6 @@ import classNames from 'classnames';
 import {MIN_PASSCODE_CHARS, validatePasscode} from 'Core/Passcode';
 import {Button} from "Popup/Router/UIComponents";
 
-
 const ScreenStates = {
     CREATE: 'create',
     RETYPE: 'retype'
@@ -18,9 +17,11 @@ export default class EnterPasscodeStep extends React.Component {
     };
 
     onChangePasscodeInput = (event) => {
-        this.setState({
-            inputData: event.target.value,
-            valid: event.target.value.length >= MIN_PASSCODE_CHARS
+        this.setState(() => {
+            return {
+                inputData: event.target.value,
+                valid: event.target.value.length >= MIN_PASSCODE_CHARS
+            };
         });
     };
 
@@ -51,11 +52,13 @@ export default class EnterPasscodeStep extends React.Component {
 
 
     onCreatePasscode() {
-        this.setState({
-            inputData: '',
-            valid: false,
-            screenState: ScreenStates.RETYPE,
-            passcode: this.state.inputData
+        this.setState(() => {
+            return {
+                inputData: '',
+                valid: false,
+                screenState: ScreenStates.RETYPE,
+                passcode: this.state.inputData
+            };
         });
     }
 
@@ -75,11 +78,11 @@ export default class EnterPasscodeStep extends React.Component {
 
     render() {
         const inputProps = {
-            placeholder: "Enter your passcode",
-            className: classNames("passcode-input", {"-error": this.props.hasError}),
+            type: "password",
             value: this.state.inputData,
             onChange: this.onChangePasscodeInput,
-            type: "password"
+            className: classNames("passcode-input", {"-error": this.props.hasError}),
+            placeholder: "Enter your passcode"
         };
 
         return (

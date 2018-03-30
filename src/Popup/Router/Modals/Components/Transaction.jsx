@@ -8,7 +8,7 @@ import ReactSVG from 'react-svg';
 
 import {Helper} from 'Core';
 import {findCoin, TxDirection} from "Core/Coins";
-import {Badge, RemoteLink} from "Popup/Service/UIComponents";
+import {Notice, Badge, RemoteLink} from "Popup/Service/UIComponents";
 import {DotLoader} from 'Popup/Router/UIComponents';
 
 import ModalLayout from "../ModalLayout";
@@ -89,9 +89,7 @@ export default class Transaction extends React.Component {
                 <span className="tx-popup__subtitle">{moment(tx.time).format("MMM D, YYYY")}</span>
 
                 <div className="tx-popup-card stack-card">
-                    <label className={classNames('tx-info-copied', 'alert', {'-show': this.state.copied})}>
-                        TXID copied!
-                    </label>
+                    <Notice className='tx-info-copied' show={this.state.copied}>TXID copied!</Notice>
 
                     <dl className="tx-info-item">
                         <dt className="tx-info-item__title">Amount</dt>

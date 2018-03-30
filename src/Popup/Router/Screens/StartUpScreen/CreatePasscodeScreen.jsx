@@ -2,6 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import {connect} from 'react-redux';
 import proxyStore from 'Popup/Store';
+import {showAlert} from "Popup/Router/Alert";
 import {Button} from "Popup/Router/UIComponents";
 import WelcomeLink from 'Popup/Router/Screens/StartUpScreen/Parts/WelcomeLink';
 import {MIN_PASSCODE_CHARS, validatePasscode} from 'Core/Passcode';
@@ -45,15 +46,7 @@ export default class CreatePasscodeScreen extends React.Component {
             return false;
         }
 
-        try {
-            validatePasscode(this.state.inputData);
-        } catch (error) {
-            this.setState(() => {
-                return {error: true};
-            });
-
-            return false;
-        }
+        validatePasscode(this.state.inputData);
 
         this.setState(() => {
             return {
@@ -75,22 +68,10 @@ export default class CreatePasscodeScreen extends React.Component {
 
         const retypedPasscode = this.state.inputData;
 
-        try {
-            validatePasscode(retypedPasscode);
-        } catch (error) {
-            this.setState(() => {
-                return {error: true};
-            });
-
-            return false;
-        }
+        validatePasscode(retypedPasscode);
 
         if (retypedPasscode !== this.state.passcode) {
-            this.setState(() => {
-                return {error: true};
-            });
-
-            return false;
+            throw new Error("Oh snap! Wrong passcode. Please try again.");
         }
 
         proxyStore.dispatch({
@@ -107,13 +88,31 @@ export default class CreatePasscodeScreen extends React.Component {
     };
 
     onNext = (event) => {
-        switch (this.state.screenState) {
-            case ScreenStates.CREATE:
-                return this.onCreatePasscode(event);
+        try {
+            switch (this.state.screenState) {
+                case ScreenStates.CREATE:
+                    return this.onCreatePasscode(event);
 
-            case ScreenStates.RETYPE:
-                return this.onCheckPasscode(event);
+                case ScreenStates.RETYPE:
+                    return this.onCheckPasscode(event);
+            }
+        } catch (error) {
+            this.setState(() => {
+                return {error: true};
+            });
+
+            showAlert({
+                message: error.message,
+                noBody: true,
+                onClose: () => {
+                    this.setState(() => {
+                        return {error: false};
+                    });
+                }
+            });
         }
+
+        return false;
     };
 
 

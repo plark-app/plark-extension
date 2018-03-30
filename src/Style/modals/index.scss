@@ -141,8 +141,9 @@
         width: 36px;
         fill: $color-green;
         &-wrapper {
+            height: 24px;
             text-align: center;
-            margin: 0 auto 20px auto;
+            margin: 24px auto;
         }
     }
 }
