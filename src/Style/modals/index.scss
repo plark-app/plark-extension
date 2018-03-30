@@ -59,68 +59,6 @@
         background-image: linear-gradient(-46deg, $color-bg-start 0%, $color-bg-end 100%);
     }
 
-    &-error {
-        box-shadow: none;
-
-        &-wrapper {
-            position: absolute;
-            z-index: 103;
-            left: 10px;
-            right: 10px;
-            top: 10px;
-            display: block;
-        }
-
-        &.-animation {
-            &-enter {
-                opacity: 0.01;
-                transform: translateY(-12px);
-                &.-animation-enter-active {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-            }
-            &-leave {
-                opacity: 1;
-                transform: translateY(0);
-                &.-animation-leave-active {
-                    opacity: 0.01;
-                    transform: translateY(-12px);
-                }
-            }
-        }
-
-        &-message {
-            z-index: 1;
-        }
-
-        &-notice, &-close {
-            fill: white;
-            &-wrapper {
-                position: absolute;
-                top: 11px;
-                z-index: 2;
-            }
-        }
-
-        &-notice {
-            width: 22px;
-            height: 20px;
-            &-wrapper {
-                left: 10px;
-            }
-        }
-
-        &-close {
-            width: 18px;
-            height: 18px;
-            cursor: pointer;
-            &-wrapper {
-                right: 10px;
-            }
-        }
-    }
-
     $selector-content: #{&}-content;
 
     &-content {

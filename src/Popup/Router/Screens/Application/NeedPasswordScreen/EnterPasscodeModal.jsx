@@ -1,10 +1,8 @@
 import React from 'react';
-import classNames from 'classnames';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import TypePasscode from './TypePasscode';
 import ForgotPasscode from './ForgotPasscode';
-import ModalError from './ModalError';
+import {showAlert, closeAlert} from 'Popup/Router/Alert';
 
 
 const PasswordMode = {
@@ -16,30 +14,42 @@ export default class EnterPasscodeModal extends React.Component {
 
     state = {
         mode: PasswordMode.Type,
-        hasError: false,
-        errorMessage: null
+        hasError: false
     };
 
+    componentWillUnmount() {
+        closeAlert();
+    }
+
     onError = (errorMessage) => {
-        this.setState({
-            hasError: true,
-            errorMessage: errorMessage
+        showAlert({
+            message: errorMessage,
+            onClose: this.onCloseError,
+            noBody: true
+        });
+
+        this.setState(() => {
+            return {
+                hasError: true
+            };
         });
     };
 
     onCloseError = (event) => {
-        this.setState({
-            hasError: false,
-            errorMessage: null
+        this.setState(() => {
+            return {
+                hasError: false
+            };
         });
     };
 
     onSetScreenMode = (mode) => {
         return (event) => {
-            this.setState({
-                mode: mode,
-                hasError: false,
-                errorMessage: null
+            this.setState(() => {
+                return {
+                    mode: mode,
+                    hasError: false
+                };
             })
         }
     };
@@ -62,21 +72,9 @@ export default class EnterPasscodeModal extends React.Component {
     }
 
     render() {
-        const {errorMessage = null, hasError = false} = this.state;
-
-        const errorTransitionGroupProps = {
-            transitionName: '-animation',
-            transitionEnterTimeout: 400,
-            transitionLeaveTimeout: 400,
-            className: 'modal-error-wrapper'
-        };
-
         return (
             <div className="modal enter-passcode">
                 <div className="modal-overlay"/>
-                <ReactCSSTransitionGroup {...errorTransitionGroupProps}>
-                    {hasError ? <ModalError errorMessage={errorMessage} onCloseError={this.onCloseError}/> : null}
-                </ReactCSSTransitionGroup>
                 {this.renderMode()}
             </div>
         );

@@ -143,7 +143,10 @@ export default class SendScreen extends React.Component {
         try {
             newTxRequestParams = this.validateData();
         } catch (error) {
-            showAlert(error.message);
+            showAlert({
+                message: error.message
+            });
+
             return;
         }
 
@@ -160,7 +163,9 @@ export default class SendScreen extends React.Component {
         };
 
         const onError = (error) => {
-            showAlert(error.message);
+            showAlert({
+                message: error.message
+            });
             this.setSending(false);
         };
 

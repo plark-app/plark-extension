@@ -8,7 +8,9 @@ export interface IApplicationLayoutProps {
 
 export class ApplicationLayout extends React.Component<IApplicationLayoutProps, any> {
     componentDidCatch(error: Error) {
-        showAlert(error.message);
+        showAlert({
+            message: error.message
+        });
     }
 
     render() {

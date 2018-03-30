@@ -1,74 +1,76 @@
 import debugProvider from 'debug';
+import {EventEmitter} from 'events';
 
 const debug = debugProvider('ALERT');
 
+export interface ShowAlertOptions {
+    message: string;
+    type?: string;
+    onClose?: () => void;
+    lifetime?: number;
+    noBody?: boolean;
+}
 
 export interface IAlert {
     message: string;
     type: string;
-    time: number;
+    onClose?: () => void;
     lifetime?: number;
+    noBody: boolean;
+
+    time: number;
+    tokenToClear?: any;
 }
 
 const ALERT_LIFETIME = 10000;
 
-export class AlertObserver {
-
-    protected rootComponent;
-    protected currentAlert: IAlert;
-    protected timeoutToClear;
+export class AlertObserver extends EventEmitter {
 
     /**
-     * @param {string} message
-     * @param {string} type
-     * @param {number} lifetime
+     * @param {ShowAlertOptions} alertProps
      */
-    open(message: string, type: string, lifetime: number = null): void {
-        if (this.currentAlert) {
-            return;
-        }
+    show(alertProps: ShowAlertOptions): void {
+        const alert: IAlert = {
+            message: alertProps.message,
+            type: alertProps.type || 'warning',
+            noBody: alertProps.noBody || false,
+            onClose: alertProps.onClose || null,
+            lifetime: alertProps.lifetime || ALERT_LIFETIME,
 
-        this.currentAlert = {
-            message: message,
-            type: type,
             time: new Date().getTime(),
-            lifetime: lifetime || ALERT_LIFETIME
+            tokenToClear: null
         };
 
-        this.setAlert(this.currentAlert);
+        debug('show', alert);
+
+        this.emit('show', alert);
     }
 
     /**
      * @returns {Promise<boolean>}
      */
-    close(): Promise<boolean> {
+    close(): Promise<void> {
+        this.emit('close');
+        debug('close');
 
-        this.currentAlert = null;
-        this.setAlert(null);
-        clearTimeout(this.timeoutToClear);
-
-        return new Promise<boolean>((resolve) => {
-
+        return new Promise<void>((resolve) => {
             setTimeout(resolve, 400);
         });
     }
 
     /**
-     * @param {IAlert} alert
+     * @param {(alert: IAlert) => void} eventHandler
      */
-    setAlert(alert: IAlert = null) {
-        this.rootComponent.setState(() => ({alert: alert}));
-
-        if (alert) {
-            this.timeoutToClear = setTimeout(() => {
-                this.close();
-            }, alert.lifetime);
-        }
+    onShow(eventHandler: (alert: IAlert) => void) {
+        this.on('show', eventHandler);
     }
 
-    setRootComponent(rootComponent) {
-        this.rootComponent = rootComponent;
+    /**
+     * @param {() => void} eventHandler
+     */
+    onClose(eventHandler: () => void) {
+        this.on('close', eventHandler);
     }
 }
 
-export const alertManager = new AlertObserver();
+export const alertObserver = new AlertObserver();

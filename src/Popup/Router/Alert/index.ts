@@ -1,12 +1,20 @@
-import {alertManager} from './Observer';
+import {alertObserver, IAlert, ShowAlertOptions} from './Observer';
 import {AlertRootComponent} from "./AlertRootComponent";
 
-function showAlert(message: string, type: string = 'warning') {
-    alertManager.open(message, type);
+function showAlert(options: ShowAlertOptions) {
+    alertObserver.show(options);
+}
+
+function closeAlert(): Promise<void> {
+    return alertObserver.close();
 }
 
 export {
+    IAlert,
+    ShowAlertOptions,
+
     showAlert,
-    alertManager,
+    closeAlert,
+    alertObserver,
     AlertRootComponent
 }

@@ -4,7 +4,6 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import EnterPasscodeModal from './EnterPasscodeModal';
 
 export default class PasscodeWrapper extends React.Component {
-
     render() {
         const {open = false} = this.props;
 
@@ -16,7 +15,7 @@ export default class PasscodeWrapper extends React.Component {
 
         return (
             <ReactCSSTransitionGroup {...transitionGroupProps}>
-                {open ? <EnterPasscodeModal /> : null}
+                {open ? <EnterPasscodeModal/> : null}
             </ReactCSSTransitionGroup>
         );
     }
