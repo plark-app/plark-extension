@@ -26,28 +26,29 @@ const browserApiList: string[] = [
 
 class ExtensionProxy implements Declarations.ExtensionInterface {
 
-    alarms?: any;
-    bookmarks?: any;
-    browserAction?: any;
-    commands?: any;
-    cookies?: any;
-    idle?: any;
-    contextMenus?: any;
-    downloads?: any;
-    events?: any;
-    extension?: any;
-    extensionTypes?: string[];
-    history?: any;
-    i18n?: any;
-    notifications?: any;
-    pageAction?: any;
-    runtime?: any;
-    storage?: any;
-    tabs?: any;
-    webNavigation?: any;
-    webRequest?: any;
-    windows?: any;
+    alarms?: typeof chrome.alarms;
+    bookmarks?: typeof chrome.bookmarks;
+    browserAction?: typeof chrome.browserAction;
+    commands?: typeof chrome.commands;
+    cookies?: typeof chrome.cookies;
+    idle?: typeof chrome.idle;
+    contextMenus?: typeof chrome.contextMenus;
+    downloads?: typeof chrome.downloads;
+    extension?: typeof chrome.extension;
+    history?: typeof chrome.history;
+    i18n?: typeof chrome.i18n;
+    notifications?: typeof chrome.notifications;
+    pageAction?: typeof chrome.pageAction;
+    runtime?: typeof chrome.runtime;
+    storage?: typeof chrome.storage;
+    tabs?: typeof chrome.tabs;
+    webNavigation?: typeof chrome.webNavigation;
+    webRequest?: typeof chrome.webRequest;
+    windows?: typeof chrome.windows;
+    
     api?: any;
+    events?: any;
+    extensionTypes?: string[];
 
     constructor() {
         this.initBaseApi();

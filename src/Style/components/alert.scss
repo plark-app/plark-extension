@@ -1,4 +1,104 @@
 .alert {
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 41px;
+
+    line-height: 1.5;
+    padding: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    border-radius: 3px;
+    display: block;
+    top: 10px;
+    box-shadow: none;
+
+    &.-warning {
+        color: $color-dark;
+        background: $color-yellow;
+    }
+
+    &.-success {
+        color: white;
+        background: $color-green;
+    }
+
+    &.-animation {
+        &-enter {
+            opacity: 0.01;
+            transform: translateY(-12px);
+            &.-animation-enter-active {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        &-leave {
+            opacity: 1;
+            transform: translateY(0);
+            &.-animation-leave-active {
+                opacity: 0.01;
+                transform: translateY(-12px);
+            }
+        }
+    }
+
+    &-container {
+        z-index: 99999;
+        display: block;
+        margin-left: 10px;
+        margin-right: 10px;
+        opacity: 0;
+        height: 0;
+
+        &.-active {
+            opacity: 1;
+            height: 51px;
+        }
+
+        &.-no-body {
+            height: 0;
+        }
+    }
+
+    &, &-container {
+        transition: all 0.4s;
+    }
+
+    &-message {
+        z-index: 1;
+    }
+
+    &-notice, &-close {
+        fill: white;
+        &-wrapper {
+            position: absolute;
+            top: 11px;
+            z-index: 2;
+        }
+    }
+
+    &-notice {
+        width: 22px;
+        height: 20px;
+        &-wrapper {
+            left: 10px;
+        }
+    }
+
+    &-close {
+        width: 18px;
+        height: 18px;
+        cursor: pointer;
+        &-wrapper {
+            right: 10px;
+        }
+    }
+}
+
+.notice {
+    transition: all 0.2s;
     line-height: 1.5;
     padding: 10px;
     font-size: 14px;
@@ -9,6 +109,13 @@
     border-radius: 3px;
     box-shadow: 0 10px 20px 0 transparentize($color-yellow, 0.6);
     display: block;
-
     position: relative;
+
+    visibility: visible;
+    opacity: 1;
+
+    &.-hidden {
+        visibility: hidden;
+        opacity: 0;
+    }
 }

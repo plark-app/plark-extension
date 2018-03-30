@@ -4,7 +4,9 @@ import {Coin, Wallet} from '@berrywallet/core';
 import * as Core from "Core";
 import {Coins} from "Core";
 import WalletController from "Background/Controllers/WalletController";
+import {sendNotification, TransactionNotification} from 'Core/Extension/NotificationManager';
 
+const debug = require('debug')('WALLET_MANAGER');
 const debounce = require('debounce');
 
 export class WalletManager {
@@ -23,13 +25,26 @@ export class WalletManager {
         this.coin = coin;
         this.controller = walletController;
 
-        this.init().then((wdProvider) => {
+        this.init().then((wdProvider: Wallet.Provider.WDProvider) => {
             this._wdProvider = wdProvider;
             this.mapEventsToWDProvider();
 
             wdProvider.getNetworkProvider().onNewBlock(this.updateCoinKey);
 
             this.setUpdateTimeout();
+
+            wdProvider.on('tx:new', (tx: Wallet.Entity.WalletTransaction) => {
+
+                const balance = this.wdProvider.balance;
+                const amount = Wallet.Helper.calculateTxBalance(balance, tx.txid);
+
+                if (amount > 0) {
+                    sendNotification(new TransactionNotification(this.coin, tx, amount))
+                        .then((notificationId: string) => {
+                            debug('Showed Notification with ID:' + notificationId);
+                        });
+                }
+            });
         });
     }
 
@@ -58,7 +73,7 @@ export class WalletManager {
         }
 
         this.inited = true;
-        console.log("Creating WalletManager for coin: " + this.coin.getKey());
+        debug("Creating WalletManager for coin: " + this.coin.getKey());
 
         const extractingResolver = this.extractWDFromStorage();
 
@@ -66,10 +81,10 @@ export class WalletManager {
             return extractingResolver;
         }
 
-        console.log("Start generation for coin: " + this.coin.getKey());
+        debug("Start generation for coin: " + this.coin.getKey());
 
         const wdGenerator = Core.Wallet.createWDGenerator(this.coin, this.seed);
-        return wdGenerator.generate().then((wdProvider) => {
+        return wdGenerator.fill().then((wdProvider) => {
             const actionPayload = {
                 walletCoinKey: this.coin.getKey(),
                 walletData: wdProvider.getData()
@@ -83,7 +98,7 @@ export class WalletManager {
     }
 
     protected extractWDFromStorage(): Promise<Wallet.Provider.WDProvider> | null {
-        console.log("Start extracting WD from storage for coin: " + this.coin.getKey());
+        debug("Start extracting WD from storage for coin: " + this.coin.getKey());
 
         let iCoinWallet,
             walletData: Wallet.Entity.WalletData = null;

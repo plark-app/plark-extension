@@ -3,6 +3,7 @@ import ReactSVG from 'react-svg';
 import {filter, map} from 'lodash';
 import {connect} from 'react-redux';
 import classNames from 'classnames';
+import {showAlert} from "Popup/Router/Alert";
 
 import proxyStore from 'Popup/Store';
 import {mapWelcomeDispatchers} from 'Popup/Store/KeyringConnector';
@@ -44,6 +45,13 @@ export default class ChooseCoinsScreen extends React.Component {
                 newSelected = filter(newSelected, (existCoin) => existCoin !== key);
             } else {
                 newSelected.push(key);
+            }
+
+            if (newSelected.length < 1) {
+                showAlert({
+                    message: "Uh-oh! Please select at least one wallet.",
+                    noBody: true
+                });
             }
 
             this.setState(() => {

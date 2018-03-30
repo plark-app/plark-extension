@@ -47,7 +47,7 @@ export abstract class AbstractUnit implements CoinInterface {
         return this.getExplorerHost() + '/address/' + addr;
     }
 
-    generateTxLink(tx: string): string {
-        return this.getExplorerHost() + '/tx/' + tx;
+    generateTxLink(txid: string): string {
+        return this.getExplorerHost() + '/tx/' + txid;
     }
 }

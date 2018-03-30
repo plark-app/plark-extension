@@ -45,6 +45,7 @@ typings/
 
 # Optional npm cache directory
 .npm
+.npmrc
 
 # Optional eslint cache
 .eslintcache
@@ -112,4 +113,3 @@ fabric.properties
 .gulp-scss-cache
 package-lock.json
 ts-build
-

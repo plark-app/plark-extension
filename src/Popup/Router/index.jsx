@@ -6,9 +6,8 @@ import proxyStore, {getState} from 'Popup/Store';
 import Application from 'Popup/Router/Screens/Application';
 import HomeScreen from 'Popup/Router/Screens/HomeScreen';
 import StartUpScreen from 'Popup/Router/Screens/StartUpScreen';
-
 import {GlobalAction} from "Core/Actions/Reducer";
-import {ModalRootComponent} from "./Modals";
+import {ApplicationLayout} from './Layouts/ApplicationLayout';
 
 screenAddressHistory.listen((location, action) => {
     const {Global} = getState();
@@ -22,8 +21,7 @@ screenAddressHistory.listen((location, action) => {
     }
 });
 
-export default class ApplicationRouter extends React.Component {
-
+export class ApplicationRouter extends React.Component {
     componentWillMount() {
         this.trackRedirect();
     }
@@ -46,18 +44,15 @@ export default class ApplicationRouter extends React.Component {
 
     render() {
         return (
-            <div className="application">
-                <div className="application-body">
-                    <Router history={screenAddressHistory}>
-                        <Switch>
-                            <Route exact={true} path='/' component={HomeScreen}/>
-                            <Route path='/app' component={Application}/>
-                            <Route path='/startup' component={StartUpScreen}/>
-                        </Switch>
-                    </Router>
-                </div>
-                <ModalRootComponent/>
-            </div>
+            <ApplicationLayout>
+                <Router history={screenAddressHistory}>
+                    <Switch>
+                        <Route exact={true} path='/' component={HomeScreen}/>
+                        <Route path='/app' component={Application}/>
+                        <Route path='/startup' component={StartUpScreen}/>
+                    </Switch>
+                </Router>
+            </ApplicationLayout>
         );
     }
 }

@@ -22,7 +22,7 @@ export interface CoinInterface {
 
     generateAddrLink(address: string): string;
 
-    generateTxLink(tx: string): string;
+    generateTxLink(txid: string): string;
 }
 
 export interface TickerInterface {

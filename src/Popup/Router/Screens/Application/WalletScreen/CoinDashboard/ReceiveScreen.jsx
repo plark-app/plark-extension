@@ -3,10 +3,10 @@ import {connect} from 'react-redux';
 import {Wallet, HD} from '@berrywallet/core';
 import QRCode from 'qrcode-react';
 import ReactSVG from 'react-svg';
-import classNames from 'classnames';
-import querystring from 'querystring';
+import q from 'querystring';
 
 import {Extension} from 'Core';
+import {Notice} from "Popup/Service/UIComponents";
 import {mapWalletCoinToProps} from 'Popup/Store/WalletCoinConnector';
 import TrackScreenView from 'Popup/Service/ScreenViewAnalitics';
 
@@ -68,13 +68,14 @@ export default class ReceiveScreen extends React.Component {
     };
 
     onPrint = (event) => {
+
     };
 
     onEmail = () => {
         const {coin} = this.props;
         const address = this.extractAddress();
 
-        const requestString = querystring.stringify({
+        const requestString = q.stringify({
             subject: `My ${coin.name} address`,
             body: `Send me money at address ${address}`
         });
@@ -100,10 +101,7 @@ export default class ReceiveScreen extends React.Component {
                 <TrackScreenView trackLabel="wallet-receive"/>
 
                 <div>
-                    <label
-                        className={classNames('receive-copied', 'alert', {'-show': this.state.copied})}
-                    >Address copied!</label>
-
+                    <Notice className='receive-copied' show={this.state.copied}>Address copied!</Notice>
                     <div className="receive-qr">
                         <QRCode value={address} size={84} bgColor="#ffffff" fgColor="#333333"/>
                     </div>

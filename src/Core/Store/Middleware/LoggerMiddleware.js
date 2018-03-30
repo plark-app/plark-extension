@@ -1,7 +1,12 @@
+import debugProvider from 'debug';
+
+const debugDispatch = debugProvider('store:dispatching');
+const debugNewState = debugProvider('store:new_state');
+
 export const loggerMiddleware = store => next => action => {
-    console.log('dispatching', action);
+    debugDispatch(action);
     let result = next(action);
-    console.log('next state', store.getState());
-    
-    return result
+    debugNewState(store.getState());
+
+    return result;
 };

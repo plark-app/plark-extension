@@ -7,10 +7,9 @@ export default class SuccessSeedStep extends React.Component {
         const {toEnterPasscode} = this.props;
         return (
             <div>
-                <ReactSVG
-                    path="/images/icons/tick.svg"
-                    className="success-icon"
-                    wrapperClassName="success-icon-wrapper"
+                <ReactSVG path="/images/icons/tick.svg"
+                          className="success-icon"
+                          wrapperClassName="success-icon-wrapper"
                 />
                 <div className="topic success-topic">
                     <h1 className="topic__title">Passcode Reset is Successful!</h1>

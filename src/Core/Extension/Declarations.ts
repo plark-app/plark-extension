@@ -6,58 +6,29 @@ declare global {
 
 declare type SendMessageEvent = (request: any, responseCallback?: (response: any) => void) => void;
 
-interface RuntimeInterface {
-    onMessage: chrome.runtime.ExtensionMessageEvent;
-    sendMessage: SendMessageEvent;
-    onInstalled: chrome.runtime.ExtensionMessageEvent;
-
-    /**
-     * Create port and connect it
-     *
-     * @param {chrome.runtime.ConnectInfo} connectInfo
-     * @returns {chrome.runtime.Port}
-     */
-    connect(connectInfo?: chrome.runtime.ConnectInfo): chrome.runtime.Port;
-
-    /**
-     * Returning current extension manifest
-     *
-     * @returns {any}
-     */
-    getManifest(): chrome.runtime.Manifest;
-
-    tabs: TabsInterface;
-
-    reload(): void;
-}
-
-interface TabsInterface {
-    create(props?: chrome.tabs.CreateProperties): void;
-}
-
 interface ExtensionInterface {
-    alarms?: any;
-    bookmarks?: any;
-    browserAction?: any;
-    commands?: any;
-    contextMenus?: any;
-    cookies?: any;
-    downloads?: any;
-    events?: any;
-    extension?: any;
-    extensionTypes?: string[];
-    history?: any;
-    i18n?: any;
-    idle?: any;
-    notifications?: any;
-    pageAction?: any;
-    runtime?: RuntimeInterface | any;
-    storage?: any;
-    tabs?: TabsInterface;
-    webNavigation?: any;
-    webRequest?: any;
-    windows?: any;
+    alarms?: typeof chrome.alarms;
+    bookmarks?: typeof chrome.bookmarks;
+    browserAction?: typeof chrome.browserAction;
+    commands?: typeof chrome.commands;
+    contextMenus?: typeof chrome.contextMenus;
+    cookies?: typeof chrome.cookies;
+    downloads?: typeof chrome.downloads;
+    extension?: typeof chrome.extension;
+    history?: typeof chrome.history;
+    i18n?: typeof chrome.i18n;
+    idle?: typeof chrome.idle;
+    notifications?: typeof chrome.notifications;
+    pageAction?: typeof chrome.pageAction;
+    runtime?: typeof chrome.runtime;
+    storage?: typeof chrome.storage;
+    tabs?: typeof chrome.tabs;
+    webNavigation?: typeof chrome.webNavigation;
+    webRequest?: typeof chrome.webRequest;
+    windows?: typeof chrome.windows;
     api?: any;
+    events?: any;
+    extensionTypes?: string[];
 
     initBaseApi(): void;
 }
@@ -65,7 +36,5 @@ interface ExtensionInterface {
 
 export {
     SendMessageEvent,
-    RuntimeInterface,
-    ExtensionInterface,
-    TabsInterface
+    ExtensionInterface
 }

@@ -11,7 +11,7 @@ import {extractTicker} from "Popup/Store/Helpers";
 import {filterCoinList, findFiat} from "Core/Coins";
 
 import WalletScreen from './WalletScreen';
-import ExchangeScreen from './ExchangeScreen';
+import ExchangeScreen from './ExchangeScreen/index';
 import OptionsScreen from './OptionsScreen';
 import HelpScreen from './HelpScreen';
 import PasscodeWrapper from './NeedPasswordScreen';

@@ -3,17 +3,17 @@ import {ModalInfoInterface, modalList, ModalType} from "./ModalTypes";
 import {modalObserverInstance} from './Observer';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
-interface IProps {
+interface IModalProps {
 }
 
-interface IState {
+interface IModalState {
     modalType?: ModalType;
     modalProps: object;
 }
 
-export default class ModalRootComponent extends React.Component<IProps, IState> {
+export class ModalRootComponent extends React.Component<IModalProps, IModalState> {
 
-    state: IState = {
+    state: IModalState = {
         modalType: null,
         modalProps: {}
     };

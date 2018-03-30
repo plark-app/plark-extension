@@ -2,12 +2,10 @@ import React from 'react';
 import Numeral from "numeral";
 import classNames from 'classnames';
 import {CoinInterface, FiatInterface, TickerInterface} from "Core/Coins/Interfaces";
-import {DotLoader} from 'Popup/Router/UIComponents';
+import {DotLoader} from 'Popup/Router/UIComponents/index';
 
-interface IState {
-}
 
-interface IProps {
+export interface IFooterRowProps {
     coin: CoinInterface;
     fiat: FiatInterface;
     ticker: TickerInterface;
@@ -17,7 +15,7 @@ interface IProps {
     loading: boolean;
 }
 
-export default class SendDataFooterRow extends React.PureComponent<IProps, IState> {
+export class SendDataFooterRow extends React.PureComponent<IFooterRowProps, any> {
     renderValue() {
         const {coin, fiat, ticker, value, loading = false} = this.props;
 

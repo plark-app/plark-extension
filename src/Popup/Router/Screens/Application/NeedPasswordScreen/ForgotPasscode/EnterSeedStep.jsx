@@ -4,9 +4,6 @@ import {Background} from 'Popup/Service';
 import {KeyringEvent} from 'Core/Actions/Controller';
 import {Button} from 'Popup/Router/UIComponents';
 
-
-
-
 export default class EnterSeedStep extends React.Component {
 
     state = {
@@ -20,10 +17,10 @@ export default class EnterSeedStep extends React.Component {
     }
 
     onTextareaChange = (event) => {
+        const value = event.target.value.toLowerCase();
+
         this.setState(() => {
-            return {
-                seed: event.target.value.toLowerCase()
-            };
+            return {seed: value};
         });
     };
 
@@ -37,19 +34,18 @@ export default class EnterSeedStep extends React.Component {
 
         Background
             .sendRequest(KeyringEvent.CheckSeed, {seed: seedWords})
-            .then(this.onPreparedResponse);
+            .then(this.onPreparedResponse)
+            .catch(this.onPreparedError);
     };
 
     onPreparedResponse = (response) => {
-        const {onError, onSeedSuccess} = this.props;
+        const {onSeedSuccess} = this.props;
+        onSeedSuccess && onSeedSuccess(this.seedWordArray());
+    };
 
-        if (response.success) {
-            onSeedSuccess && onSeedSuccess(this.seedWordArray());
-
-            return;
-        }
-
-        onError && onError("Oh snap! Wrong Backup Phrase. Please try again.");
+    onPreparedError = (error) => {
+        const {onError = null} = this.props;
+        onError && onError(error.message);
     };
 
     render() {
@@ -69,7 +65,7 @@ export default class EnterSeedStep extends React.Component {
                 <form onSubmit={this.onSendSeed}>
                     <div className="mnemonic"><textarea {...textareaProps}/></div>
                     <div className="center">
-                        <Button disabled={!this.state.seed}>Reset passcode</Button>
+                        <Button disabled={!this.state.seed} type="submit">Reset passcode</Button>
                     </div>
                 </form>
             </div>
