@@ -6,7 +6,7 @@ import {Coins} from "Core";
 import WalletController from "Background/Controllers/WalletController";
 import {sendNotification, TransactionNotification} from 'Core/Extension/NotificationManager';
 
-const debug = require('debug')('WALLET_MANAGER');
+const debug = require('debug')('berrywallet:WALLET_MANAGER');
 const debounce = require('debounce');
 
 export class WalletManager {

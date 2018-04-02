@@ -1,7 +1,7 @@
 import {extensionInstance} from 'Core/Extension';
 import debugProvider from 'debug';
 
-const debug = debugProvider('SEND_REQUEST');
+const debug = debugProvider('berrywallet:SEND_REQUEST');
 
 export function sendRequest(type: any | string, payload: any = null): Promise<any> {
     const message = {

@@ -1,7 +1,7 @@
 import debugProvider from 'debug';
 import {EventEmitter} from 'events';
 
-const debug = debugProvider('ALERT');
+const debug = debugProvider('berrywallet:ALERT');
 
 export interface ShowAlertOptions {
     message: string;

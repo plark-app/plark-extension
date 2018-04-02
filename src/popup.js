@@ -3,6 +3,9 @@ import {render} from 'react-dom';
 import PopupApplication from 'Popup/index.tsx';
 import {AnalyticsObserver} from 'Popup/Service/Analytics';
 
+const debugProvider = require('debug');
+debugProvider.enable("berrywallet:*");
+
 const trackException = (exception) => {
     try {
         AnalyticsObserver.exception(exception);

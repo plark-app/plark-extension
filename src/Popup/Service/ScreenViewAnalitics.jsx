@@ -2,7 +2,7 @@ import React from 'react';
 import {AnalyticsObserver} from 'Popup/Service/Analytics';
 import debug from 'debug';
 
-const debugScreenView = debug('screen');
+const debugScreenView = debug('berrywallet:screen');
 
 export default class TrackScreenView extends React.PureComponent {
     componentDidMount() {

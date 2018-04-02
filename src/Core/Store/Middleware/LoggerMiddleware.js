@@ -1,12 +1,11 @@
 import debugProvider from 'debug';
 
-const debugDispatch = debugProvider('store:dispatching');
-const debugNewState = debugProvider('store:new_state');
+const debugStore = debugProvider('berrywallet:store');
 
 export const loggerMiddleware = store => next => action => {
-    debugDispatch(action);
+    debugStore("ACTION", action);
     let result = next(action);
-    debugNewState(store.getState());
+    debugStore("NEW_STATE", store.getState());
 
     return result;
 };
