@@ -247,7 +247,9 @@ export class WalletManager {
                     });
             };
 
-            trackTransactionAction();
+            setTimeout(() => {
+                trackTransactionAction();
+            }, 1000);
         };
 
         return new Promise(resolvePromise);
