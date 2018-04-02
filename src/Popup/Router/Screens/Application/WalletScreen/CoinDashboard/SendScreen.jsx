@@ -9,7 +9,7 @@ import debounce from 'debounce';
 import {mapWalletCoinToProps} from 'Popup/Store/WalletCoinConnector';
 import {showAlert} from 'Popup/Router/Alert';
 import {Controller} from 'Core/Actions';
-import {Button} from "Popup/Router/UIComponents";
+import {Button} from "Popup/UI";
 import TrackScreenView from 'Popup/Service/ScreenViewAnalitics';
 import {Background} from 'Popup/Service';
 import {FooterComponent} from "./SendScreenComponents/FooterComponent";

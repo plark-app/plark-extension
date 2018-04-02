@@ -10,7 +10,7 @@ import {mapWelcomeDispatchers} from 'Popup/Store/KeyringConnector';
 import {coinList, CoinSymbol} from 'Core/Coins';
 import WelcomeLayout from './Parts/WelcomeLayout';
 import WelcomeLink from 'Popup/Router/Screens/StartUpScreen/Parts/WelcomeLink';
-import {Button} from "Popup/Router/UIComponents";
+import {Button} from "Popup/UI";
 
 
 @connect(null, mapWelcomeDispatchers)

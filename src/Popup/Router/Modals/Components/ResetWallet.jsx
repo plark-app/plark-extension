@@ -2,7 +2,7 @@ import React from 'react';
 import ReactSVG from 'react-svg';
 import {Controller} from "Core/Actions";
 import screenAddressHistory from 'Popup/ScreenAddressHistory';
-import {Button} from "Popup/Router/UIComponents";
+import {Button} from "Popup/UI";
 import {Background} from 'Popup/Service';
 import ModalLayout from "../ModalLayout";
 import {modalObserverInstance} from "../Observer";

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button} from "Popup/Router/UIComponents";
+import {Button} from "Popup/UI";
 import ReactSVG from 'react-svg';
 
 export default class SuccessSeedStep extends React.Component {

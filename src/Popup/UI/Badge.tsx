@@ -1,14 +1,11 @@
 import React from 'react';
 import {TransactionStatus} from "Core/Service/Wallet";
 
-interface IProps {
+export interface IBadgeProps {
     status: string
 }
 
-interface IState {
-}
-
-export default class Badge extends React.Component<IProps, IState> {
+export class Badge extends React.Component<IBadgeProps, any> {
     render(): React.ReactNode {
         let label: string,
             badgeClass: string;

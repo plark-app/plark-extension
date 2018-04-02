@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import {connect} from 'react-redux';
 import {KeyboardHandler} from 'Popup/Router/SystemComponent';
 import {mapWelcomeDispatchers} from "Popup/Store/KeyringConnector";
-import {Button} from "Popup/Router/UIComponents";
+import {Button} from "Popup/UI";
 
 @connect(null, mapWelcomeDispatchers)
 export default class CheckPart extends React.Component {

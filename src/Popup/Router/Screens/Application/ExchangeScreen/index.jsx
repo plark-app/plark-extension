@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {Button} from "Popup/Router/UIComponents";
+import {Button} from "Popup/UI";
 import TrackScreenView from "Popup/Service/ScreenViewAnalitics";
 
 const mapStateToProps = (store) => {

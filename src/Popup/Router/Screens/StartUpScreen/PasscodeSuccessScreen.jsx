@@ -7,7 +7,7 @@ import WelcomeLink from 'Popup/Router/Screens/StartUpScreen/Parts/WelcomeLink';
 
 import {connect} from 'react-redux';
 import WelcomeLayout from './Parts/WelcomeLayout';
-import {Button} from "Popup/Router/UIComponents";
+import {Button} from "Popup/UI";
 import {mapWelcomeDispatchers} from 'Popup/Store/KeyringConnector';
 @connect(null, mapWelcomeDispatchers)
 export default class PasscodeSuccessScreen extends React.Component {

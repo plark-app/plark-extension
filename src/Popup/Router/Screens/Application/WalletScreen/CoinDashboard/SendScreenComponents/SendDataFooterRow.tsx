@@ -2,7 +2,7 @@ import React from 'react';
 import Numeral from "numeral";
 import classNames from 'classnames';
 import {CoinInterface, FiatInterface, TickerInterface} from "Core/Coins/Interfaces";
-import {DotLoader} from 'Popup/Router/UIComponents/index';
+import {DotLoader} from 'Popup/UI';
 
 
 export interface IFooterRowProps {

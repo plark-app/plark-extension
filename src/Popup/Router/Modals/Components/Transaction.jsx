@@ -8,8 +8,8 @@ import ReactSVG from 'react-svg';
 
 import {Helper} from 'Core';
 import {findCoin, TxDirection} from "Core/Coins";
-import {Notice, Badge, RemoteLink} from "Popup/Service/UIComponents";
-import {DotLoader} from 'Popup/Router/UIComponents';
+import {RemoteLink, Notice, Badge} from "Popup/UI";
+import {DotLoader} from 'Popup/UI';
 
 import ModalLayout from "../ModalLayout";
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import TrackScreenView from "Popup/Service/ScreenViewAnalitics";
-import {RemoteLink} from "Popup/Service/UIComponents";
+import {RemoteLink} from "Popup/UI";
 import ReactSVG from 'react-svg';
 
 const socialLinks = [

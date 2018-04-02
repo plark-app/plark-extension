@@ -7,7 +7,7 @@ import {TickerEvent} from "Core/Actions/Controller";
 import {AnalyticsObserver} from "Popup/Service/Analytics";
 import SearchInputComponent from './Components/SearchInputComponent';
 import NotFoundComponent from './Components/NotFoundComponent';
-import {InputCheck} from 'Popup/Router/UIComponents';
+import {InputCheck} from 'Popup/UI';
 
 const mapStateToProps = (store) => {
     return {

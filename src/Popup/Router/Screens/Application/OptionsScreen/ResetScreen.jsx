@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactSVG from 'react-svg';
-import {Button} from "Popup/Router/UIComponents";
+import {Button} from "Popup/UI";
 import TrackScreenView from "Popup/Service/ScreenViewAnalitics";
 import {modalObserverInstance, ModalType} from "Popup/Router/Modals";
 

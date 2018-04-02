@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactSVG from 'react-svg';
 import {KeyboardHandler} from 'Popup/Router/SystemComponent';
-import {Button} from "Popup/Router/UIComponents";
+import {Button} from "Popup/UI";
 import screenHistory from 'Popup/ScreenAddressHistory';
 
 

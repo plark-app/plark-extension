@@ -9,7 +9,7 @@ import {mapWelcomeDispatchers} from 'Popup/Store/KeyringConnector';
 
 
 import {SEED_WORD_COUNT} from 'Core/Constant';
-import {Button} from "../../UIComponents";
+import {Button} from "Popup/UI";
 
 @connect(null, mapWelcomeDispatchers)
 export default class ImportSeedScreen extends React.Component {

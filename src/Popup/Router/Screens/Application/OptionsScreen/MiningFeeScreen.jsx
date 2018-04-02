@@ -5,7 +5,7 @@ import {Coin} from '@berrywallet/core';
 import {Background} from 'Popup/Service';
 import {OptionEvent} from "Core/Actions/Controller";
 import {AnalyticsObserver} from "Popup/Service/Analytics";
-import {InputCheck} from 'Popup/Router/UIComponents';
+import {InputCheck} from 'Popup/UI';
 
 const mapStateToProps = (store) => {
     return {

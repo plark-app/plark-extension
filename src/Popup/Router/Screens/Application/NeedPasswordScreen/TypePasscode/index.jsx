@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import {Button} from "Popup/Router/UIComponents";
+import {Button} from "Popup/UI";
 import {KeyringEvent} from 'Core/Actions/Controller';
 import {Background} from 'Popup/Service';
 

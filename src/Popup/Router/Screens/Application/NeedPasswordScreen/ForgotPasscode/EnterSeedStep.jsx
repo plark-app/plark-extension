@@ -2,7 +2,7 @@ import React from 'react';
 import {Helper} from 'Core';
 import {Background} from 'Popup/Service';
 import {KeyringEvent} from 'Core/Actions/Controller';
-import {Button} from 'Popup/Router/UIComponents';
+import {Button} from 'Popup/UI';
 
 export default class EnterSeedStep extends React.Component {
 

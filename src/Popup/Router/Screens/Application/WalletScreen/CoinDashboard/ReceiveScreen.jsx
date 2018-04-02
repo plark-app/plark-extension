@@ -6,7 +6,7 @@ import ReactSVG from 'react-svg';
 import q from 'querystring';
 
 import {Extension} from 'Core';
-import {Notice} from "Popup/Service/UIComponents";
+import {Notice} from "Popup/UI";
 import {mapWalletCoinToProps} from 'Popup/Store/WalletCoinConnector';
 import TrackScreenView from 'Popup/Service/ScreenViewAnalitics';
 

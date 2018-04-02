@@ -1,18 +1,14 @@
 import React from 'react';
 import {extensionInstance} from "Core/Extension";
 
-interface IProps {
+interface IRemoteLinkProps {
     to: string;
     className?: string;
 }
 
-interface IState {
-}
-
-export default class RemoteLink extends React.Component<IProps, IState> {
+export class RemoteLink extends React.Component<IRemoteLinkProps, any> {
     onClickLink = () => {
         const {to} = this.props;
-
         extensionInstance.getTabs().create({url: to});
     };
 
