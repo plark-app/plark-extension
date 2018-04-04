@@ -19,13 +19,13 @@ import {
 const TIMEOUT_30M: number = 1800;
 const TIMEOUT_1H: number = 3600;
 
-export default class KeyringController extends AbstractController {
+export class KeyringController extends AbstractController {
 
     vaultProvider?: SeedVaultProvider;
     private password?: string;
     private timeout;
 
-    static getAlias(): string {
+    get alias (): string {
         return 'KEYRING';
     }
 
@@ -68,7 +68,7 @@ export default class KeyringController extends AbstractController {
         return new Promise<any>((resolve) => {
             setTimeout(() => {
                 resolve({
-                    type: KeyringController.getAlias(),
+                    type: this.alias,
                     success: true
                 });
             }, 5000);
@@ -84,7 +84,7 @@ export default class KeyringController extends AbstractController {
         this.checkSeed(seed);
 
         return {
-            type: KeyringController.getAlias(),
+            type: this.alias,
             success: true
         };
     };
@@ -102,7 +102,7 @@ export default class KeyringController extends AbstractController {
         this.setNeedPassword();
 
         return {
-            type: KeyringController.getAlias(),
+            type: this.alias,
             success: true
         };
     };

@@ -1,4 +1,5 @@
 import React from 'react';
+import BigNumber from 'bignumber.js';
 import Numeral from "numeral";
 import classNames from 'classnames';
 import {CoinInterface, FiatInterface, TickerInterface} from "Core/Coins/Interfaces";
@@ -10,7 +11,7 @@ export interface IFooterRowProps {
     fiat: FiatInterface;
     ticker: TickerInterface;
     isError: boolean;
-    value: number;
+    value: BigNumber;
     label: string;
     loading: boolean;
 }
@@ -20,7 +21,7 @@ export class SendDataFooterRow extends React.PureComponent<IFooterRowProps, any>
         const {coin, fiat, ticker, value, loading = false} = this.props;
 
         if (loading) {
-            return <span className="send-footer-row__loading"><DotLoader /></span>;
+            return <span className="send-footer-row__loading"><DotLoader/></span>;
         }
 
         return (
@@ -29,7 +30,7 @@ export class SendDataFooterRow extends React.PureComponent<IFooterRowProps, any>
                     {Numeral(value).format('0,0.00[000000]')} {coin.getKey()}
                 </span>
                 <b className="send-footer-row__value-fiat">
-                    {fiat.prefix}{Numeral(value * ticker.priceFiat).format('0,0.00')}
+                    {fiat.prefix}{Numeral(value.mul(ticker.priceFiat)).format('0,0.00')}
                 </b>
             </React.Fragment>
         )

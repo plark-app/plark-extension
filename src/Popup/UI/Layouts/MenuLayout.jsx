@@ -4,7 +4,7 @@ import {NavLink, withRouter, matchPath} from 'react-router-dom';
 import classNames from 'classnames';
 
 @withRouter
-export default class MenuLayout extends React.Component {
+export class MenuLayout extends React.Component {
 
     getSize() {
         return this.props.isSmall ? 45 : 50;

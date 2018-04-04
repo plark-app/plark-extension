@@ -6,10 +6,10 @@ import {Wallet, Coin} from '@berrywallet/core';
 import classNames from 'classnames';
 import Numeral from 'numeral';
 import debounce from 'debounce';
-import {mapWalletCoinToProps} from 'Popup/Store/WalletCoinConnector';
-import {showAlert} from 'Popup/Router/Alert';
 import {Controller} from 'Core/Actions';
 import {Button} from "Popup/UI";
+import {mapWalletCoinToProps} from 'Popup/Store/WalletCoinConnector';
+import {showAlert} from 'Popup/Router/Alert';
 import TrackScreenView from 'Popup/Service/ScreenViewAnalitics';
 import {Background} from 'Popup/Service';
 import {FooterComponent} from "./SendScreenComponents/FooterComponent";
@@ -47,6 +47,14 @@ export default class SendScreen extends React.Component {
             default:
                 return dataValue.round(8);
         }
+    }
+
+    getFee() {
+        return this.state.fee ? new BigNumber(this.state.fee).round(8) : null;
+    }
+
+    getBalance() {
+        return new BigNumber(Wallet.Helper.calculateBalance(this.props.balance)).round(8);
     }
 
     onChangeAddress = (event) => {
@@ -103,19 +111,17 @@ export default class SendScreen extends React.Component {
     };
 
     validateData() {
+        const fee = this.getFee();
+        const coinValue = this.getCoinValue();
 
-        const {balance} = this.props;
-        const {fee} = this.state;
-
-        const coinValue = this.getCoinValue().toNumber();
         const {coin} = this.props;
 
         if (coinValue <= 0) {
             throw new Error("Oh snap! Set value to sent");
         }
 
-        const walletBalance = Wallet.Helper.calculateBalance(balance);
-        const remaining = walletBalance - fee - coinValue;
+        const walletBalance = this.getBalance();
+        const remaining = walletBalance.minus(fee ? fee : 0).minus(coinValue);
 
         if (remaining < 0) {
             throw new Error("Oh snap! It seems there is not enough funds.");
@@ -185,15 +191,18 @@ export default class SendScreen extends React.Component {
         const {
             coin,
             fiat,
-            ticker,
-            balance
+            ticker
         } = this.props;
 
-        const {address, activeInput, value, fee, sendingTransaction} = this.state;
+        const {address, activeInput, value = 0, sendingTransaction} = this.state;
 
-        const coinValue = this.getCoinValue().toNumber();
-        const walletBalance = Wallet.Helper.calculateBalance(balance);
-        const remaining = walletBalance - fee - coinValue;
+        const fee = this.getFee();
+        const coinValue = this.getCoinValue();
+        const walletBalance = this.getBalance();
+
+        const remaining = walletBalance.minus(fee ? fee : 0).minus(coinValue);
+        remaining.round(8);
+
         const disabledSend = !this.state.address || coinValue <= 0;
 
         const baseRowProps = {

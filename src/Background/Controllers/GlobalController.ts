@@ -3,9 +3,9 @@ import {IStore} from "Core/Declarations/Store";
 import {EventHandlerType, IBackgroundCore} from 'Core/Declarations/Service';
 import {Reducer, Controller} from 'Core/Actions';
 import {AbstractController} from 'Background/Service/AbstractController'
-import WalletController from "./WalletController";
+import {WalletController} from "./WalletController";
 
-export default class GlobalController extends AbstractController {
+export class GlobalController extends AbstractController {
 
     /**
      * @param {IBackgroundCore} app
@@ -17,7 +17,7 @@ export default class GlobalController extends AbstractController {
         this.bindEventListener(Controller.GlobalEvent.ClearAllData, this.clearAllData);
     }
 
-    static getAlias(): string {
+    get alias(): string {
         return 'GLOBAL';
     }
 
@@ -26,7 +26,7 @@ export default class GlobalController extends AbstractController {
      */
     private clearAllData: EventHandlerType = (): any => {
 
-        (this.app.get(WalletController.getAlias()) as WalletController)
+        (this.app.get("WALLET") as WalletController)
             .clearAllWallets();
 
         this.dispatchStore(Reducer.GlobalAction.ClearAllData);

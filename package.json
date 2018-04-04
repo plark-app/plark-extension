@@ -24,7 +24,7 @@
     ]
   },
   "dependencies": {
-    "@berrywallet/core": "0.2.0",
+    "@berrywallet/core": "0.2.1",
     "@types/axios": "^0.14.0",
     "@types/chrome": "^0.0.50",
     "@types/classnames": "^2.2.3",

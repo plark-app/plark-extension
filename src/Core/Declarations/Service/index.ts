@@ -16,6 +16,8 @@ interface IController {
     store: Store<IStore>;
     app: IBackgroundCore;
 
+    readonly alias: string;
+
     getEventListeners(): Dictionary<EventHandlerType>;
 
     dispatchStore(type: string, payload: any);
@@ -26,9 +28,9 @@ interface IController {
 }
 
 interface IBackgroundCore {
-    controllers: Dictionary<IController>;
+    controllers: IController[];
 
-    registerController<T extends IController>(alias: string, c: ControllerConstructorType<T>): void;
+    registerController<T extends IController>(c: ControllerConstructorType<T>): void;
 
     get(alias: string): IController;
 }

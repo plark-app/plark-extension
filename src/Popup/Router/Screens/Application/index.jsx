@@ -6,27 +6,24 @@ import numeral from 'numeral';
 import {each} from 'lodash';
 import {Wallet} from '@berrywallet/core';
 
-import MenuLayout from 'Popup/Router/Layouts/MenuLayout';
+import {MenuLayout} from 'Popup/UI/Layouts';
 import {extractTicker} from "Popup/Store/Helpers";
 import {filterCoinList, findFiat} from "Core/Coins";
 
 import WalletScreen from './WalletScreen';
-import ExchangeScreen from './ExchangeScreen/index';
+import {ExchangeRouterComponent} from './ExchangeScreen';
 import OptionsScreen from './OptionsScreen';
 import HelpScreen from './HelpScreen';
 import PasscodeWrapper from './NeedPasswordScreen';
-
 
 const links = [
     {
         path: '/app/wallet',
         name: 'Wallets'
-    },
-    // {
-    //     path: '/app/exchange',
-    //     name: 'Exchange'
-    // },
-    {
+    }, {
+        path: '/app/exchange',
+        name: 'Exchange'
+    }, {
         path: '/app/options',
         name: 'Options'
     }, {
@@ -101,7 +98,7 @@ export default class ApplicationScreen extends React.Component {
                     <div className={classNames("wallet-main")}>
                         <Switch>
                             <Route path='/app/wallet' component={WalletScreen}/>
-                            <Route path='/app/exchange' component={ExchangeScreen}/>
+                            <Route path='/app/exchange' component={ExchangeRouterComponent}/>
                             <Route path='/app/options' component={OptionsScreen}/>
                             <Route path='/app/help' component={HelpScreen}/>
                         </Switch>

@@ -3,11 +3,12 @@ import {Router, Route, Switch} from 'react-router-dom';
 import screenAddressHistory from 'Popup/ScreenAddressHistory';
 
 import proxyStore, {getState} from 'Popup/Store';
+
+import {ApplicationLayout} from 'Popup/UI/Layouts';
 import Application from 'Popup/Router/Screens/Application';
 import HomeScreen from 'Popup/Router/Screens/HomeScreen';
 import StartUpScreen from 'Popup/Router/Screens/StartUpScreen';
 import {GlobalAction} from "Core/Actions/Reducer";
-import {ApplicationLayout} from './Layouts/ApplicationLayout';
 
 screenAddressHistory.listen((location, action) => {
     const {Global} = getState();
@@ -21,7 +22,7 @@ screenAddressHistory.listen((location, action) => {
     }
 });
 
-export class ApplicationRouter extends React.Component {
+export class ApplicationRouter extends React.Component<any, any> {
     componentWillMount() {
         this.trackRedirect();
     }

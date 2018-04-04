@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import {Route, Switch} from 'react-router-dom';
 import {filter} from 'lodash';
 
-import MenuLayout from "Popup/Router/Layouts/MenuLayout";
+import {MenuLayout} from 'Popup/UI/Layouts';
 
 import WalletsScreen from "./WalletsScreen";
 import FiatsScreen from "./FiatsScreen";

@@ -1,4 +1,4 @@
-import {Dictionary, each, includes} from "lodash";
+import {Dictionary, each, includes, filter} from "lodash";
 import {CoinInterface, FiatInterface, TickerInterface} from './Interfaces';
 import {CoinSymbol, FiatSymbol} from './Symbols';
 import {fiatList} from './FiatList';
@@ -38,18 +38,26 @@ const dec2sat = (sathoshi: number, decimal: number = 8): number => {
     return +((sathoshi / (10 ** decimal)).toFixed(decimal));
 };
 
+function getRealCoins(): CoinInterface[] {
+    return filter(coinList, (cn: CoinInterface) => {
+        return false === cn.isTest();
+    })
+}
+
 export {
 
-    CoinInterface as CoinInterface,
-    FiatInterface as FiatInterface,
-    TickerInterface as TickerInterface,
+    CoinInterface,
+    FiatInterface,
+    TickerInterface,
 
     // Coin Symbol list
-    CoinSymbol as CoinSymbol,
-    FiatSymbol as FiatSymbol,
+    CoinSymbol,
+    FiatSymbol,
 
-    coinList as coinList,
-    fiatList as fiatList,
+    coinList,
+    fiatList,
+
+    getRealCoins,
 
     TxDirection,
     filterCoinList,

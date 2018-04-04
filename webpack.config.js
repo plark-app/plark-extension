@@ -95,13 +95,14 @@ const WebpackConfig = {
         extensions: ["", ".ts", ".tsx", ".js", ".jsx", ".json"],
         modules: [
             PATH.SOURCE,
-            Path.resolve(__dirname, 'node_modules'),
             Path.resolve(__dirname, 'node_modules')
         ],
         alias: {
             Core: Path.join(__dirname, 'src/Core'),
             Popup: Path.join(__dirname, 'src/Popup'),
-            Background: Path.join(__dirname, 'src/Background')
+            Background: Path.join(__dirname, 'src/Background'),
+
+            BeShapy: Path.join(__dirname, 'src/BeShapy')
         }
     },
     devtool: 'inline-source-map',

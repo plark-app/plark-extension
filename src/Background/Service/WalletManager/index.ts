@@ -3,7 +3,7 @@ import BigNumber from "bignumber.js";
 import {Coin, Wallet} from '@berrywallet/core';
 import * as Core from "Core";
 import {Coins} from "Core";
-import WalletController from "Background/Controllers/WalletController";
+import {WalletController} from "Background/Controllers";
 import {sendNotification, TransactionNotification} from 'Core/Extension/NotificationManager';
 
 const debug = require('debug')('berrywallet:WALLET_MANAGER');

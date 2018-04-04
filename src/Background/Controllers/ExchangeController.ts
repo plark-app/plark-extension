@@ -1,10 +1,14 @@
 import {Store} from "redux";
 import {IStore} from "Core/Declarations/Store";
 import {EventHandlerType, IBackgroundCore} from 'Core/Declarations/Service';
-import {Reducer, Controller} from 'Core/Actions';
+import {Controller} from 'Core/Actions';
 import {AbstractController} from 'Background/Service/AbstractController';
 
-export class OptionController extends AbstractController {
+export class ExchangeController extends AbstractController {
+
+    get alias(): string {
+        return 'EXCHANGE';
+    }
 
     /**
      * @param {IBackgroundCore} app
@@ -13,22 +17,15 @@ export class OptionController extends AbstractController {
     constructor(app: IBackgroundCore, store: Store<IStore>) {
         super(app, store);
 
-        this.bindEventListener(Controller.OptionEvent.SetFee, this.setFee);
-    }
-
-    get alias(): string {
-        return 'OPTION';
+        this.bindEventListener(Controller.OptionEvent.SetFee, this.calculateData);
     }
 
     /**
      * @param request
      * @returns {any}
      */
-    private setFee: EventHandlerType = (request: any): any => {
-
+    private calculateData: EventHandlerType = (request: any): any => {
         const {fee} = request;
-
-        this.dispatchStore(Reducer.OptionAction.SetFee, {fee: fee});
 
         return {
             success: true

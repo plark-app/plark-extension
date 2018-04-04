@@ -7,10 +7,10 @@ import {IStore} from 'Core/Declarations/Store';
 import {ICoinWallet} from 'Core/Declarations/Wallet';
 import {IBackgroundCore} from 'Core/Declarations/Service';
 import {AbstractController} from 'Background/Service/AbstractController';
-import KeyringController from './KeyringController';
+import {KeyringController} from './KeyringController';
 
 
-export default class WalletController extends AbstractController {
+export class WalletController extends AbstractController {
     protected walletManagers: Dictionary<WalletManager> = {};
 
     /**
@@ -40,7 +40,7 @@ export default class WalletController extends AbstractController {
     /**
      * @returns {string}
      */
-    static getAlias(): string {
+    get alias(): string {
         return 'WALLET';
     }
 
@@ -48,7 +48,7 @@ export default class WalletController extends AbstractController {
      * @returns {KeyringController}
      */
     protected getKeyringController(): KeyringController {
-        return this.getApp().get(KeyringController.getAlias()) as KeyringController;
+        return this.getApp().get("KEYRING") as KeyringController;
     }
 
     /**

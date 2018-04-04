@@ -1,4 +1,4 @@
-import {Dictionary, merge} from 'lodash';
+import {Dictionary, merge, find} from 'lodash';
 import {Store} from 'redux';
 import {IStore} from 'Core/Declarations/Store';
 import {extensionInstance} from 'Core/Extension';
@@ -13,9 +13,9 @@ import {
 } from 'Core/Declarations/Service';
 
 
-export default class BackgroundCore implements IBackgroundCore {
+export class BackgroundCore implements IBackgroundCore {
     store: Store<IStore>;
-    controllers: Dictionary<IController> = {};
+    controllers: IController[] = [];
     eventHandlers: Dictionary<EventHandlerType> = {} as Dictionary<EventHandlerType>;
 
     /**
@@ -27,12 +27,11 @@ export default class BackgroundCore implements IBackgroundCore {
     }
 
     /**
-     * @param {string} alias
      * @param {ControllerConstructorType<T extends IController>} controller
      */
-    registerController<T extends IController>(alias: string, controller: ControllerConstructorType<T>) {
+    registerController<T extends IController>(controller: ControllerConstructorType<T>) {
         const newController: T = new controller(this, this.store);
-        this.controllers[alias] = newController;
+        this.controllers.push(newController);
 
         this.eventHandlers = merge(this.eventHandlers, newController.getEventListeners());
     }
@@ -42,7 +41,7 @@ export default class BackgroundCore implements IBackgroundCore {
      * @returns {IController}
      */
     get(alias: string): IController {
-        const controller: IController = this.controllers[alias] as IController;
+        const controller: IController = find(this.controllers, {alias: alias}) as IController;
 
         if (!controller) {
             throw Error(`Service '${alias}' has not registered!`);

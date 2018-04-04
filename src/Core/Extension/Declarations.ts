@@ -1,5 +1,7 @@
 declare global {
     export interface Window {
+        core: { HD; Constants; Wallet; Networking; Coin; Utils };
+        getState: () => any;
         browser: any
     }
 }

@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import {connect} from 'react-redux';
 import {filter} from 'lodash';
 
-import MenuLayout from "Popup/Router/Layouts/MenuLayout";
+import {MenuLayout} from 'Popup/UI/Layouts';
 
 import FAQScreen from "./FAQScreen";
 import VersionScreen from "./VersionScreen";

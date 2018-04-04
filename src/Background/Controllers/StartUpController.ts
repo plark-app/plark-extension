@@ -5,11 +5,10 @@ import {EventHandlerType, IBackgroundCore} from 'Core/Declarations/Service';
 import {StartUpEvent} from 'Core/Actions/Controller';
 import {GlobalAction, WelcomeAction, KeyringAction} from 'Core/Actions/Reducer';
 import {generateSeedVault} from "Core/Service/SeedVault";
-import KeyringController from "Background/Controllers/KeyringController";
 import {AbstractController} from 'Background/Service/AbstractController'
-import WalletController from "./WalletController";
+import {KeyringController, WalletController} from "Background/Controllers";
 
-export default class StartUpController extends AbstractController {
+export class StartUpController extends AbstractController {
 
     constructor(app: IBackgroundCore, store: Store<IStore>) {
         super(app, store);
@@ -17,7 +16,7 @@ export default class StartUpController extends AbstractController {
         this.bindEventListener(StartUpEvent.Prepare, this.prepare);
     }
 
-    static getAlias(): string {
+    get alias(): string {
         return 'START_UP';
     }
 
@@ -28,8 +27,8 @@ export default class StartUpController extends AbstractController {
 
         const {Welcome} = this.getState();
 
-        const keyringController: KeyringController = this.getApp().get(KeyringController.getAlias()) as KeyringController;
-        const walletController: WalletController = this.getApp().get(WalletController.getAlias()) as WalletController;
+        const keyringController: KeyringController = this.getApp().get("KEYRING") as KeyringController;
+        const walletController: WalletController = this.getApp().get("WALLET") as WalletController;
 
         const seedWords = Welcome.seed.split(' ');
 

@@ -14,7 +14,7 @@ interface CoinTickerInterface {
     price_btc: string;
 }
 
-export default class TickerController extends AbstractController {
+export class TickerController extends AbstractController {
 
     tickerObserverTimeout;
     coinMarkerCapClient: IBerryMarketCap;
@@ -30,7 +30,7 @@ export default class TickerController extends AbstractController {
         this.bindEventListener(TickerEvent.ChangeCurrentFiat, this.changeCurrentFiat);
     }
 
-    static getAlias(): string {
+    get alias(): string {
         return 'TICKER';
     }
 
