@@ -1,12 +1,15 @@
-import {STORE_KEY} from 'Core/Constant'
-
-import {Store} from 'react-chrome-redux';
+import proxyStore from './Store';
 import {IStore} from 'Core/Declarations/Store';
+import * as Selector from './Selector';
+import * as Helpers from './Helpers';
 
-const proxyStore = new Store({
-    portName: STORE_KEY
-});
+const getState = (): IStore => proxyStore.getState();
 
 export default proxyStore;
 
-export const getState = (): IStore => proxyStore.getState();
+export {
+    getState,
+
+    Selector,
+    Helpers
+}

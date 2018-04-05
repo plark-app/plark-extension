@@ -1,5 +1,13 @@
 import {BeShapyClient} from "./client";
+import * as Units from "./units";
 
-export function create(apiKey?: string, apiSecret?: string): BeShapyClient {
+function createBeShapy(apiKey?: string, apiSecret?: string): BeShapyClient {
     return new BeShapyClient(apiKey, apiSecret);
+}
+
+
+export {
+    createBeShapy,
+    Units,
+    BeShapyClient
 }

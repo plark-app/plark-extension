@@ -5,7 +5,6 @@ import classNames from 'classnames';
 import {CoinInterface, FiatInterface, TickerInterface} from "Core/Coins/Interfaces";
 import {DotLoader} from 'Popup/UI';
 
-
 export interface IFooterRowProps {
     coin: CoinInterface;
     fiat: FiatInterface;
@@ -17,12 +16,23 @@ export interface IFooterRowProps {
 }
 
 export class SendDataFooterRow extends React.PureComponent<IFooterRowProps, any> {
-    renderValue() {
-        const {coin, fiat, ticker, value, loading = false} = this.props;
 
+    getValue(): BigNumber {
+        let value = this.props.value;
+        if (!(value instanceof BigNumber)) {
+            return new BigNumber(value);
+        }
+
+        return value;
+    }
+
+    renderValue() {
+        const {coin, fiat, ticker, loading = false} = this.props;
         if (loading) {
             return <span className="send-footer-row__loading"><DotLoader/></span>;
         }
+
+        const value = this.getValue();
 
         return (
             <React.Fragment>

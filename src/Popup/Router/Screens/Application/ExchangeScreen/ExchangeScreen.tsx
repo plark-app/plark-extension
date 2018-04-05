@@ -6,9 +6,11 @@ import {map} from 'lodash';
 
 import {IStore} from "Core/Declarations/Store";
 import {Coins} from 'Core';
+import {TrackScreenLayout} from 'Popup/UI/Layouts';
 import {extractTicker} from 'Popup/Store/Helpers';
 import {Button} from "Popup/UI";
-import {TrackScreenLayout} from 'Popup/UI/Layouts';
+import {CoinSelect} from "./CoinSelect";
+
 
 export interface ExchangeMountedProps {
     fromCoin: Coins.CoinInterface;
@@ -27,40 +29,6 @@ export type IExchangeProps = RouteComponentProps<ExchangeUrlParams> & ExchangeMo
 
 class ExchangeScreen extends React.Component<IExchangeProps, any> {
 
-    onChangeCoin = (cn: Coins.CoinInterface, isFrom: boolean) => {
-        const {fromCoin, toCoin} = this.props;
-
-        return () => {
-            let newFrom = fromCoin;
-            let newTo = toCoin;
-
-            if ((isFrom && cn == newTo) || (!isFrom && cn == newFrom)) {
-                newFrom = toCoin;
-                newTo = fromCoin;
-            } else {
-                if (isFrom) {
-                    newFrom = cn;
-                } else {
-                    newTo = cn;
-                }
-            }
-
-            screenHistory.push(`/app/exchange/${newFrom.getKey()}/${newTo.getKey()}`);
-        }
-    };
-
-    renderCoinList = (coin: Coins.CoinInterface, isFrom: boolean) => {
-        return map(Coins.getRealCoins(), (cn: Coins.CoinInterface) => {
-            return (
-                <div key={cn.getKey()}>
-                    <button onClick={this.onChangeCoin(cn, isFrom)}>
-                        {cn.getName()} {cn.getKey() === coin.getKey() && ' + '}
-                    </button>
-                </div>
-            );
-        })
-    };
-
     render() {
         const {fromCoin, toCoin} = this.props;
         const trackLabel = `exchange-${fromCoin.getKey()}-${toCoin.getKey()}`;
@@ -68,12 +36,12 @@ class ExchangeScreen extends React.Component<IExchangeProps, any> {
         return <TrackScreenLayout className="exchange" trackLabel={trackLabel}>
             <div className="exchange-sides">
                 <div className="exchange-side">
-                    <h2>EXCHANGE</h2>
-                    {this.renderCoinList(fromCoin, true)}
+                    <h2 className="exchange-side__head">EXCHANGE</h2>
+                    <CoinSelect fromCoin={fromCoin} toCoin={toCoin} isFrom={true}/>
                 </div>
                 <div className="exchange-side">
-                    <h2>RECEIVE</h2>
-                    {this.renderCoinList(toCoin, false)}
+                    <h2 className="exchange-side__head">RECEIVE</h2>
+                    <CoinSelect fromCoin={fromCoin} toCoin={toCoin} isFrom={false}/>
                 </div>
             </div>
 

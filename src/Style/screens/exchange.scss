@@ -11,5 +11,95 @@
         border-radius: 3px;
         height: 270px;
         width: 215px;
+
+        &__head {
+            color: $color-dark;
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 40px;
+            text-transform: uppercase;
+            text-align: center;
+        }
+    }
+}
+
+.exch-select {
+    position: relative;
+    z-index: 10;
+
+    &__current {
+        transition: all 0.4s;
+        border-bottom: 1px solid $color-grey;
+        cursor: pointer;
+        z-index: 12;
+        background: white;
+        &:hover {
+            border-bottom-color: $color-primary;
+        }
+    }
+
+    &.-open {
+
+    }
+
+    &__units {
+        transition: all 0.4s;
+        position: absolute;
+        border-radius: 0 0 3px 3px;
+        background: white;
+        left: 0;
+        right: 0;
+        top: 40px;
+        z-index: 11;
+        box-shadow: 0 1px 3px 0 $color-grey;
+
+        visibility: hidden;
+        opacity: 0;
+        transform: scale(0.8);
+
+        .-open > & {
+            visibility: visible;
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    &__unit {
+        transition: transform 0.4s;
+        transform: translateX(0);
+        cursor: pointer;
+        &:hover {
+            transform: translateX(-5px);
+        }
+    }
+}
+
+.coin-unit {
+    display: flex;
+    align-items: center;
+    height: 40px;
+    padding: 5px 10px;
+
+    &-title {
+        margin-left: 10px;
+    }
+
+    &__name, &__value {
+        display: block;
+        line-height: 15px;
+    }
+
+    &__name {
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    &__value {
+        font-size: 14px;
+        color: $color-dark;
+
+        &-fiat {
+            color: $color-grey;
+        }
     }
 }

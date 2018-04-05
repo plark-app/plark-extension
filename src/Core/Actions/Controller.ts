@@ -26,3 +26,7 @@ export enum GlobalEvent {
 export enum OptionEvent {
     SetFee = 'OPTION::SET_FEE'
 }
+
+export enum Exchange {
+    GetPair = 'EXCHANGE::GET_PAIR'
+}

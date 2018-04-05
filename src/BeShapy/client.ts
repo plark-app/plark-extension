@@ -1,7 +1,7 @@
 import {Dictionary} from 'lodash';
+import Axios, {AxiosResponse, AxiosRequestConfig, AxiosInstance} from 'axios';
 import {SHAPESHIFT_URL, SHAPESHIFT_DEFAULT_API_KEY} from './constants';
 import {pair} from './utils';
-import Axios, {AxiosResponse, AxiosRequestConfig, AxiosInstance} from 'axios';
 import {
     LimitResponse,
     RateResponse,
@@ -9,7 +9,7 @@ import {
     TxStatus,
     RecentTx,
     CoinInfo
-} from "./response";
+} from "./units";
 
 export interface BeShapyRequestParams {
     url: string;
@@ -30,7 +30,6 @@ export class BeShapyClient {
         this.apiKey = apiKey || SHAPESHIFT_DEFAULT_API_KEY;
         this.apiSecret = apiSecret;
     }
-
 
     protected sendRequest<T>(url: string, postParams?: any): Promise<T> {
         const config: AxiosRequestConfig = {
