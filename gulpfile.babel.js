@@ -1,9 +1,9 @@
 import gulp from 'gulp';
 import Path from 'path';
 import del from 'del';
-import gulpWebpack from 'gulp-webpack';
+import gulpWebpack from 'webpack-stream';
 import watch from 'gulp-watch';
-import webpackConfig from './webpack.config.js';
+import webpackConfig from './webpack.config.babel.js';
 import named from 'vinyl-named';
 import sass from 'gulp-sass';
 import jsoneditor from 'gulp-json-editor';
@@ -66,8 +66,11 @@ gulp.task('manifest:production', () => {
 //| Configuration for create JavaScript bundles
 //| Use WebPack
 //|---------------------------------------------------------------------------
-gulp.task('js', generateBundlerTask({watch: false, mode: "production"}));
-gulp.task('js:watch', generateBundlerTask({watch: true, mode: "development"}));
+// gulp.task('js', generateBundlerTask({watch: false, mode: "production"}));
+// gulp.task('js:watch', generateBundlerTask({watch: true, mode: "development"}));
+
+gulp.task('js', () => {});
+gulp.task('js:watch', () => {});
 
 
 //|---------------------------------------------------------------------------

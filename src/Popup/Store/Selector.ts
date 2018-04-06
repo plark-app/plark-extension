@@ -1,7 +1,10 @@
+import {Dictionary, each} from 'lodash';
 import {createSelector} from 'reselect';
 import {Wallet} from '@berrywallet/core';
 import {IStore, IWalletStore, ICoinStore} from "Core/Declarations/Store";
+import {ICoinWallet} from "Core/Declarations/Wallet";
 import {findCoin, findFiat, TickerInterface, CoinSymbol} from 'Core/Coins';
+
 
 export const coinStateSelector = (state: IStore) => state.Coin;
 export const walletStateSelector = (state: IStore) => state.Wallet;
@@ -36,14 +39,24 @@ export const tickerSelector = createSelector(
 export const walletBalanceSelector = createSelector(
     walletStateSelector,
     activeCoinsSelector,
-    (walletStore: IWalletStore, activeCoins: CoinSymbol[]) => (coin: CoinSymbol): number => {
-        const wallet = walletStore[coin] || null;
-        if (!wallet || activeCoins.indexOf(coin) == -1) {
-            return 0;
+    (walletStore: IWalletStore, activeCoins: CoinSymbol[]) => {
+
+        const balances: Dictionary<number> = {};
+
+        each(walletStore, (wallet: ICoinWallet, coin: CoinSymbol): void => {
+            if (!wallet || !wallet.walletData || activeCoins.indexOf(coin) == -1) {
+                balances[coin] = 0;
+                return;
+            }
+
+            const wdProvider = new Wallet.Provider.WDProvider(wallet.walletData);
+            balances[coin] = Wallet.Helper.calculateBalance(wdProvider.balance);
+
+            return;
+        });
+
+        return (coin: CoinSymbol): number => {
+            return balances[coin] || 0;
         }
-
-        const wdProvider = new Wallet.Provider.WDProvider(wallet.walletData);
-
-        return Wallet.Helper.calculateBalance(wdProvider.balance);
     }
 );

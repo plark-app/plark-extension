@@ -1,27 +1,47 @@
 {
-  "compilerOptions": {
-    "target": "es5",
-    "module": "commonjs",
-    "allowJs": true,
-    "declaration": false,
-    "moduleResolution": "node",
-    "allowSyntheticDefaultImports": true,
-    "noImplicitAny": false,
-    "sourceMap": true,
-    "outDir": "ts-build",
-    "jsx": "preserve",
-    "lib": [
-      "es2016",
-      "dom"
-    ],
-    "rootDirs": [
-      "./src"
-    ],
-    "baseUrl": "./src",
-    "skipLibCheck": true,
-    "experimentalDecorators": true
-  },
-  "include": [
-    "./src/**/*"
-  ]
+    "compilerOptions": {
+        "target": "es5",
+        "module": "commonjs",
+        "allowJs": true,
+        "declaration": false,
+        "moduleResolution": "node",
+        "allowSyntheticDefaultImports": true,
+        "noImplicitAny": false,
+        "sourceMap": true,
+        "jsx": "react",
+        "lib": [
+            "es2016",
+            "dom"
+        ],
+        "rootDirs": [
+            "./src"
+        ],
+        "baseUrl": "./src",
+        "skipLibCheck": true,
+        "experimentalDecorators": true
+    },
+    "awesomeTypescriptLoaderOptions": {
+        "target": "es5",
+        "module": "commonjs",
+        "allowJs": true,
+        "declaration": false,
+        "moduleResolution": "node",
+        "allowSyntheticDefaultImports": true,
+        "noImplicitAny": false,
+        "sourceMap": true,
+        "jsx": "react",
+        "lib": [
+            "es2016",
+            "dom"
+        ],
+        "rootDirs": [
+            "./src"
+        ],
+        "baseUrl": "./src",
+        "skipLibCheck": true,
+        "experimentalDecorators": true
+    },
+    "include": [
+        "./src/**/*"
+    ]
 }

@@ -18,14 +18,13 @@ const isProd = NODE_ENV === ENV.PRODUCTION;
 const NODE_ENV = process.env.NODE_ENV || ENV.DEVELOPMENT;
 
 const Plugins = [
-    new Webpack.NamedModulesPlugin(),
     new Webpack.optimize.ModuleConcatenationPlugin(),
-    new CircularDependencyPlugin({
-        // exclude detection of files based on a RegExp
-        exclude: /a\.js|node_modules/,
-        // add errors to webpack instead of warnings
-        failOnError: true
-    }),
+    // new CircularDependencyPlugin({
+    //     // exclude detection of files based on a RegExp
+    //     exclude: /a\.js|node_modules/,
+    //     // add errors to webpack instead of warnings
+    //     failOnError: true
+    // }),
     new Webpack.DefinePlugin({
         "process.env.NODE_ENV": JSON.stringify(NODE_ENV)
     }),
@@ -63,19 +62,28 @@ if (isProd) {
 
 const Loaders = [
     {
-        test: /\.json$/,
-        loader: 'json-loader'
-    }, {
         test: /\.ts$/,
-        loader: 'awesome-typescript-loader'
+        loader: 'awesome-typescript-loader',
+        options: {
+            // silent: true,
+            // configFile: Path.resolve(__dirname, 'tsconfig.json'),
+            compilerOptions: {
+                module: 'esnext',
+                target: 'es5',
+                jsx: "react",
+                noEmitHelpers: true,
+                importHelpers: true,
+                allowSyntheticDefaultImports: true,
+            }
+        }
     }, {
         test: /\.tsx$/,
-        loader: 'babel-loader'
+        loader: 'babel-loader',
     }, {
-        test: /\.js(x)?$/,
+        test: /\.jsx?$/,
         loader: 'babel-loader',
         exclude: /node_modules\/(?!(obs-store|etherscan-api))/,
-        query: {
+        options: {
             presets: ['react', 'es2017', 'es2016', 'stage-0'],
             plugins: ['transform-decorators-legacy', 'transform-class-properties']
         }
@@ -84,15 +92,22 @@ const Loaders = [
 
 
 const WebpackConfig = {
-    context: PATH.TARGET,
-    node: {
-        fs: 'empty' // avoids error messages
+    devtool: isProd ? false : 'source-map',
+    context: PATH.SOURCE,
+    node: {fs: 'empty'},
+    entry: {
+        popup: "popup",
+        pageContent: "pageContent",
+        background: "background"
     },
     output: {
-        filename: "js/[name].js"
+        filename: "[name].js",
+        chunkFilename: "[name].js",
+        path: Path.resolve(__dirname, './dist/chrome/js'),
+        publicPath: '/js'
     },
     resolve: {
-        extensions: ["", ".ts", ".tsx", ".js", ".jsx", ".json"],
+        extensions: [".ts", ".tsx", ".js", ".jsx", ".json"],
         modules: [
             PATH.SOURCE,
             Path.resolve(__dirname, 'node_modules')
@@ -105,14 +120,20 @@ const WebpackConfig = {
             BeShapy: Path.join(__dirname, 'src/BeShapy')
         }
     },
-    devtool: 'inline-source-map',
     plugins: Plugins,
-    module: {
-        loaders: Loaders
-    },
+    module: {rules: Loaders},
     stats: {
-        children: false
-    }
+        children: false,
+        chunks: false
+    },
+    // optimization: {
+    //     splitChunks: {
+    //         cacheGroups: {
+    //             commons: {test: /node_modules/, name: 'vendors', chunks: 'all'},
+    //         }
+    //     },
+    // },
+    mode: isProd ? 'production' : 'development'
 };
 
 export default WebpackConfig;

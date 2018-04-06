@@ -85,10 +85,8 @@ export class AlertRootComponent extends React.Component<IModalProps, IAlertState
             )
         };
 
-        return (
-            <ReactCSSTransitionGroup {...transitionGroupProps}>
-                {this.renderAlertComponent()}
-            </ReactCSSTransitionGroup>
-        );
+        return <ReactCSSTransitionGroup {...transitionGroupProps}>
+            {this.renderAlertComponent()}
+        </ReactCSSTransitionGroup>;
     };
 }

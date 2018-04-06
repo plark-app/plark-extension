@@ -1,7 +1,7 @@
 import React from 'react';
+import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import {NavLink, withRouter, matchPath} from 'react-router-dom';
-import classNames from 'classnames';
 
 @withRouter
 export class MenuLayout extends React.Component {
