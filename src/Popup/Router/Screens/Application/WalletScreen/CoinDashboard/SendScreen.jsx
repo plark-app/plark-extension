@@ -1,11 +1,10 @@
 import React from 'react';
-import {reverse} from 'lodash';
+import {reverse, debounce} from 'lodash';
 import BigNumber from 'bignumber.js';
 import {connect} from 'react-redux';
 import {Wallet, Coin} from '@berrywallet/core';
 import classNames from 'classnames';
 import Numeral from 'numeral';
-import debounce from 'debounce';
 import {Controller} from 'Core/Actions';
 import {Button} from "Popup/UI";
 import {mapWalletCoinToProps} from 'Popup/Store/WalletCoinConnector';

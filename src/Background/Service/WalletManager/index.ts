@@ -1,13 +1,13 @@
-import {each} from 'lodash';
+import {each, debounce} from 'lodash';
 import BigNumber from "bignumber.js";
 import {Coin, Wallet} from '@berrywallet/core';
 import * as Core from "Core";
-import {Coins} from "Core";
+import {Coins, createDebugger} from "Core";
+import {NeedPasswordError} from "Background/Errors";
 import {WalletController} from "Background/Controllers";
 import {sendNotification, TransactionNotification} from 'Core/Extension/NotificationManager';
 
-const debug = require('debug')('berrywallet:WALLET_MANAGER');
-const debounce = require('debounce');
+const debug = createDebugger('WALLET_MANAGER');
 
 export class WalletManager {
 
@@ -25,7 +25,7 @@ export class WalletManager {
         this.coin = coin;
         this.controller = walletController;
 
-        this.init().then((wdProvider: Wallet.Provider.WDProvider) => {
+        const onInitSuccess = (wdProvider: Wallet.Provider.WDProvider) => {
             this._wdProvider = wdProvider;
             this.mapEventsToWDProvider();
 
@@ -45,7 +45,13 @@ export class WalletManager {
                         });
                 }
             });
-        });
+        };
+
+        const onInitError = (error) => {
+            console.log(error);
+        };
+
+        this.init().then(onInitSuccess, onInitError);
     }
 
     updateCoinKey = (block: Wallet.Entity.Block) => {
@@ -72,7 +78,6 @@ export class WalletManager {
             return;
         }
 
-        this.inited = true;
         debug("Creating WalletManager for coin: " + this.coin.getKey());
 
         const extractingResolver = this.extractWDFromStorage();
@@ -83,8 +88,20 @@ export class WalletManager {
 
         debug("Start generation for coin: " + this.coin.getKey());
 
-        const wdGenerator = Core.Wallet.createWDGenerator(this.coin, this.seed);
+        let wdGenerator = null;
+        try {
+            wdGenerator = Core.Wallet.createWDGenerator(this.coin, this.seed);
+        } catch (error) {
+            if (error instanceof NeedPasswordError) {
+                // @TODO Need some code
+            }
+
+            return Promise.reject(error);
+        }
+
         return wdGenerator.fill().then((wdProvider) => {
+            this.inited = true;
+
             const actionPayload = {
                 walletCoinKey: this.coin.getKey(),
                 walletData: wdProvider.getData()

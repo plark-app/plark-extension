@@ -3,7 +3,7 @@ import Path from 'path';
 import del from 'del';
 import gulpWebpack from 'webpack-stream';
 import watch from 'gulp-watch';
-import webpackConfig from './webpack.config.babel.js';
+import webpackConfig from './webpack-v3.config.babel.js';
 import named from 'vinyl-named';
 import sass from 'gulp-sass';
 import jsoneditor from 'gulp-json-editor';

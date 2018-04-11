@@ -1,5 +1,5 @@
 import {wrapStore} from 'react-chrome-redux';
-import * as debounce from 'debounce';
+import {debounce} from 'lodash';
 import * as BerryWalletCore from '@berrywallet/core';
 import {STORE_KEY} from 'Core/Constant';
 import stateStorage from 'Core/StateStorage';

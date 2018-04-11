@@ -1,13 +1,15 @@
-const BIP39 = require('bip39');
-import {Dictionary} from 'lodash';
-import {AnyAction, Store} from 'redux';
-import {IStore} from 'Core/Declarations/Store';
+import {NeedPasswordError} from "../Errors";
 
+const BIP39 = require('bip39');
+import {Store} from 'redux';
+import {createDebugger} from "Core";
+import {IStore} from 'Core/Declarations/Store';
 import {KeyringEvent} from 'Core/Actions/Controller';
 import {KeyringAction} from 'Core/Actions/Reducer';
-
-import {EventHandlerType, IBackgroundCore} from 'Core/Declarations/Service';
+import {IBackgroundCore} from 'Core/Declarations/Service';
 import {AbstractController} from 'Background/Service/AbstractController';
+
+const debug = createDebugger('KEYRING');
 
 import {
     VaultDataInterface,
@@ -176,7 +178,7 @@ export class KeyringController extends AbstractController {
         }
 
         if (!this.password) {
-            throw new Error('Set the password!')
+            throw new NeedPasswordError('Set vault password!')
         }
 
         return this.vaultProvider.getSeed(this.password);

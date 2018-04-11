@@ -1,7 +1,8 @@
 import {Dictionary, merge, find} from 'lodash';
 import {Store} from 'redux';
+import {Extension, createDebugger} from 'Core';
 import {IStore} from 'Core/Declarations/Store';
-import {extensionInstance} from 'Core/Extension';
+import {EventEmitter} from 'events';
 
 import {
     EventListenerType,
@@ -12,8 +13,10 @@ import {
     ControllerConstructorType
 } from 'Core/Declarations/Service';
 
+const debug = createDebugger('BACKGROUND_EVENT');
 
-export class BackgroundCore implements IBackgroundCore {
+
+export class BackgroundCore extends EventEmitter implements IBackgroundCore {
     store: Store<IStore>;
     controllers: IController[] = [];
     eventHandlers: Dictionary<EventHandlerType> = {} as Dictionary<EventHandlerType>;
@@ -22,8 +25,10 @@ export class BackgroundCore implements IBackgroundCore {
      * @param {Store<IStore>} store
      */
     constructor(store: Store<IStore>) {
+        super();
+
         this.store = store;
-        extensionInstance.getRuntime().onMessage.addListener(this.generateEventListener());
+        Extension.extensionInstance.getRuntime().onMessage.addListener(this.generateEventListener());
     }
 
     /**
@@ -56,6 +61,9 @@ export class BackgroundCore implements IBackgroundCore {
     generateEventListener(): EventListenerType {
         return (request: IRuntimeRequest, sender: any, sendResponse): boolean => {
             const eventHandler: EventHandlerType = this.eventHandlers[request.type];
+
+            debug(request.type, request.payload, eventHandler ? 'hasEventHandler' : 'no event handlers');
+
             if (!eventHandler) {
                 return;
             }
@@ -86,7 +94,7 @@ export class BackgroundCore implements IBackgroundCore {
 
             /**
              * SERIOUSLY??????????
-             * I HAVE TO RETURN THIS FUCKED VALUE TO SAY: that I have many async responses???
+             * I HAVE TO RETURN THIS FUCKED VALUE TO SAY: That I have many async responses???
              */
             return true;
         };

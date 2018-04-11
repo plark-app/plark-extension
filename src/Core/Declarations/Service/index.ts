@@ -1,6 +1,7 @@
 import {Store, AnyAction} from 'redux';
 import {Dictionary} from 'lodash';
 import {IStore} from 'Core/Declarations/Store';
+import {EventEmitter} from 'events';
 
 interface IRuntimeRequest {
     type: string
@@ -27,7 +28,7 @@ interface IController {
     storeSubscribe(listener: (...any) => void);
 }
 
-interface IBackgroundCore {
+interface IBackgroundCore extends EventEmitter {
     controllers: IController[];
 
     registerController<T extends IController>(c: ControllerConstructorType<T>): void;

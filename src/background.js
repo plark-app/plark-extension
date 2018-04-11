@@ -1,3 +1,5 @@
+import './polyfill';
+
 import {initializeBackgroundApplication} from 'Background/Application';
 import {extensionInstance} from 'Core/Extension';
 
