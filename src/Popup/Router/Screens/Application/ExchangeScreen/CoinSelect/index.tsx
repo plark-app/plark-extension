@@ -6,6 +6,7 @@ import screenHistory from 'Popup/ScreenAddressHistory';
 
 import {CoinUnitComponent} from "./CoinUnit";
 
+import "./coin-select.scss";
 
 export interface ICSelectState {
     open: boolean;
@@ -16,7 +17,6 @@ export interface ICSelectProps {
     fromCoin: Coins.CoinInterface;
     toCoin: Coins.CoinInterface;
 }
-
 
 export class CoinSelect extends React.Component<ICSelectProps, ICSelectState> {
 

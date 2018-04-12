@@ -65,7 +65,12 @@ const Loaders = [{
         use: [{
             loader: "css-loader"
         }, {
-            loader: "sass-loader"
+            loader: "sass-loader",
+            options: {
+                includePaths: [
+                    Path.resolve(__dirname, './src/Style')
+                ]
+            }
         }],
         // use style-loader in development
         fallback: "style-loader"

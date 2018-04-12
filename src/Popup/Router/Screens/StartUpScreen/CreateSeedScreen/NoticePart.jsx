@@ -4,7 +4,6 @@ import {KeyboardHandler} from 'Popup/Router/SystemComponent';
 import {Button} from "Popup/UI";
 import screenHistory from 'Popup/ScreenAddressHistory';
 
-
 export default class NoticeScreen extends React.Component {
 
     onNext = () => {

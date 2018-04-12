@@ -1,5 +1,6 @@
 import React from 'react';
 import {TransactionStatus} from "Core/Service/Wallet";
+import "./badge.scss";
 
 export interface IBadgeProps {
     status: string

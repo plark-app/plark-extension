@@ -5,13 +5,18 @@ import {Redirect} from "react-router";
 import {find} from 'lodash';
 
 import {Coins} from 'Core';
+import {IStore} from 'Core/Declarations/Store';
+import {Selector} from 'Popup/Store';
 import {ExchangeScreenComponent} from './ExchangeScreen';
 
 export interface IExchangeRouterProps {
     selectedCoin: Coins.CoinInterface;
 }
 
-class ExchangeRouter extends React.Component<IExchangeRouterProps, any> {
+export interface IOwnProps {
+}
+
+export class ExchangeRouter extends React.Component<IExchangeRouterProps & IOwnProps, any> {
 
     redirectToMain = () => {
         const {selectedCoin} = this.props;
@@ -40,11 +45,9 @@ class ExchangeRouter extends React.Component<IExchangeRouterProps, any> {
     }
 }
 
-
-const mapStateToProps = (store) => {
-    const selectedCoin = store.Coin.currentCoinKey;
+const mapStateToProps = (store: IStore) => {
     return {
-        selectedCoin: Coins.findCoin(selectedCoin)
+        selectedCoin: Selector.currentCoinSelector(store)
     };
 };
 

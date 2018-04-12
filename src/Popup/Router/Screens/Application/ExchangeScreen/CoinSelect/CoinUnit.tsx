@@ -3,11 +3,9 @@ import {connect} from 'react-redux';
 import Numeral from 'numeral';
 import classNames from 'classnames';
 import ReactSVG from 'react-svg';
-
 import {Coins} from "Core";
 import {IStore} from "Core/Declarations/Store";
 import {Selector} from 'Popup/Store';
-
 
 interface OwnProps {
     coin: Coins.CoinInterface;

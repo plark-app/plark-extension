@@ -54,9 +54,7 @@ export default class ReceiveScreen extends React.Component {
                     copied: true
                 };
             });
-        } catch (err) {
-            console.log('Oops, unable to copy');
-        }
+        } catch (err) {}
     };
 
 

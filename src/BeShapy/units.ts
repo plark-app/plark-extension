@@ -11,11 +11,12 @@ export interface LimitResponse {
 
 
 export interface MarketInfo {
+    limit: number;
+    maxLimit: number;
+    minerFee: number;
+    minimum: number;
     pair: string;
     rate: number;
-    limit: number;
-    min: number;
-    minerFee: number;
 }
 
 

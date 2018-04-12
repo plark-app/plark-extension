@@ -1,27 +1,4 @@
-.exchange {
-
-    &-sides {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 10px;
-    }
-
-    &-side {
-        background: white;
-        border-radius: 3px;
-        height: 270px;
-        width: 215px;
-
-        &__head {
-            color: $color-dark;
-            font-weight: 500;
-            font-size: 14px;
-            line-height: 40px;
-            text-transform: uppercase;
-            text-align: center;
-        }
-    }
-}
+@import "../../../../../../Style/variable";
 
 .exch-select {
     position: relative;
@@ -38,9 +15,7 @@
         }
     }
 
-    &.-open {
-
-    }
+    &.-open {}
 
     &__units {
         transition: all 0.4s;
@@ -73,6 +48,7 @@
         }
     }
 }
+
 
 .coin-unit {
     display: flex;

@@ -257,9 +257,9 @@ export default class SendScreen extends React.Component {
 
                     <div className="send-values">
                         <label className="send-value">
-                        <span className="send-value__dummy">
-                            {activeInput === 'fiat' ? Numeral(coinValue).format('0,0.00[000000]') : null}
-                        </span>
+                            <span className="send-value__dummy">
+                                {activeInput === 'fiat' ? Numeral(coinValue).format('0,0.00[000000]') : null}
+                            </span>
                             <input placeholder={activeInput ? '' : '0.00'}
                                    value={activeInput === 'coin' ? value : ''}
                                    onChange={this.onChangeValueInput('coin')}
@@ -269,9 +269,9 @@ export default class SendScreen extends React.Component {
                         </label>
 
                         <label className="send-value">
-                        <span className="send-value__dummy">
-                            {activeInput === 'coin' ? Numeral(coinValue * ticker.priceFiat).format('0,0.00') : null}
-                        </span>
+                            <span className="send-value__dummy">
+                                {activeInput === 'coin' ? Numeral(coinValue * ticker.priceFiat).format('0,0.00') : null}
+                            </span>
                             <input placeholder={activeInput ? '' : '0.00'}
                                    value={activeInput === 'fiat' ? value : ''}
                                    onChange={this.onChangeValueInput('fiat')}

@@ -1,4 +1,5 @@
 import React from 'react';
+import './dot-loader.scss';
 
 export class DotLoader extends React.PureComponent<any, any> {
     render() {

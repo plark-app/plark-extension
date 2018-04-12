@@ -1,10 +1,10 @@
 import React from 'react';
+import {Wallet} from '@berrywallet/core';
 import {connect} from 'react-redux';
 import {Route, Switch} from 'react-router-dom';
 import classNames from 'classnames';
 import numeral from 'numeral';
 import {each} from 'lodash';
-import {Wallet} from '@berrywallet/core';
 
 import {MenuLayout} from 'Popup/UI/Layouts';
 import {extractTicker} from "Popup/Store/Helpers";
