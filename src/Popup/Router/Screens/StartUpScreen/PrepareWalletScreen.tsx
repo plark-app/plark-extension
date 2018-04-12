@@ -1,17 +1,17 @@
 import React from 'react';
+import {Alert} from "Popup/UI";
 import {Background} from 'Popup/Service';
 import {StartUpEvent} from 'Core/Actions/Controller';
 import screenHistory from 'Popup/ScreenAddressHistory';
-import {showAlert} from "Popup/Router/Alert";
 
-export default class PrepareWalletScreen extends React.Component {
+export default class PrepareWalletScreen extends React.Component<any, any> {
 
     componentDidMount() {
         Background
             .sendRequest(StartUpEvent.Prepare)
             .then(this.onPreparedResponse);
 
-        showAlert({
+        Alert.showAlert({
             message: 'Please wait while your wallets are being imported...',
             lifetime: 2000
         });
@@ -24,10 +24,6 @@ export default class PrepareWalletScreen extends React.Component {
     };
 
     render() {
-        return (
-            <div className="startup startup-prepare">
-                Loading...
-            </div>
-        );
+        return <div className="startup startup-prepare">Loading...</div>;
     }
 }

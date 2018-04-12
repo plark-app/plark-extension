@@ -1,6 +1,6 @@
 import React from 'react';
 import {ModalRootComponent} from "Popup/Router/Modals";
-import {AlertRootComponent, showAlert} from "Popup/Router/Alert";
+import {Alert} from 'Popup/UI';
 
 export interface IApplicationLayoutProps {
     children: any;
@@ -8,7 +8,7 @@ export interface IApplicationLayoutProps {
 
 export class ApplicationLayout extends React.Component<IApplicationLayoutProps, any> {
     componentDidCatch(error: Error) {
-        showAlert({
+        Alert.showAlert({
             message: error.message
         });
     }
@@ -16,7 +16,7 @@ export class ApplicationLayout extends React.Component<IApplicationLayoutProps, 
     render() {
         return (
             <div className="application">
-                <AlertRootComponent/>
+                <Alert.AlertRootComponent/>
                 <div className="application-body">{this.props.children}</div>
                 <ModalRootComponent/>
             </div>

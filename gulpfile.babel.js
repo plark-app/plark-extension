@@ -3,9 +3,8 @@ import Path from 'path';
 import del from 'del';
 import gulpWebpack from 'webpack-stream';
 import watch from 'gulp-watch';
-import webpackConfig from './webpack-v3.config.babel.js';
+import webpackConfig from './webpack.config.babel.js';
 import named from 'vinyl-named';
-import sass from 'gulp-sass';
 import jsoneditor from 'gulp-json-editor';
 import zip from 'gulp-zip';
 
@@ -69,40 +68,8 @@ gulp.task('manifest:production', () => {
 // gulp.task('js', generateBundlerTask({watch: false, mode: "production"}));
 // gulp.task('js:watch', generateBundlerTask({watch: true, mode: "development"}));
 
-gulp.task('js', () => {});
-gulp.task('js:watch', () => {});
-
-
-//|---------------------------------------------------------------------------
-//| Configuration for create CSS bundles
-//| Use gulp-sass
-//|---------------------------------------------------------------------------
-gulp.task('css', () => {
-    return gulp
-        .src('./src/Style/popup.scss')
-        .pipe(
-            sass({outputStyle: 'compressed'}).on('error', sass.logError)
-        )
-        .pipe(gulp.dest('./dist/chrome/css'))
-        .pipe(gulp.dest('./dist/firefox/css'));
-});
-
-gulp.task('css:watch', () => {
-    return watch(
-        './src/Style/**/*.scss',
-        {},
-        () => {
-            return gulp
-                .src('./src/Style/popup.scss')
-                .pipe(
-                    sass({outputStyle: 'compressed'}).on('error', sass.logError)
-                )
-                .pipe(gulp.dest('./dist/chrome/css'))
-                .pipe(gulp.dest('./dist/firefox/css'));
-        }
-    );
-});
-
+gulp.task('webpack', () => {});
+gulp.task('webpack:watch', () => {});
 
 const staticFiles = ['images', 'views', 'locales'];
 let copyStrings = staticFiles.map(staticFile => `copy:${staticFile}`);
@@ -115,7 +82,7 @@ gulp.task('clean', function clean() {
     return del(['./dist/*']);
 });
 
-gulp.task('build', ['copy', 'css', 'js']);
+gulp.task('build', ['copy', 'webpack']);
 
 gulp.task('copy:watch', function () {
     gulp.watch(['./src/*.*'], 'build');

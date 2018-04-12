@@ -1,14 +1,14 @@
 import React from 'react';
+import {Wallet, Coin} from '@berrywallet/core';
 import {reverse, debounce} from 'lodash';
 import BigNumber from 'bignumber.js';
 import {connect} from 'react-redux';
-import {Wallet, Coin} from '@berrywallet/core';
 import classNames from 'classnames';
 import Numeral from 'numeral';
+
 import {Controller} from 'Core/Actions';
-import {Button} from "Popup/UI";
+import {Button, Alert} from "Popup/UI";
 import {mapWalletCoinToProps} from 'Popup/Store/WalletCoinConnector';
-import {showAlert} from 'Popup/Router/Alert';
 import TrackScreenView from 'Popup/Service/ScreenViewAnalitics';
 import {Background} from 'Popup/Service';
 import {FooterComponent} from "./SendScreenComponents/FooterComponent";
@@ -148,7 +148,7 @@ export default class SendScreen extends React.Component {
         try {
             newTxRequestParams = this.validateData();
         } catch (error) {
-            showAlert({
+            Alert.showAlert({
                 message: error.message
             });
 
@@ -168,7 +168,7 @@ export default class SendScreen extends React.Component {
         };
 
         const onError = (error) => {
-            showAlert({
+            Alert.showAlert({
                 message: error.message
             });
             this.setSending(false);

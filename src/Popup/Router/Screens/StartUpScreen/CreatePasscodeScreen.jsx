@@ -2,8 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import {connect} from 'react-redux';
 import proxyStore from 'Popup/Store';
-import {showAlert} from "Popup/Router/Alert";
-import {Button} from "Popup/UI";
+import {Button, Alert} from "Popup/UI";
 import WelcomeLink from 'Popup/Router/Screens/StartUpScreen/Parts/WelcomeLink';
 import {MIN_PASSCODE_CHARS, validatePasscode} from 'Core/Passcode';
 import {mapWelcomeDispatchers} from 'Popup/Store/KeyringConnector';
@@ -101,7 +100,7 @@ export default class CreatePasscodeScreen extends React.Component {
                 return {error: true};
             });
 
-            showAlert({
+            Alert.showAlert({
                 message: error.message,
                 noBody: true,
                 onClose: () => {

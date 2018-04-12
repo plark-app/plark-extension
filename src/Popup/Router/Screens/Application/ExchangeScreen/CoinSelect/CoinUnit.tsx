@@ -1,13 +1,12 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {map} from 'lodash';
 import Numeral from 'numeral';
 import classNames from 'classnames';
 import ReactSVG from 'react-svg';
 
 import {Coins} from "Core";
 import {IStore} from "Core/Declarations/Store";
-import {Selector, Helpers} from 'Popup/Store';
+import {Selector} from 'Popup/Store';
 
 
 interface OwnProps {

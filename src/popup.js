@@ -1,4 +1,5 @@
 import './polyfill';
+import 'Style/popup.scss';
 
 import React from 'react';
 import {render} from 'react-dom';

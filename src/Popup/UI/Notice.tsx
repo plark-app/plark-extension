@@ -1,6 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
 
+import './notice.scss';
+
 export interface INoticeProps {
     show?: boolean;
     className: any;

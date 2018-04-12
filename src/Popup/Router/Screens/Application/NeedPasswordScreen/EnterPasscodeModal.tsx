@@ -1,46 +1,45 @@
 import React from 'react';
-
-import TypePasscode from './TypePasscode';
-import ForgotPasscode from './ForgotPasscode';
-import {showAlert, closeAlert} from 'Popup/Router/Alert';
-
+import {Alert} from 'Popup/UI';
+import {TypePasscode} from './TypePasscode';
+import {ForgotPasscode} from './ForgotPasscode';
 
 const PasswordMode = {
     Type: 'TYPE',
     Forgot: 'FORGOT'
-};
+}
 
-export default class EnterPasscodeModal extends React.Component {
+interface IModalState {
+    mode: string;
+    hasError: boolean;
+}
 
-    state = {
+export default class EnterPasscodeModal extends React.Component<any, IModalState> {
+
+    state: IModalState = {
         mode: PasswordMode.Type,
         hasError: false
     };
 
     componentWillUnmount() {
-        closeAlert();
+        Alert.closeAlert();
     }
 
-    onError = (errorMessage) => {
-        showAlert({
+    onError = (errorMessage: string) => {
+        Alert.showAlert({
             message: errorMessage,
             onClose: this.onCloseError,
             noBody: true
         });
 
-        this.setState(() => {
-            return {
-                hasError: true
-            };
-        });
+        this.setState(this.hasErrorSetter(true));
     };
 
-    onCloseError = (event) => {
-        this.setState(() => {
-            return {
-                hasError: false
-            };
-        });
+    onCloseError = () => {
+        this.setState(this.hasErrorSetter(false));
+    };
+
+    hasErrorSetter = (hasError: boolean) => {
+        return {hasError};
     };
 
     onSetScreenMode = (mode) => {

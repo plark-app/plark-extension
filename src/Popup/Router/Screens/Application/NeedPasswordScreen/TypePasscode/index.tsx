@@ -4,11 +4,23 @@ import {Button} from "Popup/UI";
 import {KeyringEvent} from 'Core/Actions/Controller';
 import {Background} from 'Popup/Service';
 
-export default class EnterPasscodeModal extends React.Component {
+interface IProps {
+    hasError: boolean;
+    onError: any;
+    onForgotPassword: any;
+}
 
-    state = {
+interface IState {
+    passcode: string;
+}
+
+export class TypePasscode extends React.Component<IProps, IState> {
+
+    public state = {
         passcode: ''
     };
+
+    private passwordInput: HTMLInputElement;
 
     onPasscodeChange = (event) => {
         const passcode = event.target.value;
@@ -20,7 +32,7 @@ export default class EnterPasscodeModal extends React.Component {
 
     componentDidMount() {
         setTimeout(() => {
-            this.refs.passwordInput.focus();
+            this.passwordInput.focus();
         }, 50);
     }
 
@@ -46,7 +58,9 @@ export default class EnterPasscodeModal extends React.Component {
             value: this.state.passcode,
             onChange: this.onPasscodeChange,
             type: "password",
-            ref: 'passwordInput'
+            ref: (input) => {
+                this.passwordInput = input
+            }
         };
 
         return (

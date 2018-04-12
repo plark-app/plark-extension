@@ -7,6 +7,18 @@ import SuccessSeedStep from './SuccessSeedStep';
 import EnterPasscodeStep from './EnterPasscodeStep';
 import SuccessPasscodeStep from './SuccessPasscodeStep';
 
+interface IProps {
+    hasError: boolean;
+    onError: any;
+    onTypePassword: any;
+}
+
+interface IState {
+    step: string,
+    seed?: string,
+    passcode?: string
+}
+
 const ForgotStep = {
     EnterSeed: 'ENTER_SEED',
     SuccessSeed: 'SUCCESS_SEED',
@@ -14,7 +26,7 @@ const ForgotStep = {
     SuccessPasscode: 'SUCCESS_PASSCODE'
 };
 
-export default class ForgotPasscode extends React.Component {
+export class ForgotPasscode extends React.Component<IProps, IState> {
 
     state = {
         step: ForgotStep.EnterSeed,
@@ -59,8 +71,8 @@ export default class ForgotPasscode extends React.Component {
     };
 
     renderActualStep() {
-        const {step, seed = null, passcode = null} = this.state;
-        const {onError = null, hasError = false} = this.props;
+        const {step} = this.state;
+        const {onError = null} = this.props;
 
         switch (step) {
             case ForgotStep.EnterSeed:
@@ -77,18 +89,22 @@ export default class ForgotPasscode extends React.Component {
         }
     }
 
-    render() {
-        const {onTypePassword, step} = this.props;
+    renderBackButton(): JSX.Element {
+        const {onTypePassword} = this.props;
+        const {step} = this.state;
 
+        if ([ForgotStep.EnterSeed].includes(step)) {
+            return <button className="modal-special-link" onClick={onTypePassword}>← Back to passcode</button>
+        }
+
+        return null;
+    }
+
+    render(): JSX.Element {
         return (
             <div className="modal-content enter-passcode-content">
                 {this.renderActualStep()}
-                {
-                    [ForgotStep.EnterSeed].includes(step)
-                        ? <button className="modal-special-link"
-                                  onClick={onTypePassword}>← Back to passcode</button>
-                        : null
-                }
+                {this.renderBackButton()}
             </div>
         )
     }

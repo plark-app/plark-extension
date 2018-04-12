@@ -3,14 +3,14 @@ import {filter, map, includes} from 'lodash';
 import {connect} from 'react-redux';
 import classNames from 'classnames';
 import {Background} from 'Popup/Service';
-import {showAlert} from "Popup/Router/Alert";
-
+import {InputCheck, Alert} from 'Popup/UI';
+import {AnalyticsObserver} from "Popup/Service/Analytics";
 import {coinList} from 'Core/Coins';
 import {Controller} from "Core/Actions";
-import {AnalyticsObserver} from "Popup/Service/Analytics";
+
 import SearchInputComponent from './Components/SearchInputComponent';
 import NotFoundComponent from './Components/NotFoundComponent';
-import {InputCheck} from 'Popup/UI';
+
 
 const mapStateToProps = (store) => {
     return {
@@ -76,7 +76,7 @@ export default class WalletsScreen extends React.Component {
         let type = null, callback = null;
         if (includes(coins, toTriggerCoin)) {
             if (coins.length === 1) {
-                showAlert({
+                Alert.showAlert({
                     message: "Uh-oh! Please select at least one wallet."
                 });
                 return;

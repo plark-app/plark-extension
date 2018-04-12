@@ -2,7 +2,6 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {RouteComponentProps} from 'react-router-dom';
 import screenHistory from 'Popup/ScreenAddressHistory';
-import {map} from 'lodash';
 
 import {IStore} from "Core/Declarations/Store";
 import {Coins} from 'Core';

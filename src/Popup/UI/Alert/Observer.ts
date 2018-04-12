@@ -14,7 +14,7 @@ export interface ShowAlertOptions {
 export interface IAlert {
     message: string;
     type: string;
-    onClose?: () => void;
+    onClose?: (...data: any[]) => void;
     lifetime?: number;
     noBody: boolean;
 
