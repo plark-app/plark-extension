@@ -62,7 +62,7 @@ export class BackgroundCore extends EventEmitter implements IBackgroundCore {
         return (request: IRuntimeRequest, sender: any, sendResponse): boolean => {
             const eventHandler: EventHandlerType = this.eventHandlers[request.type];
 
-            debug(request.type, request.payload, eventHandler ? 'hasEventHandler' : 'no event handlers');
+            debug(request.type, request.payload);
 
             if (!eventHandler) {
                 return;

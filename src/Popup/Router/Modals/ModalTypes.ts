@@ -1,30 +1,30 @@
 import {Dictionary} from "lodash";
 
 import Transaction from './Components/Transaction';
-import ResetWallet from './Components/ResetWallet';
+import {ResetWallet} from './Components/ResetWallet';
+import {ExchangeModal} from './Components/Exchange';
 
-interface ModalInfoInterface {
+export interface ModalInfoInterface {
     component: any
 }
 
-enum ModalType {
+export enum ModalType {
     Transaction = 'TRANSACTION',
-    ResetWallet = 'RESET_WALLET'
+    ResetWallet = 'RESET_WALLET',
+    Exchange = 'EXCHANGE'
 }
 
 
-const modalList: Dictionary<ModalInfoInterface> = {
+export const modalList: Dictionary<ModalInfoInterface> = {
     [ModalType.Transaction]: {
         component: Transaction
     },
+
     [ModalType.ResetWallet]: {
         component: ResetWallet
+    },
+
+    [ModalType.Exchange]: {
+        component: ExchangeModal
     }
 };
-
-export {
-    ModalInfoInterface,
-    ModalType,
-
-    modalList
-}

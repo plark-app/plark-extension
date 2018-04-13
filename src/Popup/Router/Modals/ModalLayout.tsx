@@ -14,7 +14,7 @@ interface IState {
     show: boolean;
 }
 
-export default class ModalLayout extends React.Component<IProps, IState> {
+export class ModalLayout extends React.Component<IProps, IState> {
 
     state: IState = {
         show: false

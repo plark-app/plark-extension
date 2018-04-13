@@ -35,24 +35,6 @@
 
     &-total {
         margin-top: 24px;
-        &__title {
-            text-transform: uppercase;
-            color: $color-dark;
-            font-weight: 500;
-        }
-
-        &__coin {
-            font-size: 18px;
-            color: $color-main;
-        }
-
-        &__fiat {
-            color: $color-green;
-        }
-
-        &.-right {
-            text-align: right;
-        }
     }
 
     &-footer {

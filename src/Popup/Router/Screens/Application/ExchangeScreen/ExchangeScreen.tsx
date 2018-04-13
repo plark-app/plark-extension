@@ -6,13 +6,14 @@ import {Units} from 'BeShapy';
 
 import {Controller} from 'Core/Actions';
 import {Background} from 'Popup/Service';
+import {Button} from "Popup/UI";
 import screenHistory from 'Popup/ScreenAddressHistory';
-import {IStore} from "Core/Declarations/Store";
 import {Coins} from 'Core';
+import {IStore} from "Core/Declarations/Store";
 import {Selector} from 'Popup/Store';
 import {TrackScreenLayout} from 'Popup/UI/Layouts';
 import {extractTicker} from 'Popup/Store/Helpers';
-import {Button} from "Popup/UI";
+import {modalObserverInstance, ModalType} from "Popup/Router/Modals";
 
 import {CoinSideComponent} from "./Side";
 import {FooterComponent} from "./FooterComponent";
@@ -139,12 +140,15 @@ class ExchangeScreen extends React.Component<IExchangeProps, IExchangeState> {
     }
 
     onSubmitForm = (event) => {
-        const {fromCoin} = this.props;
-        const {value} = this.state;
-
+        const {fromCoin, toCoin} = this.props;
         event.preventDefault();
 
-        console.log("EXCHANGING VALUE!!!!", this.fromValue.toFixed(), fromCoin.getKey());
+        modalObserverInstance.openModal(ModalType.Exchange, {
+            fromCoin: fromCoin,
+            toCoin: toCoin,
+            fromValue: this.fromValue,
+            toValue: this.toValue
+        });
     };
 
     render() {

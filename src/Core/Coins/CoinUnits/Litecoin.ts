@@ -20,6 +20,6 @@ export default class Litecoin extends AbstractUnit {
     }
 
     getExplorerHost(): string {
-        return 'http://explorer.litecoin.net';
+        return 'https://live.blockcypher.com/ltc';
     }
 }

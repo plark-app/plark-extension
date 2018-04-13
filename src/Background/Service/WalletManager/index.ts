@@ -47,9 +47,7 @@ export class WalletManager {
             });
         };
 
-        const onInitError = (error) => {
-            console.log(error);
-        };
+        const onInitError = (error) => {};
 
         this.init().then(onInitSuccess, onInitError);
     }

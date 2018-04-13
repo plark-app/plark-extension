@@ -11,6 +11,12 @@ import {KeyringController} from './KeyringController';
 
 const debug = createDebugger('BACKGROUND_EVENT');
 
+interface CreateTransactionPayload {
+    coinKey: Coins.CoinSymbol;
+    address: string;
+    value: number;
+}
+
 export class WalletController extends AbstractController {
     protected walletManagers: Dictionary<WalletManager> = {};
 
@@ -113,7 +119,7 @@ export class WalletController extends AbstractController {
      *
      * @param {CoinSymbol} coinKey
      */
-    activateWallet(coinKey: Coins.CoinSymbol): boolean {
+    public activateWallet(coinKey: Coins.CoinSymbol): boolean {
         const newCoins: Coins.CoinSymbol[] = [...this.getState().Coin.coins];
 
         if (newCoins.includes(coinKey)) {
@@ -160,7 +166,7 @@ export class WalletController extends AbstractController {
      *
      * @param request
      */
-    protected createTransaction = (request: any) => {
+    public createTransaction = (request: CreateTransactionPayload) => {
         const {coinKey, address, value} = request;
 
         const fee = this.getState().Option.fee;

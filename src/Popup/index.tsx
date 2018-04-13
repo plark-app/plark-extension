@@ -2,13 +2,13 @@ import React from 'react';
 import {Provider} from 'react-redux';
 import {ApplicationRouter} from 'Popup/Router';
 import proxyStore from 'Popup/Store'
-import {AnalyticsObserver} from "./Service/Analytics";
+import {AnalyticsObserver} from "Popup/Service/Analytics";
 
 interface PopupApplicationStateInterface {
     ready: boolean
 }
 
-export default class PopupApplication extends React.Component<any, PopupApplicationStateInterface> {
+export class PopupApplication extends React.Component<any, PopupApplicationStateInterface> {
     state = {
         ready: false
     };

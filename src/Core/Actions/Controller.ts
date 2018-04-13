@@ -28,5 +28,6 @@ export enum OptionEvent {
 }
 
 export enum Exchange {
-    GetPair = 'EXCHANGE::GET_PAIR'
+    GetPair = 'EXCHANGE::GET_PAIR',
+    TryExchange = 'EXCHANGE::TRY_EXCHANGE'
 }

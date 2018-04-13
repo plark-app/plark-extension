@@ -5,7 +5,7 @@ import TrackScreenView from "Popup/Service/ScreenViewAnalitics";
 import {modalObserverInstance, ModalType} from "Popup/Router/Modals";
 
 
-export default class ResetScreen extends React.Component {
+export default class ResetScreen extends React.Component<any, any> {
 
     resetAllWallet = (event) => {
         modalObserverInstance.openModal(ModalType.ResetWallet);

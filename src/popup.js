@@ -3,9 +3,11 @@ import 'Style/popup.scss';
 
 import React from 'react';
 import {render} from 'react-dom';
-import PopupApplication from 'Popup/index.tsx';
+import {PopupApplication} from 'Popup/index.tsx';
 import {AnalyticsObserver} from 'Popup/Service/Analytics';
 
+import BigNumber from 'bignumber.js';
+BigNumber.config({ERRORS: false});
 
 const debugProvider = require('debug');
 debugProvider.enable("berrywallet:*");

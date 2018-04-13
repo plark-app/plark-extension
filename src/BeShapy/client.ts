@@ -8,7 +8,7 @@ import {
     MarketInfo,
     TxStatus,
     RecentTx,
-    CoinInfo
+    CoinInfo, ShiftResponse
 } from "./units";
 
 export interface BeShapyRequestParams {
@@ -67,10 +67,10 @@ export class BeShapyClient {
         return this.sendRequest<any>('/getcoins');
     }
 
-    shift(from: string, to: string, toAddress: string, returnAddress?: string): Promise<any> {
+    shift(from: string, to: string, toAddress: string, returnAddress?: string): Promise<ShiftResponse> {
         return this.sendRequest<any>('/shift', {
-            withdrawal: toAddress,
             pair: pair(from, to),
+            withdrawal: toAddress,
             returnAddress: returnAddress,
             apiKey: this.apiKey
         });

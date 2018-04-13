@@ -1,10 +1,10 @@
 import React from 'react';
-import classNames from 'classnames';
 import BigNumber from 'bignumber.js';
 import {connect} from 'react-redux';
 import {Coins, Helper} from 'Core';
 import {IStore} from "Core/Declarations/Store";
 import {Selector} from "Popup/Store";
+import {ValueSnippet} from "Popup/UI";
 
 import {CoinSelect} from "../CoinSelect";
 import {UnitInput} from "./UnitInput";
@@ -153,15 +153,16 @@ class CoinSide extends React.Component<CoinSidePropsType, any> {
                         />
                     </div>
 
-                    <div className={classNames('exchange-total', isFrom && '-right')}>
-                        <h3 className="exchange-total__title">{resultLabel}</h3>
-                        <div className="exchange-total__coin">
-                            {Helper.renderCoin(rootCoinValue)} {this.coin.getKey()}
-                        </div>
-                        <div className="exchange-total__fiat">
-                            {fiat.prefix}{Helper.renderCoin(rootCoinValue.mul(ticker.priceFiat))}
-                        </div>
-                    </div>
+                    <ValueSnippet
+                        label={resultLabel}
+                        coin={this.coin}
+                        ticker={ticker}
+                        value={rootCoinValue}
+                        fiat={fiat}
+                        className="exchange-total"
+                        isRight={!isFrom}
+                        isLeft={isFrom}
+                    />
                 </div>
             </div>
         )
