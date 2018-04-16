@@ -1,7 +1,7 @@
 {
     "name": "berrywallet",
     "description": "BerryWallet the tastiest way to keep cryptocurrency",
-    "version": "1.0.0",
+    "version": "1.2.0",
     "public": true,
     "scripts": {
         "webpack": "$(npm bin)/webpack",
