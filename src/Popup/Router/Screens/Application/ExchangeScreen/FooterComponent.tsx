@@ -1,12 +1,12 @@
 import React from 'react';
 import {Coins} from 'Core';
-import {Units} from 'BeShapy';
+import {BeShapyUnits} from 'BeShapy';
 
 interface IFooterOwnProps {
     fromCoin: Coins.CoinInterface;
     toCoin: Coins.CoinInterface;
 
-    marketInfo?: Units.MarketInfo;
+    marketInfo?: BeShapyUnits.MarketInfo;
 }
 
 export class FooterComponent extends React.Component<IFooterOwnProps, any> {

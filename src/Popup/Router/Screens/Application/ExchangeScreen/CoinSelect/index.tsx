@@ -3,6 +3,7 @@ import {map, filter} from 'lodash';
 import classNames from 'classnames';
 import {Coins} from 'Core';
 import screenHistory from 'Popup/ScreenAddressHistory';
+import {DropArrow} from 'Popup/UI';
 
 import {CoinUnitComponent} from "./CoinUnit";
 
@@ -79,15 +80,18 @@ export class CoinSelect extends React.Component<ICSelectProps, ICSelectState> {
         return <div className={classNames("exch-select", open && "-open")}>
             <div className="exch-select__current" onClick={this.openCoinList}>
                 <CoinUnitComponent coin={coin}/>
+                <DropArrow active={open} wrapperClassName="exch-select__current-arrow" />
             </div>
             <div className="exch-select__units">
-                {map(this.getSelectItems(), (cn: Coins.CoinInterface) => {
-                    return (
-                        <div className="exch-select__unit" key={cn.getKey()} onClick={this.onChangeCoin(cn)}>
-                            <CoinUnitComponent coin={cn}/>
-                        </div>
-                    );
-                })}
+                <div className="exch-select__units-wrapper">
+                    {map(this.getSelectItems(), (cn: Coins.CoinInterface) => {
+                        return (
+                            <div className="exch-select__unit" key={cn.getKey()} onClick={this.onChangeCoin(cn)}>
+                                <CoinUnitComponent coin={cn}/>
+                            </div>
+                        );
+                    })}
+                </div>
             </div>
         </div>
     }

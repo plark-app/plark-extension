@@ -10,7 +10,7 @@
         "build:prod": "rm -rf ./dist && NODE_ENV=production $(npm bin)/webpack && gulp build && gulp zip"
     },
     "dependencies": {
-        "@berrywallet/core": "0.2.2-dev.2",
+        "@berrywallet/core": "^0.2.2",
         "axios": "^0.17.0",
         "berrymarketcap": "^1.2.1",
         "bip39": "^2.4.0",

@@ -24,10 +24,10 @@ export class ValueSnippet extends React.Component<IValueSnippetProps, any> {
             <div className={classNames('value-snippet', isRight && '-right', isLeft && '-left', className)}>
                 {label && <h3 className="value-snippet__title">{label}</h3>}
                 <div className="value-snippet__coin">
-                    {Helper.renderCoin(value)} {coin.getKey()}
+                    {value.greaterThan(0) ? Helper.renderCoin(value) : 0} {coin.getKey()}
                 </div>
                 <div className="value-snippet__fiat">
-                    {fiat.prefix}{Helper.renderFiat(value.mul(ticker.priceFiat))}
+                    {fiat.prefix}{Helper.renderFiat(value.greaterThan(0) ? value.mul(ticker.priceFiat) : 0)}
                 </div>
             </div>
         )

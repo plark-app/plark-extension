@@ -6,6 +6,7 @@ import {DotLoader} from "./DotLoader";
 import {InputCheck} from "./InputCheck";
 import {CoinIcon} from "./CoinIcon";
 import {ValueSnippet} from "./ValueSnippet";
+import {DropArrow} from "./DropArrow";
 import * as Alert from "./Alert";
 
 export {
@@ -17,6 +18,7 @@ export {
     InputCheck,
     CoinIcon,
     ValueSnippet,
+    DropArrow,
 
     // Alert export
     Alert

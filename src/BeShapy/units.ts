@@ -1,10 +1,10 @@
-export interface RateResponse {
+export interface Rate {
     pair: string;
     rate: number | string;
 }
 
 
-export interface LimitResponse {
+export interface Limit {
     pair: string;
     limit: number | string;
 }
@@ -19,19 +19,17 @@ export interface MarketInfo {
     rate: number;
 }
 
-
-export enum CoinStatus {
+export enum BeShapyCoinStatus {
     Available = "available",
     Unavailable = "unavailable"
 }
-
 
 export interface CoinInfo {
     name: string;
     symbol: string;
     image: string;
     imageSmall: string;
-    status: CoinStatus;
+    status: BeShapyCoinStatus;
     minerFee: number;
     specialReturn?: boolean;
     specialOutgoing?: boolean;
@@ -47,7 +45,11 @@ export interface RecentTx {
     curOut: string;
     timestamp: number;
     amount: number;
-    txid: number;       //What a Fuck???
+
+    /**
+     * What a Fuck???
+     */
+    txid: number;
 }
 
 
@@ -65,7 +67,7 @@ export interface TxStatus {
 }
 
 
-export interface ShiftResponse {
+export interface Shift {
     deposit: string;
     depositType: string;
     withdrawal: string;

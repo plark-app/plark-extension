@@ -3,12 +3,12 @@ import Axios, {AxiosResponse, AxiosRequestConfig, AxiosInstance} from 'axios';
 import {SHAPESHIFT_URL, SHAPESHIFT_DEFAULT_API_KEY} from './constants';
 import {pair} from './utils';
 import {
-    LimitResponse,
-    RateResponse,
+    Limit,
+    Rate,
     MarketInfo,
     TxStatus,
     RecentTx,
-    CoinInfo, ShiftResponse
+    CoinInfo, Shift
 } from "./units";
 
 export interface BeShapyRequestParams {
@@ -43,12 +43,12 @@ export class BeShapyClient {
         });
     }
 
-    getRate(from: string, to: string): Promise<RateResponse> {
-        return this.sendRequest<RateResponse>('/rate/' + pair(from, to));
+    getRate(from: string, to: string): Promise<Rate> {
+        return this.sendRequest<Rate>('/rate/' + pair(from, to));
     }
 
-    getLimit(from: string, to: string): Promise<LimitResponse> {
-        return this.sendRequest<LimitResponse>('/limit/' + pair(from, to));
+    getLimit(from: string, to: string): Promise<Limit> {
+        return this.sendRequest<Limit>('/limit/' + pair(from, to));
     }
 
     getInfo(from: string, to: string): Promise<MarketInfo> {
@@ -67,7 +67,7 @@ export class BeShapyClient {
         return this.sendRequest<any>('/getcoins');
     }
 
-    shift(from: string, to: string, toAddress: string, returnAddress?: string): Promise<ShiftResponse> {
+    shift(from: string, to: string, toAddress: string, returnAddress?: string): Promise<Shift> {
         return this.sendRequest<any>('/shift', {
             pair: pair(from, to),
             withdrawal: toAddress,

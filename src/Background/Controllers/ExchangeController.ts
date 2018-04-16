@@ -1,11 +1,12 @@
 import {Store} from "redux";
-import {createBeShapy, BeShapyClient, Units} from 'BeShapy';
+import {HD} from "@berrywallet/core";
+import {createBeShapy, BeShapyClient, BeShapyUnits} from 'BeShapy';
 import {IStore} from "Core/Declarations/Store";
 import {EventHandlerType, IBackgroundCore} from 'Core/Declarations/Service';
 import {Controller} from 'Core/Actions';
 import {AbstractController} from 'Background/Service/AbstractController';
 import {WalletController} from "./WalletController";
-import {HD} from "@berrywallet/core";
+
 
 export class ExchangeController extends AbstractController {
 
@@ -71,7 +72,7 @@ export class ExchangeController extends AbstractController {
             returnAddress.address
         );
 
-        return shiftPromise.then((shift: Units.ShiftResponse) => {
+        return shiftPromise.then((shift: BeShapyUnits.Shift) => {
             return walletController.createTransaction({
                 coinKey: from,
                 address: shift.deposit,

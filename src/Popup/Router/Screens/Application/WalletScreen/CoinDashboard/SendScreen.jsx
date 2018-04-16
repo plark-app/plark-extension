@@ -148,14 +148,17 @@ export default class SendScreen extends React.Component {
         try {
             newTxRequestParams = this.validateData();
         } catch (error) {
-            Alert.showAlert({
-                message: error.message
-            });
+            Alert.showAlert({message: error.message});
 
             return;
         }
 
         const onSuccess = (response) => {
+            Alert.showAlert({
+                type: "success",
+                message: "Transaction successfully sent"
+            });
+
             this.setState(() => {
                 return {
                     value: '',
@@ -171,6 +174,7 @@ export default class SendScreen extends React.Component {
             Alert.showAlert({
                 message: error.message
             });
+
             this.setSending(false);
         };
 
@@ -183,7 +187,11 @@ export default class SendScreen extends React.Component {
     };
 
     setSending = (sendingTransaction) => {
-        this.setState(() => ({sendingTransaction}));
+        this.setState(() => {
+            return {
+                sendingTransaction: sendingTransaction
+            }
+        });
     };
 
     render() {

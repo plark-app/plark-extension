@@ -84,7 +84,7 @@ export class BackgroundCore extends EventEmitter implements IBackgroundCore {
 
                 const response = eventHandler(request.payload, sender);
                 if (response instanceof Promise) {
-                    response.then(onSuccess);
+                    response.then(onSuccess, onError).catch(onError);
                 } else {
                     onSuccess(response);
                 }

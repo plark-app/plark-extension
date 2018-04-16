@@ -3,15 +3,15 @@ import {connect} from 'react-redux';
 import BigNumber from 'bignumber.js';
 import {Wallet} from '@berrywallet/core';
 import classNames from 'classnames';
+import ReactSVG from 'react-svg';
 import {Coins} from "Core";
 import {Controller} from "Core/Actions";
 import {IStore} from "Core/Declarations/Store";
 import {Selector} from "Popup/Store";
-import {Button, CoinIcon, ValueSnippet, DotLoader} from "Popup/UI";
+import {Button, CoinIcon, ValueSnippet, Alert} from "Popup/UI";
 import {Background} from 'Popup/Service';
 
 import {ModalLayout} from "../../ModalLayout";
-
 import {modalObserverInstance} from "../../Observer";
 
 import './modal-exchange.scss';
@@ -104,14 +104,19 @@ class Exchange extends React.Component<IExchangeProps, IExchangeModalState> {
 
         const onSuccess = (data) => {
             this.setState(() => ({successfulExchange: true}));
-
         };
 
-        const onError = (error) => {};
+        const onError = (error) => {
+            Alert.showAlert({
+                message: error.message
+            });
+
+            this.setState(() => ({waitingExchanging: false}));
+        };
 
         Background
             .sendRequest(Controller.Exchange.TryExchange, payload)
-            .then(onSuccess)
+            .then(onSuccess, onError)
             .catch(onError);
 
         this.setState(() => ({waitingExchanging: true}));
@@ -184,6 +189,12 @@ class Exchange extends React.Component<IExchangeProps, IExchangeModalState> {
 
         return (
             <div className="modal-exchange">
+
+                <ReactSVG path="/images/icons/tick.svg"
+                          className="success-icon"
+                          wrapperClassName="success-icon-wrapper"
+                />
+
                 <h2 className="title -modal">Transaction successful!</h2>
                 <p className="desc">Need some time to receive {toCoin.getName()}.</p>
 

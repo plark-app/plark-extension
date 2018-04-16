@@ -2,7 +2,7 @@ import React from 'react';
 import BigNumber from 'bignumber.js';
 import {connect} from 'react-redux';
 import {RouteComponentProps} from 'react-router-dom';
-import {Units} from 'BeShapy';
+import {BeShapyUnits} from 'BeShapy';
 
 import {Controller} from 'Core/Actions';
 import {Background} from 'Popup/Service';
@@ -43,7 +43,7 @@ enum SideTypes {
 interface IExchangeState {
     masterSide: SideTypes;
     value: BigNumber;
-    marketInfo?: Units.MarketInfo;
+    marketInfo?: BeShapyUnits.MarketInfo;
 }
 
 class ExchangeScreen extends React.Component<IExchangeProps, IExchangeState> {
@@ -69,7 +69,7 @@ class ExchangeScreen extends React.Component<IExchangeProps, IExchangeState> {
     loadMarketInfo = () => {
         const {fromCoin, toCoin} = this.props;
 
-        const onSuccessLoad = (marketInfo: Units.MarketInfo) => {
+        const onSuccessLoad = (marketInfo: BeShapyUnits.MarketInfo) => {
             this.setState(this.marketInfoSetter(marketInfo));
         };
 
@@ -81,7 +81,7 @@ class ExchangeScreen extends React.Component<IExchangeProps, IExchangeState> {
             .then(onSuccessLoad);
     };
 
-    marketInfoSetter = (marketInfo?: Units.MarketInfo) => {
+    marketInfoSetter = (marketInfo?: BeShapyUnits.MarketInfo) => {
         return {
             marketInfo: marketInfo
         }
@@ -127,7 +127,11 @@ class ExchangeScreen extends React.Component<IExchangeProps, IExchangeState> {
             return new BigNumber(0);
         }
 
-        return masterSide === SideTypes.From ? value : value.div(this.rate);
+        if (masterSide === SideTypes.From) {
+            return value;
+        }
+
+        return value.add(marketInfo.minerFee).div(this.rate);
     }
 
     get toValue(): BigNumber {
@@ -136,7 +140,11 @@ class ExchangeScreen extends React.Component<IExchangeProps, IExchangeState> {
             return new BigNumber(0);
         }
 
-        return masterSide === SideTypes.To ? value : value.mul(this.rate);
+        if (masterSide === SideTypes.To) {
+            return value;
+        }
+        
+        return value.mul(this.rate).minus(marketInfo.minerFee);
     }
 
     onSubmitForm = (event) => {

@@ -2,20 +2,22 @@ import {each, debounce} from 'lodash';
 import BigNumber from "bignumber.js";
 import {Coin, Wallet} from '@berrywallet/core';
 import * as Core from "Core";
-import {Coins, createDebugger} from "Core";
+import {Coins, createDebugger, Actions} from "Core";
 import {NeedPasswordError} from "Background/Errors";
 import {WalletController} from "Background/Controllers";
 import {sendNotification, TransactionNotification} from 'Core/Extension/NotificationManager';
 
-const debug = createDebugger('WALLET_MANAGER');
+const updateBlockTimeout = 20 * 60 * 1000;
 
 export class WalletManager {
-
+    protected debug;
     protected coin: Coins.CoinInterface;
     protected controller: WalletController;
     protected inited: boolean = false;
     protected _wdProvider: Wallet.Provider.WDProvider;
     protected updaterTimeoutIndex;
+
+    protected lastConnectionCheck: Date;
 
     /**
      * @param {CoinInterface} coin
@@ -24,12 +26,23 @@ export class WalletManager {
     constructor(coin: Coins.CoinInterface, walletController: WalletController) {
         this.coin = coin;
         this.controller = walletController;
+        this.debug = createDebugger('WM:' + this.coin.getUnit());
 
         const onInitSuccess = (wdProvider: Wallet.Provider.WDProvider) => {
             this._wdProvider = wdProvider;
             this.mapEventsToWDProvider();
 
-            wdProvider.getNetworkProvider().onNewBlock(this.updateCoinKey);
+            wdProvider.getNetworkProvider().onNewBlock(this.updateBlockInfo);
+            wdProvider.getNetworkProvider().getTracker().onConnect(() => {
+                if (this.lastConnectionCheck) {
+                    const currentTime = new Date().getTime();
+                    if (currentTime - this.lastConnectionCheck.getTime() > updateBlockTimeout) {
+                        this.updateWalletData();
+                    }
+                }
+
+                this.lastConnectionCheck = new Date();
+            });
 
             this.setUpdateTimeout();
 
@@ -41,19 +54,21 @@ export class WalletManager {
                 if (amount > 0) {
                     sendNotification(new TransactionNotification(this.coin, tx, amount))
                         .then((notificationId: string) => {
-                            debug('Showed Notification with ID:' + notificationId);
+                            this.debug('Showed Notification with ID:' + notificationId);
                         });
                 }
             });
         };
 
-        const onInitError = (error) => {};
+        const onInitError = (error) => {
+            this.debug("Initialization error", error);
+        };
 
         this.init().then(onInitSuccess, onInitError);
     }
 
-    updateCoinKey = (block: Wallet.Entity.Block) => {
-        this.controller.dispatchStore(Core.Actions.Reducer.CoinAction.SetBlockHeight, {
+    updateBlockInfo = (block: Wallet.Entity.Block) => {
+        this.controller.dispatchStore(Actions.Reducer.CoinAction.SetBlockHeight, {
             coinKey: this.coin.getKey(),
             blockHeight: block.height
         });
@@ -76,7 +91,7 @@ export class WalletManager {
             return;
         }
 
-        debug("Creating WalletManager for coin: " + this.coin.getKey());
+        this.debug("Creating WalletManager for coin: " + this.coin.getKey());
 
         const extractingResolver = this.extractWDFromStorage();
 
@@ -84,12 +99,13 @@ export class WalletManager {
             return extractingResolver;
         }
 
-        debug("Start generation for coin: " + this.coin.getKey());
+        this.debug("Start generation for coin: " + this.coin.getKey());
 
         let wdGenerator = null;
         try {
             wdGenerator = Core.Wallet.createWDGenerator(this.coin, this.seed);
         } catch (error) {
+            this.debug("Error on data generating", error);
             if (error instanceof NeedPasswordError) {
                 // @TODO Need some code
             }
@@ -105,7 +121,7 @@ export class WalletManager {
                 walletData: wdProvider.getData()
             };
 
-            this.controller.dispatchStore(Core.Actions.Reducer.WalletAction.Activate, actionPayload);
+            this.controller.dispatchStore(Actions.Reducer.WalletAction.Activate, actionPayload);
             this.stopWalletLoading();
 
             return wdProvider;
@@ -113,7 +129,7 @@ export class WalletManager {
     }
 
     protected extractWDFromStorage(): Promise<Wallet.Provider.WDProvider> | null {
-        debug("Start extracting WD from storage for coin: " + this.coin.getKey());
+        this.debug("Start extracting WD from storage for coin: " + this.coin.getKey());
 
         let iCoinWallet,
             walletData: Wallet.Entity.WalletData = null;
@@ -122,6 +138,8 @@ export class WalletManager {
             iCoinWallet = this.controller.getWalletData(this.coin.getKey());
             walletData = iCoinWallet.walletData;
         } catch (error) {
+            this.debug("Extracting error", error);
+
             return null;
         }
 
@@ -141,13 +159,13 @@ export class WalletManager {
     }
 
     protected startWalletLoading() {
-        this.controller.dispatchStore(Core.Actions.Reducer.WalletAction.StartLoading, {
+        this.controller.dispatchStore(Actions.Reducer.WalletAction.StartLoading, {
             walletCoinKey: this.coin.getKey()
         });
     }
 
     protected stopWalletLoading() {
-        this.controller.dispatchStore(Core.Actions.Reducer.WalletAction.StopLoading, {
+        this.controller.dispatchStore(Actions.Reducer.WalletAction.StopLoading, {
             walletCoinKey: this.coin.getKey()
         });
     }
@@ -163,7 +181,7 @@ export class WalletManager {
                 walletData: this.wdProvider.getData()
             };
 
-            this.controller.dispatchStore(Core.Actions.Reducer.WalletAction.SetWalletData, actionPayload);
+            this.controller.dispatchStore(Actions.Reducer.WalletAction.SetWalletData, actionPayload);
             this.setUnconfirmedTxTracking();
         }, 300);
 
@@ -199,28 +217,36 @@ export class WalletManager {
         const privateWallet = this.wdProvider.getPrivate(bufferSeed);
         const parsedAddress = Coin.Helper.parseAddressByCoin(this.wdProvider.getData().coin, address);
 
-        const broadcastTransaction = (transaction: Coin.Transaction.Transaction) => {
-            return privateWallet
-                .broadcastTransaction(transaction)
-                .then((txid) => {
-                    return this.trackTransaction(txid)
-                        .then((tx) => {
-                            this.putNewTx(tx);
+        const onSuccessBroadcastTx = (txid) => {
+            return this.trackTransaction(txid)
+                .then((tx) => {
+                    this.putNewTx(tx);
 
-                            return tx;
-                        })
+                    return tx;
                 })
-                .catch((error) => {
-                    throw new Error('Error on send transaction');
-                });
         };
 
-        return privateWallet
-            .createTransaction(parsedAddress, new BigNumber(value), fee)
-            .then(broadcastTransaction)
-            .catch((error) => {
-                throw new Error('Error on create transaction');
-            });
+        const onBroadcastingError = (error) => {
+            this.debug('Error on send transaction', error);
+
+            throw new Error('Error on send transaction');
+        };
+
+        const onCreatingError = (error) => {
+            this.debug('Error on create transaction', error);
+
+            throw new Error('Error on create transaction');
+        };
+
+        const broadcastTransaction = (transaction: Coin.Transaction.Transaction) => {
+            return privateWallet.broadcastTransaction(transaction)
+                .then(onSuccessBroadcastTx, onBroadcastingError)
+                .catch(onBroadcastingError);
+        };
+
+        return privateWallet.createTransaction(parsedAddress, new BigNumber(value), fee)
+            .then(broadcastTransaction, onCreatingError)
+            .catch(onCreatingError);
     };
 
     /**
@@ -239,6 +265,7 @@ export class WalletManager {
             try {
                 parsedAddress = Coin.Helper.parseAddressByCoin(this.wdProvider.getData().coin, address);
             } catch (error) {
+                this.debug('Parsing address error', error);
             }
         }
 
@@ -281,9 +308,11 @@ export class WalletManager {
     }
 
     protected updateWalletData = () => {
-        this._wdProvider.getUpdater().update().then(() => {
-            this.setUpdateTimeout();
-        });
+        try {
+            this._wdProvider.getUpdater().update();
+        } catch (error) {
+            this.debug('Updating error', error);
+        }
     };
 
     protected setUpdateTimeout = () => {
@@ -291,6 +320,6 @@ export class WalletManager {
             clearTimeout(this.updaterTimeoutIndex);
         }
 
-        this.updaterTimeoutIndex = setTimeout(this.updateWalletData, 30 * 60 * 1000);
+        this.updaterTimeoutIndex = setInterval(this.updateWalletData, 15 * 60 * 1000);
     }
 }
