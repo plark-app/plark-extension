@@ -5,12 +5,12 @@ import QRCode from 'qrcode-react';
 import ReactSVG from 'react-svg';
 import q from 'querystring';
 
-import {Extension} from 'Core';
+import {extensionInstance} from 'Core/Extension';
 import {Notice} from "Popup/UI";
 import {mapWalletCoinToProps} from 'Popup/Store/WalletCoinConnector';
 import TrackScreenView from 'Popup/Service/ScreenViewAnalitics';
 
-const browserTabs = Extension.extensionInstance.getTabs();
+const browserTabs = extensionInstance.getTabs();
 
 const ButtonComponent = (props) => {
     return (

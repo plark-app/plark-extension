@@ -8,7 +8,7 @@ import {CoinSymbol} from 'Core/Coins';
 import ReactSVG from 'react-svg';
 import CoinItem from './CoinItem';
 
-export default class CoinsNav extends React.Component {
+export class CoinsNav extends React.Component {
     state = {
         loaded: false
     };

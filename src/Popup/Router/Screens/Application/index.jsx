@@ -10,7 +10,7 @@ import {MenuLayout} from 'Popup/UI/Layouts';
 import {extractTicker} from "Popup/Store/Helpers";
 import {filterCoinList, findFiat} from "Core/Coins";
 
-import WalletScreen from './WalletScreen';
+import {WalletScreenComponent} from './WalletScreen';
 import {ExchangeRouterComponent} from './ExchangeScreen';
 import OptionsScreen from './OptionsScreen';
 import HelpScreen from './HelpScreen';
@@ -97,7 +97,7 @@ export default class ApplicationScreen extends React.Component {
 
                     <div className={classNames("wallet-main")}>
                         <Switch>
-                            <Route path='/app/wallet' component={WalletScreen}/>
+                            <Route path='/app/wallet' component={WalletScreenComponent}/>
                             <Route path='/app/exchange' component={ExchangeRouterComponent}/>
                             <Route path='/app/options' component={OptionsScreen}/>
                             <Route path='/app/help' component={HelpScreen}/>

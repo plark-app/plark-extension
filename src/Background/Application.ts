@@ -2,12 +2,10 @@ import {wrapStore} from 'react-chrome-redux';
 import {debounce} from 'lodash';
 import * as BerryWalletCore from '@berrywallet/core';
 import {STORE_KEY} from 'Core/Constant';
-import stateStorage from 'Core/StateStorage';
-import store from 'Core/Store';
+import {store, stateStorage} from 'Core/Store';
 
 import {
     BackgroundCore,
-
     GlobalController,
     OptionController,
     StartUpController,

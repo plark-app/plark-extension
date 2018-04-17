@@ -1,17 +1,16 @@
-import * as Declarations from './Declarations';
-import {ExtensionProxy} from './ExtensionProxy';
+import {ExtensionProxy} from './extension-proxy';
 import CreateProperties = chrome.tabs.CreateProperties;
 
-class Platform {
+export class Platform {
 
-    protected extension: ExtensionProxy;
+    protected __extension: ExtensionProxy;
 
     constructor() {
-        this.extension = new ExtensionProxy();
+        this.__extension = new ExtensionProxy();
     }
 
     getExtension(): ExtensionProxy {
-        return this.extension;
+        return this.__extension;
     }
 
     /**
@@ -36,15 +35,15 @@ class Platform {
         this.getExtension().tabs.create(createProperties, callback);
     }
 
-    getManifest(): chrome.runtime.Manifest {
+    get notifications(): typeof chrome.notifications {
+        return this.getExtension().notifications;
+    }
+
+    get manifest(): chrome.runtime.Manifest {
         return this.getRuntime().getManifest();
     }
 
-    getNotifications(): typeof chrome.notifications {
-        return this.getExtension().notifications;
+    get version(): string {
+        return this.manifest.version;
     }
-}
-
-export {
-    Platform
 }

@@ -1,13 +1,10 @@
-import * as Declarations from './Declarations';
-import {ExtensionProxy} from "./ExtensionProxy";
-import {Platform} from './Platform';
+export {IExtension, SendMessageEvent} from './declarations';
+export {ExtensionProxy} from "./extension-proxy";
+import {Platform} from './platform';
 
 const extensionInstance: Platform = new Platform();
 
 export {
-    Declarations,
     Platform,
-    ExtensionProxy,
-
     extensionInstance
 }

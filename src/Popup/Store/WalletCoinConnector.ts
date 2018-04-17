@@ -1,9 +1,18 @@
 import {Wallet} from '@berrywallet/core';
+import {Coins} from 'Core';
 import {IStore} from 'Core/Declarations/Store';
 import {ICoinWallet} from "Core/Declarations/Wallet";
 import {currentCoinSelector, currentFiatSelector, tickerSelector} from './Selector';
 
-export const mapWalletCoinToProps = (store: IStore) => {
+export interface IConnectedWalletCoinProps {
+    coin: Coins.CoinInterface;
+    fiat: Coins.FiatInterface;
+    ticker?: Coins.TickerInterface;
+    walletData?: Wallet.Entity.WalletData;
+    balance?: Wallet.Entity.Balance;
+}
+
+export const mapWalletCoinToProps = (store: IStore): IConnectedWalletCoinProps => {
     const currentCoin = currentCoinSelector(store);
     const currentFiat = currentFiatSelector(store);
 

@@ -8,7 +8,7 @@ import {initialOptionState} from "Core/Reducer/OptionReducer";
 
 import {IStore} from 'Core/Declarations/Store';
 
-const ApplicationStartUpState: IStore = {
+export const applicationStartUpState: IStore = {
     Global: initialGlobalState,
     Welcome: initialWelcomeState,
     Keyring: initialKeyringState,
@@ -17,5 +17,3 @@ const ApplicationStartUpState: IStore = {
     Wallet: initialWalletState,
     Option: initialOptionState
 };
-
-export default ApplicationStartUpState;

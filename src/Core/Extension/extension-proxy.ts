@@ -1,4 +1,4 @@
-import * as Declarations from './Declarations'
+import {IExtension} from './declarations'
 
 const browserApiList: string[] = [
     'alarms',
@@ -24,7 +24,7 @@ const browserApiList: string[] = [
     'windows',
 ];
 
-class ExtensionProxy implements Declarations.ExtensionInterface {
+export class ExtensionProxy implements IExtension {
 
     alarms?: typeof chrome.alarms;
     bookmarks?: typeof chrome.bookmarks;
@@ -100,7 +100,3 @@ class ExtensionProxy implements Declarations.ExtensionInterface {
         });
     }
 }
-
-export {
-    ExtensionProxy
-};

@@ -8,7 +8,7 @@ declare global {
 
 declare type SendMessageEvent = (request: any, responseCallback?: (response: any) => void) => void;
 
-interface ExtensionInterface {
+interface IExtension {
     alarms?: typeof chrome.alarms;
     bookmarks?: typeof chrome.bookmarks;
     browserAction?: typeof chrome.browserAction;
@@ -38,5 +38,5 @@ interface ExtensionInterface {
 
 export {
     SendMessageEvent,
-    ExtensionInterface
+    IExtension
 }

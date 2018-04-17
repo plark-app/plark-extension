@@ -1,6 +1,7 @@
 import {Dictionary, merge, find} from 'lodash';
 import {Store} from 'redux';
-import {Extension, createDebugger} from 'Core';
+import {createDebugger} from 'Core';
+import * as Extension from 'Core/Extension';
 import {IStore} from 'Core/Declarations/Store';
 import {EventEmitter} from 'events';
 

@@ -18,7 +18,7 @@ if (!visitorUUID) {
 export const AnalyticsOptions = {
     GA_IDENTIFY: 'UA-116441094-1',
     NAME: 'BERRYWALLET',
-    VERSION: extensionInstance.getManifest().version
+    VERSION: extensionInstance.version
 };
 
 export const visitor = UniversalAnalytics(AnalyticsOptions.GA_IDENTIFY, visitorUUID, {https: true});

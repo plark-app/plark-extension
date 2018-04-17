@@ -4,7 +4,7 @@ import {TransactionNotification} from "./TransactionNotification";
 
 export function sendNotification(notifyObject: IBerryNotification): Promise<string> {
 
-    const extNotify = extensionInstance.getNotifications();
+    const extNotify = extensionInstance.notifications;
 
     return new Promise<string>((resolve, reject) => {
 

@@ -26,7 +26,7 @@ export const links = [{
 
 @withRouter
 @connect(mapWalletCoinToProps)
-export default class CoinDashboardLayout extends React.Component {
+export class CoinDashboardLayout extends React.Component {
 
     renderSvgBackground() {
         const {location} = this.props;
