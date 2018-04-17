@@ -71,9 +71,10 @@ export default class HistoryScreen extends React.Component {
     }
 
     render() {
+        const {coin} = this.props;
         return (
             <div>
-                <TrackScreenView trackLabel="wallet-history"/>
+                <TrackScreenView trackLabel={`wallet-${coin.getKey()}-history`}/>
                 <div className="history-list">
                     {this.drawTransactionList()}
                 </div>

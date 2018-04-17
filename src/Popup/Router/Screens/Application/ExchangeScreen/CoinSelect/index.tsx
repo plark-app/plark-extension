@@ -80,7 +80,7 @@ export class CoinSelect extends React.Component<ICSelectProps, ICSelectState> {
         return <div className={classNames("exch-select", open && "-open")}>
             <div className="exch-select__current" onClick={this.openCoinList}>
                 <CoinUnitComponent coin={coin}/>
-                <DropArrow active={open} wrapperClassName="exch-select__current-arrow" />
+                <DropArrow active={open} wrapperClassName="exch-select__current-arrow"/>
             </div>
             <div className="exch-select__units">
                 <div className="exch-select__units-wrapper">

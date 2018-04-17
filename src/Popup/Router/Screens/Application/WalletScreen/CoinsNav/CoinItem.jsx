@@ -9,7 +9,7 @@ import {findFiat} from "Core/Coins";
 import proxyStore from 'Popup/Store';
 import {extractTicker} from "Popup/Store/Helpers";
 import {CoinAction} from "Core/Actions/Reducer";
-import {AnalyticsObserver} from "Popup/Service/Analytics";
+import {Analytics} from "Popup/Service";
 import {Wallet} from "@berrywallet/core";
 
 
@@ -42,7 +42,7 @@ export default class CoinItem extends React.Component {
             coinKey: coinKey
         });
 
-        AnalyticsObserver.event('ChooseCoin', coinKey);
+        Analytics.event('Coin', 'choose', coinKey);
     };
 
     render() {

@@ -36,7 +36,7 @@ const Plugins = [
     isProd ? new webpack.optimize.ModuleConcatenationPlugin() : noop,
 
     isProd ? new webpack.LoaderOptionsPlugin({
-        minimize: true,
+        minimize: false,
         debug: false
     }) : noop,
 
@@ -79,6 +79,7 @@ const Loaders = [{
 
 
 const OptimisationProps = {
+    minimize: false
     // splitChunks: {
     //     cacheGroups: {
     //         commons: {test: /node_modules/, name: 'vendors', chunks: 'all'},

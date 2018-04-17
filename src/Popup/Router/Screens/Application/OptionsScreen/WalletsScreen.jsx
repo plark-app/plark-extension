@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import classNames from 'classnames';
 import {Background} from 'Popup/Service';
 import {InputCheck, Alert} from 'Popup/UI';
-import {AnalyticsObserver} from "Popup/Service/Analytics";
+import {Analytics} from "Popup/Service";
 import {coinList} from 'Core/Coins';
 import {Controller} from "Core/Actions";
 
@@ -84,14 +84,14 @@ export default class WalletsScreen extends React.Component {
 
             type = Controller.WalletEvent.DisActivateCoin;
             callback = () => {
-                AnalyticsObserver.event('CoinRemove', toTriggerCoin);
+                Analytics.event('Coin', 'remove', toTriggerCoin);
 
                 return toTriggerCoin;
             }
         } else {
             type = Controller.WalletEvent.ActivateCoin;
             callback = () => {
-                AnalyticsObserver.event('CoinAdd', toTriggerCoin);
+                Analytics.event('Coin', 'add', toTriggerCoin);
 
                 return toTriggerCoin;
             };

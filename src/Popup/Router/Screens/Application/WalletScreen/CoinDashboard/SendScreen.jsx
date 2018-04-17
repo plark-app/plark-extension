@@ -246,7 +246,7 @@ export default class SendScreen extends React.Component {
 
         return (
             <div className={classNames("wallet-wrapper", "send")}>
-                <TrackScreenView trackLabel="wallet-send"/>
+                <TrackScreenView trackLabel={`wallet-${coin.getKey()}-send`}/>
 
                 <div className={classNames("send-process", sendingTransaction && "-sending")}>
                     <div className="send-process__overlay"/>

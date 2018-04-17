@@ -96,7 +96,7 @@ export default class ReceiveScreen extends React.Component {
 
         return (
             <div className="wallet-wrapper receive">
-                <TrackScreenView trackLabel="wallet-receive"/>
+                <TrackScreenView trackLabel={`wallet-${coin.getKey()}-receive`}/>
 
                 <div>
                     <Notice className='receive-copied' show={this.state.copied}>Address copied!</Notice>

@@ -1,7 +1,7 @@
 {
     "name": "berrywallet",
     "description": "BerryWallet the tastiest way to keep cryptocurrency",
-    "version": "1.2.0",
+    "version": "1.3.0",
     "public": true,
     "scripts": {
         "webpack": "$(npm bin)/webpack",
@@ -10,7 +10,7 @@
         "build:prod": "rm -rf ./dist && NODE_ENV=production $(npm bin)/webpack && gulp build && gulp zip"
     },
     "dependencies": {
-        "@berrywallet/core": "^0.2.2",
+        "@berrywallet/core": "^0.2.7",
         "axios": "^0.17.0",
         "berrymarketcap": "^1.2.1",
         "bip39": "^2.4.0",

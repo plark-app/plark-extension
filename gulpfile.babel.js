@@ -52,6 +52,7 @@ gulp.task('copy:views', copyTask({
 gulp.task('manifest:production', () => {
     return gulp
         .src('./resources/manifest.json')
+        .pipe(generateManifestBuilder())
         .pipe(gulp.dest('./dist/firefox', {overwrite: true}))
         .pipe(jsoneditor((json) => {
             delete json.applications;
@@ -68,8 +69,10 @@ gulp.task('manifest:production', () => {
 // gulp.task('js', generateBundlerTask({watch: false, mode: "production"}));
 // gulp.task('js:watch', generateBundlerTask({watch: true, mode: "development"}));
 
-gulp.task('webpack', () => {});
-gulp.task('webpack:watch', () => {});
+gulp.task('webpack', () => {
+});
+gulp.task('webpack:watch', () => {
+});
 
 const staticFiles = ['images', 'views', 'locales'];
 let copyStrings = staticFiles.map(staticFile => `copy:${staticFile}`);
@@ -111,10 +114,11 @@ function copyTask(opts) {
 }
 
 function zipTask(target) {
+    const packageJson = require('./package.json');
     return () => {
         return gulp
             .src(`./dist/${target}/**`)
-            .pipe(zip(`berrywallet-${target}-${manifest.version}.zip`))
+            .pipe(zip(`berrywallet-${target}-${packageJson.version}.zip`))
             .pipe(gulp.dest('./builds'));
     }
 }
@@ -150,4 +154,15 @@ function generateBundlerTask(options) {
             .pipe(gulp.dest('./dist/chrome'))
             .pipe(gulp.dest('./dist/firefox'));
     }
+}
+
+
+function generateManifestBuilder() {
+    const packageJson = require('./package.json');
+
+    return jsoneditor((json) => {
+        json.version = packageJson.version;
+
+        return json
+    });
 }

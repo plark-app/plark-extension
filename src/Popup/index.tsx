@@ -2,7 +2,7 @@ import React from 'react';
 import {Provider} from 'react-redux';
 import {ApplicationRouter} from 'Popup/Router';
 import proxyStore from 'Popup/Store'
-import {AnalyticsObserver} from "Popup/Service/Analytics";
+import {Analytics} from "Popup/Service";
 
 interface PopupApplicationStateInterface {
     ready: boolean
@@ -14,7 +14,7 @@ export class PopupApplication extends React.Component<any, PopupApplicationState
     };
 
     componentDidCatch(error, info) {
-        AnalyticsObserver.exception(error, true);
+        Analytics.exception(error, true);
     }
 
     componentDidMount() {

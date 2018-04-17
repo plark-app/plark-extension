@@ -6,6 +6,8 @@ export interface CoinInterface {
 
     getUnit(): Coin.Unit;
 
+    getCoreCoin(): Coin.CoinInterface;
+    
     getName(): string;
 
     getAlias(): string;

@@ -19,6 +19,10 @@ export abstract class AbstractUnit implements CoinInterface {
         return this.key;
     }
 
+    getCoreCoin(): Coin.CoinInterface {
+        return Coin.makeCoin(this.getUnit());
+    }
+
     getUnit(): Coin.Unit {
         return this.unit;
     }

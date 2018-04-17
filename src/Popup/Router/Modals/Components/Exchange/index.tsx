@@ -9,7 +9,7 @@ import {Controller} from "Core/Actions";
 import {IStore} from "Core/Declarations/Store";
 import {Selector} from "Popup/Store";
 import {Button, CoinIcon, ValueSnippet, Alert} from "Popup/UI";
-import {Background} from 'Popup/Service';
+import {Background, Analytics} from 'Popup/Service';
 
 import {ModalLayout} from "../../ModalLayout";
 import {modalObserverInstance} from "../../Observer";
@@ -94,7 +94,7 @@ class Exchange extends React.Component<IExchangeProps, IExchangeModalState> {
     };
 
     private tryExchange = () => {
-        const {fromCoin, toCoin, fromValue} = this.props;
+        const {fromCoin, toCoin, fromValue, fromTicker} = this.props;
 
         const payload = {
             from: fromCoin.getKey(),
@@ -104,6 +104,13 @@ class Exchange extends React.Component<IExchangeProps, IExchangeModalState> {
 
         const onSuccess = (data) => {
             this.setState(() => ({successfulExchange: true}));
+
+            Analytics.event(
+                "Exchange",
+                "success",
+                `${fromCoin.getUnit()} to ${toCoin.getUnit()}`,
+                // fromValue.mul(fromTicker.priceFiat).mul(0.0025).round(2).toNumber()
+            );
         };
 
         const onError = (error) => {

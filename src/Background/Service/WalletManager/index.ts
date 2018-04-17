@@ -217,15 +217,6 @@ export class WalletManager {
         const privateWallet = this.wdProvider.getPrivate(bufferSeed);
         const parsedAddress = Coin.Helper.parseAddressByCoin(this.wdProvider.getData().coin, address);
 
-        const onSuccessBroadcastTx = (txid) => {
-            return this.trackTransaction(txid)
-                .then((tx) => {
-                    this.putNewTx(tx);
-
-                    return tx;
-                })
-        };
-
         const onBroadcastingError = (error) => {
             this.debug('Error on send transaction', error);
 
@@ -239,6 +230,13 @@ export class WalletManager {
         };
 
         const broadcastTransaction = (transaction: Coin.Transaction.Transaction) => {
+            const onSuccessBroadcastTx = (txid: string) => {
+                const walletTx = Wallet.Helper.coinTxToWalletTx(txid, transaction, this.coin.getCoreCoin());
+                this.putNewTx(walletTx);
+
+                return walletTx;
+            };
+
             return privateWallet.broadcastTransaction(transaction)
                 .then(onSuccessBroadcastTx, onBroadcastingError)
                 .catch(onBroadcastingError);

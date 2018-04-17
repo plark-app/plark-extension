@@ -1,26 +1,27 @@
 import React from 'react';
-import {AnalyticsObserver} from 'Popup/Service/Analytics';
-import debug from 'debug';
+import {Analytics} from 'Popup/Service';
 
-const debugScreenView = debug('berrywallet:screen');
 
-const trackScreenLabel = (trackLabel) => {
+const trackScreenLabel = (trackLabel: string) => {
     if (!trackLabel) {
         return;
     }
 
-    AnalyticsObserver.screenview(trackLabel);
-    debugScreenView('Screen view %c' + trackLabel, 'color: blue;');
+    Analytics.screenview(trackLabel);
 };
 
-export default class TrackScreenView extends React.PureComponent {
+export interface ITrackScreenViewProps {
+    trackLabel: string;
+}
+
+export default class TrackScreenView extends React.PureComponent<ITrackScreenViewProps, any> {
     componentDidMount() {
         const {trackLabel} = this.props;
 
         trackScreenLabel(trackLabel);
     }
 
-    componentDidUpdate(prevProps) {
+    componentDidUpdate(prevProps: ITrackScreenViewProps) {
         const trackLabel = this.props.trackLabel;
         const prevLabel = prevProps.trackLabel;
 

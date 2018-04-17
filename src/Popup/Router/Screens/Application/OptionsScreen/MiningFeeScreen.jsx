@@ -4,7 +4,7 @@ import {map} from 'lodash';
 import {Coin} from '@berrywallet/core';
 import {Background} from 'Popup/Service';
 import {OptionEvent} from "Core/Actions/Controller";
-import {AnalyticsObserver} from "Popup/Service/Analytics";
+import {Analytics} from "Popup/Service";
 import {InputCheck} from 'Popup/UI';
 
 const mapStateToProps = (store) => {
@@ -39,7 +39,7 @@ export default class MiningFeeScreen extends React.Component {
             .sendRequest(OptionEvent.SetFee, {fee: feeKey})
             .then(this.onPreparedResponse);
 
-        AnalyticsObserver.event('ChooseFee', feeKey);
+        Analytics.event('Fee', 'choose', feeKey);
     };
 
     drawFeeRow = (feeItem) => {
