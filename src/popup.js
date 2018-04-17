@@ -1,11 +1,20 @@
+import './polyfill';
+import 'Style/popup.scss';
+
 import React from 'react';
 import {render} from 'react-dom';
-import PopupApplication from 'Popup/index.tsx';
-import {AnalyticsObserver} from 'Popup/Service/Analytics';
+import {PopupApplication} from 'Popup/index.tsx';
+import {Analitics} from 'Popup/Service';
+
+import BigNumber from 'bignumber.js';
+BigNumber.config({ERRORS: false});
+
+const debugProvider = require('debug');
+debugProvider.enable("berrywallet:*");
 
 const trackException = (exception) => {
     try {
-        AnalyticsObserver.exception(exception);
+        Analitics.exception(exception);
     } catch (error) {
         console.log('Error on send exception to GA!');
     }

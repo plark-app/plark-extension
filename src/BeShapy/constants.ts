@@ -1,0 +1,2 @@
+export const SHAPESHIFT_URL = 'https://shapeshift.io/';
+export const SHAPESHIFT_DEFAULT_API_KEY = 'fac6344728433bc160a622dedaff4889a3a90a6d875bfd0f3b53e0097916394ee79d1cd1f491bb70a534d42d93e053fd6aa780393f0f5aef7283f6ed839563d3';

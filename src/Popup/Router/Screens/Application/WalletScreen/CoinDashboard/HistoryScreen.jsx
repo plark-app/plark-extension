@@ -9,7 +9,7 @@ import {Wallet} from '@berrywallet/core';
 
 import {Helper, Coins} from 'Core';
 import {mapWalletCoinToProps} from 'Popup/Store/WalletCoinConnector';
-import {Badge} from 'Popup/Service/UIComponents';
+import {Badge} from 'Popup/UI';
 import TrackScreenView from 'Popup/Service/ScreenViewAnalitics';
 import {modalObserverInstance, ModalType} from "Popup/Router/Modals";
 
@@ -71,9 +71,10 @@ export default class HistoryScreen extends React.Component {
     }
 
     render() {
+        const {coin} = this.props;
         return (
             <div>
-                <TrackScreenView trackLabel="wallet-history"/>
+                <TrackScreenView trackLabel={`wallet-${coin.getKey()}-history`}/>
                 <div className="history-list">
                     {this.drawTransactionList()}
                 </div>

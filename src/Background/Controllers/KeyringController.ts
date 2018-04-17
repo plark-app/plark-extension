@@ -1,13 +1,15 @@
-const BIP39 = require('bip39');
-import {Dictionary} from 'lodash';
-import {AnyAction, Store} from 'redux';
-import {IStore} from 'Core/Declarations/Store';
+import {NeedPasswordError} from "../Errors";
 
+const BIP39 = require('bip39');
+import {Store} from 'redux';
+import {createDebugger} from "Core";
+import {IStore} from 'Core/Declarations/Store';
 import {KeyringEvent} from 'Core/Actions/Controller';
 import {KeyringAction} from 'Core/Actions/Reducer';
-
-import {EventHandlerType, IBackgroundCore} from 'Core/Declarations/Service';
+import {IBackgroundCore} from 'Core/Declarations/Service';
 import {AbstractController} from 'Background/Service/AbstractController';
+
+const debug = createDebugger('KEYRING');
 
 import {
     VaultDataInterface,
@@ -19,13 +21,13 @@ import {
 const TIMEOUT_30M: number = 1800;
 const TIMEOUT_1H: number = 3600;
 
-export default class KeyringController extends AbstractController {
+export class KeyringController extends AbstractController {
 
     vaultProvider?: SeedVaultProvider;
     private password?: string;
     private timeout;
 
-    static getAlias(): string {
+    get alias (): string {
         return 'KEYRING';
     }
 
@@ -68,7 +70,7 @@ export default class KeyringController extends AbstractController {
         return new Promise<any>((resolve) => {
             setTimeout(() => {
                 resolve({
-                    type: KeyringController.getAlias(),
+                    type: this.alias,
                     success: true
                 });
             }, 5000);
@@ -84,7 +86,7 @@ export default class KeyringController extends AbstractController {
         this.checkSeed(seed);
 
         return {
-            type: KeyringController.getAlias(),
+            type: this.alias,
             success: true
         };
     };
@@ -102,7 +104,7 @@ export default class KeyringController extends AbstractController {
         this.setNeedPassword();
 
         return {
-            type: KeyringController.getAlias(),
+            type: this.alias,
             success: true
         };
     };
@@ -176,7 +178,7 @@ export default class KeyringController extends AbstractController {
         }
 
         if (!this.password) {
-            throw new Error('Set the password!')
+            throw new NeedPasswordError('Set vault password!')
         }
 
         return this.vaultProvider.getSeed(this.password);

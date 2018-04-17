@@ -28,6 +28,10 @@ export abstract class AbstractController implements IController {
         this.eventListeners[event] = eventCallback;
     }
 
+    get alias(): string {
+        throw new Error("Alias must be implement!");
+    }
+
     /**
      * @returns {Dictionary<EventHandlerType>}
      */

@@ -8,10 +8,10 @@ import ReactSVG from 'react-svg';
 
 import {Helper} from 'Core';
 import {findCoin, TxDirection} from "Core/Coins";
-import {Notice, Badge, RemoteLink} from "Popup/Service/UIComponents";
-import {DotLoader} from 'Popup/Router/UIComponents';
+import {RemoteLink, Notice, Badge} from "Popup/UI";
+import {DotLoader} from 'Popup/UI';
 
-import ModalLayout from "../ModalLayout";
+import {ModalLayout} from "../ModalLayout";
 
 const mapStateToProps = (store, ownProps) => {
     return {
@@ -20,7 +20,7 @@ const mapStateToProps = (store, ownProps) => {
     };
 };
 
-@connect(mapStateToProps, null)
+@connect(mapStateToProps)
 export default class Transaction extends React.Component {
 
     txidHiddenTextarea;
@@ -34,22 +34,21 @@ export default class Transaction extends React.Component {
             let successful = document.execCommand('copy');
             // @TODO There is no way to keep it here.. Should be other way.
             if (successful) {
-                this.setState(() => {
-                    setTimeout(() => {
-                        this.setState(() => {
-                            return {copied: false}
-                        });
-                    }, 2000);
+                this.setState(this.copiedSetter(true));
 
-                    return {copied: true};
-                });
+                setTimeout(() => {
+                    this.setState(this.copiedSetter(false));
+                }, 2000);
             }
         } catch (err) {
-            console.log('Oops, unable to copy');
         }
     };
 
-    getFromAddress = () => {
+    copiedSetter = (status) => {
+        return () => ({copied: status});
+    };
+
+    get fromAddress() {
         const {tx, amount} = this.props;
         if (amount < 0) {
             return null;
@@ -58,8 +57,8 @@ export default class Transaction extends React.Component {
         return tx.from || null;
     };
 
-    getToAddress = () => {
-        const {tx, amount} = this.props;
+    get toAddress() {
+        const {tx} = this.props;
 
         return tx.to || null;
     };
@@ -71,8 +70,8 @@ export default class Transaction extends React.Component {
         const blockExplorerHost = parceUrl(coin.getExplorerHost()).host;
         const directionKey = amount > 0 ? TxDirection.Up : TxDirection.Down;
 
-        const fromAddress = this.getFromAddress(directionKey);
-        const toAddress = this.getToAddress(directionKey);
+        const fromAddress = this.fromAddress;
+        const toAddress = this.toAddress;
 
         const time = tx.blockTime ? tx.blockTime : tx.receiveTime;
 
@@ -93,7 +92,7 @@ export default class Transaction extends React.Component {
 
                     <dl className="tx-info-item">
                         <dt className="tx-info-item__title">Amount</dt>
-                        <dd className="tx-info-item__value">{numeral(amount).format('0,0.00[000000]')} {coin.getKey()}</dd>
+                        <dd className="tx-info-item__value">{Helper.renderCoin(amount)} {coin.getKey()}</dd>
                     </dl>
 
                     <dl className="tx-info-item">
@@ -102,16 +101,15 @@ export default class Transaction extends React.Component {
                             {shortTx}
                             <div className="tx-info-copy-txid">
                                 <button
-                                    onClick={this.copyToClipboard}
                                     className="tx-info-copy-txid__btn btn -outline"
+                                    onClick={this.copyToClipboard}
                                 >Copy TXID
                                 </button>
-                                <input
-                                    type="text"
-                                    style={{position: 'absolute', left: '-9999px'}}
-                                    value={tx.txid}
-                                    readOnly={true}
-                                    ref={(elem) => this.txidHiddenTextarea = elem}
+                                <input type="text"
+                                       style={{position: 'absolute', left: '-9999px'}}
+                                       value={tx.txid}
+                                       readOnly={true}
+                                       ref={(elem) => this.txidHiddenTextarea = elem}
                                 />
                             </div>
                         </dd>
@@ -142,13 +140,11 @@ export default class Transaction extends React.Component {
                     <dl className="tx-info-item">
                         <dt className="tx-info-item__title">Confirmations</dt>
                         <dd className="tx-info-item__value">
-                            <span className="tx-info-confirmations">
-                                {
-                                    blockHeight && tx.blockHeight
-                                        ? numeral(blockHeight - tx.blockHeight + 1).format("0,0")
-                                        : <DotLoader/>
-                                }
-                            </span>
+                            <span className="tx-info-confirmations">{
+                                blockHeight && tx.blockHeight
+                                    ? numeral(blockHeight - tx.blockHeight + 1).format("0,0")
+                                    : <DotLoader/>
+                            }</span>
                             <Badge status={Helper.getTXStatus(tx)}/>
                         </dd>
                     </dl>

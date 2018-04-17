@@ -1,4 +1,6 @@
 import {TransactionStatus} from "Core/Service/Wallet";
+import BigNumber from 'bignumber.js';
+import Numeral from 'numeral';
 import {Wallet} from '@berrywallet/core';
 
 /**
@@ -24,4 +26,33 @@ export function getTXStatus(tx: Wallet.Entity.WalletTransaction | Wallet.Entity.
     }
 
     return TransactionStatus.Confirmed;
+}
+
+
+
+export function parseStrToBigN(value: string | number | BigNumber | null): BigNumber {
+    if (!value) {
+        return new BigNumber(0);
+    }
+
+    if (value instanceof BigNumber) {
+        return value;
+    }
+
+    if (typeof value === 'string') {
+        return new BigNumber(parseFloat(value.replace(',', '.')) || 0);
+    } else if (typeof value === 'number') {
+        return new BigNumber(value);
+    }
+
+    return new BigNumber(+value);
+}
+
+
+export function renderCoin(number: number | BigNumber): string {
+    return Numeral(number).format('0,0.00[000000]');
+}
+
+export function renderFiat(number: number | BigNumber): string {
+    return Numeral(number).format('0,0.00');
 }

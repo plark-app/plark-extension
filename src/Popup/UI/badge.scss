@@ -1,0 +1,38 @@
+@import "../../Style/variable";
+
+.badge {
+    width: 68px;
+    line-height: 18px;
+
+    display: inline-block;
+
+    letter-spacing: 1px;
+    font-size: 10px;
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: 600;
+
+    border-radius: 3px;
+
+    color: grey;
+    border: 1px solid transparentize(grey, 0.5);
+    background: transparentize(grey, 0.9);
+
+    &.-success {
+        color: $color-green;
+        border: 1px solid transparentize($color-green, 0.5);
+        background: transparentize($color-green, 0.9);
+    }
+
+    &.-warning {
+        color: $color-yellow;
+        border: 1px solid transparentize($color-yellow, 0.5);
+        background: transparentize($color-yellow, 0.9);
+    }
+
+    &.-error {
+        color: $color-red;
+        border: 1px solid transparentize($color-red, 0.5);
+        background: transparentize($color-red, 0.9);
+    }
+}

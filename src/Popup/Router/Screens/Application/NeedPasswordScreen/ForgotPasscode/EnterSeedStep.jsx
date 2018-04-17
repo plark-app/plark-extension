@@ -2,7 +2,7 @@ import React from 'react';
 import {Helper} from 'Core';
 import {Background} from 'Popup/Service';
 import {KeyringEvent} from 'Core/Actions/Controller';
-import {Button} from 'Popup/Router/UIComponents';
+import {Button} from 'Popup/UI';
 
 export default class EnterSeedStep extends React.Component {
 
@@ -58,7 +58,7 @@ export default class EnterSeedStep extends React.Component {
         };
 
         return (
-            <div>
+            <React.Fragment>
                 <div className="topic">
                     <h1 className="topic__title">Enter your backup phrase to reset passcode</h1>
                 </div>
@@ -68,7 +68,7 @@ export default class EnterSeedStep extends React.Component {
                         <Button disabled={!this.state.seed} type="submit">Reset passcode</Button>
                     </div>
                 </form>
-            </div>
+            </React.Fragment>
         );
     }
 }

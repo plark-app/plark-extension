@@ -4,7 +4,7 @@ import {EventHandlerType, IBackgroundCore} from 'Core/Declarations/Service';
 import {Reducer, Controller} from 'Core/Actions';
 import {AbstractController} from 'Background/Service/AbstractController';
 
-export default class OptionController extends AbstractController {
+export class OptionController extends AbstractController {
 
     /**
      * @param {IBackgroundCore} app
@@ -16,7 +16,7 @@ export default class OptionController extends AbstractController {
         this.bindEventListener(Controller.OptionEvent.SetFee, this.setFee);
     }
 
-    static getAlias(): string {
+    get alias(): string {
         return 'OPTION';
     }
 

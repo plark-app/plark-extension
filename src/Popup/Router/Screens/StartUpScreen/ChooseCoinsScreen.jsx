@@ -3,14 +3,14 @@ import ReactSVG from 'react-svg';
 import {filter, map} from 'lodash';
 import {connect} from 'react-redux';
 import classNames from 'classnames';
-import {showAlert} from "Popup/Router/Alert";
 
+import {Button, Alert} from "Popup/UI";
 import proxyStore from 'Popup/Store';
 import {mapWelcomeDispatchers} from 'Popup/Store/KeyringConnector';
 import {coinList, CoinSymbol} from 'Core/Coins';
 import WelcomeLayout from './Parts/WelcomeLayout';
 import WelcomeLink from 'Popup/Router/Screens/StartUpScreen/Parts/WelcomeLink';
-import {Button} from "Popup/Router/UIComponents";
+
 
 
 @connect(null, mapWelcomeDispatchers)
@@ -48,7 +48,7 @@ export default class ChooseCoinsScreen extends React.Component {
             }
 
             if (newSelected.length < 1) {
-                showAlert({
+                Alert.showAlert({
                     message: "Uh-oh! Please select at least one wallet.",
                     noBody: true
                 });

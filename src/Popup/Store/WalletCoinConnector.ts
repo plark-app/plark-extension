@@ -1,21 +1,27 @@
 import {Wallet} from '@berrywallet/core';
+import {Coins} from 'Core';
 import {IStore} from 'Core/Declarations/Store';
-import {findCoin, findFiat} from 'Core/Coins'
 import {ICoinWallet} from "Core/Declarations/Wallet";
-import {extractTicker} from "./Helpers";
+import {currentCoinSelector, currentFiatSelector, tickerSelector} from './Selector';
 
-export const mapWalletCoinToProps = (store: IStore) => {
-    const {currentCoinKey, currentFiatKey} = store.Coin;
+export interface IConnectedWalletCoinProps {
+    coin: Coins.CoinInterface;
+    fiat: Coins.FiatInterface;
+    ticker?: Coins.TickerInterface;
+    walletData?: Wallet.Entity.WalletData;
+    balance?: Wallet.Entity.Balance;
+}
 
-    const currentCoin = findCoin(currentCoinKey);
-    const currentFiat = findFiat(currentFiatKey);
+export const mapWalletCoinToProps = (store: IStore): IConnectedWalletCoinProps => {
+    const currentCoin = currentCoinSelector(store);
+    const currentFiat = currentFiatSelector(store);
 
-    const wallet: ICoinWallet = store.Wallet[currentCoinKey];
+    const wallet: ICoinWallet = store.Wallet[currentCoin.getKey()];
 
     const connectedProps = {
         coin: currentCoin,
         fiat: currentFiat,
-        ticker: extractTicker(currentCoin.getKey()),
+        ticker: tickerSelector(store)(currentCoin.getKey()),
         walletData: null,
         balance: null
     };

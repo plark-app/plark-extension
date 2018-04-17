@@ -1,7 +1,9 @@
-import {Dictionary, merge} from 'lodash';
+import {Dictionary, merge, find} from 'lodash';
 import {Store} from 'redux';
+import {createDebugger} from 'Core';
+import * as Extension from 'Core/Extension';
 import {IStore} from 'Core/Declarations/Store';
-import {extensionInstance} from 'Core/Extension';
+import {EventEmitter} from 'events';
 
 import {
     EventListenerType,
@@ -12,27 +14,30 @@ import {
     ControllerConstructorType
 } from 'Core/Declarations/Service';
 
+const debug = createDebugger('BACKGROUND_EVENT');
 
-export default class BackgroundCore implements IBackgroundCore {
+
+export class BackgroundCore extends EventEmitter implements IBackgroundCore {
     store: Store<IStore>;
-    controllers: Dictionary<IController> = {};
+    controllers: IController[] = [];
     eventHandlers: Dictionary<EventHandlerType> = {} as Dictionary<EventHandlerType>;
 
     /**
      * @param {Store<IStore>} store
      */
     constructor(store: Store<IStore>) {
+        super();
+
         this.store = store;
-        extensionInstance.getRuntime().onMessage.addListener(this.generateEventListener());
+        Extension.extensionInstance.getRuntime().onMessage.addListener(this.generateEventListener());
     }
 
     /**
-     * @param {string} alias
      * @param {ControllerConstructorType<T extends IController>} controller
      */
-    registerController<T extends IController>(alias: string, controller: ControllerConstructorType<T>) {
+    registerController<T extends IController>(controller: ControllerConstructorType<T>) {
         const newController: T = new controller(this, this.store);
-        this.controllers[alias] = newController;
+        this.controllers.push(newController);
 
         this.eventHandlers = merge(this.eventHandlers, newController.getEventListeners());
     }
@@ -42,7 +47,7 @@ export default class BackgroundCore implements IBackgroundCore {
      * @returns {IController}
      */
     get(alias: string): IController {
-        const controller: IController = this.controllers[alias] as IController;
+        const controller: IController = find(this.controllers, {alias: alias}) as IController;
 
         if (!controller) {
             throw Error(`Service '${alias}' has not registered!`);
@@ -57,6 +62,9 @@ export default class BackgroundCore implements IBackgroundCore {
     generateEventListener(): EventListenerType {
         return (request: IRuntimeRequest, sender: any, sendResponse): boolean => {
             const eventHandler: EventHandlerType = this.eventHandlers[request.type];
+
+            debug(request.type, request.payload);
+
             if (!eventHandler) {
                 return;
             }
@@ -77,7 +85,7 @@ export default class BackgroundCore implements IBackgroundCore {
 
                 const response = eventHandler(request.payload, sender);
                 if (response instanceof Promise) {
-                    response.then(onSuccess);
+                    response.then(onSuccess, onError).catch(onError);
                 } else {
                     onSuccess(response);
                 }
@@ -87,7 +95,7 @@ export default class BackgroundCore implements IBackgroundCore {
 
             /**
              * SERIOUSLY??????????
-             * I HAVE TO RETURN THIS FUCKED VALUE TO SAY: that I have many async responses???
+             * I HAVE TO RETURN THIS FUCKED VALUE TO SAY: That I have many async responses???
              */
             return true;
         };

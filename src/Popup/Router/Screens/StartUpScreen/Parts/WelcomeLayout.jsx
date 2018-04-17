@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import TrackScreenView from 'Popup/Service/ScreenViewAnalitics';
-import {KeyboardHandler} from 'Popup/Router/SystemComponent/index';
+import {KeyboardHandler} from 'Popup/Router/SystemComponent';
 
 export default class WelcomeLayout extends React.Component {
     render() {

@@ -1,7 +1,7 @@
 import React, {Fragment} from 'react';
 import {connect} from 'react-redux';
 import screenHistory from 'Popup/ScreenAddressHistory';
-import {Button} from "Popup/Router/UIComponents";
+import {Button} from "Popup/UI";
 import TrackScreenView from 'Popup/Service/ScreenViewAnalitics';
 
 import proxyStore from 'Popup/Store';

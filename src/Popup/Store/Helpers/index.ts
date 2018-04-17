@@ -1,14 +1,8 @@
-import {IStore} from "Core/Declarations/Store";
 import {CoinSymbol, TickerInterface} from "Core/Coins";
-
-import proxyStore from '../';
-
-function getState(): IStore {
-    return proxyStore.getState();
-}
+import proxyStore from '../Store';
 
 export function extractTicker(coin: CoinSymbol): TickerInterface {
-    return getState().Coin.tickers[coin] || {
+    return proxyStore.getState().Coin.tickers[coin] || {
         key: coin,
         priceBtc: 0,
         priceFiat: 0

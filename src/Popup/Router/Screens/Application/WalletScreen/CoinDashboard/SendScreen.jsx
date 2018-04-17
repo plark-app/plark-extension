@@ -1,15 +1,14 @@
 import React from 'react';
-import {reverse} from 'lodash';
+import {Wallet, Coin} from '@berrywallet/core';
+import {reverse, debounce} from 'lodash';
 import BigNumber from 'bignumber.js';
 import {connect} from 'react-redux';
-import {Wallet, Coin} from '@berrywallet/core';
 import classNames from 'classnames';
 import Numeral from 'numeral';
-import debounce from 'debounce';
-import {mapWalletCoinToProps} from 'Popup/Store/WalletCoinConnector';
-import {showAlert} from 'Popup/Router/Alert';
+
 import {Controller} from 'Core/Actions';
-import {Button} from "Popup/Router/UIComponents";
+import {Button, Alert} from "Popup/UI";
+import {mapWalletCoinToProps} from 'Popup/Store/WalletCoinConnector';
 import TrackScreenView from 'Popup/Service/ScreenViewAnalitics';
 import {Background} from 'Popup/Service';
 import {FooterComponent} from "./SendScreenComponents/FooterComponent";
@@ -47,6 +46,14 @@ export default class SendScreen extends React.Component {
             default:
                 return dataValue.round(8);
         }
+    }
+
+    getFee() {
+        return this.state.fee ? new BigNumber(this.state.fee).round(8) : null;
+    }
+
+    getBalance() {
+        return new BigNumber(Wallet.Helper.calculateBalance(this.props.balance)).round(8);
     }
 
     onChangeAddress = (event) => {
@@ -103,19 +110,17 @@ export default class SendScreen extends React.Component {
     };
 
     validateData() {
+        const fee = this.getFee();
+        const coinValue = this.getCoinValue();
 
-        const {balance} = this.props;
-        const {fee} = this.state;
-
-        const coinValue = this.getCoinValue().toNumber();
         const {coin} = this.props;
 
         if (coinValue <= 0) {
             throw new Error("Oh snap! Set value to sent");
         }
 
-        const walletBalance = Wallet.Helper.calculateBalance(balance);
-        const remaining = walletBalance - fee - coinValue;
+        const walletBalance = this.getBalance();
+        const remaining = walletBalance.minus(fee ? fee : 0).minus(coinValue);
 
         if (remaining < 0) {
             throw new Error("Oh snap! It seems there is not enough funds.");
@@ -143,14 +148,17 @@ export default class SendScreen extends React.Component {
         try {
             newTxRequestParams = this.validateData();
         } catch (error) {
-            showAlert({
-                message: error.message
-            });
+            Alert.showAlert({message: error.message});
 
             return;
         }
 
         const onSuccess = (response) => {
+            Alert.showAlert({
+                type: "success",
+                message: "Transaction successfully sent"
+            });
+
             this.setState(() => {
                 return {
                     value: '',
@@ -163,9 +171,10 @@ export default class SendScreen extends React.Component {
         };
 
         const onError = (error) => {
-            showAlert({
+            Alert.showAlert({
                 message: error.message
             });
+
             this.setSending(false);
         };
 
@@ -178,22 +187,29 @@ export default class SendScreen extends React.Component {
     };
 
     setSending = (sendingTransaction) => {
-        this.setState(() => ({sendingTransaction}));
+        this.setState(() => {
+            return {
+                sendingTransaction: sendingTransaction
+            }
+        });
     };
 
     render() {
         const {
             coin,
             fiat,
-            ticker,
-            balance
+            ticker
         } = this.props;
 
-        const {address, activeInput, value, fee, sendingTransaction} = this.state;
+        const {address, activeInput, value = 0, sendingTransaction} = this.state;
 
-        const coinValue = this.getCoinValue().toNumber();
-        const walletBalance = Wallet.Helper.calculateBalance(balance);
-        const remaining = walletBalance - fee - coinValue;
+        const fee = this.getFee();
+        const coinValue = this.getCoinValue();
+        const walletBalance = this.getBalance();
+
+        const remaining = walletBalance.minus(fee ? fee : 0).minus(coinValue);
+        remaining.round(8);
+
         const disabledSend = !this.state.address || coinValue <= 0;
 
         const baseRowProps = {
@@ -230,7 +246,7 @@ export default class SendScreen extends React.Component {
 
         return (
             <div className={classNames("wallet-wrapper", "send")}>
-                <TrackScreenView trackLabel="wallet-send"/>
+                <TrackScreenView trackLabel={`wallet-${coin.getKey()}-send`}/>
 
                 <div className={classNames("send-process", sendingTransaction && "-sending")}>
                     <div className="send-process__overlay"/>
@@ -249,9 +265,9 @@ export default class SendScreen extends React.Component {
 
                     <div className="send-values">
                         <label className="send-value">
-                        <span className="send-value__dummy">
-                            {activeInput === 'fiat' ? Numeral(coinValue).format('0,0.00[000000]') : null}
-                        </span>
+                            <span className="send-value__dummy">
+                                {activeInput === 'fiat' ? Numeral(coinValue).format('0,0.00[000000]') : null}
+                            </span>
                             <input placeholder={activeInput ? '' : '0.00'}
                                    value={activeInput === 'coin' ? value : ''}
                                    onChange={this.onChangeValueInput('coin')}
@@ -261,9 +277,9 @@ export default class SendScreen extends React.Component {
                         </label>
 
                         <label className="send-value">
-                        <span className="send-value__dummy">
-                            {activeInput === 'coin' ? Numeral(coinValue * ticker.priceFiat).format('0,0.00') : null}
-                        </span>
+                            <span className="send-value__dummy">
+                                {activeInput === 'coin' ? Numeral(coinValue * ticker.priceFiat).format('0,0.00') : null}
+                            </span>
                             <input placeholder={activeInput ? '' : '0.00'}
                                    value={activeInput === 'fiat' ? value : ''}
                                    onChange={this.onChangeValueInput('fiat')}

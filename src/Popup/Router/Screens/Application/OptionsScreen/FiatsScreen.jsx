@@ -4,10 +4,10 @@ import {map, filter} from 'lodash';
 import {fiatList} from 'Core/Coins';
 import {Background} from 'Popup/Service';
 import {TickerEvent} from "Core/Actions/Controller";
-import {AnalyticsObserver} from "Popup/Service/Analytics";
+import {Analytics} from "Popup/Service";
 import SearchInputComponent from './Components/SearchInputComponent';
 import NotFoundComponent from './Components/NotFoundComponent';
-import {InputCheck} from 'Popup/Router/UIComponents';
+import {InputCheck} from 'Popup/UI';
 
 const mapStateToProps = (store) => {
     return {
@@ -52,7 +52,7 @@ export default class FiatsScreen extends React.Component {
             .sendRequest(TickerEvent.ChangeCurrentFiat, {fiat: fiatKey})
             .then(this.onPreparedResponse);
 
-        AnalyticsObserver.event('ChooseFiat', fiatKey);
+        Analytics.event('Fiat', 'choose', fiatKey);
     };
 
     drawCurrencyRow = (fiat) => {

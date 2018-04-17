@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames'
+import classNames from 'classnames';
 import {modalObserverInstance} from "./Observer";
 
 type CloseEvent = () => {};
@@ -14,7 +14,7 @@ interface IState {
     show: boolean;
 }
 
-export default class ModalLayout extends React.Component<IProps, IState> {
+export class ModalLayout extends React.Component<IProps, IState> {
 
     state: IState = {
         show: false

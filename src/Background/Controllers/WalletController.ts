@@ -2,15 +2,22 @@ import {includes, each, Dictionary} from 'lodash';
 import {Store} from "redux";
 import BigNumber from "bignumber.js";
 import {WalletManager} from "Background/Service/WalletManager";
-import {Actions, Coins} from "Core";
+import {Actions, Coins, createDebugger} from "Core";
 import {IStore} from 'Core/Declarations/Store';
 import {ICoinWallet} from 'Core/Declarations/Wallet';
 import {IBackgroundCore} from 'Core/Declarations/Service';
 import {AbstractController} from 'Background/Service/AbstractController';
-import KeyringController from './KeyringController';
+import {KeyringController} from './KeyringController';
 
+const debug = createDebugger('BACKGROUND_EVENT');
 
-export default class WalletController extends AbstractController {
+interface CreateTransactionPayload {
+    coinKey: Coins.CoinSymbol;
+    address: string;
+    value: number;
+}
+
+export class WalletController extends AbstractController {
     protected walletManagers: Dictionary<WalletManager> = {};
 
     /**
@@ -19,10 +26,6 @@ export default class WalletController extends AbstractController {
      */
     constructor(app: IBackgroundCore, store: Store<IStore>) {
         super(app, store);
-
-        each(this.getState().Coin.coins, (coinSymbol: Coins.CoinSymbol) => {
-            this.resolveWalletManager(coinSymbol);
-        });
 
         this.bindEventListener(Actions.Controller.WalletEvent.ActivateCoin, (request: any): any => {
             return this.activateWallet(request.coin);
@@ -35,12 +38,20 @@ export default class WalletController extends AbstractController {
         this.bindEventListener(Actions.Controller.WalletEvent.CreateTransaction, this.createTransaction);
 
         this.bindEventListener(Actions.Controller.WalletEvent.CalculateFee, this.calculateFee);
+
+        each(this.getState().Coin.coins, (coinSymbol: Coins.CoinSymbol) => {
+            try {
+                this.resolveWalletManager(coinSymbol);
+            } catch (error) {
+                debug(error);
+            }
+        });
     }
 
     /**
      * @returns {string}
      */
-    static getAlias(): string {
+    get alias(): string {
         return 'WALLET';
     }
 
@@ -48,7 +59,7 @@ export default class WalletController extends AbstractController {
      * @returns {KeyringController}
      */
     protected getKeyringController(): KeyringController {
-        return this.getApp().get(KeyringController.getAlias()) as KeyringController;
+        return this.getApp().get("KEYRING") as KeyringController;
     }
 
     /**
@@ -108,7 +119,7 @@ export default class WalletController extends AbstractController {
      *
      * @param {CoinSymbol} coinKey
      */
-    activateWallet(coinKey: Coins.CoinSymbol): boolean {
+    public activateWallet(coinKey: Coins.CoinSymbol): boolean {
         const newCoins: Coins.CoinSymbol[] = [...this.getState().Coin.coins];
 
         if (newCoins.includes(coinKey)) {
@@ -155,7 +166,7 @@ export default class WalletController extends AbstractController {
      *
      * @param request
      */
-    protected createTransaction = (request: any) => {
+    public createTransaction = (request: CreateTransactionPayload) => {
         const {coinKey, address, value} = request;
 
         const fee = this.getState().Option.fee;

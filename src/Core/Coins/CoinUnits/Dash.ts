@@ -20,14 +20,6 @@ export default class Dash extends AbstractUnit {
     }
 
     getExplorerHost(): string {
-        return 'https://chainz.cryptoid.info';
-    }
-
-    generateAddrLink(address: string): string {
-        return "https://chainz.cryptoid.info/dash/address.dws?" + address;
-    }
-
-    generateTxLink(txid: string): string {
-        return "https://chainz.cryptoid.info/dash/tx.dws?" + txid;
+        return 'https://live.blockcypher.com/dash';
     }
 }

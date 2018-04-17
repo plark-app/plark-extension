@@ -1,22 +1,32 @@
 import React from 'react';
 import numeral from 'numeral';
 import {connect} from 'react-redux';
-import classNames from 'classnames';
 import {NavLink, Route, Switch, matchPath, withRouter} from 'react-router-dom';
-import ReactSVG from 'react-svg';
 import {Wallet} from '@berrywallet/core';
 
-import {links} from './links';
-
+import {CoinIcon} from "Popup/UI";
 import {mapWalletCoinToProps} from "Popup/Store/WalletCoinConnector";
 import ReceiveScreen from "./ReceiveScreen";
 import SendScreen from "./SendScreen";
 import HistoryScreen from "./HistoryScreen";
 import WaitInitializingScreen from './WaitInitializingScreen';
 
+
+export const links = [{
+    path: "/app/wallet",
+    name: "Send"
+}, {
+    path: "/app/wallet/receive",
+    name: "Receive"
+}, {
+    path: "/app/wallet/history",
+    name: "History"
+}];
+
+
 @withRouter
 @connect(mapWalletCoinToProps)
-export default class CoinDashboardLayout extends React.Component {
+export class CoinDashboardLayout extends React.Component {
 
     renderSvgBackground() {
         const {location} = this.props;
@@ -83,10 +93,9 @@ export default class CoinDashboardLayout extends React.Component {
                     <div className="dashboard-head">
 
                         <div className="dashboard-head-info">
-                            <ReactSVG
-                                path={`/images/coins/${activeCoin.getKey()}.svg`}
-                                className={classNames('coin-icon', `-${activeCoin.getKey()}`, "dashboard-head-info__coin")}
-                                wrapperClassName="dashboard-head-info__coin-wrapper"
+                            <CoinIcon coin={activeCoin.getKey()}
+                                      className="dashboard-head-info__coin"
+                                      wrapperClassName="dashboard-head-info__coin-wrapper"
                             />
                             <div className="dashboard-head-info__price">
                                 <div className="dashboard-head-info__price-coin">

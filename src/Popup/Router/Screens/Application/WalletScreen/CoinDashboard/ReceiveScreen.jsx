@@ -5,12 +5,12 @@ import QRCode from 'qrcode-react';
 import ReactSVG from 'react-svg';
 import q from 'querystring';
 
-import {Extension} from 'Core';
-import {Notice} from "Popup/Service/UIComponents";
+import {extensionInstance} from 'Core/Extension';
+import {Notice} from "Popup/UI";
 import {mapWalletCoinToProps} from 'Popup/Store/WalletCoinConnector';
 import TrackScreenView from 'Popup/Service/ScreenViewAnalitics';
 
-const browserTabs = Extension.extensionInstance.getTabs();
+const browserTabs = extensionInstance.getTabs();
 
 const ButtonComponent = (props) => {
     return (
@@ -54,9 +54,7 @@ export default class ReceiveScreen extends React.Component {
                     copied: true
                 };
             });
-        } catch (err) {
-            console.log('Oops, unable to copy');
-        }
+        } catch (err) {}
     };
 
 
@@ -98,7 +96,7 @@ export default class ReceiveScreen extends React.Component {
 
         return (
             <div className="wallet-wrapper receive">
-                <TrackScreenView trackLabel="wallet-receive"/>
+                <TrackScreenView trackLabel={`wallet-${coin.getKey()}-receive`}/>
 
                 <div>
                     <Notice className='receive-copied' show={this.state.copied}>Address copied!</Notice>

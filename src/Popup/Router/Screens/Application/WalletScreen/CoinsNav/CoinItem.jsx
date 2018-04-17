@@ -4,12 +4,14 @@ import classNames from 'classnames';
 import numeral from 'numeral';
 import ReactSVG from 'react-svg';
 
+import {CoinIcon} from "Popup/UI";
 import {findFiat} from "Core/Coins";
 import proxyStore from 'Popup/Store';
 import {extractTicker} from "Popup/Store/Helpers";
 import {CoinAction} from "Core/Actions/Reducer";
-import {AnalyticsObserver} from "Popup/Service/Analytics";
+import {Analytics} from "Popup/Service";
 import {Wallet} from "@berrywallet/core";
+
 
 @connect((store, ownProps) => {
     const {walletData = null} = store.Wallet[ownProps.coin.getKey()];
@@ -40,7 +42,7 @@ export default class CoinItem extends React.Component {
             coinKey: coinKey
         });
 
-        AnalyticsObserver.event('ChooseCoin', coinKey);
+        Analytics.event('Coin', 'choose', coinKey);
     };
 
     render() {
@@ -53,12 +55,7 @@ export default class CoinItem extends React.Component {
 
         return (<div {...linkProps}>
             <div style={{color: coin.getColor()}} className="dashboard-coin__head">
-                <ReactSVG
-                    path={`/images/coins/${coin.getKey()}.svg`}
-                    className={classNames("coin-icon", `-${coin.getKey()}`)}
-                    wrapperClassName="coin-icon-wrapper"
-                    style={{width: 20, height: 20}}
-                />
+                <CoinIcon coin={coin.getKey()} size={20}/>
                 <span className='dashboard-coin__head-alias'>{coin.getName()}</span>
             </div>
 
