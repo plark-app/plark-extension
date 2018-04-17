@@ -80,13 +80,7 @@ const Loaders = [{
 
 const OptimisationProps = {
     minimize: false
-    // splitChunks: {
-    //     cacheGroups: {
-    //         commons: {test: /node_modules/, name: 'vendors', chunks: 'all'},
-    //     }
-    // },
 };
-
 
 const WebpackConfig = {
 

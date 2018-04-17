@@ -17,7 +17,6 @@
         "circular-dependency-plugin": "^4.2.1",
         "classnames": "^2.2.5",
         "clipboard": "^1.7.1",
-        "coinmarketcap-api": "^1.0.0",
         "debug": "^3.1.0",
         "del": "^3.0.0",
         "extract-text-webpack-plugin": "^4.0.0-beta.0",
