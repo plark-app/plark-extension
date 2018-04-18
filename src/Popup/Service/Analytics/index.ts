@@ -1,5 +1,5 @@
 import {createDebugger} from 'Core/Debugger';
-import {extensionInstance} from 'Core/Extension';
+import Extberry from 'extberry';
 
 const UniversalAnalytics = require('universal-analytics');
 const uuidv4 = require('uuid/v4');
@@ -18,7 +18,7 @@ if (!visitorUUID) {
 export const AnalyticsOptions = {
     GA_IDENTIFY: 'UA-116441094-1',
     NAME: 'BERRYWALLET',
-    VERSION: extensionInstance.version
+    VERSION: Extberry.version
 };
 
 export const visitor = UniversalAnalytics(AnalyticsOptions.GA_IDENTIFY, visitorUUID, {https: true});

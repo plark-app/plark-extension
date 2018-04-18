@@ -110,6 +110,7 @@ fabric.properties
 .idea
 /dist/*
 /builds/*
+/artifacts/*
 .gulp-scss-cache
 package-lock.json
 ts-build

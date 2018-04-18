@@ -1,6 +1,6 @@
 import {Wallet} from '@berrywallet/core';
 import {Coins} from 'Core';
-import {extensionInstance} from '../';
+import Extberry from 'extberry';
 import {AbstractNotification} from "./IBerryNotification";
 
 export class TransactionNotification extends AbstractNotification {
@@ -16,7 +16,7 @@ export class TransactionNotification extends AbstractNotification {
 
     getClickEvent(): () => void {
         return () => {
-            extensionInstance.getTabs().create({
+            Extberry.tabs.create({
                 url: this.coin.generateTxLink(this.tx.txid)
             });
         };

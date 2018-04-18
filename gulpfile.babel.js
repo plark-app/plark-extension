@@ -45,7 +45,21 @@ gulp.task('copy:views', copyTask({
     ]
 }));
 
-gulp.task('manifest:production', () => {
+gulp.task('copy:builds:js', copyTask({
+    source: './dist/chrome/js',
+    destinations: [
+        './dist/firefox/js'
+    ]
+}));
+gulp.task('copy:builds:css', copyTask({
+    source: './dist/chrome/css',
+    destinations: [
+        './dist/firefox/css'
+    ]
+}));
+gulp.task('copy:builds', ['copy:builds:css', 'copy:builds:js']);
+
+gulp.task('manifest', () => {
     return gulp
         .src('./resources/manifest.json')
         .pipe(generateManifestBuilder())
@@ -58,11 +72,11 @@ gulp.task('manifest:production', () => {
         .pipe(gulp.dest('./dist/chrome', {overwrite: true}))
 });
 
-const staticFiles = ['images', 'views', 'locales'];
+const staticFiles = ['images', 'views', 'locales', 'builds'];
 let copyStrings = staticFiles.map(staticFile => `copy:${staticFile}`);
 gulp.task('copy', [
     ...copyStrings,
-    'manifest:production'
+    'manifest'
 ]);
 
 gulp.task('clean', function clean() {
@@ -76,7 +90,7 @@ gulp.task('copy:watch', function () {
 });
 
 gulp.task('zip:chrome', zipTask('chrome'));
-gulp.task('zip:firefox', zipTask('firefox'));
+gulp.task('zip:firefox', zipTask('firefox', 'xpi'));
 gulp.task('zip', ['zip:chrome', 'zip:firefox']);
 
 function copyTask(opts) {
@@ -88,7 +102,7 @@ function copyTask(opts) {
     } = opts;
 
     return () => {
-        let stream = gulp.src(source + pattern, {base: source})
+        let stream = gulp.src(source + pattern, {base: source});
         destinations.forEach((destination) => {
             stream = stream.pipe(gulp.dest(destination))
         });
@@ -97,13 +111,13 @@ function copyTask(opts) {
     }
 }
 
-function zipTask(target) {
+function zipTask(target, ext = 'zip') {
     const packageJson = require('./package.json');
     return () => {
         return gulp
             .src(`./dist/${target}/**`)
-            .pipe(zip(`berrywallet-${target}-${packageJson.version}.zip`))
-            .pipe(gulp.dest('./builds'));
+            .pipe(zip(`berrywallet-${target}-${packageJson.version}.${ext}`))
+            .pipe(gulp.dest('./artifacts'));
     }
 }
 

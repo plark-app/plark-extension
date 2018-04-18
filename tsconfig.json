@@ -17,6 +17,7 @@
             "./src"
         ],
         "baseUrl": "./src",
+        "outDir": "./dist/typescript",
         "skipLibCheck": true,
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true

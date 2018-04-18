@@ -3,6 +3,15 @@ import {debounce} from 'lodash';
 import * as BerryWalletCore from '@berrywallet/core';
 import {STORE_KEY} from 'Core/Constant';
 import {store, stateStorage} from 'Core/Store';
+import {IStore} from "Core/Declarations/Store";
+
+declare global {
+    export interface Window {
+        getState(): IStore;
+
+        core: typeof BerryWalletCore;
+    }
+}
 
 import {
     BackgroundCore,
@@ -14,6 +23,7 @@ import {
     KeyringController,
     ExchangeController
 } from 'Background/Controllers'
+
 
 export const initializeBackgroundApplication = (): void => {
 
