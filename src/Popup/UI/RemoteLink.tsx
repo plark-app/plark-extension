@@ -1,5 +1,5 @@
 import React from 'react';
-import {extensionInstance} from "Core/Extension";
+import Extberry from 'extberry';
 
 interface IRemoteLinkProps {
     to: string;
@@ -9,7 +9,7 @@ interface IRemoteLinkProps {
 export class RemoteLink extends React.Component<IRemoteLinkProps, any> {
     onClickLink = () => {
         const {to} = this.props;
-        extensionInstance.getTabs().create({url: to});
+        Extberry.openTab({url: to});
     };
 
     render() {

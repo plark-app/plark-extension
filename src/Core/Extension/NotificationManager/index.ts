@@ -1,10 +1,10 @@
-import {extensionInstance} from '../';
+import Extberry from 'extberry';
 import {IBerryNotification} from "./IBerryNotification";
 import {TransactionNotification} from "./TransactionNotification";
 
 export function sendNotification(notifyObject: IBerryNotification): Promise<string> {
 
-    const extNotify = extensionInstance.notifications;
+    const extNotify = Extberry.notifications;
 
     return new Promise<string>((resolve, reject) => {
 

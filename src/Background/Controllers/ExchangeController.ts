@@ -12,7 +12,7 @@ export class ExchangeController extends AbstractController {
 
     beShapy: BeShapyClient;
 
-    get alias(): string {
+    public get alias(): string {
         return 'EXCHANGE';
     }
 
@@ -20,7 +20,7 @@ export class ExchangeController extends AbstractController {
      * @param {IBackgroundCore} app
      * @param {Store<IStore>} store
      */
-    constructor(app: IBackgroundCore, store: Store<IStore>) {
+    public constructor(app: IBackgroundCore, store: Store<IStore>) {
         super(app, store);
 
         this.beShapy = createBeShapy();
@@ -52,8 +52,8 @@ export class ExchangeController extends AbstractController {
         const fromWallet = walletController.getWalletManager(from);
         const toWallet = walletController.getWalletManager(to);
 
-        const toAddress = toWallet.wdProvider.address.last(HD.BIP44.AddressType.RECEIVE);
-        const returnAddress = fromWallet.wdProvider.address.last(HD.BIP44.AddressType.RECEIVE);
+        const toAddress = toWallet.getWDProvider().address.last(HD.BIP44.AddressType.RECEIVE);
+        const returnAddress = fromWallet.getWDProvider().address.last(HD.BIP44.AddressType.RECEIVE);
 
         if (!toAddress || !returnAddress) {
             if (!toAddress) {

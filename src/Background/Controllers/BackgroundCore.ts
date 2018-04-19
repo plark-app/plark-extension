@@ -1,7 +1,7 @@
 import {Dictionary, merge, find} from 'lodash';
+import Extberry from 'extberry';
 import {Store} from 'redux';
 import {createDebugger} from 'Core';
-import * as Extension from 'Core/Extension';
 import {IStore} from 'Core/Declarations/Store';
 import {EventEmitter} from 'events';
 
@@ -29,7 +29,7 @@ export class BackgroundCore extends EventEmitter implements IBackgroundCore {
         super();
 
         this.store = store;
-        Extension.extensionInstance.getRuntime().onMessage.addListener(this.generateEventListener());
+        Extberry.runtime.onMessage.addListener(this.generateEventListener());
     }
 
     /**

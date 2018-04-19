@@ -10,13 +10,13 @@ export class OptionController extends AbstractController {
      * @param {IBackgroundCore} app
      * @param {Store<IStore>} store
      */
-    constructor(app: IBackgroundCore, store: Store<IStore>) {
+    public constructor(app: IBackgroundCore, store: Store<IStore>) {
         super(app, store);
 
         this.bindEventListener(Controller.OptionEvent.SetFee, this.setFee);
     }
 
-    get alias(): string {
+    public get alias(): string {
         return 'OPTION';
     }
 

@@ -3,14 +3,14 @@ import {connect} from 'react-redux';
 import {Wallet, HD} from '@berrywallet/core';
 import QRCode from 'qrcode-react';
 import ReactSVG from 'react-svg';
+import Extberry from 'extberry';
 import q from 'querystring';
 
-import {extensionInstance} from 'Core/Extension';
 import {Notice} from "Popup/UI";
 import {mapWalletCoinToProps} from 'Popup/Store/WalletCoinConnector';
 import TrackScreenView from 'Popup/Service/ScreenViewAnalitics';
 
-const browserTabs = extensionInstance.getTabs();
+const browserTabs = Extberry.tabs;
 
 const ButtonComponent = (props) => {
     return (
@@ -54,7 +54,8 @@ export default class ReceiveScreen extends React.Component {
                     copied: true
                 };
             });
-        } catch (err) {}
+        } catch (err) {
+        }
     };
 
 

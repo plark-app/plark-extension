@@ -2,14 +2,11 @@ import {NeedPasswordError} from "../Errors";
 
 const BIP39 = require('bip39');
 import {Store} from 'redux';
-import {createDebugger} from "Core";
 import {IStore} from 'Core/Declarations/Store';
 import {KeyringEvent} from 'Core/Actions/Controller';
 import {KeyringAction} from 'Core/Actions/Reducer';
 import {IBackgroundCore} from 'Core/Declarations/Service';
 import {AbstractController} from 'Background/Service/AbstractController';
-
-const debug = createDebugger('KEYRING');
 
 import {
     VaultDataInterface,
@@ -27,11 +24,11 @@ export class KeyringController extends AbstractController {
     private password?: string;
     private timeout;
 
-    get alias (): string {
+    public get alias (): string {
         return 'KEYRING';
     }
 
-    constructor(app: IBackgroundCore, store: Store<IStore>) {
+    public constructor(app: IBackgroundCore, store: Store<IStore>) {
         super(app, store);
 
         const {Keyring, Global} = this.getState();
@@ -46,13 +43,13 @@ export class KeyringController extends AbstractController {
         this.bindEventListener(KeyringEvent.SetNewPasscode, this.onSetNewPasscode);
     }
 
-    setNeedPassword() {
+    public setNeedPassword() {
         if (!this.isNeedPassword()) {
             this.dispatchStore(KeyringAction.NeedPassword);
         }
     }
 
-    setHasPassword() {
+    public setHasPassword() {
         if (this.isNeedPassword()) {
             this.dispatchStore(KeyringAction.HasPassword);
         }
@@ -63,7 +60,7 @@ export class KeyringController extends AbstractController {
      * @param {any} request
      * @returns {Promise<any>}
      */
-    onTryPassword = (request: any): any => {
+    public onTryPassword = (request: any): any => {
         const {passcode} = request;
         this.setPassword(passcode);
 
@@ -81,7 +78,7 @@ export class KeyringController extends AbstractController {
     /**
      * Action
      */
-    onCheckSeed = (request: any): any => {
+    public onCheckSeed = (request: any): any => {
         const {seed} = request;
         this.checkSeed(seed);
 
@@ -95,7 +92,7 @@ export class KeyringController extends AbstractController {
     /**
      * Actions
      */
-    onSetNewPasscode = (request: any): any => {
+    public onSetNewPasscode = (request: any): any => {
         const {seed, passcode} = request;
 
         this.checkSeed(seed);
@@ -113,14 +110,14 @@ export class KeyringController extends AbstractController {
     /**
      * @returns {boolean}
      */
-    isNeedPassword(): boolean {
+    public isNeedPassword(): boolean {
         return this.getState().Keyring.needPassword;
     }
 
     /**
      * @param {VaultDataInterface} vaultData - Vault data with encoded Seed, password and seed hashes
      */
-    setVault(vaultData: VaultDataInterface) {
+    public setVault(vaultData: VaultDataInterface) {
         this.clearPassword();
         this.vaultProvider = new SeedVaultProvider(vaultData);
     }
@@ -128,7 +125,7 @@ export class KeyringController extends AbstractController {
     /**
      * @param {string[]} seed
      */
-    checkSeed(seed: string[]) {
+    public checkSeed(seed: string[]) {
         if (!this.vaultProvider.isValidSeed(seed)) {
             throw new Error('Seed is not match actual seed');
         }
@@ -137,7 +134,7 @@ export class KeyringController extends AbstractController {
     /**
      * @param {string} password
      */
-    setPassword(password: string) {
+    public setPassword(password: string) {
         if (false === this.vaultProvider.isValidPassword(password)) {
             throw new InvalidPasswordException;
         }
@@ -148,7 +145,7 @@ export class KeyringController extends AbstractController {
     }
 
 
-    clearPassword() {
+    public clearPassword() {
         this.password = null;
         this.setNeedPassword();
         this.clearTimeout();
@@ -157,7 +154,7 @@ export class KeyringController extends AbstractController {
     /**
      * @param {number} timeout - Value of timeout in second
      */
-    setPasswordTimeout(timeout: number = null) {
+    public setPasswordTimeout(timeout: number = null) {
         this.clearTimeout();
 
         let timeoutTime: number = (timeout ? timeout : TIMEOUT_30M) * 1000;
@@ -165,14 +162,14 @@ export class KeyringController extends AbstractController {
     }
 
 
-    clearTimeout() {
+    public clearTimeout() {
         if (this.timeout) {
             clearTimeout(this.timeout);
         }
     }
 
 
-    getSeed(): string[] {
+    public getSeed(): string[] {
         if (!this.vaultProvider) {
             throw new Error('Set the Vault provider with a vault!')
         }
@@ -184,7 +181,7 @@ export class KeyringController extends AbstractController {
         return this.vaultProvider.getSeed(this.password);
     }
 
-    getBufferSeed(): Buffer {
+    public getBufferSeed(): Buffer {
         return BIP39.mnemonicToSeed(this.getSeed().join(' '));
     }
 }

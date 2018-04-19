@@ -6,12 +6,6 @@ import {render} from 'react-dom';
 import {PopupApplication} from 'Popup/index.tsx';
 import {Analitics} from 'Popup/Service';
 
-import BigNumber from 'bignumber.js';
-BigNumber.config({ERRORS: false});
-
-const debugProvider = require('debug');
-debugProvider.enable("berrywallet:*");
-
 const trackException = (exception) => {
     try {
         Analitics.exception(exception);

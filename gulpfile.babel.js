@@ -1,10 +1,6 @@
 import gulp from 'gulp';
 import Path from 'path';
 import del from 'del';
-import gulpWebpack from 'webpack-stream';
-import watch from 'gulp-watch';
-import webpackConfig from './webpack.config.babel.js';
-import named from 'vinyl-named';
 import jsoneditor from 'gulp-json-editor';
 import zip from 'gulp-zip';
 
@@ -49,7 +45,21 @@ gulp.task('copy:views', copyTask({
     ]
 }));
 
-gulp.task('manifest:production', () => {
+gulp.task('copy:builds:js', copyTask({
+    source: './dist/chrome/js',
+    destinations: [
+        './dist/firefox/js'
+    ]
+}));
+gulp.task('copy:builds:css', copyTask({
+    source: './dist/chrome/css',
+    destinations: [
+        './dist/firefox/css'
+    ]
+}));
+gulp.task('copy:builds', ['copy:builds:css', 'copy:builds:js']);
+
+gulp.task('manifest', () => {
     return gulp
         .src('./resources/manifest.json')
         .pipe(generateManifestBuilder())
@@ -62,37 +72,25 @@ gulp.task('manifest:production', () => {
         .pipe(gulp.dest('./dist/chrome', {overwrite: true}))
 });
 
-//|---------------------------------------------------------------------------
-//| Configuration for create JavaScript bundles
-//| Use WebPack
-//|---------------------------------------------------------------------------
-// gulp.task('js', generateBundlerTask({watch: false, mode: "production"}));
-// gulp.task('js:watch', generateBundlerTask({watch: true, mode: "development"}));
-
-gulp.task('webpack', () => {
-});
-gulp.task('webpack:watch', () => {
-});
-
-const staticFiles = ['images', 'views', 'locales'];
+const staticFiles = ['images', 'views', 'locales', 'builds'];
 let copyStrings = staticFiles.map(staticFile => `copy:${staticFile}`);
 gulp.task('copy', [
     ...copyStrings,
-    'manifest:production'
+    'manifest'
 ]);
 
 gulp.task('clean', function clean() {
     return del(['./dist/*']);
 });
 
-gulp.task('build', ['copy', 'webpack']);
+gulp.task('build', ['copy']);
 
 gulp.task('copy:watch', function () {
     gulp.watch(['./src/*.*'], 'build');
 });
 
 gulp.task('zip:chrome', zipTask('chrome'));
-gulp.task('zip:firefox', zipTask('firefox'));
+gulp.task('zip:firefox', zipTask('firefox', 'xpi'));
 gulp.task('zip', ['zip:chrome', 'zip:firefox']);
 
 function copyTask(opts) {
@@ -104,7 +102,7 @@ function copyTask(opts) {
     } = opts;
 
     return () => {
-        let stream = gulp.src(source + pattern, {base: source})
+        let stream = gulp.src(source + pattern, {base: source});
         destinations.forEach((destination) => {
             stream = stream.pipe(gulp.dest(destination))
         });
@@ -113,46 +111,13 @@ function copyTask(opts) {
     }
 }
 
-function zipTask(target) {
+function zipTask(target, ext = 'zip') {
     const packageJson = require('./package.json');
     return () => {
         return gulp
             .src(`./dist/${target}/**`)
-            .pipe(zip(`berrywallet-${target}-${packageJson.version}.zip`))
-            .pipe(gulp.dest('./builds'));
-    }
-}
-
-/**
- * @param options
- */
-function generateBundlerTask(options) {
-
-    const webpackBundlerConfig = {
-        ...webpackConfig
-    };
-
-    if (options.watch) {
-        webpackBundlerConfig.watch = true;
-        webpackBundlerConfig.watchOptions = {
-            aggregateTimeout: 200,
-            ignored: /node_modules/
-        };
-    }
-
-    webpackBundlerConfig.mode = options.mode || 'development';
-
-    return () => {
-        return gulp
-            .src([
-                "./src/popup.js",
-                "./src/pageContent.js",
-                "./src/background.js"
-            ])
-            .pipe(named())
-            .pipe(gulpWebpack(webpackBundlerConfig))
-            .pipe(gulp.dest('./dist/chrome'))
-            .pipe(gulp.dest('./dist/firefox'));
+            .pipe(zip(`berrywallet-${target}-${packageJson.version}.${ext}`))
+            .pipe(gulp.dest('./artifacts'));
     }
 }
 

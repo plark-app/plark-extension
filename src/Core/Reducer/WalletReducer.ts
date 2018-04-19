@@ -26,10 +26,10 @@ export default function walletState(state: IWalletStore = initialWalletState, ac
         case WalletAction.InitWallet: {
             return {
                 ...state,
-                [action.walletCoinKey]: {
-                    coinKey: action.walletCoinKey,
+                [action.coinKey]: {
+                    coinKey: action.coinKey,
                     loading: true,
-                    walletData: action.walletData
+                    walletData: null
                 }
             };
         }

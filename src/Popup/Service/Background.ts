@@ -1,7 +1,7 @@
-import {extensionInstance} from 'Core/Extension';
-import debugProvider from 'debug';
+import Extberry from 'extberry';
+import {createDebugger} from "Core/Debugger";
 
-const debug = debugProvider('berrywallet:SEND_REQUEST');
+const debug = createDebugger('SEND_REQUEST');
 
 export function sendRequest(type: any | string, payload: any = null): Promise<any> {
     const message = {
@@ -38,7 +38,7 @@ export function sendRequest(type: any | string, payload: any = null): Promise<an
             }
         };
 
-        extensionInstance.getRuntime().sendMessage(message, responseHandler);
+        Extberry.runtime.sendMessage(message, responseHandler);
     };
 
     return new Promise<any>(promiseResolver);
