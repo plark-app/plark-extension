@@ -5,14 +5,6 @@ import {STORE_KEY} from 'Core/Constant';
 import {store, stateStorage} from 'Core/Store';
 import {IStore} from "Core/Declarations/Store";
 
-declare global {
-    export interface Window {
-        getState(): IStore;
-
-        core: typeof BerryWalletCore;
-    }
-}
-
 import {
     BackgroundCore,
     GlobalController,
@@ -22,8 +14,15 @@ import {
     WalletController,
     KeyringController,
     ExchangeController
-} from 'Background/Controllers'
+} from 'Background/Controllers';
 
+declare global {
+    export interface Window {
+        getState(): IStore;
+
+        core: typeof BerryWalletCore;
+    }
+}
 
 export const initializeBackgroundApplication = (): void => {
 

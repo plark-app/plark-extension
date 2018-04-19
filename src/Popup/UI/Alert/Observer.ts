@@ -1,7 +1,7 @@
-import debugProvider from 'debug';
 import {EventEmitter} from 'events';
+import {createDebugger} from "Core";
 
-const debug = debugProvider('berrywallet:ALERT');
+const debug = createDebugger('ALERT');
 
 export interface ShowAlertOptions {
     message: string;

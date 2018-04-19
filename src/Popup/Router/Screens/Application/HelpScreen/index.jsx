@@ -10,7 +10,7 @@ import FAQScreen from "./FAQScreen";
 import VersionScreen from "./VersionScreen";
 import TutorialScreen from "./TutorialScreen";
 import FeedbackScreen from "./FeedbackScreen";
-import ContactsScreen from "./ContactsScreen";
+import {ContactsScreen} from "./ContactsScreen";
 import PrivacyPolicyScreen from "./PrivacyPolicyScreen";
 import TermsAndConditionsScreen from "./TermsAndConditionsScreen";
 

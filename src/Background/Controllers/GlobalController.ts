@@ -11,13 +11,13 @@ export class GlobalController extends AbstractController {
      * @param {IBackgroundCore} app
      * @param {Store<IStore>} store
      */
-    constructor(app: IBackgroundCore, store: Store<IStore>) {
+    public constructor(app: IBackgroundCore, store: Store<IStore>) {
         super(app, store);
 
         this.bindEventListener(Controller.GlobalEvent.ClearAllData, this.clearAllData);
     }
 
-    get alias(): string {
+    public get alias(): string {
         return 'GLOBAL';
     }
 
@@ -26,8 +26,7 @@ export class GlobalController extends AbstractController {
      */
     private clearAllData: EventHandlerType = (): any => {
 
-        (this.app.get("WALLET") as WalletController)
-            .clearAllWallets();
+        (this.app.get("WALLET") as WalletController).clearAllWallets();
 
         this.dispatchStore(Reducer.GlobalAction.ClearAllData);
 

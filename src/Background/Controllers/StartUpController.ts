@@ -10,13 +10,13 @@ import {KeyringController, WalletController} from "Background/Controllers";
 
 export class StartUpController extends AbstractController {
 
-    constructor(app: IBackgroundCore, store: Store<IStore>) {
+    public constructor(app: IBackgroundCore, store: Store<IStore>) {
         super(app, store);
 
         this.bindEventListener(StartUpEvent.Prepare, this.prepare);
     }
 
-    get alias(): string {
+    public get alias(): string {
         return 'START_UP';
     }
 

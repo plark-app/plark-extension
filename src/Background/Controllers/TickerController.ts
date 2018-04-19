@@ -19,7 +19,7 @@ export class TickerController extends AbstractController {
     tickerObserverTimeout;
     coinMarkerCapClient: IBerryMarketCap;
 
-    constructor(app: IBackgroundCore, store: Store<IStore>) {
+    public constructor(app: IBackgroundCore, store: Store<IStore>) {
         super(app, store);
 
         this.coinMarkerCapClient = createClient({timeout: 10000});
@@ -30,7 +30,7 @@ export class TickerController extends AbstractController {
         this.bindEventListener(TickerEvent.ChangeCurrentFiat, this.changeCurrentFiat);
     }
 
-    get alias(): string {
+    public get alias(): string {
         return 'TICKER';
     }
 
@@ -60,7 +60,7 @@ export class TickerController extends AbstractController {
         this.coinMarkerCapClient
             .getTickers(requestOptions)
             .then(onSuccess);
-    }
+    };
 
     /**
      * Action
@@ -68,7 +68,7 @@ export class TickerController extends AbstractController {
      * @param request
      * @returns {any}
      */
-    changeCurrentFiat: EventHandlerType = (request: any): any => {
+    public changeCurrentFiat: EventHandlerType = (request: any): any => {
         this.dispatchStore(CoinAction.SetCurrentFiat, {
             fiatKey: request.fiat
         });

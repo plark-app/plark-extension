@@ -1,15 +1,17 @@
 import {Dictionary} from 'lodash';
 import {AnyAction, Store} from 'redux';
 import {IStore} from 'Core/Declarations/Store';
+import {createDebugger} from "Core";
 import {IBackgroundCore, IController, EventHandlerType} from 'Core/Declarations/Service';
 
 // @TODO Need implement real Store state interface
 export abstract class AbstractController implements IController {
 
-    store: Store<IStore>;
-    app: IBackgroundCore;
+    public store: Store<IStore>;
+    public app: IBackgroundCore;
+    protected debug: (...param: any[]) => void;
 
-    eventListeners: Dictionary<EventHandlerType> = {};
+    public eventListeners: Dictionary<EventHandlerType> = {};
 
     /**
      * @param {IBackgroundCore} app
@@ -18,6 +20,7 @@ export abstract class AbstractController implements IController {
     constructor(app: IBackgroundCore, store: Store<IStore>) {
         this.app = app;
         this.store = store;
+        this.debug = createDebugger(this.constructor.name);
     }
 
     /**
@@ -28,21 +31,21 @@ export abstract class AbstractController implements IController {
         this.eventListeners[event] = eventCallback;
     }
 
-    get alias(): string {
+    public get alias(): string {
         throw new Error("Alias must be implement!");
     }
 
     /**
      * @returns {Dictionary<EventHandlerType>}
      */
-    getEventListeners(): Dictionary<EventHandlerType> {
+    public getEventListeners(): Dictionary<EventHandlerType> {
         return this.eventListeners;
     }
 
     /**
      * @returns {IBackgroundCore}
      */
-    getApp(): IBackgroundCore {
+    public getApp(): IBackgroundCore {
         return this.app;
     }
 
@@ -50,7 +53,7 @@ export abstract class AbstractController implements IController {
      * @param {string} type
      * @param {object} payload
      */
-    dispatchStore(type: string, payload: any = null) {
+    public dispatchStore(type: string, payload: any = null) {
         const action: AnyAction = Object.assign({type: type}, payload);
         this.store.dispatch.call(this, action);
     }
@@ -58,14 +61,14 @@ export abstract class AbstractController implements IController {
     /**
      * @returns {IStore}
      */
-    getState(): IStore {
+    public getState(): IStore {
         return this.store.getState();
     }
 
     /**
      * @param {() => void} listener
      */
-    storeSubscribe(listener: () => void) {
+    public storeSubscribe(listener: () => void) {
         this.store.subscribe(listener);
     }
 }

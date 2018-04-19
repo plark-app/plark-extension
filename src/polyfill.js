@@ -7,4 +7,4 @@ import BigNumber from 'bignumber.js';
 BigNumber.config({ERRORS: false});
 
 const debugProvider = require('debug');
-debugProvider.enable("berrywallet:*");
+debugProvider.enable("berry:*");

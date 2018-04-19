@@ -1,7 +1,8 @@
 import React from 'react';
+import ReactSVG from 'react-svg';
 import TrackScreenView from "Popup/Service/ScreenViewAnalitics";
 import {RemoteLink} from "Popup/UI";
-import ReactSVG from 'react-svg';
+import "./contact-screen.scss";
 
 const socialLinks = [
     {
@@ -47,7 +48,7 @@ const emails = [
 ];
 
 
-export default class ContactsScreen extends React.Component {
+export class ContactsScreen extends React.Component<any, any> {
     drawSocialLinks() {
         return socialLinks.map((item) => {
             const linkProps = {

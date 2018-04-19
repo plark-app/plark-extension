@@ -1,6 +1,6 @@
-import debugProvider from 'debug';
+import {createDebugger} from "Core/Debugger";
 
-const debug = debugProvider('berrywallet:MODAL');
+const debug = createDebugger('MODAL');
 
 class ModalObserver {
     modalRootComponent;
