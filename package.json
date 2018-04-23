@@ -1,7 +1,7 @@
 {
     "name": "berrywallet",
     "description": "BerryWallet the tastiest way to keep cryptocurrency",
-    "version": "1.4.0",
+    "version": "1.4.1",
     "public": true,
     "scripts": {
         "webpack": "$(npm bin)/webpack",
@@ -11,9 +11,9 @@
     },
     "dependencies": {
         "@babel/register": "^7.0.0-beta.44",
-        "@berrywallet/core": "^0.2.8",
+        "@berrywallet/core": "^0.3.0",
         "axios": "^0.17.0",
-        "berrymarketcap": "^1.2.1",
+        "berrymarketcap": "^1.4.0",
         "bip39": "^2.4.0",
         "circular-dependency-plugin": "^4.2.1",
         "classnames": "^2.2.5",

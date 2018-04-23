@@ -1,6 +1,6 @@
 import {Store} from 'redux';
 import {each, find} from 'lodash';
-import createClient, {IBerryMarketCap} from 'berrymarketcap';
+import createClient, {IBerryMarketCap, ITickerData} from 'berrymarketcap';
 import {EventHandlerType, IBackgroundCore} from 'Core/Declarations/Service';
 import {AbstractController} from "Background/Service/AbstractController";
 import {IStore} from 'Core/Declarations/Store';
@@ -9,10 +9,6 @@ import {coinList, CoinInterface, TickerInterface, FiatSymbol} from 'Core/Coins';
 import {TickerEvent} from "Core/Actions/Controller";
 
 const tickerTimeout = 3 * 60 * 1000;
-
-interface CoinTickerInterface {
-    price_btc: string;
-}
 
 export class TickerController extends AbstractController {
 
@@ -38,11 +34,11 @@ export class TickerController extends AbstractController {
         const {currentFiatKey = FiatSymbol.USDollar} = this.getState().Coin;
         const requestOptions = {convert: currentFiatKey.toUpperCase()};
 
-        const onSuccess = (data) => {
+        const onSuccess = (data: ITickerData[]) => {
             const payloadTickers: TickerInterface[] = [];
 
             each(coinList, (coin: CoinInterface) => {
-                const coinTicker: CoinTickerInterface = find(data, ((tick) => tick.symbol === coin.getKey()) as any);
+                const coinTicker: ITickerData = find(data, ((tick: ITickerData) => tick.symbol === coin.getKey()) as any);
                 if (!coinTicker) return;
 
                 payloadTickers.push({
