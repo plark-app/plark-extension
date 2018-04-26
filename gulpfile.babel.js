@@ -60,14 +60,20 @@ gulp.task('copy:builds:css', copyTask({
 gulp.task('copy:builds', ['copy:builds:css', 'copy:builds:js']);
 
 gulp.task('manifest', () => {
+    const packageJson = require('./package.json');
+
     return gulp
         .src('./resources/manifest.json')
-        .pipe(generateManifestBuilder())
+        .pipe(jsoneditor((json) => {
+            json.version = packageJson.version;
+
+            return json;
+        }))
         .pipe(gulp.dest('./dist/firefox', {overwrite: true}))
         .pipe(jsoneditor((json) => {
             delete json.applications;
 
-            return json
+            return json;
         }))
         .pipe(gulp.dest('./dist/chrome', {overwrite: true}))
 });
@@ -119,15 +125,4 @@ function zipTask(target, ext = 'zip') {
             .pipe(zip(`berrywallet-${target}-${packageJson.version}.${ext}`))
             .pipe(gulp.dest('./artifacts'));
     }
-}
-
-
-function generateManifestBuilder() {
-    const packageJson = require('./package.json');
-
-    return jsoneditor((json) => {
-        json.version = packageJson.version;
-
-        return json
-    });
 }

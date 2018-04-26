@@ -1,14 +1,14 @@
 {
     "name": {
-        "message": "BERRYWALLET"
+        "message": "Berrywallet"
     },
     "short_name": {
-        "message": "BERRYWALLET"
+        "message": "Berrywallet"
     },
     "description": {
-        "message": "Safest multi-wallet that lets you store and manage crypto funds quickly and safely."
+        "message": "The safest multi-wallet that brings your crypto currency management and storage to the next level."
     },
     "default_title": {
-        "message": "BERRYWALLET"
+        "message": "Berrywallet - Multi assets wallet"
     }
 }

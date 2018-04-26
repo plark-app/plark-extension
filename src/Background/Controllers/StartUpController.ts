@@ -1,6 +1,6 @@
 import {Store} from "redux";
 
-import {IStore} from "Core/Declarations/Store";
+import {IStore, IWelcomeStore} from "Core/Declarations/Store";
 import {EventHandlerType, IBackgroundCore} from 'Core/Declarations/Service';
 import {StartUpEvent} from 'Core/Actions/Controller';
 import {GlobalAction, WelcomeAction, KeyringAction} from 'Core/Actions/Reducer';
@@ -20,12 +20,34 @@ export class StartUpController extends AbstractController {
         return 'START_UP';
     }
 
+    private validateWelcome(welcome: IWelcomeStore) {
+        if (!welcome.seed) {
+            throw new Error('Seed must be set in Welcome!');
+        }
+
+        if (!welcome.coins) {
+            throw new Error('Coins must be set in Welcome!');
+        }
+
+        if (!welcome.passcode) {
+            throw new Error('Passcode must be set in Welcome!');
+        }
+    }
+
     /**
      * @returns {any}
      */
     private prepare: EventHandlerType = (): any => {
 
-        const {Welcome} = this.getState();
+        const {Welcome, Global} = this.getState();
+
+        if (Global.walletReady) {
+            return {
+                message: "Wallet Manager already prepared"
+            };
+        }
+
+        this.validateWelcome(Welcome);
 
         const keyringController: KeyringController = this.getApp().get("KEYRING") as KeyringController;
         const walletController: WalletController = this.getApp().get("WALLET") as WalletController;
@@ -48,7 +70,7 @@ export class StartUpController extends AbstractController {
         this.dispatchStore(WelcomeAction.Clear);
 
         return {
-            message: "WalletManager successful prepared"
+            message: "Wallet Manager successful prepared"
         };
     }
 }
