@@ -23,6 +23,7 @@
         }
     },
     "icons": {
+        "16": "/images/berrywallet-16.png",
         "32": "/images/berrywallet-32.png",
         "64": "/images/berrywallet-64.png",
         "128": "/images/berrywallet-128.png",

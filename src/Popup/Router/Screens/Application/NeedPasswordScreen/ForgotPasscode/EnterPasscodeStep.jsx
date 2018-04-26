@@ -91,7 +91,7 @@ export default class EnterPasscodeStep extends React.Component {
                     <h1 className="topic__title">
                         {this.state.screenState === ScreenStates.CREATE ? 'Create New Passcode' : 'Retype New Passcode'}
                     </h1>
-                    <p className="topic__desc">{MIN_PASSCODE_CHARS} character minimum</p>
+                    <p className="topic__desc">A minimum of {MIN_PASSCODE_CHARS} characters</p>
                 </div>
                 <form onSubmit={this.onSubmitPasscode}>
                     <div className="startup-wrapper startup-passcode-wrapper">

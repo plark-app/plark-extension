@@ -2,11 +2,14 @@
 
 .startup {
     &-prepare {
-        padding-top: 20px;
         flex-direction: column;
         display: flex;
         justify-content: center;
         align-items: center;
+
+        &.startup {
+            padding-top: 20px;
+        }
 
         &-loader {
             font-size: 18px;

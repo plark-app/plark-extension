@@ -12,7 +12,6 @@ import WelcomeLayout from './Parts/WelcomeLayout';
 import WelcomeLink from 'Popup/Router/Screens/StartUpScreen/Parts/WelcomeLink';
 
 
-
 @connect(null, mapWelcomeDispatchers)
 export default class ChooseCoinsScreen extends React.Component {
 
@@ -99,7 +98,7 @@ export default class ChooseCoinsScreen extends React.Component {
             className: "startup-coins",
             trackLabel: "startup-coins",
             topicTitle: "Choose Your Wallets",
-            topicDescription: "Please select the wallets you wish to display.",
+            topicDescription: "Please, select the wallets you wish to display.",
             onPressEnter: this.onSaveCoins
         };
 

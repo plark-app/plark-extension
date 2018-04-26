@@ -1,4 +1,6 @@
 import React from 'react';
+import {Background} from 'Popup/Service';
+import {StartUpEvent} from 'Core/Actions/Controller';
 import exberryInstance from 'extberry';
 import {Alert, BerrywalletLogo} from "Popup/UI";
 import screenHistory from 'Popup/ScreenAddressHistory';
@@ -8,7 +10,7 @@ import "./startup-prepare.scss";
 export class PrepareWalletScreen extends React.Component<any, any> {
 
     componentDidMount() {
-        // Background.sendRequest(StartUpEvent.Prepare).then(this.onPreparedResponse);
+        Background.sendRequest(StartUpEvent.Prepare).then(this.onPreparedResponse);
     }
 
     onPreparedResponse = () => {
