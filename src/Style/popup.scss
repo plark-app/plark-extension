@@ -2,8 +2,6 @@
 @import "./variable";
 @import "./font";
 @import "./mixins";
-
-
 @import "./components/text";
 @import "./components/button";
 @import './components/input-check';
@@ -41,6 +39,17 @@ body {
     width: $weight;
     height: $height;
     overflow: hidden;
+
+    &-body {
+        transition: all 0.4s;
+        opacity: 1;
+        transform: scale(1);
+
+        &.-hidden {
+            opacity: 0;
+            transform: scale(1.2);
+        }
+    }
 }
 
 .loading {

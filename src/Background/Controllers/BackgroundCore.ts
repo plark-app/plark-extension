@@ -69,11 +69,13 @@ export class BackgroundCore extends EventEmitter implements IBackgroundCore {
                 return;
             }
 
-            const onError = (error) => {
+            const onError = (error: Error) => {
                 sendResponse({
                     error: {
                         message: error.message,
-                        code: error.code || null
+                        code: "code" in error ? error['code'] : undefined,
+                        name: error.name,
+                        stack: error.stack
                     }
                 });
             };

@@ -4,6 +4,7 @@
     "short_name": "__MSG_short_name__",
     "description": "__MSG_description__",
     "default_locale": "en",
+    "author": "https://berrywallet.io",
     "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
     "permissions": [
         "tabs",
@@ -22,6 +23,7 @@
         }
     },
     "icons": {
+        "16": "/images/berrywallet-16.png",
         "32": "/images/berrywallet-32.png",
         "64": "/images/berrywallet-64.png",
         "128": "/images/berrywallet-128.png",
@@ -35,30 +37,21 @@
     },
     "applications": {
         "gecko": {
-            "id": "info@berrywallet.com",
+            "id": "webextension@berrywallet.io",
             "strict_min_version": "43.0"
         }
     },
-    "content_scripts": [
-        {
-            "matches": [
-                "http://*/*",
-                "https://*/*"
-            ],
-            "js": [
-                "/js/pageContent.js"
-            ]
-        }
-    ],
-    "web_accessible_resources": [
-        "/images/*.png",
-        "/images/*.jpg"
-    ],
+    "web_accessible_resources": [],
     "browser_action": {
         "default_icon": {
             "128": "/images/berrywallet-128.png"
         },
         "default_popup": "/views/popup.html",
         "default_title": "__MSG_default_title__"
+    },
+    "externally_connectable": {
+        "matches": [
+            "https://berrywallet.io/*"
+        ]
     }
 }

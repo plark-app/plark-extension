@@ -7,6 +7,7 @@ import {InputCheck} from "./InputCheck";
 import {CoinIcon} from "./CoinIcon";
 import {ValueSnippet} from "./ValueSnippet";
 import {DropArrow} from "./DropArrow";
+import {BerrywalletLogo} from './BerrywalletLogo';
 import * as Alert from "./Alert";
 
 export {
@@ -19,6 +20,7 @@ export {
     CoinIcon,
     ValueSnippet,
     DropArrow,
+    BerrywalletLogo,
 
     // Alert export
     Alert

@@ -62,7 +62,7 @@ export default class PhrasePart extends React.Component {
 
             <div className="topic">
                 <h1 className="topic__title">Backup Phrase</h1>
-                <p className="topic__desc">Please write down each word, in order, on a piece of paper.</p>
+                <p className="topic__desc">Please, write down each word in order on a piece of paper.</p>
             </div>
 
             <div className="phrase-list">

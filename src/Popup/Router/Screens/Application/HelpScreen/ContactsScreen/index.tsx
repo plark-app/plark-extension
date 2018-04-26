@@ -8,7 +8,7 @@ const socialLinks = [
     {
         key: 'facebook',
         title: 'Facebook',
-        href: 'https://google.com'
+        href: 'https://fb.com'
     }, {
         key: 'twitter',
         title: 'Twitter',
@@ -30,8 +30,8 @@ const socialLinks = [
 
 const emails = [
     {
-        title: 'Support',
-        email: 'support@berrywallet.io'
+        title: 'General Questions',
+        email: 'info@berrywallet.io'
     }, {
         title: 'Collaboration & Joint Ventures',
         email: 'collaboration@berrywallet.io'

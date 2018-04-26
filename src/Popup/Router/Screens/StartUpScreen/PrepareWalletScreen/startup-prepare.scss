@@ -1,0 +1,37 @@
+@import "~Style/variable";
+
+.startup {
+    &-prepare {
+        flex-direction: column;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &.startup {
+            padding-top: 20px;
+        }
+
+        &-loader {
+            font-size: 18px;
+            &__logo {
+                width: 56px;
+                height: 56px;
+                display: block;
+                margin: 0 auto 8px auto;
+            }
+
+            &__text {
+
+            }
+        }
+
+        &__version {
+            position: absolute;
+            bottom: 20px;
+            color: $color-light;
+            opacity: 0.5;
+            transform: translateX(-50%);
+            left: 50%;
+        }
+    }
+}

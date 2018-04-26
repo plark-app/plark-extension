@@ -136,7 +136,7 @@ export default class CreatePasscodeScreen extends React.Component {
             className: "startup-passcode",
             trackLabel: "startup-passcode",
             topicTitle: stateTitle,
-            topicDescription: `${MIN_PASSCODE_CHARS} character minimum`,
+            topicDescription: `A minimum of ${MIN_PASSCODE_CHARS} characters`,
             onPressEnter: this.onNext
         };
 

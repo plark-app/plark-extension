@@ -21,10 +21,10 @@ export default class NoticeScreen extends React.Component {
             <div className="topic">
                 <h1 className="topic__title">Backup Phrase</h1>
                 <p className="topic__desc">
-                    Write down each word, in order, on a piece of paper. Store your Backup Phrase <br/>
-                    in a secure and safe location, where you keep other important documents. <br/>
-                    Should you lose your Backup Phrase, your money may be accessed by the <br/>
-                    third party, even if they do not know your Wallet PIN.
+                    Write down each word in order on a piece of paper.
+                    Store your Backup Phrase in a secure and safe location, where you keep other important documents.
+                    Should you lose your Backup Phrase, your money may be accessed by a third party, even if
+                    they don’t know your Wallet PIN.
                 </p>
             </div>
 

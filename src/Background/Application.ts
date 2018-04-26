@@ -1,3 +1,5 @@
+import 'Core/global-env.d.ts';
+
 import {wrapStore} from 'react-chrome-redux';
 import {debounce} from 'lodash';
 import * as BerryWalletCore from '@berrywallet/core';
@@ -52,6 +54,4 @@ export const initializeBackgroundApplication = (): void => {
     window.getState = () => {
         return store.getState()
     };
-
-    window.core = BerryWalletCore;
 };
