@@ -48,3 +48,21 @@ export function exception(exception: Error, isFatal: boolean = false) {
 
     debugAnalytic(`Track exception %c${exception.message}`, 'color: blue;');
 }
+
+export function trackExchange(txid: string, pair: string, income: number) {
+    const transaction = {ti: txid, tr: income};
+    const item = {ti: txid, 'in': pair, tr: income};
+
+    debugAnalytic(`Track transaction with ID: ${txid}, Income: ${income}, Pair: ${pair}`);
+
+    try {
+        visitor
+            .event({eventCategory: "Exchange", eventAction: "success", eventLabel: pair})
+            .transaction(transaction)
+            .item(item)
+            .send();
+
+    } catch (error) {
+        debugAnalytic(`Error on Track Transaction! ${txid}`)
+    }
+}

@@ -1,10 +1,8 @@
 import React from 'react';
 import ReactSVG from 'react-svg';
 
-
-export default class WaitInitializingScreen extends React.Component {
-    render() {
-
+export class WaitInitializingScreen extends React.Component<any, any> {
+    render(): JSX.Element {
         const {coin} = this.props;
 
         return (

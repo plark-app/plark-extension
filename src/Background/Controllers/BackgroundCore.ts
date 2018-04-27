@@ -6,9 +6,6 @@ import {IStore} from 'Core/Declarations/Store';
 import {EventEmitter} from 'events';
 
 import {
-    EventListenerType,
-    EventHandlerType,
-    IRuntimeRequest,
     IController,
     IBackgroundCore,
     ControllerConstructorType

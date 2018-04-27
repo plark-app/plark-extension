@@ -104,7 +104,9 @@ export class WalletManager {
      *
      * @returns {Promise<WalletTransaction | void>}
      */
-    public sendTransaction = (address: string, value: number, fee: Coin.FeeTypes = Coin.FeeTypes.Medium): Promise<Wallet.Entity.WalletTransaction | void> => {
+    public sendTransaction = (address: string,
+                              value: BigNumber,
+                              fee: Coin.FeeTypes = Coin.FeeTypes.Medium): Promise<Wallet.Entity.WalletTransaction | void> => {
         const bufferSeed = this.controller.getSeed();
 
         const privateWallet = this.wdProvider.getPrivate(bufferSeed);
@@ -135,7 +137,7 @@ export class WalletManager {
                 .catch(onBroadcastingError);
         };
 
-        return privateWallet.createTransaction(parsedAddress, new BigNumber(value), fee)
+        return privateWallet.createTransaction(parsedAddress, value, fee)
             .then(broadcastTransaction, onCreatingError)
             .catch(onCreatingError);
     };

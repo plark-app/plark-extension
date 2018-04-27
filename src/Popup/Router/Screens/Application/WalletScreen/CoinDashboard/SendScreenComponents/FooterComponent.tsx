@@ -1,6 +1,6 @@
 import React from 'react';
 import {map} from 'lodash';
-import {SendDataFooterRow, IFooterRowProps} from './SendDataFooterRow';
+import {SendDataFooterRow, IFooterRowProps} from './';
 
 export interface ISendFooterProps {
     footerRows: IFooterRowProps[];

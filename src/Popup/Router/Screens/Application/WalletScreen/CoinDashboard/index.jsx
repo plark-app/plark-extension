@@ -6,10 +6,11 @@ import {Wallet} from '@berrywallet/core';
 
 import {CoinIcon} from "Popup/UI";
 import {mapWalletCoinToProps} from "Popup/Store/WalletCoinConnector";
-import ReceiveScreen from "./ReceiveScreen";
-import SendScreen from "./SendScreen";
-import HistoryScreen from "./HistoryScreen";
-import WaitInitializingScreen from './WaitInitializingScreen';
+
+import {ReceiveScreenComponent} from "./ReceiveScreen";
+import {SeedScreenComponent} from "./SendScreen";
+import {HistoryScreenComponent} from "./HistoryScreen";
+import {WaitInitializingScreen} from './WaitInitializingScreen';
 
 
 export const links = [{
@@ -69,9 +70,9 @@ export class CoinDashboardLayout extends React.Component {
 
         return (
             <Switch>
-                <Route path="/app/wallet" exact={true} component={SendScreen}/>
-                <Route path="/app/wallet/receive" component={ReceiveScreen}/>
-                <Route path="/app/wallet/history" component={HistoryScreen}/>
+                <Route path="/app/wallet" exact={true} component={SeedScreenComponent}/>
+                <Route path="/app/wallet/receive" component={ReceiveScreenComponent}/>
+                <Route path="/app/wallet/history" component={HistoryScreenComponent}/>
             </Switch>
         );
     };

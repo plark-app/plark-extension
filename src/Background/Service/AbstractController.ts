@@ -2,7 +2,7 @@ import {Dictionary} from 'lodash';
 import {AnyAction, Store} from 'redux';
 import {IStore} from 'Core/Declarations/Store';
 import {createDebugger} from "Core";
-import {IBackgroundCore, IController, EventHandlerType} from 'Core/Declarations/Service';
+import {IBackgroundCore, IController} from 'Core/Declarations/Service';
 
 // @TODO Need implement real Store state interface
 export abstract class AbstractController implements IController {

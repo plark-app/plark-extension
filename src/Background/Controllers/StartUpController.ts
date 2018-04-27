@@ -1,7 +1,7 @@
 import {Store} from "redux";
 
 import {IStore, IWelcomeStore} from "Core/Declarations/Store";
-import {EventHandlerType, IBackgroundCore} from 'Core/Declarations/Service';
+import {IBackgroundCore} from 'Core/Declarations/Service';
 import {StartUpEvent} from 'Core/Actions/Controller';
 import {GlobalAction, WelcomeAction, KeyringAction} from 'Core/Actions/Reducer';
 import {generateSeedVault} from "Core/Service/SeedVault";

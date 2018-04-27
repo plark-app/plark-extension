@@ -99,18 +99,11 @@ class Exchange extends React.Component<IExchangeProps, IExchangeModalState> {
         const payload = {
             from: fromCoin.getKey(),
             to: toCoin.getKey(),
-            value: fromValue.toNumber()
+            value: fromValue.toString()
         };
 
-        const onSuccess = (data) => {
+        const onSuccess = (tx: Wallet.Entity.WalletTransaction) => {
             this.setState(() => ({successfulExchange: true}));
-
-            Analytics.event(
-                "Exchange",
-                "success",
-                `${fromCoin.getUnit()} to ${toCoin.getUnit()}`,
-                // fromValue.mul(fromTicker.priceFiat).mul(0.0025).round(2).toNumber()
-            );
         };
 
         const onError = (error) => {

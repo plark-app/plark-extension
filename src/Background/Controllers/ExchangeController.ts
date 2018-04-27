@@ -1,11 +1,14 @@
 import {Store} from "redux";
-import {HD} from "@berrywallet/core";
+import BigNumber from 'bignumber.js';
+import {HD, Wallet} from "@berrywallet/core";
 import {createBeShapy, BeShapyClient, BeShapyUnits} from 'BeShapy';
 import {IStore} from "Core/Declarations/Store";
-import {EventHandlerType, IBackgroundCore} from 'Core/Declarations/Service';
+import {IBackgroundCore} from 'Core/Declarations/Service';
 import {Controller} from 'Core/Actions';
 import {AbstractController} from 'Background/Service/AbstractController';
 import {WalletController} from "./WalletController";
+
+import {Analytics} from 'Popup/Service';
 
 
 export class ExchangeController extends AbstractController {
@@ -15,6 +18,7 @@ export class ExchangeController extends AbstractController {
     public get alias(): string {
         return 'EXCHANGE';
     }
+
 
     /**
      * @param {IBackgroundCore} app
@@ -28,6 +32,7 @@ export class ExchangeController extends AbstractController {
         this.bindEventListener(Controller.Exchange.GetPair, this.getPair);
         this.bindEventListener(Controller.Exchange.TryExchange, this.tryExchange);
     }
+
 
     /**
      * @param request
@@ -44,7 +49,7 @@ export class ExchangeController extends AbstractController {
      * @param request
      * @returns {any}
      */
-    private tryExchange: EventHandlerType = (request: any): any => {
+    private tryExchange: EventHandlerType = (request: any): Promise<any> => {
         const {from, to, value} = request;
 
         const walletController = this.getApp().get('WALLET') as WalletController;
@@ -71,13 +76,35 @@ export class ExchangeController extends AbstractController {
             toAddress.address,
             returnAddress.address
         );
+        const onSuccessSend = (transaction: Wallet.Entity.WalletTransaction): Wallet.Entity.WalletTransaction => {
+            const pairItem = `${from} to ${to}`;
+
+            try {
+                const fromTicker = this.getState().Coin.tickers[from] || {priceUsd: 0};
+
+                Analytics.trackExchange(
+                    transaction.txid,
+                    pairItem,
+                    new BigNumber(value).mul(fromTicker.priceUsd).mul(0.0025).round(2).toNumber()
+                );
+            } catch (error) {
+                this.debug('Something wrong with analitics');
+            }
+
+            return transaction;
+        };
 
         return shiftPromise.then((shift: BeShapyUnits.Shift) => {
-            return walletController.createTransaction({
+
+            const transactionParams = {
                 coinKey: from,
                 address: shift.deposit,
                 value: value
-            });
+            };
+
+            return walletController
+                .createTransaction(transactionParams)
+                .then(onSuccessSend);
         });
     }
 }

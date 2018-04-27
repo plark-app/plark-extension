@@ -175,9 +175,10 @@ export class WalletController extends AbstractController {
     public createTransaction = (request: CreateTransactionPayload) => {
         const {coinKey, address, value} = request;
 
+        const nValue = new BigNumber(value);
         const fee = this.getState().Option.fee;
 
-        return this.getWalletManager(coinKey).sendTransaction(address, value, fee);
+        return this.getWalletManager(coinKey).sendTransaction(address, nValue, fee);
     };
 
     public clearAllWallets() {

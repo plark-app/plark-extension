@@ -6,6 +6,7 @@ import {CoinInterface, FiatInterface, TickerInterface} from "Core/Coins/Interfac
 import {DotLoader} from 'Popup/UI';
 
 export interface IFooterRowProps {
+    key?: string;
     coin: CoinInterface;
     fiat: FiatInterface;
     ticker: TickerInterface;

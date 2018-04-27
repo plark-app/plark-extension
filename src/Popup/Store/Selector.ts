@@ -29,6 +29,7 @@ export const tickerSelector = createSelector(
         return coinStore.tickers[coin] || {
             key: coin,
             priceBtc: 0,
+            priceUsd: 0,
             priceFiat: 0
         } as TickerInterface;
     }
