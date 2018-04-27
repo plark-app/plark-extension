@@ -14,7 +14,7 @@ import TrackScreenView from 'Popup/Service/ScreenViewAnalitics';
 import {modalObserverInstance, ModalType} from "Popup/Router/Modals";
 
 @connect(mapWalletCoinToProps)
-export default class HistoryScreen extends React.Component {
+export class HistoryScreenComponent extends React.Component {
 
     /**
      * @param transaction

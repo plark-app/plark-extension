@@ -27,7 +27,7 @@ const ButtonComponent = (props) => {
 
 
 @connect(mapWalletCoinToProps)
-export default class ReceiveScreen extends React.Component {
+export class ReceiveScreenComponent extends React.Component {
     addressInput;
     state = {
         copied: false

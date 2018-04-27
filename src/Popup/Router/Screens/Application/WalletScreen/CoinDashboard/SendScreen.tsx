@@ -11,10 +11,9 @@ import {Button, Alert} from "Popup/UI";
 import {mapWalletCoinToProps} from 'Popup/Store/WalletCoinConnector';
 import TrackScreenView from 'Popup/Service/ScreenViewAnalitics';
 import {Background} from 'Popup/Service';
-import {FooterComponent} from "./SendScreenComponents/FooterComponent";
+import {FooterComponent, IFooterRowProps} from "./SendScreenComponents";
 
-@connect(mapWalletCoinToProps)
-export default class SendScreen extends React.Component {
+class SendScreen extends React.Component<any, any> {
 
     state = {
         fee: null,
@@ -32,7 +31,7 @@ export default class SendScreen extends React.Component {
         this.onChangeTxValueDebounce = debounce(this.onChangeTxValue, 300);
     }
 
-    getCoinValue() {
+    getCoinValue(): BigNumber {
         const {activeInput, value = ''} = this.state;
         const {ticker} = this.props;
 
@@ -48,15 +47,15 @@ export default class SendScreen extends React.Component {
         }
     }
 
-    getFee() {
+    getFee(): BigNumber | null {
         return this.state.fee ? new BigNumber(this.state.fee).round(8) : null;
     }
 
-    getBalance() {
+    getBalance(): BigNumber {
         return new BigNumber(Wallet.Helper.calculateBalance(this.props.balance)).round(8);
     }
 
-    onChangeAddress = (event) => {
+    onChangeAddress = (event): void => {
         const addressValue = event.target.value;
         this.setState(() => {
             return {
@@ -66,7 +65,7 @@ export default class SendScreen extends React.Component {
     };
 
     onChangeValueInput = (type) => {
-        return (event) => {
+        return (event): void => {
             const val = event.target.value;
 
             const valueSet = () => {
@@ -85,11 +84,11 @@ export default class SendScreen extends React.Component {
         }
     };
 
-    onChangeTxValue = () => {
+    onChangeTxValue = (): void => {
         const newTxRequestParams = {
             coinKey: this.props.coin.key,
             address: this.state.address,
-            value: this.getCoinValue().toNumber()
+            value: this.getCoinValue().toString()
         };
 
         const resolveFee = (res) => {
@@ -115,14 +114,14 @@ export default class SendScreen extends React.Component {
 
         const {coin} = this.props;
 
-        if (coinValue <= 0) {
+        if (coinValue.lessThanOrEqualTo(0)) {
             throw new Error("Oh snap! Set value to sent");
         }
 
         const walletBalance = this.getBalance();
         const remaining = walletBalance.minus(fee ? fee : 0).minus(coinValue);
 
-        if (remaining < 0) {
+        if (remaining.lessThan(0)) {
             throw new Error("Oh snap! It seems there is not enough funds.");
         }
 
@@ -137,11 +136,11 @@ export default class SendScreen extends React.Component {
         return {
             coinKey: coin.key,
             address: this.state.address,
-            value: coinValue
+            value: coinValue.toString()
         };
     }
 
-    createTransaction = (event) => {
+    createTransaction = (event): void => {
         event.preventDefault();
         let newTxRequestParams = null;
 
@@ -195,11 +194,7 @@ export default class SendScreen extends React.Component {
     };
 
     render() {
-        const {
-            coin,
-            fiat,
-            ticker
-        } = this.props;
+        const {coin, fiat, ticker} = this.props;
 
         const {address, activeInput, value = 0, sendingTransaction} = this.state;
 
@@ -210,7 +205,7 @@ export default class SendScreen extends React.Component {
         const remaining = walletBalance.minus(fee ? fee : 0).minus(coinValue);
         remaining.round(8);
 
-        const disabledSend = !this.state.address || coinValue <= 0;
+        const disabledSend = !this.state.address || coinValue.lte(0);
 
         const baseRowProps = {
             coin: coin,
@@ -218,30 +213,32 @@ export default class SendScreen extends React.Component {
             ticker: ticker,
         };
 
-        const footerRows = [{
+        const footerRows: IFooterRowProps[] = [];
+
+        footerRows.push({
             value: walletBalance,
-            isError: coinValue > 0 && remaining < 0,
+            isError: coinValue.gt(0) && remaining.lt(0),
             label: "Spendable balance",
             key: 'spendable-balance',
             ...baseRowProps,
-        }];
+        } as IFooterRowProps);
 
-        if (coinValue > 0) {
+        if (coinValue.greaterThan(0)) {
             footerRows.push({
-                value: remaining > 0 ? remaining : 0,
-                loading: !fee,
+                value: remaining.gt(0) ? remaining : 0,
+                loading: fee === null,
                 label: "Remaining Balance",
                 key: 'balance',
                 ...baseRowProps
-            });
+            } as IFooterRowProps);
 
             footerRows.push({
                 value: fee,
-                loading: !fee,
+                loading: fee === null,
                 label: `${coin.getName()} Network Fee`,
                 key: 'fee',
                 ...baseRowProps
-            });
+            } as IFooterRowProps);
         }
 
         return (
@@ -278,7 +275,7 @@ export default class SendScreen extends React.Component {
 
                         <label className="send-value">
                             <span className="send-value__dummy">
-                                {activeInput === 'coin' ? Numeral(coinValue * ticker.priceFiat).format('0,0.00') : null}
+                                {activeInput === 'coin' ? Numeral(coinValue.mul(ticker.priceFiat)).format('0,0.00') : null}
                             </span>
                             <input placeholder={activeInput ? '' : '0.00'}
                                    value={activeInput === 'fiat' ? value : ''}
@@ -296,3 +293,6 @@ export default class SendScreen extends React.Component {
         )
     }
 }
+
+
+export const SeedScreenComponent = connect(mapWalletCoinToProps)(SendScreen);

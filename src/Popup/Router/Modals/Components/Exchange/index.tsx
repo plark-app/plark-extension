@@ -99,7 +99,7 @@ class Exchange extends React.Component<IExchangeProps, IExchangeModalState> {
         const payload = {
             from: fromCoin.getKey(),
             to: toCoin.getKey(),
-            value: fromValue.toNumber()
+            value: fromValue.toString()
         };
 
         const onSuccess = (data) => {
