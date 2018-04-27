@@ -24,7 +24,8 @@ export class BeShapyClient {
 
     public constructor(apiKey?: string, apiSecret?: string) {
         this.client = Axios.create({
-            baseURL: SHAPESHIFT_URL
+            baseURL: SHAPESHIFT_URL,
+            withCredentials: false
         });
 
         this.apiKey = apiKey || SHAPESHIFT_DEFAULT_API_KEY;

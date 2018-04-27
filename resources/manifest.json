@@ -9,8 +9,11 @@
     "permissions": [
         "tabs",
         "storage",
+        "webRequest",
         "notifications",
-        "clipboardWrite"
+        "clipboardWrite",
+        "http://*/*",
+        "https://*/*"
     ],
     "commands": {
         "_execute_browser_action": {

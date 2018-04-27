@@ -44,6 +44,7 @@ export class TickerController extends AbstractController {
                 payloadTickers.push({
                     key: coin.getKey(),
                     priceBtc: parseFloat(coinTicker.price_btc),
+                    priceUsd: parseFloat(coinTicker.price_usd),
                     priceFiat: parseFloat(coinTicker[`price_${currentFiatKey.toLowerCase()}`])
                 } as TickerInterface);
             });

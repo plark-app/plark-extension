@@ -1,11 +1,15 @@
 import {Store} from "redux";
-import {HD} from "@berrywallet/core";
+import BigNumber from 'bignumber.js';
+import {HD, Wallet} from "@berrywallet/core";
 import {createBeShapy, BeShapyClient, BeShapyUnits} from 'BeShapy';
+import {Coins} from 'Core';
 import {IStore} from "Core/Declarations/Store";
 import {IBackgroundCore} from 'Core/Declarations/Service';
 import {Controller} from 'Core/Actions';
 import {AbstractController} from 'Background/Service/AbstractController';
 import {WalletController} from "./WalletController";
+
+import {Analytics} from 'Popup/Service';
 
 
 export class ExchangeController extends AbstractController {
@@ -73,13 +77,35 @@ export class ExchangeController extends AbstractController {
             toAddress.address,
             returnAddress.address
         );
+        const onSuccessSend = (transaction: Wallet.Entity.WalletTransaction): Wallet.Entity.WalletTransaction => {
+            const pairItem = `${from} to ${to}`;
+
+            try {
+                const fromTicker = this.getState().Coin.tickers[from] || {priceUsd: 0};
+                
+                Analytics.trackExchange(
+                    transaction.txid,
+                    pairItem,
+                    new BigNumber(value).mul(fromTicker.priceUsd).mul(0.0025).round(2).toNumber()
+                );
+            } catch (error) {
+                this.debug('Something wrong with analitics');
+            }
+
+            return transaction;
+        };
 
         return shiftPromise.then((shift: BeShapyUnits.Shift) => {
-            return walletController.createTransaction({
+
+            const transactionParams = {
                 coinKey: from,
                 address: shift.deposit,
                 value: value
-            });
+            };
+
+            return walletController
+                .createTransaction(transactionParams)
+                .then(onSuccessSend);
         });
     }
 }

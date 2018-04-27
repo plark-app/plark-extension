@@ -1,6 +1,7 @@
 import webpack from 'webpack';
 import Path from 'path';
 import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
+
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 const noop = () => null;
@@ -84,7 +85,7 @@ const OptimisationProps = {
             cache: true,
             parallel: true,
             uglifyOptions: {
-                compress: false,
+                compress: true,
                 ecma: 6,
                 mangle: false
             },

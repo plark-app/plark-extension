@@ -7,7 +7,7 @@ export interface CoinInterface {
     getUnit(): Coin.Unit;
 
     getCoreCoin(): Coin.CoinInterface;
-    
+
     getName(): string;
 
     getAlias(): string;
@@ -30,6 +30,7 @@ export interface CoinInterface {
 export interface TickerInterface {
     key: CoinSymbol;
     priceBtc: number;
+    priceUsd: number;
     priceFiat: number;
 }
 
