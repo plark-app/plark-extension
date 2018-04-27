@@ -1,15 +1,7 @@
-import {Store, AnyAction} from 'redux';
+import {Store} from 'redux';
 import {Dictionary} from 'lodash';
 import {IStore} from 'Core/Declarations/Store';
 import {EventEmitter} from 'events';
-
-interface IRuntimeRequest {
-    type: string
-    payload: any | undefined
-}
-
-type EventListenerType = (request: IRuntimeRequest, sender: any, sendResponse) => void | any;
-type EventHandlerType = <T>(request: any, sender: any) => Promise<T> | any;
 
 type ControllerConstructorType<T> = new (app: IBackgroundCore, store: Store<IStore>) => T;
 
@@ -37,11 +29,7 @@ interface IBackgroundCore extends EventEmitter {
 }
 
 export {
-    IRuntimeRequest,
-    EventListenerType,
-    EventHandlerType,
     ControllerConstructorType,
-
     IController,
     IBackgroundCore
 }

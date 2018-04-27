@@ -2,7 +2,7 @@ import {Store} from "redux";
 import {HD} from "@berrywallet/core";
 import {createBeShapy, BeShapyClient, BeShapyUnits} from 'BeShapy';
 import {IStore} from "Core/Declarations/Store";
-import {EventHandlerType, IBackgroundCore} from 'Core/Declarations/Service';
+import {IBackgroundCore} from 'Core/Declarations/Service';
 import {Controller} from 'Core/Actions';
 import {AbstractController} from 'Background/Service/AbstractController';
 import {WalletController} from "./WalletController";
@@ -16,6 +16,7 @@ export class ExchangeController extends AbstractController {
         return 'EXCHANGE';
     }
 
+
     /**
      * @param {IBackgroundCore} app
      * @param {Store<IStore>} store
@@ -28,6 +29,7 @@ export class ExchangeController extends AbstractController {
         this.bindEventListener(Controller.Exchange.GetPair, this.getPair);
         this.bindEventListener(Controller.Exchange.TryExchange, this.tryExchange);
     }
+
 
     /**
      * @param request
@@ -44,7 +46,7 @@ export class ExchangeController extends AbstractController {
      * @param request
      * @returns {any}
      */
-    private tryExchange: EventHandlerType = (request: any): any => {
+    private tryExchange: EventHandlerType = (request: any): Promise<any> => {
         const {from, to, value} = request;
 
         const walletController = this.getApp().get('WALLET') as WalletController;

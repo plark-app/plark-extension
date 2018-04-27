@@ -1,7 +1,7 @@
 import {Store} from 'redux';
 import {each, find} from 'lodash';
 import createClient, {IBerryMarketCap, ITickerData} from 'berrymarketcap';
-import {EventHandlerType, IBackgroundCore} from 'Core/Declarations/Service';
+import {IBackgroundCore} from 'Core/Declarations/Service';
 import {AbstractController} from "Background/Service/AbstractController";
 import {IStore} from 'Core/Declarations/Store';
 import {CoinAction} from 'Core/Actions/Reducer';
