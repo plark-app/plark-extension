@@ -1,4 +1,4 @@
-import {Dictionary} from 'lodash';
+import {Dictionary, filter} from 'lodash';
 import Axios, {AxiosResponse, AxiosRequestConfig, AxiosInstance} from 'axios';
 import {SHAPESHIFT_URL, SHAPESHIFT_DEFAULT_API_KEY} from './constants';
 import {pair} from './utils';

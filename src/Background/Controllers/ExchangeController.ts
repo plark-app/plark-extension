@@ -2,7 +2,6 @@ import {Store} from "redux";
 import BigNumber from 'bignumber.js';
 import {HD, Wallet} from "@berrywallet/core";
 import {createBeShapy, BeShapyClient, BeShapyUnits} from 'BeShapy';
-import {Coins} from 'Core';
 import {IStore} from "Core/Declarations/Store";
 import {IBackgroundCore} from 'Core/Declarations/Service';
 import {Controller} from 'Core/Actions';
@@ -82,7 +81,7 @@ export class ExchangeController extends AbstractController {
 
             try {
                 const fromTicker = this.getState().Coin.tickers[from] || {priceUsd: 0};
-                
+
                 Analytics.trackExchange(
                     transaction.txid,
                     pairItem,
