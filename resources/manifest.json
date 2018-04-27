@@ -9,7 +9,6 @@
     "permissions": [
         "tabs",
         "storage",
-        "webRequest",
         "notifications",
         "clipboardWrite",
         "http://*/*",

@@ -133,6 +133,8 @@ function extractManifest() {
     const baseManifestPipe = jsoneditor((json) => {
         json.version = packageJson.version;
 
+        delete json.content_scripts;
+
         return json;
     });
 
