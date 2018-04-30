@@ -4,7 +4,6 @@ import {IStore} from 'Core/Declarations/Store';
 import {createDebugger} from "Core";
 import {IBackgroundCore, IController} from 'Core/Declarations/Service';
 
-// @TODO Need implement real Store state interface
 export abstract class AbstractController implements IController {
 
     public store: Store<IStore>;

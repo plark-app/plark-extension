@@ -11,8 +11,11 @@ import {Button, Alert} from "Popup/UI";
 import {mapWalletCoinToProps} from 'Popup/Store/WalletCoinConnector';
 import TrackScreenView from 'Popup/Service/ScreenViewAnalitics';
 import {Background} from 'Popup/Service';
-import {FooterComponent, IFooterRowProps} from "./SendScreenComponents";
 
+import {FooterComponent} from './FooterComponent';
+import {SendDataFooterRow, IFooterRowProps} from './SendDataFooterRow';
+
+// @TODO Need implemenet Props and State interface
 class SendScreen extends React.Component<any, any> {
 
     state = {
@@ -294,5 +297,11 @@ class SendScreen extends React.Component<any, any> {
     }
 }
 
+const SeedScreenComponent = connect(mapWalletCoinToProps)(SendScreen);
 
-export const SeedScreenComponent = connect(mapWalletCoinToProps)(SendScreen);
+export {
+    FooterComponent,
+    SendDataFooterRow,
+    IFooterRowProps,
+    SeedScreenComponent
+}

@@ -2,7 +2,7 @@ import React from 'react';
 import {extractHtmlLegal} from 'Core/Legal';
 import TrackScreenView from "Popup/Service/ScreenViewAnalitics";
 
-export default class TermsAndConditionsScreen extends React.Component {
+export class TermsAndConditionsScreen extends React.Component {
 
     state = {
         content: null

@@ -4,7 +4,7 @@ import Extberry from 'extberry';
 const UniversalAnalytics = require('universal-analytics');
 const uuidv4 = require('uuid/v4');
 const localStorage = require('local-storage');
-const debugAnalytic = createDebugger('analytics');
+const debugAnalytics = createDebugger('analytics');
 
 const USER_UUID_KEY = 'USER_UUID';
 
@@ -28,7 +28,7 @@ export function screenview(title: string) {
         .screenview(title, AnalyticsOptions.NAME, AnalyticsOptions.VERSION)
         .send();
 
-    debugAnalytic(`Screen view %c${title}`, 'color: blue;');
+    debugAnalytics(`Screen view %c${title}`, 'color: blue;');
 }
 
 export function event(category: string, action: string, label?: string, value?: string | number) {
@@ -40,20 +40,20 @@ export function event(category: string, action: string, label?: string, value?: 
     };
 
     visitor.event(params).send();
-    debugAnalytic(`Event view %c${category}`, 'color: blue;', params);
+    debugAnalytics(`Event view %c${category}`, 'color: blue;', params);
 }
 
 export function exception(exception: Error, isFatal: boolean = false) {
     visitor.exception(exception.message, isFatal).send();
 
-    debugAnalytic(`Track exception %c${exception.message}`, 'color: blue;');
+    debugAnalytics(`Track exception %c${exception.message}`, 'color: blue;');
 }
 
 export function trackExchange(txid: string, pair: string, income: number) {
-    const transaction = {ti: txid, tr: income};
-    const item = {ti: txid, 'in': pair, tr: income};
+    const transaction = {ti: txid, tr: income, cu: 'USD'};
+    const item = {ti: txid, 'in': pair, ip: income, iq: 1, cu: 'USD'};
 
-    debugAnalytic(`Track transaction with ID: ${txid}, Income: ${income}, Pair: ${pair}`);
+    debugAnalytics(`Track transaction with ID: ${txid}, Income: ${income}, Pair: ${pair}`);
 
     try {
         visitor
@@ -63,6 +63,6 @@ export function trackExchange(txid: string, pair: string, income: number) {
             .send();
 
     } catch (error) {
-        debugAnalytic(`Error on Track Transaction! ${txid}`)
+        debugAnalytics(`Error on Track Transaction! ${txid}`)
     }
 }

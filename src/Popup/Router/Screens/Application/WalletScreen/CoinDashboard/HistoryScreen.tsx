@@ -13,8 +13,8 @@ import {Badge} from 'Popup/UI';
 import TrackScreenView from 'Popup/Service/ScreenViewAnalitics';
 import {modalObserverInstance, ModalType} from "Popup/Router/Modals";
 
-@connect(mapWalletCoinToProps)
-export class HistoryScreenComponent extends React.Component {
+// @TODO Need implemenet Props and State interface
+class HistoryScreen extends React.Component<any, any> {
 
     /**
      * @param transaction
@@ -82,3 +82,6 @@ export class HistoryScreenComponent extends React.Component {
         )
     }
 }
+
+
+export const HistoryScreenComponent = connect(mapWalletCoinToProps)(HistoryScreen);
