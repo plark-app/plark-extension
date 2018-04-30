@@ -12,7 +12,7 @@ import TrackScreenView from 'Popup/Service/ScreenViewAnalitics';
 
 const browserTabs = Extberry.tabs;
 
-const ButtonComponent = (props) => {
+const ButtonComponent = (props): JSX.Element => {
     return (
         <button className="receive-button" onClick={props.onClick}>
             <ReactSVG
@@ -25,14 +25,12 @@ const ButtonComponent = (props) => {
     );
 };
 
-
-@connect(mapWalletCoinToProps)
-export class ReceiveScreenComponent extends React.Component {
+// @TODO Need implemenet Props and State interface
+class ReceiveScreen extends React.Component<any, any> {
     addressInput;
     state = {
         copied: false
     };
-
 
     onCopy = (event) => {
         this.addressInput.select();
@@ -58,16 +56,18 @@ export class ReceiveScreenComponent extends React.Component {
         }
     };
 
-
-    extractAddress = () => {
-        const wdProvider = new Wallet.Helper.createWDProvider(this.props.walletData);
+    extractAddress = (): string => {
+        const wdProvider = Wallet.Helper.createWDProvider(this.props.walletData);
         const addr = wdProvider.address.last(HD.BIP44.AddressType.RECEIVE);
 
-        return addr ? addr.address : '';
+        if (!addr) {
+            throw new Error('Receive address not found!');
+        }
+
+        return addr.address;
     };
 
     onPrint = (event) => {
-
     };
 
     onEmail = () => {
@@ -90,8 +90,7 @@ export class ReceiveScreenComponent extends React.Component {
         browserTabs.create({url: coin.generateAddrLink(address)});
     };
 
-
-    render() {
+    render(): JSX.Element {
         const {coin} = this.props;
         const address = this.extractAddress();
 
@@ -121,3 +120,6 @@ export class ReceiveScreenComponent extends React.Component {
         );
     }
 }
+
+
+export const ReceiveScreenComponenent = connect(mapWalletCoinToProps)(ReceiveScreen);

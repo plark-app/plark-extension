@@ -7,8 +7,8 @@ import {Wallet} from '@berrywallet/core';
 import {CoinIcon} from "Popup/UI";
 import {mapWalletCoinToProps} from "Popup/Store/WalletCoinConnector";
 
-import {ReceiveScreenComponent} from "./ReceiveScreen";
 import {SeedScreenComponent} from "./SendScreen";
+import {ReceiveScreenComponent} from "./ReceiveScreen";
 import {HistoryScreenComponent} from "./HistoryScreen";
 import {WaitInitializingScreen} from './WaitInitializingScreen';
 
