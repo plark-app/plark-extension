@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default class AddressesScreen extends React.Component {
+export class AddressesScreen extends React.Component {
     render() {
         return (
             <div>Addresses!</div>

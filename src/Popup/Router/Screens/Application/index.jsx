@@ -12,9 +12,9 @@ import {filterCoinList, findFiat} from "Core/Coins";
 
 import {WalletScreenComponent} from './WalletScreen';
 import {ExchangeRouterComponent} from './ExchangeScreen';
-import OptionsScreen from './OptionsScreen';
-import HelpScreen from './HelpScreen';
-import PasscodeWrapper from './NeedPasswordScreen';
+import {OptionsScreen} from './OptionsScreen';
+import {HelpScreen} from './HelpScreen';
+import {PasscodeWrapper} from './NeedPasswordScreen';
 
 const links = [
     {

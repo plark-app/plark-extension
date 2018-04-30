@@ -1,61 +1,63 @@
 import React from 'react';
 import classNames from 'classnames';
-import {Route, Switch} from 'react-router-dom';
-import {filter} from 'lodash';
+import {Route, Switch, Redirect} from 'react-router-dom';
+import {filter, find} from 'lodash';
 
 import {MenuLayout} from 'Popup/UI/Layouts';
 
-import WalletsScreen from "./WalletsScreen";
-import FiatsScreen from "./FiatsScreen";
-import AddressesScreen from "./AddressesScreen";
-import MiningFeeScreen from "./MiningFeeScreen";
-import ResetScreen from "./ResetScreen";
+import {WalletsScreen} from "./WalletsScreen";
+import {FiatsScreen} from "./FiatsScreen";
+import {AddressesScreen} from "./AddressesScreen";
+import {MiningFeeScreen} from "./MiningFeeScreen";
+import {SecurityScreen} from "./SecurityScreen";
+import {ResetScreen} from "./ResetScreen";
 
-const links = [
-    {
-        path: '/app/options',
-        name: 'Wallets',
-        isExact: true,
-        isStrict: true
-    }, {
-        path: '/app/options/fiat',
-        name: 'Currency'
-    }, {
-        path: '/app/options/addresses',
-        name: 'Addresses',
-        disabled: true
-    }, {
-        path: '/app/options/security',
-        name: 'Security',
-        disabled: true
-    }, {
-        path: '/app/options/mining-fee',
-        name: 'Mining Fee'
-    }, {
-        path: '/app/options/reset',
-        name: 'Reset'
-    }
-];
+const links = [{
+    path: '/app/options/wallet',
+    name: 'Wallets',
+    component: WalletsScreen
+}, {
+    path: '/app/options/fiat',
+    name: 'Currency',
+    component: FiatsScreen
+}, {
+    path: '/app/options/addresses',
+    name: 'Addresses',
+    disabled: true,
+    component: AddressesScreen
+}, {
+    path: '/app/options/security',
+    name: 'Security',
+    component: SecurityScreen
+}, {
+    path: '/app/options/mining-fee',
+    name: 'Mining Fee',
+    component: MiningFeeScreen
+}, {
+    path: '/app/options/reset',
+    name: 'Reset',
+    component: ResetScreen
+}];
 
-export default class OptionsScreen extends React.Component {
+export class OptionsScreen extends React.Component {
     state = {
         loaded: false
     };
 
     componentDidMount() {
         setTimeout(() => {
-            this.setState(() => {
-                return {
-                    loaded: true
-                };
-            });
+            this.setState(() => ({loaded: true}));
         }, 0);
     }
 
+    redirectFromRoot = () => {
+        const firstEnabled = find(links, (item) => !item.disabled);
+
+        return <Redirect to={firstEnabled.path}/>;
+    };
+
     render() {
-        const enabledLinks = filter(links, (item) => {
-            return !item.disabled;
-        });
+        const enabledLinks = filter(links, (item) => !item.disabled);
 
         return (
             <div className="page-wrapper">
@@ -69,13 +71,13 @@ export default class OptionsScreen extends React.Component {
                 />
                 <div className="page-content">
                     <Switch>
-                        <Route exact={true} path={`/app/options`} component={WalletsScreen}/>
-                        <Route path={`/app/options/fiat`} component={FiatsScreen}/>
-                        <Route path={`/app/options/addresses`} component={AddressesScreen}/>
-
-                        <Route path={`/app/options/security`} component={null}/>
-                        <Route path={`/app/options/mining-fee`} component={MiningFeeScreen}/>
-                        <Route path={`/app/options/reset`} component={ResetScreen}/>
+                        <Route path="/app/options" exact={true} component={this.redirectFromRoot}/>
+                        {enabledLinks.map((elem, index) => {
+                            return <Route key={index}
+                                          path={elem.path}
+                                          component={elem.component || null}
+                            />
+                        })}
                     </Switch>
                 </div>
             </div>

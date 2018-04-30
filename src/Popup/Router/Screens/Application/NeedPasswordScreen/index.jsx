@@ -3,7 +3,7 @@ import React from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import EnterPasscodeModal from './EnterPasscodeModal';
 
-export default class PasscodeWrapper extends React.Component {
+export class PasscodeWrapper extends React.Component {
     render() {
         const {open = false} = this.props;
 

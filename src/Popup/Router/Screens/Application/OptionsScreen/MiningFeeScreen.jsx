@@ -30,7 +30,7 @@ const feesList = [
 ];
 
 @connect(mapStateToProps)
-export default class MiningFeeScreen extends React.Component {
+export class MiningFeeScreen extends React.Component {
 
     onChangeFee = (event) => {
         const feeKey = event.target.value;
