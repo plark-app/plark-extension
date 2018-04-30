@@ -6,24 +6,29 @@ import {MenuLayout} from 'Popup/UI/Layouts';
 
 import {routerElements, disabledFilter, IRouteElement} from './Routes';
 
-export class HelpScreen extends React.Component<any, any> {
-    state = {
+interface IHelpState {
+    loaded: boolean;
+}
+
+// @TODO Need implement interfaces of HelpProps
+export class HelpScreen extends React.Component<any, IHelpState> {
+    public state: IHelpState = {
         loaded: false
     };
 
-    componentDidMount() {
+    public componentDidMount() {
         setTimeout(() => {
             this.setState(() => ({loaded: true}));
         }, 0);
     }
 
-    redirectFromRoot = () => {
+    public redirectFromRoot = () => {
         const firstEnabled = find(routerElements, disabledFilter);
 
         return <Redirect to={firstEnabled.path}/>
     };
 
-    render() {
+    public render(): JSX.Element {
         const enabledElements = filter<IRouteElement>(routerElements, disabledFilter);
 
         return (

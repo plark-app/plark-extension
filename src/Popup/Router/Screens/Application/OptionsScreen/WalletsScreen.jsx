@@ -2,14 +2,12 @@ import React from 'react';
 import {filter, map, includes} from 'lodash';
 import {connect} from 'react-redux';
 import classNames from 'classnames';
+import {coinList} from 'Core/Coins';
+import {Controller} from "Core/Actions";
 import {Background} from 'Popup/Service';
 import {InputCheck, Alert} from 'Popup/UI';
 import {Analytics} from "Popup/Service";
-import {coinList} from 'Core/Coins';
-import {Controller} from "Core/Actions";
-
-import SearchInputComponent from './Components/SearchInputComponent';
-import NotFoundComponent from './Components/NotFoundComponent';
+import {SearchInputComponent, NotFoundComponent} from './Components';
 
 
 const mapStateToProps = (store) => {
@@ -18,6 +16,7 @@ const mapStateToProps = (store) => {
         wallets: store.Wallet
     }
 };
+
 
 @connect(mapStateToProps)
 export class WalletsScreen extends React.Component {

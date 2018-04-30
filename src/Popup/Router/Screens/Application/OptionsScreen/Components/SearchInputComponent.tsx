@@ -2,28 +2,31 @@ import React from 'react';
 import classNames from 'classnames';
 import ReactSVG from 'react-svg'
 
+
 export interface ISearchOwnProps {
     onChangeSearch?: (value: string) => void;
     placeholder?: string;
 }
+
 
 export interface ISearchOwnState {
     search: string;
     focused: boolean;
 }
 
-export default class SearchInputComponent extends React.Component<ISearchOwnProps, ISearchOwnState> {
 
-    state = {
+export class SearchInputComponent extends React.Component<ISearchOwnProps, ISearchOwnState> {
+
+    public state: ISearchOwnState = {
         search: '',
         focused: false
     };
 
-    onChangeSearch = (event) => {
+    public onChangeSearch = (event) => {
         this.setSearchValue(event.target.value);
     };
 
-    setSearchValue(value) {
+    public setSearchValue(value) {
         const {onChangeSearch} = this.props;
         this.setState(() => {
             return {search: value};
@@ -31,17 +34,17 @@ export default class SearchInputComponent extends React.Component<ISearchOwnProp
         onChangeSearch && onChangeSearch(value);
     }
 
-    setFocus = (focusValue) => {
+    public setFocus = (focusValue) => {
         return () => this.setState(() => {
             return {focused: focusValue};
-        })
+        });
     };
 
-    onClearEvent = () => {
+    public onClearEvent = () => {
         this.setSearchValue('');
     };
 
-    render() {
+    public render(): JSX.Element {
 
         const {placeholder = ''} = this.props;
         const {

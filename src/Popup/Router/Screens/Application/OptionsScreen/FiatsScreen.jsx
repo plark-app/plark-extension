@@ -2,12 +2,11 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {map, filter} from 'lodash';
 import {fiatList} from 'Core/Coins';
-import {Background} from 'Popup/Service';
 import {TickerEvent} from "Core/Actions/Controller";
-import {Analytics} from "Popup/Service";
-import SearchInputComponent from './Components/SearchInputComponent';
-import NotFoundComponent from './Components/NotFoundComponent';
 import {InputCheck} from 'Popup/UI';
+import {Background} from 'Popup/Service';
+import {Analytics} from "Popup/Service";
+import {SearchInputComponent, NotFoundComponent} from './Components';
 
 const mapStateToProps = (store) => {
     return {
