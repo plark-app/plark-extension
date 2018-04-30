@@ -20,7 +20,7 @@ const mapStateToProps = (store) => {
 };
 
 @connect(mapStateToProps)
-export default class WalletsScreen extends React.Component {
+export class WalletsScreen extends React.Component {
 
     state = {
         search: '',

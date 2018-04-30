@@ -16,7 +16,7 @@ const mapStateToProps = (store) => {
 };
 
 @connect(mapStateToProps)
-export default class FiatsScreen extends React.Component {
+export class FiatsScreen extends React.Component {
 
     state = {
         search: ''
