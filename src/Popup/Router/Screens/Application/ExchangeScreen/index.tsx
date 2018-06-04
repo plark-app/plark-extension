@@ -1,7 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {Route, Switch} from 'react-router-dom';
-import {Redirect} from "react-router";
+import {Route, Switch, Redirect} from 'react-router-dom';
 import {find} from 'lodash';
 
 import {Coins} from 'Core';

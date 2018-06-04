@@ -2,12 +2,7 @@
     "compilerOptions": {
         "target": "es5",
         "module": "es2015",
-        "allowJs": true,
-        "declaration": false,
         "moduleResolution": "node",
-        "allowSyntheticDefaultImports": true,
-        "noImplicitAny": false,
-        "sourceMap": true,
         "jsx": "react",
         "lib": [
             "es2016",
@@ -18,7 +13,12 @@
         ],
         "baseUrl": "./src",
         "outDir": "./dist/typescript",
+        "allowJs": true,
+        "sourceMap": true,
+        "declaration": false,
         "skipLibCheck": true,
+        "noImplicitAny": false,
+        "allowSyntheticDefaultImports": true,
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true
     },

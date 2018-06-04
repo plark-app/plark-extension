@@ -58,7 +58,7 @@
     "web_accessible_resources": [],
     "browser_action": {
         "default_icon": {
-            "128": "/images/berrywallet-128.png"
+            "256": "/images/berrywallet-256.png"
         },
         "default_popup": "/views/popup.html",
         "default_title": "__MSG_default_title__"

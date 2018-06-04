@@ -4,7 +4,7 @@ declare global {
 
     type DummyCallable<R> = (...data: any[]) => R;
 
-    export interface Window {
+    interface Window {
         getState(): IStore;
 
         browser: any;
