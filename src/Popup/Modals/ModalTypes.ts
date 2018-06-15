@@ -1,6 +1,6 @@
 import {Dictionary} from "lodash";
 
-import Transaction from './Components/Transaction';
+import {Transaction} from './Components/Transaction';
 import {ResetWallet} from './Components/ResetWallet';
 import {ExchangeModal} from './Components/Exchange';
 

@@ -7,63 +7,80 @@ import classNames from 'classnames';
 import ReactSVG from 'react-svg';
 
 import {Helper} from 'Core';
-import {findCoin, TxDirection} from "Core/Coins";
-import {RemoteLink, Notice, Badge} from "Popup/UI";
+import {CoinInterface, findCoin, TxDirection} from 'Core/Coins';
+import {IStore} from 'Core/Declarations/Store';
+import {RemoteLink, Notice, Badge} from 'Popup/UI';
 import {DotLoader} from 'Popup/UI';
 
 import {ModalLayout} from "../ModalLayout";
+import {Wallet} from "@berrywallet/core";
 
-const mapStateToProps = (store, ownProps) => {
+
+interface IStoreProps {
+    coin?: CoinInterface;
+    blockHeight: number;
+}
+
+interface IOwnProps {
+    tx: Wallet.Entity.WalletTransaction;
+    txid: string;
+    amount: number;
+}
+
+type ITransactionProps = IStoreProps & IOwnProps & React.HTMLProps<{}>;
+
+interface IState {
+    copied: boolean;
+}
+
+const mapStateToProps = (store: IStore, ownProps): IStoreProps => {
     return {
         coin: findCoin(ownProps.coin),
         blockHeight: store.Coin.blockHeights[ownProps.coin] || 0
     };
 };
 
-@connect(mapStateToProps)
-export default class Transaction extends React.Component {
+class TransactionComponent extends React.Component<ITransactionProps> {
 
-    txidHiddenTextarea;
-    state = {
+    protected txidHiddenTextarea: HTMLInputElement;
+
+    public state: IState = {
         copied: false
     };
 
-    copyToClipboard = () => {
+    protected copyToClipboard = () => {
         this.txidHiddenTextarea.select();
+
         try {
             let successful = document.execCommand('copy');
             // @TODO There is no way to keep it here.. Should be other way.
             if (successful) {
-                this.setState(this.copiedSetter(true));
+                this.setState({copied: true});
 
                 setTimeout(() => {
-                    this.setState(this.copiedSetter(false));
+                    this.setState({copied: false});
                 }, 2000);
             }
         } catch (err) {
         }
     };
 
-    copiedSetter = (status) => {
-        return () => ({copied: status});
-    };
-
-    get fromAddress() {
+    protected get fromAddress(): string | null {
         const {tx, amount} = this.props;
         if (amount < 0) {
             return null;
         }
 
-        return tx.from || null;
+        return tx['from'] || null;
     };
 
-    get toAddress() {
+    protected get toAddress(): string | null {
         const {tx} = this.props;
 
-        return tx.to || null;
+        return tx['to'] || null;
     };
 
-    render() {
+    public render(): JSX.Element {
         const {coin, tx, amount, blockHeight} = this.props;
 
         const shortTx = tx.txid.substr(0, 20) + '...' + tx.txid.substr(tx.txid.length - 14);
@@ -85,7 +102,9 @@ export default class Transaction extends React.Component {
                 />
 
                 <h1 className="tx-popup__title">{coin.getName()} Transaction</h1>
-                <span className="tx-popup__subtitle">{moment(tx.time).format("MMM D, YYYY")}</span>
+                <span className="tx-popup__subtitle">
+                    {moment(time).format("MMM D, YYYY")}
+                </span>
 
                 <div className="tx-popup-card stack-card">
                     <Notice className='tx-info-copied' show={this.state.copied}>TXID copied!</Notice>
@@ -109,7 +128,7 @@ export default class Transaction extends React.Component {
                                        style={{position: 'absolute', left: '-9999px'}}
                                        value={tx.txid}
                                        readOnly={true}
-                                       ref={(elem) => this.txidHiddenTextarea = elem}
+                                       ref={(elem: HTMLInputElement) => this.txidHiddenTextarea = elem}
                                 />
                             </div>
                         </dd>
@@ -167,3 +186,5 @@ export default class Transaction extends React.Component {
         </ModalLayout>);
     }
 }
+
+export const Transaction = connect(mapStateToProps)(TransactionComponent);

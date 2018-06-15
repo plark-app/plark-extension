@@ -1,14 +1,14 @@
 import React from 'react';
 import ReactSVG from 'react-svg';
-import TrackScreenView from "Popup/Service/ScreenViewAnalitics";
-import {RemoteLink} from "Popup/UI";
-import "./contact-screen.scss";
+import TrackScreenView from 'Popup/Service/ScreenViewAnalitics';
+import {RemoteLink} from 'Popup/UI';
+import './contact-screen.scss';
 
 const socialLinks = [
     {
         key: 'facebook',
         title: 'Facebook',
-        href: 'https://fb.com'
+        href: 'https://www.facebook.com/berrywallet.io/'
     }, {
         key: 'twitter',
         title: 'Twitter',
@@ -16,7 +16,7 @@ const socialLinks = [
     }, {
         key: 'telegram',
         title: 'Telegram',
-        href: 'https://t.me'
+        href: 'https://t.me/berrywallet'
     }, {
         key: 'github',
         title: 'Github',
@@ -47,9 +47,9 @@ const emails = [
     }
 ];
 
+export class ContactsScreen extends React.PureComponent<any, any> {
 
-export class ContactsScreen extends React.Component<any, any> {
-    drawSocialLinks() {
+    protected drawSocialLinks(): JSX.Element[] {
         return socialLinks.map((item) => {
             const linkProps = {
                 key: item.key,
@@ -70,7 +70,7 @@ export class ContactsScreen extends React.Component<any, any> {
         })
     }
 
-    drawEmails() {
+    protected drawEmails(): JSX.Element[] {
         return emails.map((item, index) => {
             const linkProps = {
                 className: "contacts-email__email text-link",
@@ -86,7 +86,7 @@ export class ContactsScreen extends React.Component<any, any> {
         })
     }
 
-    render() {
+    public render(): JSX.Element {
         return (
             <div className="contacts-wrapper">
                 <TrackScreenView trackLabel="help-contacts"/>

@@ -16,11 +16,7 @@ import {modalObserverInstance, ModalType} from "Popup/Modals";
 // @TODO Need implemenet Props and State interface
 class HistoryScreen extends React.Component<any, any> {
 
-    /**
-     * @param transaction
-     * @returns {function(*)}
-     */
-    openTransaction(transaction) {
+    protected openTransaction(transaction) {
         const {balance} = this.props;
 
         return (event) => {
@@ -33,10 +29,7 @@ class HistoryScreen extends React.Component<any, any> {
         };
     }
 
-    /**
-     * @returns {any[]}
-     */
-    drawTransactionList() {
+    protected drawTransactionList() {
         const {walletData, balance} = this.props;
 
         const txsRows = chain(walletData.txs)
@@ -70,7 +63,7 @@ class HistoryScreen extends React.Component<any, any> {
         return txsRows.value();
     }
 
-    render() {
+    public render(): JSX.Element {
         const {coin} = this.props;
         return (
             <div>
