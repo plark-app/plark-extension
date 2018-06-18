@@ -13,7 +13,7 @@ import TrackScreenView from 'Popup/Service/ScreenViewAnalitics';
 import {Badge} from 'Popup/UI';
 import {openModal} from 'Popup/Modals';
 
-// @TODO Need implemenet Props and State interface
+// @TODO Need implement Props and State interface
 class HistoryScreen extends React.Component<any, any> {
 
     protected openTransaction(transaction) {
@@ -31,6 +31,16 @@ class HistoryScreen extends React.Component<any, any> {
 
     protected drawTransactionList() {
         const {walletData, balance} = this.props;
+
+        if (!walletData.txs || walletData.txs.length === 0) {
+            return (
+                <div className={classNames('currency-not-found', '-active')}>
+                    <div className="currency-not-found__thinker">{"🤔"}</div>
+                    <div className="currency-not-found__title">What!</div>
+                    <div className="currency-not-found__desc">What description!</div>
+                </div>
+            );
+        }
 
         const txsRows = chain(walletData.txs)
             .orderBy(['blockTime'], ['desc'])

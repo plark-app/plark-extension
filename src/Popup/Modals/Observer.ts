@@ -12,20 +12,3 @@ export function openModal(modalPath, modalProps: any = {}) {
 export function closeModal() {
     modalHistory.push('/');
 }
-
-
-export class ModalObserver {
-    // @deprecated
-    public openModal(modalPath, modalProps: any = {}) {
-        debug(modalPath, modalProps);
-        modalHistory.push(modalPath, modalProps);
-    }
-
-    // @deprecated
-    public closeModal() {
-        modalHistory.push('/');
-    }
-}
-
-// @deprecated
-export const modalObserverInstance = new ModalObserver();

@@ -6,7 +6,7 @@ import ReactSVG from 'react-svg';
 import Extberry from 'extberry';
 import q from 'querystring';
 
-import {Notice} from "Popup/UI";
+import {Notice} from 'Popup/UI';
 import {mapWalletCoinToProps} from 'Popup/Store/WalletCoinConnector';
 import TrackScreenView from 'Popup/Service/ScreenViewAnalitics';
 
@@ -25,14 +25,14 @@ const ButtonComponent = (props): JSX.Element => {
     );
 };
 
-// @TODO Need implemenet Props and State interface
+// @TODO Need implement Props and State interface
 class ReceiveScreen extends React.Component<any, any> {
     addressInput;
-    state = {
+    public state = {
         copied: false
     };
 
-    onCopy = (event) => {
+    protected onCopy = (event) => {
         this.addressInput.select();
 
         try {
@@ -56,7 +56,7 @@ class ReceiveScreen extends React.Component<any, any> {
         }
     };
 
-    extractAddress = (): string => {
+    protected extractAddress = (): string => {
         const wdProvider = Wallet.Helper.createWDProvider(this.props.walletData);
         const addr = wdProvider.address.last(HD.BIP44.AddressType.RECEIVE);
 
@@ -65,9 +65,6 @@ class ReceiveScreen extends React.Component<any, any> {
         }
 
         return addr.address;
-    };
-
-    onPrint = (event) => {
     };
 
     onEmail = () => {
@@ -83,14 +80,14 @@ class ReceiveScreen extends React.Component<any, any> {
     };
 
 
-    onView = () => {
+    protected onView = () => {
         const {coin} = this.props;
         const address = this.extractAddress();
 
         browserTabs.create({url: coin.generateAddrLink(address)});
     };
 
-    render(): JSX.Element {
+    public render(): JSX.Element {
         const {coin} = this.props;
         const address = this.extractAddress();
 
@@ -112,7 +109,6 @@ class ReceiveScreen extends React.Component<any, any> {
 
                 <div className="receive-control">
                     <ButtonComponent type="copy" title="Copy address" onClick={this.onCopy}/>
-                    {/*<ButtonComponent type="print" title="Print address" onClick={this.onPrint}/>*/}
                     <ButtonComponent type="mail" title="Email address" onClick={this.onEmail}/>
                     <ButtonComponent type="link" title="View on Blockchain" onClick={this.onView}/>
                 </div>
@@ -122,4 +118,4 @@ class ReceiveScreen extends React.Component<any, any> {
 }
 
 
-export const ReceiveScreenComponenent = connect(mapWalletCoinToProps)(ReceiveScreen);
+export const ReceiveScreenComponent = connect(mapWalletCoinToProps)(ReceiveScreen);
