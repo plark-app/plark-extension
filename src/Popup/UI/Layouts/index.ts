@@ -1,9 +1,3 @@
-import {ApplicationLayout} from "./ApplicationLayout";
-import {TrackScreenLayout} from './TrackScreenLayout';
-import {MenuLayout} from './MenuLayout';
-
-export {
-    ApplicationLayout,
-    TrackScreenLayout,
-    MenuLayout
-}
+export {ApplicationLayout} from './ApplicationLayout';
+export {TrackScreenLayout} from './TrackScreenLayout';
+export {MenuLayout} from './MenuLayout';

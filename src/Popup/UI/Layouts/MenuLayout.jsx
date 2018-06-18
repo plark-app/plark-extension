@@ -1,4 +1,5 @@
 import React from 'react';
+import {map} from 'lodash';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import {NavLink, withRouter, matchPath} from 'react-router-dom';
@@ -55,24 +56,21 @@ export class MenuLayout extends React.Component {
         return (
             <nav className={classNames(this.props.containerClassName, 'menu-container')}>
                 {this.renderSvgBackground()}
-                {
-                    this.props.links.map((link, index) => {
-                        const props = {
-                            key: index,
-                            to: link.path,
-                            exact: link.isExact || false,
-                            className: classNames(this.props.itemClassName, 'menu-item'),
-                            activeClassName: "-active",
-                            style: {
-                                lineHeight: this.getSize() + 'px'
-                            }
-                        };
 
-                        return (
-                            <NavLink {...props}>{link.name}</NavLink>
-                        )
-                    })
-                }
+                {map(this.props.links, (link, index) => {
+                    const props = {
+                        key: index,
+                        to: link.path,
+                        exact: link.isExact || false,
+                        className: classNames(this.props.itemClassName, 'menu-item'),
+                        activeClassName: "-active",
+                        style: {
+                            lineHeight: this.getSize() + 'px'
+                        }
+                    };
+
+                    return <NavLink {...props}>{link.name}</NavLink>;
+                })}
             </nav>
         )
     }

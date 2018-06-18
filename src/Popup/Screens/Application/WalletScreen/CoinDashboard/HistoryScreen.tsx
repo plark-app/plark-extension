@@ -9,9 +9,9 @@ import {Wallet} from '@berrywallet/core';
 
 import {Helper, Coins} from 'Core';
 import {mapWalletCoinToProps} from 'Popup/Store/WalletCoinConnector';
-import {Badge} from 'Popup/UI';
 import TrackScreenView from 'Popup/Service/ScreenViewAnalitics';
-import {modalObserverInstance, ModalType} from "Popup/Modals";
+import {Badge} from 'Popup/UI';
+import {openModal} from 'Popup/Modals';
 
 // @TODO Need implemenet Props and State interface
 class HistoryScreen extends React.Component<any, any> {
@@ -20,7 +20,7 @@ class HistoryScreen extends React.Component<any, any> {
         const {balance} = this.props;
 
         return (event) => {
-            modalObserverInstance.openModal(ModalType.Transaction, {
+            openModal('/transaction', {
                 coin: this.props.coin.key,
                 amount: Wallet.Helper.calculateTxBalance(balance, transaction.txid),
                 txid: transaction.txid,

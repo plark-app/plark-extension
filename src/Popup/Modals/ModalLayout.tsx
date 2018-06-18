@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import {modalObserverInstance} from "./Observer";
+import {closeModal} from "./Observer";
 
 type CloseEvent = () => {};
 
@@ -16,22 +16,22 @@ interface IState {
 
 export class ModalLayout extends React.Component<IProps, IState> {
 
-    state: IState = {
+    public state: IState = {
         show: false
     };
 
-    static defaultProps: IProps = {
+    public static defaultProps: IProps = {
         withClose: true,
         onClose: null
     };
 
-    onClose = (event) => {
+    protected onClose = (event) => {
         const {onClose = null} = this.props;
         onClose && onClose();
-        modalObserverInstance.closeModal();
+        closeModal();
     };
 
-    render(): React.ReactNode {
+    public render(): React.ReactNode {
         const {className = null} = this.props;
 
         return (

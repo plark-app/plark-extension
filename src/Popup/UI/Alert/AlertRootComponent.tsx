@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import {TransitionGroup, CSSTransition} from "react-transition-group";
 import {alertObserver, IAlert} from './Observer';
 import {AlertComponent} from "./AlertComponent";
 
@@ -13,16 +13,16 @@ interface IAlertState {
 
 export class AlertRootComponent extends React.Component<IModalProps, IAlertState> {
 
-    state: IAlertState = {
+    public state: IAlertState = {
         alert: null
     };
 
-    componentDidMount() {
+    public componentDidMount(): void {
         alertObserver.onShow(this.handleAlertShow);
         alertObserver.onClose(this.handleAlertClose);
     }
 
-    handleAlertShow = (alertToShow: IAlert) => {
+    protected handleAlertShow = (alertToShow: IAlert) => {
         const {alert} = this.state;
         if (alert) {
             return;
@@ -39,7 +39,7 @@ export class AlertRootComponent extends React.Component<IModalProps, IAlertState
         });
     };
 
-    handleAlertClose = () => {
+    protected handleAlertClose = () => {
         const {alert} = this.state;
 
         if (!alert) {
@@ -56,37 +56,25 @@ export class AlertRootComponent extends React.Component<IModalProps, IAlertState
         });
     };
 
-    renderAlertComponent() {
+    public render(): JSX.Element {
         const {alert} = this.state;
-        if (!alert) {
-            return null;
-        }
 
-        const alertProps = {
-            key: `alert-${alert.time}`,
-            ...alert
-        };
+        const alertContainerClass = classNames(
+            "alert-container",
+            alert && {
+                '-active': true,
+                '-no-body': alert.noBody
+            }
+        );
 
-        return <AlertComponent {...alertProps} />;
-    }
-
-    render(): React.ReactNode {
-        const {alert} = this.state;
-        const transitionGroupProps = {
-            transitionName: '-animation',
-            transitionEnterTimeout: 400,
-            transitionLeaveTimeout: 400,
-            className: classNames(
-                "alert-container",
-                alert && {
-                    '-active': true,
-                    '-no-body': alert.noBody
-                }
-            )
-        };
-
-        return <ReactCSSTransitionGroup {...transitionGroupProps}>
-            {this.renderAlertComponent()}
-        </ReactCSSTransitionGroup>;
+        return (
+            <TransitionGroup className={alertContainerClass}>
+                {alert ? (
+                    <CSSTransition key={`alert-${alert.time}`} classNames="-animation" timeout={400}>
+                        <AlertComponent {...alert} />
+                    </CSSTransition>
+                ) : null}
+            </TransitionGroup>
+        );
     };
 }

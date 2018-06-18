@@ -6,6 +6,7 @@ import {parse as parceUrl} from 'url';
 import classNames from 'classnames';
 import ReactSVG from 'react-svg';
 
+import {Wallet} from "@berrywallet/core";
 import {Helper} from 'Core';
 import {CoinInterface, findCoin, TxDirection} from 'Core/Coins';
 import {IStore} from 'Core/Declarations/Store';
@@ -13,8 +14,6 @@ import {RemoteLink, Notice, Badge} from 'Popup/UI';
 import {DotLoader} from 'Popup/UI';
 
 import {ModalLayout} from "../ModalLayout";
-import {Wallet} from "@berrywallet/core";
-
 
 interface IStoreProps {
     coin?: CoinInterface;

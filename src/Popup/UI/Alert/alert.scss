@@ -1,5 +1,3 @@
-@import "~Style/variable";
-
 .alert {
     position: absolute;
     left: 0;
@@ -36,10 +34,10 @@
                 transform: translateY(0);
             }
         }
-        &-leave {
+        &-exit {
             opacity: 1;
             transform: translateY(0);
-            &.-animation-leave-active {
+            &.-animation-exit-active {
                 opacity: 0.01;
                 transform: translateY(-12px);
             }

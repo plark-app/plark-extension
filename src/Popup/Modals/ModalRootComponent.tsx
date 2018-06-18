@@ -1,56 +1,55 @@
 import React from 'react';
-import {ModalInfoInterface, modalList, ModalType} from "./ModalTypes";
-import {modalObserverInstance} from './Observer';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import {map} from 'lodash';
+import {TransitionGroup, CSSTransition} from "react-transition-group";
+import {modalHistory} from './Observer';
+
+import {Transaction} from './components/Transaction';
+import {ResetWallet} from './components/ResetWallet';
+import {ExchangeModal} from './components/Exchange';
+
+import {
+    Router,
+    Switch,
+    Route,
+    RouteComponentProps
+} from "react-router-dom";
 
 interface IModalProps {
 }
 
-interface IModalState {
-    modalType?: ModalType;
-    modalProps: object;
-}
+const modalRoutes = {
+    '/reset-wallet': ResetWallet,
+    '/transaction': Transaction,
+    '/exchange': ExchangeModal
+};
 
-export class ModalRootComponent extends React.Component<IModalProps, IModalState> {
+export class ModalRootComponent extends React.Component<IModalProps> {
 
-    state: IModalState = {
-        modalType: null,
-        modalProps: {}
+    protected renderModalRoute = (component: React.ComponentClass, path: string) => {
+        return <Route path={path}
+                      key={path}
+                      render={(props: RouteComponentProps<{}>) => React.createElement(component, {
+                          ...props,
+                          ...props.location.state
+                      })}
+        />
     };
 
-    componentDidMount() {
-        modalObserverInstance.setRootComponent(this);
-    }
-
-    renderModalComponent() {
-        const {modalType = null, modalProps = {}} = this.state;
-
-        if (!modalType) {
-            return null;
-        }
-
-        const modalInfo: ModalInfoInterface = modalList[modalType] || null;
-
-        if (!modalType) {
-            return null;
-        }
-
-        const CurrentModalComponent = modalInfo.component;
-
-        return <CurrentModalComponent {...modalProps} />;
-    }
-
-    render(): React.ReactNode {
-        const transitionGroupProps = {
-            transitionName: '-animation',
-            transitionEnterTimeout: 400,
-            transitionLeaveTimeout: 400
-        };
-
+    public render(): JSX.Element {
         return (
-            <ReactCSSTransitionGroup {...transitionGroupProps}>
-                {this.renderModalComponent()}
-            </ReactCSSTransitionGroup>
-        );
+            <Router history={modalHistory}>
+                <Route render={(props: RouteComponentProps<{}>) => (
+                    <TransitionGroup>
+                        <CSSTransition key={props.location.key} classNames="-animation" timeout={400}>
+                            <Switch location={props.location}>
+                                {map(modalRoutes, this.renderModalRoute)}
+
+                                <Route render={() => <div>No popup</div>}/>
+                            </Switch>
+                        </CSSTransition>
+                    </TransitionGroup>
+                )}/>
+            </Router>
+        )
     };
 }
