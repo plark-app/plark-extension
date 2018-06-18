@@ -15,8 +15,7 @@ before_deploy:
 deploy:
   provider: releases
   strategy: git
-  api_key:
-    secure: ${GITHUB_OAUTH_TOKEN}
+  api_key: ${GITHUB_OAUTH_TOKEN}
   file_glob: true
   file: artifacts/berrywallet-*
   skip_cleanup: true
