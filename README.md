@@ -6,7 +6,7 @@
     <br/>
     <a href="https://chrome.google.com/webstore/detail/berrywallet/boidgcdefidhoojfljngigkjffbodjmn">Chrome Extension</a>
     ·
-    <a href="https://addons.mozilla.org/firefox/addon/berrywallet">Mozilla Extension</a>
+    <a href="https://addons.mozilla.org/firefox/addon/berrywallet">Mozilla Add-on</a>
     ·
     <a href="https://berrywallet.io">Website</a>
     <br/>
@@ -14,7 +14,7 @@
     <a href="https://chrome.google.com/webstore/detail/berrywallet/boidgcdefidhoojfljngigkjffbodjmn" title="Chrome Web Store">
         <img src="https://developer.chrome.com/webstore/images/ChromeWebStore_BadgeWBorder_v2_206x58.png" />
     </a>
-    <a href="https://addons.mozilla.org/firefox/addon/berrywallet" title="Mozilla Add-ons">
+    <a href="https://addons.mozilla.org/firefox/addon/berrywallet" title="Mozilla Add-on">
         <img src="https://github.com/berrywallet/berrywallet-extension/blob/master/docs/mozzila-addon-button.png?raw=true" />
     </a>
   </p>
