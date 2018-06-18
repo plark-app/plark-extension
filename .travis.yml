@@ -14,8 +14,11 @@ install:
   - npm install
   - npm run build:prod
 
+script:
+  - echo 'Successful installed!'
+
 before_deploy:
-  - "echo 'ready to Deploy!'"
+  - echo 'ready to Deploy!'
 
 deploy:
   provider: releases
