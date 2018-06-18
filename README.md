@@ -1,7 +1,7 @@
 <p align="center">
   <h3 align="center">BERRYWALLET Browser Extension</h3>
-  Store you crypto assets save and secure.
   <p align="center">
+    Store you crypto assets save and secure.
     <br/>
     <br/>
     <a href="https://chrome.google.com/webstore/detail/berrywallet/boidgcdefidhoojfljngigkjffbodjmn">Chrome Extension</a>
@@ -12,7 +12,7 @@
     <br/>
     <br/>
     <a href="https://chrome.google.com/webstore/detail/berrywallet/boidgcdefidhoojfljngigkjffbodjmn" title="Chrome Web Store">
-        <img src="https://developer.chrome.com/webstore/images/ChromeWebStore_Badge_v2_206x58.png" />
+        <img src="https://developer.chrome.com/webstore/images/ChromeWebStore_BadgeWBorder_v2_206x58.png" />
     </a>
     <a href="https://addons.mozilla.org/firefox/addon/berrywallet" title="Mozilla Add-ons">
         <img src="https://github.com/berrywallet/berrywallet-extension/blob/master/docs/mozzila-addon-button.png?raw=true" />

@@ -5,17 +5,22 @@ node_js:
 before_install:
   - npm i -g npm@5.6.0
 
+script:
+  - npm install
+  - npm run build:prod
+
 before_deploy:
-  - "npm install && npm run build:prod"
-  - "echo 'ready!'"
+  - "echo 'ready to Deploy!'"
 
 deploy:
   provider: releases
   strategy: git
-  api_key: ${GITHUB_OAUTH_TOKEN}
+  api_key:
+    secure: ${GITHUB_OAUTH_TOKEN}
   file_glob: true
   file: artifacts/berrywallet-*
   skip_cleanup: true
   node_js: "8"
   on:
+    repo: berrywallet/berrywallet-extension
     tags: true
