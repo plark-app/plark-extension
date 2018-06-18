@@ -15,7 +15,8 @@ before_deploy:
 deploy:
   provider: releases
   strategy: git
-  api_key: ${GITHUB_OAUTH_TOKEN}
+  api_key:
+    secure: Nd3bDptKJmXMb/BlpSDywOjbBOu36JIc+DfOn1BS6P9T6uJsemUEE84IxaugDvXKNozZb58ELckRHlqw1e5XNS0bfo8Nz7Rv0Z5yHQm0ZBmrxKLP0JL7Qt2NFsKBG9bPJs5AAMnrSrck+t4rrKOoR1767+G2ZHghaxmaf70zBL4RivwqHEzgWGiKp4KURf5i/9Bryv0Lrtc39CwWc7f940tlyBzZjvEZCBlkWpbhPX0YsH1waNeZRrgBA43ERbMnkLBhoGUvh6jZ0u1bWaLCAvBtHGJEr0HQEkWu0+1zdr2+T+UVTEGR+H0iTI0OUkSiCL2Xy8jGsauRLT4irpf63odYoFBooPWlRxVISCmqx1IsDmo8kBxOHM8d3btcFbwo6+MbFRrCvlFSR9kBEGKc1NQs7R+E3Qc1IePJtc7fe7YLf/P0UPLjUF8EFLPdiLJ37aDiIRR8NkmCSCXQX+C+jYsQWlBV74oGB5xjiu8Vy3fjY6m+7s5U9uFfEPOYhO2/X9j2houub5jJ3pVyhYmbj+1N8nrLYosBtTeGHT3fvzORvD3zHQzFfZWd+EGkv4FvZcp/oM3jrpkuPRbJoGWUULEtXo9MvuVBTLl2EJrRSQUjqz2VvFlCx2ux1AWIYjr80oNSGKsI656ldkEbY1KjEojr3CrJHis6915+mNcfI+I=
   file_glob: true
   file: artifacts/berrywallet-*
   skip_cleanup: true
