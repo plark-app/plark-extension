@@ -1,10 +1,26 @@
-# BerryWallet Browser Extension
+<p align="center">
+  <h3 align="center">BERRYWALLET Browser Extension</h3>
+  Store you crypto assets save and secure.
+  <p align="center">
+    <br/>
+    <br/>
+    <a href="https://chrome.google.com/webstore/detail/berrywallet/boidgcdefidhoojfljngigkjffbodjmn">Chrome Extension</a>
+    ·
+    <a href="https://addons.mozilla.org/firefox/addon/berrywallet">Mozilla Extension</a>
+    ·
+    <a href="https://berrywallet.io">Website</a>
+    <br/>
+    <br/>
+    <a href="https://chrome.google.com/webstore/detail/berrywallet/boidgcdefidhoojfljngigkjffbodjmn" title="Chrome Web Store">
+        <img src="https://developer.chrome.com/webstore/images/ChromeWebStore_Badge_v2_206x58.png" />
+    </a>
+    <a href="https://addons.mozilla.org/firefox/addon/berrywallet" title="Mozilla Add-ons">
+        <img src="https://github.com/berrywallet/berrywallet-extension/blob/master/docs/mozzila-addon-button.png?raw=true" />
+    </a>
+  </p>
+</p>
 
-[![Chrome Web Store](https://developer.chrome.com/webstore/images/ChromeWebStore_Badge_v2_206x58.png)](https://chrome.google.com/webstore/detail/berrywallet/boidgcdefidhoojfljngigkjffbodjmn)
-
-[![Mozilla Add-ons](https://github.com/berrywallet/berrywallet-extension/blob/master/docs/mozzila-addon-button.png?raw=true)](https://addons.mozilla.org/firefox/addon/berrywallet)
-
----
+<hr />
 
 Security and convenience are the two cores of our ideology. To achieve this we worked hard on 2 crucial parts:
 

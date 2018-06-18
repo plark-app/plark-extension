@@ -107,6 +107,7 @@ export class WalletManager {
     public sendTransaction = (address: string,
                               value: BigNumber,
                               fee: Coin.FeeTypes = Coin.FeeTypes.Medium): Promise<Wallet.Entity.WalletTransaction | void> => {
+
         const bufferSeed = this.controller.getSeed();
 
         const privateWallet = this.wdProvider.getPrivate(bufferSeed);
@@ -132,12 +133,14 @@ export class WalletManager {
                 return walletTx;
             };
 
-            return privateWallet.broadcastTransaction(transaction)
+            return privateWallet
+                .broadcastTransaction(transaction)
                 .then(onSuccessBroadcastTx, onBroadcastingError)
                 .catch(onBroadcastingError);
         };
 
-        return privateWallet.createTransaction(parsedAddress, value, fee)
+        return privateWallet
+            .createTransaction(parsedAddress, value, fee)
             .then(broadcastTransaction, onCreatingError)
             .catch(onCreatingError);
     };
@@ -165,13 +168,13 @@ export class WalletManager {
         return privateWallet.calculateFee(new BigNumber(value), parsedAddress, fee);
     };
 
-    public destruct() {
+    public destruct(): void {
         if (this.wdProvider) {
             this.wdProvider.destruct();
         }
     }
 
-    protected setUnconfirmedTxTracking() {
+    protected setUnconfirmedTxTracking(): void {
         const tracker = this.wdProvider.getNetworkProvider().getTracker();
 
         tracker.removeAllListeners('tx.*');
@@ -181,15 +184,15 @@ export class WalletManager {
         });
     }
 
-    protected updateWalletData = () => {
+    protected updateWalletData = (): void => {
         try {
             this.wdProvider.getUpdater().update();
         } catch (error) {
-            this.debug('Updating error', error);
+            this.debug('Updating WD error', error);
         }
     };
 
-    protected setUpdateTimeout = () => {
+    protected setUpdateTimeout = (): void => {
         if (this.updaterTimeoutIndex) {
             clearTimeout(this.updaterTimeoutIndex);
         }

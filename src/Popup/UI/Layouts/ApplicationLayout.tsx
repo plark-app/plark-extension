@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import {ModalRootComponent} from "Popup/Router/Modals";
+import {ModalRootComponent} from 'Popup/Modals';
 import {Alert} from 'Popup/UI';
 
 export interface IApplicationLayoutProps {
@@ -17,24 +17,28 @@ export class ApplicationLayout extends React.Component<IApplicationLayoutProps, 
         hidden: true
     };
 
-    componentDidCatch(error: Error) {
+    public componentDidCatch(error: Error): void {
         Alert.showAlert({
             message: error.message
         });
     }
 
-    componentDidMount() {
+    public componentDidMount(): void {
         setTimeout(() => {
             this.setState(() => ({hidden: false}));
         }, 0);
     }
 
-    render() {
+    public render(): JSX.Element {
+        const containerClass = classNames(
+            "application-body",
+            this.state.hidden && "-hidden"
+        );
+
         return (
             <div className="application">
                 <Alert.AlertRootComponent/>
-                <div
-                    className={classNames("application-body", this.state.hidden && "-hidden")}>{this.props.children}</div>
+                <div className={containerClass}>{this.props.children}</div>
                 <ModalRootComponent/>
             </div>
         )

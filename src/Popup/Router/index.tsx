@@ -1,13 +1,11 @@
 import React from 'react';
-import {Router, Route, Switch} from 'react-router-dom';
+import {Router, Route, Switch, Link} from 'react-router-dom';
 import screenAddressHistory from 'Popup/ScreenAddressHistory';
 
 import proxyStore, {getState} from 'Popup/Store';
 
 import {ApplicationLayout} from 'Popup/UI/Layouts';
-import Application from 'Popup/Router/Screens/Application';
-import HomeScreen from 'Popup/Router/Screens/HomeScreen';
-import StartUpScreen from 'Popup/Router/Screens/StartUpScreen';
+import {HomeScreen, ApplicationRootScreen, StartUpScreen} from 'Popup/Screens';
 import {GlobalAction} from "Core/Actions/Reducer";
 
 screenAddressHistory.listen((location, action) => {
@@ -23,11 +21,11 @@ screenAddressHistory.listen((location, action) => {
 });
 
 export class ApplicationRouter extends React.Component<any, any> {
-    componentWillMount() {
+    public componentWillMount() {
         this.trackRedirect();
     }
 
-    trackRedirect() {
+    protected trackRedirect() {
         const {Welcome, Global} = getState();
 
         if (!Global.walletReady) {
@@ -43,13 +41,13 @@ export class ApplicationRouter extends React.Component<any, any> {
         }
     }
 
-    render() {
+    public render(): JSX.Element {
         return (
             <ApplicationLayout>
                 <Router history={screenAddressHistory}>
                     <Switch>
                         <Route exact={true} path='/' component={HomeScreen}/>
-                        <Route path='/app' component={Application}/>
+                        <Route path='/app' component={ApplicationRootScreen}/>
                         <Route path='/startup' component={StartUpScreen}/>
                     </Switch>
                 </Router>
