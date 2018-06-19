@@ -8,13 +8,15 @@ import {each} from 'lodash';
 
 import {MenuLayout} from 'Popup/UI/Layouts';
 import {extractTicker} from "Popup/Store/Helpers";
-import {filterCoinList, findFiat} from "Core/Coins";
+import {IStore} from "Core/Declarations/Store";
+import {FiatInterface, filterCoinList, findFiat} from "Core/Coins";
 
 import {WalletScreenComponent} from './WalletScreen';
 import {ExchangeRouterComponent} from './ExchangeScreen';
 import {OptionsScreen} from './OptionsScreen';
 import {HelpScreen} from './HelpScreen';
 import {PasscodeWrapper} from './NeedPasswordScreen';
+
 
 const links = [{
     path: '/app/wallet',
@@ -30,42 +32,28 @@ const links = [{
     name: 'Help'
 }];
 
-const mapStateToProps = (store) => {
-    const coins = filterCoinList(store.Coin.coins);
-    const balance = {
-        bitcoin: 0,
-        fiat: 0
+interface TApplicationOwnProps {
+}
+
+interface TApplicationStoreProps {
+    needPassword: boolean;
+    fiat: FiatInterface;
+    balance: {
+        bitcoin: number;
+        fiat: number;
     };
+}
 
-    each(coins, (coin) => {
-        const wallet = store.Wallet[coin.getKey()];
-        const ticker = extractTicker(coin.getKey());
+type TApplicationProps = TApplicationOwnProps & TApplicationStoreProps;
+type TApplicationState = { render: false }
 
-        if (wallet.walletData) {
-            const pwProvider = new Wallet.Provider.WDProvider(wallet.walletData);
-            const coinBalance = Wallet.Helper.calculateBalance(pwProvider.balance, true);
-
-            balance.bitcoin += coinBalance * ticker.priceBtc;
-            balance.fiat += coinBalance * ticker.priceFiat;
-        }
-    });
-
-    return {
-        needPassword: store.Keyring.needPassword,
-        balance: balance,
-        fiat: findFiat(store.Coin.currentFiatKey)
-    }
-};
-
-@connect(mapStateToProps)
-export class ApplicationRootScreen extends React.Component {
-
-    state = {
+export class ApplicationRootScreenComponent extends React.Component<TApplicationProps, TApplicationState> {
+    public state: TApplicationState = {
         render: false
     };
 
-    render() {
-        const {needPassword = false} = this.props;
+    public render(): JSX.Element {
+        const {needPassword = false, balance, fiat} = this.props;
 
         return (
             <div className="wallet">
@@ -74,13 +62,13 @@ export class ApplicationRootScreen extends React.Component {
                         <div className="wallet-sidebar-head">
                             <img src="/images/logo.svg" className="wallet-sidebar-head__logo"/>
                             <div className="wallet-sidebar-head__bitcoin">
-                                <span>{numeral(this.props.balance.bitcoin).format("0,0.00[000000]")}</span>
+                                <span>{numeral(balance.bitcoin).format("0,0.00[000000]")}</span>
                                 <span className='wallet-sidebar-head__bitcoin-postfix'>BTC</span>
                             </div>
                             <div className="wallet-sidebar-head__currency">
-                                <span className='wallet-sidebar-head__currency-prefix'>{this.props.fiat.prefix}</span>
-                                <span>{numeral(this.props.balance.fiat).format(this.props.fiat.format)}</span>
-                                <span className='wallet-sidebar-head__currency-postfix'>{this.props.fiat.key}</span>
+                                <span className='wallet-sidebar-head__currency-prefix'>{fiat.prefix}</span>
+                                <span>{numeral(balance.fiat).format(fiat.format)}</span>
+                                <span className='wallet-sidebar-head__currency-postfix'>{fiat.key}</span>
                             </div>
                         </div>
                         <MenuLayout
@@ -108,3 +96,33 @@ export class ApplicationRootScreen extends React.Component {
         )
     }
 }
+
+const mapStateToProps = (store: IStore) => {
+    const coins = filterCoinList(store.Coin.coins);
+    const balance = {
+        bitcoin: 0,
+        fiat: 0
+    };
+
+    each(coins, (coin) => {
+        const wallet = store.Wallet[coin.getKey()];
+        const ticker = extractTicker(coin.getKey());
+
+        if (wallet.walletData) {
+            const pwProvider = new Wallet.Provider.WDProvider(wallet.walletData);
+            const coinBalance = Wallet.Helper.calculateBalance(pwProvider.balance, true);
+
+            balance.bitcoin += coinBalance * ticker.priceBtc;
+            balance.fiat += coinBalance * ticker.priceFiat;
+        }
+    });
+
+    return {
+        needPassword: store.Keyring.needPassword,
+        balance: balance,
+        fiat: findFiat(store.Coin.currentFiatKey)
+    }
+};
+
+
+export const ApplicationRootScreen = connect(mapStateToProps)(ApplicationRootScreenComponent);
