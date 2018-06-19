@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {map, chain} from 'lodash';
+import {chain, isEmpty} from 'lodash';
 import ReactSVG from 'react-svg';
 import numeral from 'numeral';
 import moment from 'moment';
@@ -10,8 +10,10 @@ import {Wallet} from '@berrywallet/core';
 import {Helper, Coins} from 'Core';
 import {mapWalletCoinToProps} from 'Popup/Store/WalletCoinConnector';
 import TrackScreenView from 'Popup/Service/ScreenViewAnalitics';
-import {Badge} from 'Popup/UI';
+import {Badge, EmptyDummy} from 'Popup/UI';
 import {openModal} from 'Popup/Modals';
+
+import './history-screen.scss';
 
 // @TODO Need implement Props and State interface
 class HistoryScreen extends React.Component<any, any> {
@@ -32,14 +34,11 @@ class HistoryScreen extends React.Component<any, any> {
     protected drawTransactionList() {
         const {walletData, balance} = this.props;
 
-        if (!walletData.txs || walletData.txs.length === 0) {
-            return (
-                <div className={classNames('currency-not-found', '-active')}>
-                    <div className="currency-not-found__thinker">{"🤔"}</div>
-                    <div className="currency-not-found__title">What!</div>
-                    <div className="currency-not-found__desc">What description!</div>
-                </div>
-            );
+        if (isEmpty(walletData.txs)) {
+            return <EmptyDummy
+                title="Seems, there are no transactions here."
+                show={true}
+            />;
         }
 
         const txsRows = chain(walletData.txs)
@@ -76,11 +75,9 @@ class HistoryScreen extends React.Component<any, any> {
     public render(): JSX.Element {
         const {coin} = this.props;
         return (
-            <div>
+            <div className="history-list">
                 <TrackScreenView trackLabel={`wallet-${coin.getKey()}-history`}/>
-                <div className="history-list">
-                    {this.drawTransactionList()}
-                </div>
+                {this.drawTransactionList()}
             </div>
         )
     }
