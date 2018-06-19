@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {map, chain} from 'lodash';
+import {chain, isEmpty} from 'lodash';
 import ReactSVG from 'react-svg';
 import numeral from 'numeral';
 import moment from 'moment';
@@ -9,18 +9,20 @@ import {Wallet} from '@berrywallet/core';
 
 import {Helper, Coins} from 'Core';
 import {mapWalletCoinToProps} from 'Popup/Store/WalletCoinConnector';
-import {Badge} from 'Popup/UI';
 import TrackScreenView from 'Popup/Service/ScreenViewAnalitics';
-import {modalObserverInstance, ModalType} from "Popup/Modals";
+import {Badge, EmptyDummy} from 'Popup/UI';
+import {openModal} from 'Popup/Modals';
 
-// @TODO Need implemenet Props and State interface
+import './history-screen.scss';
+
+// @TODO Need implement Props and State interface
 class HistoryScreen extends React.Component<any, any> {
 
     protected openTransaction(transaction) {
         const {balance} = this.props;
 
         return (event) => {
-            modalObserverInstance.openModal(ModalType.Transaction, {
+            openModal('/transaction', {
                 coin: this.props.coin.key,
                 amount: Wallet.Helper.calculateTxBalance(balance, transaction.txid),
                 txid: transaction.txid,
@@ -31,6 +33,13 @@ class HistoryScreen extends React.Component<any, any> {
 
     protected drawTransactionList() {
         const {walletData, balance} = this.props;
+
+        if (isEmpty(walletData.txs)) {
+            return <EmptyDummy
+                title="Seems, there are no transactions here."
+                show={true}
+            />;
+        }
 
         const txsRows = chain(walletData.txs)
             .orderBy(['blockTime'], ['desc'])
@@ -66,11 +75,9 @@ class HistoryScreen extends React.Component<any, any> {
     public render(): JSX.Element {
         const {coin} = this.props;
         return (
-            <div>
+            <div className="history-list">
                 <TrackScreenView trackLabel={`wallet-${coin.getKey()}-history`}/>
-                <div className="history-list">
-                    {this.drawTransactionList()}
-                </div>
+                {this.drawTransactionList()}
             </div>
         )
     }

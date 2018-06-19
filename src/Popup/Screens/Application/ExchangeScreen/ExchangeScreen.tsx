@@ -6,14 +6,14 @@ import {BeShapyUnits} from 'BeShapy';
 
 import {Controller} from 'Core/Actions';
 import {Background} from 'Popup/Service';
-import {Button} from "Popup/UI";
+import {Button} from 'Popup/UI';
 import screenHistory from 'Popup/ScreenAddressHistory';
 import {Coins} from 'Core';
+import {openModal} from 'Popup/Modals';
 import {IStore} from "Core/Declarations/Store";
 import {Selector} from 'Popup/Store';
-import {TrackScreenLayout} from 'Popup/UI/Layouts';
 import {extractTicker} from 'Popup/Store/Helpers';
-import {modalObserverInstance, ModalType} from "Popup/Modals";
+import {TrackScreenLayout} from 'Popup/UI/Layouts';
 
 import {CoinSideComponent} from "./Side";
 import {FooterComponent} from "./FooterComponent";
@@ -151,7 +151,7 @@ class ExchangeScreen extends React.Component<IExchangeProps, IExchangeState> {
         const {fromCoin, toCoin} = this.props;
         event.preventDefault();
 
-        modalObserverInstance.openModal(ModalType.Exchange, {
+        openModal('/exchange', {
             fromCoin: fromCoin,
             toCoin: toCoin,
             fromValue: this.fromValue,

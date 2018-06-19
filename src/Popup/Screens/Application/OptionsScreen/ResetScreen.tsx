@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactSVG from 'react-svg';
-import {Button} from "Popup/UI";
-import TrackScreenView from "Popup/Service/ScreenViewAnalitics";
-import {modalObserverInstance, ModalType} from "Popup/Modals";
+import {Button} from 'Popup/UI';
+import TrackScreenView from 'Popup/Service/ScreenViewAnalitics';
+import {openModal} from 'Popup/Modals';
 
 export class ResetScreen extends React.Component<any, any> {
 
     protected resetAllWallet = (event): void => {
-        modalObserverInstance.openModal(ModalType.ResetWallet);
+        openModal('/reset-wallet');
     };
 
     public render(): JSX.Element {

@@ -5,9 +5,9 @@ import classNames from 'classnames';
 import {coinList} from 'Core/Coins';
 import {Controller} from "Core/Actions";
 import {Background} from 'Popup/Service';
-import {InputCheck, Alert} from 'Popup/UI';
+import {InputCheck, Alert, EmptyDummy} from 'Popup/UI';
 import {Analytics} from "Popup/Service";
-import {SearchInputComponent, NotFoundComponent} from './Components';
+import {SearchInputComponent} from './Components';
 
 
 const mapStateToProps = (store) => {
@@ -149,7 +149,7 @@ export class WalletsScreen extends React.Component {
 
                 <div className="currency-option-list">
                     {map(filteredCoinList, this.renderCoinRow)}
-                    <NotFoundComponent
+                    <EmptyDummy
                         title="No Such Wallet Yet"
                         description="Unfortunately, this wallet is unavailable at the moment. More wallets are coming soon."
                         show={filteredCoinList.length === 0}

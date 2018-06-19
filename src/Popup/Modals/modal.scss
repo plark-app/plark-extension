@@ -1,5 +1,3 @@
-@import "~Style/variable";
-
 .modal {
     z-index: 100;
     position: fixed;
@@ -131,12 +129,12 @@
             }
         }
 
-        &-leave {
+        &-exit {
             opacity: 1;
             #{$selector-content} {
                 transform: scale(1);
             }
-            &.-animation-leave-active {
+            &.-animation-exit-active {
                 opacity: 0.01;
                 #{$selector-content} {
                     transform: scale(1.2);

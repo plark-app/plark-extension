@@ -6,7 +6,7 @@ import {ForgotPasscode} from './ForgotPasscode';
 const PasswordMode = {
     Type: 'TYPE',
     Forgot: 'FORGOT'
-}
+};
 
 interface IModalState {
     mode: string;
@@ -15,16 +15,16 @@ interface IModalState {
 
 export default class EnterPasscodeModal extends React.Component<any, IModalState> {
 
-    state: IModalState = {
+    public state: IModalState = {
         mode: PasswordMode.Type,
         hasError: false
     };
 
-    componentWillUnmount() {
+    public componentWillUnmount(): void {
         Alert.closeAlert();
     }
 
-    onError = (errorMessage: string) => {
+    protected onError = (errorMessage: string) => {
         Alert.showAlert({
             message: errorMessage,
             onClose: this.onCloseError,
@@ -34,15 +34,15 @@ export default class EnterPasscodeModal extends React.Component<any, IModalState
         this.setState(this.hasErrorSetter(true));
     };
 
-    onCloseError = () => {
+    protected onCloseError = () => {
         this.setState(this.hasErrorSetter(false));
     };
 
-    hasErrorSetter = (hasError: boolean) => {
+    protected hasErrorSetter = (hasError: boolean) => {
         return {hasError};
     };
 
-    onSetScreenMode = (mode) => {
+    protected onSetScreenMode = (mode) => {
         return (event) => {
             this.setState(() => {
                 return {
@@ -53,7 +53,7 @@ export default class EnterPasscodeModal extends React.Component<any, IModalState
         }
     };
 
-    renderMode() {
+    protected renderMode(): JSX.Element {
         const {hasError = false} = this.state;
 
         switch (this.state.mode) {

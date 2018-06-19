@@ -12,7 +12,7 @@ import {Button, CoinIcon, ValueSnippet, Alert} from "Popup/UI";
 import {Background, Analytics} from 'Popup/Service';
 
 import {ModalLayout} from "../../ModalLayout";
-import {modalObserverInstance} from "../../Observer";
+import {closeModal} from "../../Observer";
 
 import './modal-exchange.scss';
 
@@ -90,7 +90,7 @@ class Exchange extends React.Component<IExchangeProps, IExchangeModalState> {
     };
 
     private closeModal = () => {
-        modalObserverInstance.closeModal();
+        closeModal();
     };
 
     private tryExchange = () => {
@@ -122,7 +122,7 @@ class Exchange extends React.Component<IExchangeProps, IExchangeModalState> {
         this.setState(() => ({waitingExchanging: true}));
     };
 
-    renderNoWalletScreen = () => {
+    protected renderNoWalletScreen = () => {
         const {toCoin} = this.props;
         const {waitingWallet} = this.state;
 
@@ -148,7 +148,7 @@ class Exchange extends React.Component<IExchangeProps, IExchangeModalState> {
     };
 
 
-    renderExchangeConfirmation = () => {
+    protected renderExchangeConfirmation = () => {
         const {fromCoin, toCoin, fromValue, toValue, fromTicker, toTicker, fiat} = this.props;
         const {waitingExchanging} = this.state;
 
@@ -184,7 +184,7 @@ class Exchange extends React.Component<IExchangeProps, IExchangeModalState> {
         )
     };
 
-    renderSuccessfulExchange = () => {
+    protected renderSuccessfulExchange = () => {
         const {toCoin} = this.props;
 
         return (
@@ -205,7 +205,7 @@ class Exchange extends React.Component<IExchangeProps, IExchangeModalState> {
         )
     };
 
-    render() {
+    public render(): JSX.Element {
         const {toWDProvider} = this.props;
 
         const {successfulExchange} = this.state;

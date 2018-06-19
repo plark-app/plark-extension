@@ -4,8 +4,8 @@ import {connect} from 'react-redux';
 import {NavLink, Route, Switch, matchPath, withRouter} from 'react-router-dom';
 import {Wallet} from '@berrywallet/core';
 
-import {CoinIcon} from "Popup/UI";
-import {mapWalletCoinToProps} from "Popup/Store/WalletCoinConnector";
+import {CoinIcon} from 'Popup/UI';
+import {mapWalletCoinToProps} from 'Popup/Store/WalletCoinConnector';
 
 import {SeedScreenComponent} from "./SendScreen";
 import {ReceiveScreenComponent} from "./ReceiveScreen";

@@ -1,38 +1,14 @@
-import {createDebugger} from "Core/Debugger";
+import {createDebugger} from 'Core/Debugger';
+import {createMemoryHistory} from "history";
 
 const debug = createDebugger('MODAL');
+export const modalHistory = createMemoryHistory();
 
-class ModalObserver {
-    modalRootComponent;
-
-    openModal(modalType, modalProps: any = {}) {
-        this.modalRootComponent.setState(() => {
-            debug(modalType, modalProps, this.modalRootComponent);
-            return {
-                modalType: modalType,
-                modalProps: modalProps
-            }
-        });
-    }
-
-    closeModal() {
-        this.modalRootComponent.setState(() => {
-            return {
-                modalType: null,
-                modalProps: {}
-            };
-        });
-    }
-
-    setRootComponent(modalRootComponent) {
-        this.modalRootComponent = modalRootComponent;
-    }
+export function openModal(modalPath, modalProps: any = {}) {
+    debug(modalPath, modalProps);
+    modalHistory.push(modalPath, modalProps);
 }
 
-const modalObserverInstance = new ModalObserver();
-
-
-export {
-    ModalObserver,
-    modalObserverInstance
+export function closeModal() {
+    modalHistory.push('/');
 }

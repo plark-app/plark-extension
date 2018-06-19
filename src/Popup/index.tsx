@@ -11,16 +11,16 @@ interface IPopupApplicationState {
     ready: boolean;
 }
 
-export class PopupApplication extends React.Component<any, IPopupApplicationState> {
-    state = {
+export class PopupApplication extends React.Component<{}, IPopupApplicationState> {
+    public state: IPopupApplicationState = {
         ready: false
     };
 
-    componentDidCatch(error, info) {
+    public componentDidCatch(error, info): void {
         Analytics.exception(error, true);
     }
 
-    componentDidMount() {
+    public componentDidMount(): void {
         proxyStore.ready(() => {
             setTimeout(() => {
                 this.setState(() => ({ready: true}));
@@ -28,7 +28,7 @@ export class PopupApplication extends React.Component<any, IPopupApplicationStat
         });
     }
 
-    render() {
+    public render(): JSX.Element {
         if (false === this.state.ready) {
             return (
                 <div className='application -loading'>

@@ -3,10 +3,10 @@ import {connect} from 'react-redux';
 import {map, filter} from 'lodash';
 import {fiatList} from 'Core/Coins';
 import {TickerEvent} from "Core/Actions/Controller";
-import {InputCheck} from 'Popup/UI';
+import {InputCheck, EmptyDummy} from 'Popup/UI';
 import {Background} from 'Popup/Service';
 import {Analytics} from "Popup/Service";
-import {SearchInputComponent, NotFoundComponent} from './Components';
+import {SearchInputComponent} from './Components';
 
 const mapStateToProps = (store) => {
     return {
@@ -85,7 +85,7 @@ export class FiatsScreen extends React.Component {
 
                 <div className="currency-option-list">
                     {map(filteredFiatList, this.drawCurrencyRow)}
-                    <NotFoundComponent
+                    <EmptyDummy
                         title="No Such Currency Yet"
                         description="Unfortunately, this currency is unavailable at the moment. More currencies are coming soon."
                         show={filteredFiatList.length === 0}

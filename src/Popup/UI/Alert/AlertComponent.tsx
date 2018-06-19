@@ -8,13 +8,13 @@ interface IAlertProps {
     type: string;
 }
 
-export class AlertComponent extends React.Component<IAlertProps, null> {
+export class AlertComponent extends React.Component<IAlertProps> {
 
-    onClose = () => {
+    protected onClose = () => {
         alertObserver.close();
     };
 
-    render(): React.ReactNode {
+    public render(): JSX.Element {
         const {message, type} = this.props;
         const props = {
             className: classNames('alert', `-${type}`)

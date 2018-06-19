@@ -68,6 +68,7 @@ const Loaders = [{
         }, {
             loader: "sass-loader",
             options: {
+                data: `@import "common.scss";`,
                 includePaths: [
                     Path.resolve(__dirname, './src/Style')
                 ]

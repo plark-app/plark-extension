@@ -1,7 +1,6 @@
 import React from 'react';
 import {Analytics} from 'Popup/Service';
 
-
 const trackScreenLabel = (trackLabel: string) => {
     if (!trackLabel) {
         return;
