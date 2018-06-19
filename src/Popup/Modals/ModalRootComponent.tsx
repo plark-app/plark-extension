@@ -3,9 +3,10 @@ import {map} from 'lodash';
 import {TransitionGroup, CSSTransition} from "react-transition-group";
 import {modalHistory} from './Observer';
 
-import {Transaction} from './components/Transaction';
-import {ResetWallet} from './components/ResetWallet';
-import {ExchangeModal} from './components/Exchange';
+import {Transaction} from './components/transaction';
+import {ResetWallet} from './components/reset-wallet';
+import {ExchangeModal} from './components/exchange';
+import {ViewBackupPhrase} from './components/view-backup-phrase';
 
 import {
     Router,
@@ -20,7 +21,8 @@ interface IModalProps {
 const modalRoutes = {
     '/reset-wallet': ResetWallet,
     '/transaction': Transaction,
-    '/exchange': ExchangeModal
+    '/exchange': ExchangeModal,
+    '/view-backup-phrase': ViewBackupPhrase
 };
 
 export class ModalRootComponent extends React.Component<IModalProps> {

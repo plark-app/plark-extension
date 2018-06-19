@@ -16,6 +16,7 @@ export enum WalletEvent {
 export enum KeyringEvent {
     TryPassword = 'KEYRING::TRY_PASSWORD',
     CheckSeed = 'KEYRING::CHECK_SEED',
+    GetSeed = 'KEYRING::GET_SEED',
     SetNewPasscode = 'KEYRING::SET_NEW_PASSWORD'
 }
 

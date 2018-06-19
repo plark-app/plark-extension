@@ -24,7 +24,7 @@ export class KeyringController extends AbstractController {
     private password?: string;
     private timeout;
 
-    public get alias (): string {
+    public get alias(): string {
         return 'KEYRING';
     }
 
@@ -41,6 +41,7 @@ export class KeyringController extends AbstractController {
         this.bindEventListener(KeyringEvent.TryPassword, this.onTryPassword);
         this.bindEventListener(KeyringEvent.CheckSeed, this.onCheckSeed);
         this.bindEventListener(KeyringEvent.SetNewPasscode, this.onSetNewPasscode);
+        this.bindEventListener(KeyringEvent.GetSeed, this.onGetSeed);
     }
 
     public setNeedPassword() {
@@ -106,10 +107,10 @@ export class KeyringController extends AbstractController {
         };
     };
 
+    public onGetSeed = (request: any): string[] => {
+        return this.getSeed();
+    };
 
-    /**
-     * @returns {boolean}
-     */
     public isNeedPassword(): boolean {
         return this.getState().Keyring.needPassword;
     }

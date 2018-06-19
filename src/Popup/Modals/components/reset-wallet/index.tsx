@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactSVG from 'react-svg';
+import {Notice} from 'svg';
 import {Controller} from "Core/Actions";
 import screenAddressHistory from 'Popup/ScreenAddressHistory';
 import {Button} from "Popup/UI";
@@ -24,11 +24,7 @@ export class ResetWallet extends React.Component<any, any> {
         return (
             <ModalLayout>
                 <div className="reset-popup">
-                    <ReactSVG
-                        path={`/images/icons/notice.svg`}
-                        className="svg-notice"
-                        wrapperClassName="svg-notice-wrapper reset-popup__svg"
-                    />
+                    <Notice className="svg-notice reset-popup__svg"/>
 
                     <h2 className="title">
                         Are You Sure You Want <br/>
