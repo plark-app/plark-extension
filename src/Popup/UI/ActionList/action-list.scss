@@ -1,0 +1,27 @@
+.action-list {
+  width: 100%;
+  margin: 0;
+}
+
+.action-item {
+  transition: all 0.4s;
+  height: 47px;
+  padding: 0 15px;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  color: $color-grey;
+  cursor: pointer;
+
+  &__label {
+    font-size: 14px;
+    color: currentColor;
+    cursor: inherit;
+  }
+
+  &:hover {
+    color: $color-primary;
+  }
+
+}

@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import {Route, Switch, Redirect} from 'react-router-dom';
+import {Route, Switch, Redirect, RouteComponentProps} from 'react-router-dom';
 import {filter, find} from 'lodash';
 
 import {MenuLayout} from 'Popup/UI/Layouts';
@@ -39,24 +39,30 @@ const links = [{
     component: ResetScreen
 }];
 
-export class OptionsScreen extends React.Component {
-    state = {
+type TOptionProps = RouteComponentProps<{}>;
+
+type TOptionState = {
+    loaded: boolean;
+};
+
+export class OptionsScreen extends React.Component<TOptionProps, TOptionState> {
+    public state: TOptionState = {
         loaded: false
     };
 
-    componentDidMount() {
+    public componentDidMount(): void {
         setTimeout(() => {
             this.setState(() => ({loaded: true}));
         }, 0);
     }
 
-    redirectFromRoot = () => {
+    protected redirectFromRoot = () => {
         const firstEnabled = find(links, (item) => !item.disabled);
 
         return <Redirect to={firstEnabled.path}/>;
     };
 
-    render() {
+    public render(): JSX.Element {
         const enabledLinks = filter(links, (item) => !item.disabled);
 
         return (
@@ -71,13 +77,14 @@ export class OptionsScreen extends React.Component {
                 />
                 <div className="page-content">
                     <Switch>
-                        <Route path="/app/options" exact={true} component={this.redirectFromRoot}/>
                         {enabledLinks.map((elem, index) => {
                             return <Route key={index}
                                           path={elem.path}
                                           component={elem.component || null}
                             />
                         })}
+
+                        <Route path="/app/options" component={this.redirectFromRoot}/>
                     </Switch>
                 </div>
             </div>

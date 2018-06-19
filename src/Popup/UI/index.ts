@@ -9,9 +9,7 @@ export {ValueSnippet} from "./ValueSnippet";
 export {DropArrow} from "./DropArrow";
 export {BerrywalletLogo} from './BerrywalletLogo';
 export {EmptyDummy} from './EmptyDummy';
-import * as Alert from "./Alert";
+export {ActionList, UIActionItem} from './ActionList';
 
-export {
-    // Alert export
-    Alert
-}
+import * as Alert from "./Alert";
+export {Alert};

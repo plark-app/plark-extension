@@ -45,7 +45,9 @@ interface TApplicationStoreProps {
 }
 
 type TApplicationProps = TApplicationOwnProps & TApplicationStoreProps;
-type TApplicationState = { render: false }
+type TApplicationState = {
+    render: boolean;
+};
 
 export class ApplicationRootScreenComponent extends React.Component<TApplicationProps, TApplicationState> {
     public state: TApplicationState = {

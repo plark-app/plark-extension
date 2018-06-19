@@ -1,5 +1,5 @@
 import {EventEmitter} from 'events';
-import {createDebugger} from "Core";
+import {createDebugger} from 'Core';
 
 const debug = createDebugger('ALERT');
 
@@ -26,10 +26,7 @@ const ALERT_LIFETIME = 10000;
 
 export class AlertObserver extends EventEmitter {
 
-    /**
-     * @param {ShowAlertOptions} alertProps
-     */
-    show(alertProps: ShowAlertOptions): void {
+    public show(alertProps: ShowAlertOptions): void {
         const alert: IAlert = {
             message: alertProps.message,
             type: alertProps.type || 'warning',
@@ -46,10 +43,7 @@ export class AlertObserver extends EventEmitter {
         this.emit('show', alert);
     }
 
-    /**
-     * @returns {Promise<boolean>}
-     */
-    close(): Promise<void> {
+    public close(): Promise<void> {
         this.emit('close');
         debug('close');
 
@@ -58,17 +52,11 @@ export class AlertObserver extends EventEmitter {
         });
     }
 
-    /**
-     * @param {(alert: IAlert) => void} eventHandler
-     */
-    onShow(eventHandler: (alert: IAlert) => void) {
+    public onShow(eventHandler: (alert: IAlert) => void) {
         this.on('show', eventHandler);
     }
 
-    /**
-     * @param {() => void} eventHandler
-     */
-    onClose(eventHandler: () => void) {
+    public onClose(eventHandler: () => void) {
         this.on('close', eventHandler);
     }
 }
