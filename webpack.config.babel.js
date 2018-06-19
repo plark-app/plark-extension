@@ -151,6 +151,7 @@ const WebpackConfig = {
     },
 
     stats: {
+        assets: !isProd,
         children: false,
         chunks: false
     },
