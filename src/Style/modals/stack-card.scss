@@ -30,4 +30,13 @@
         left: 10px;
         right: 10px;
     }
+
+    &.-black {
+      background: $color-dark;
+      color: $color-yellow;
+
+      &:after, &:before {
+        background: $color-dark;
+      }
+    }
 }

@@ -3,7 +3,7 @@ import {AlertRootComponent} from "./AlertRootComponent";
 
 import './alert.scss';
 
-function showAlert(options: ShowAlertOptions | string) {
+export function showAlert(options: ShowAlertOptions | string) {
     if (typeof options === 'string') {
         options = {
             message: options
@@ -13,16 +13,13 @@ function showAlert(options: ShowAlertOptions | string) {
     alertObserver.show(options);
 }
 
-function closeAlert(): Promise<void> {
+export function closeAlert(): Promise<void> {
     return alertObserver.close();
 }
 
 export {
     IAlert,
     ShowAlertOptions,
-
-    showAlert,
-    closeAlert,
     alertObserver,
     AlertRootComponent
 }

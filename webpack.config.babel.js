@@ -27,6 +27,71 @@ const extractScss = new ExtractTextPlugin({
     disable: isBuild
 });
 
+function getJSLoader() {
+    return {
+        test: /\.jsx?$/,
+        loader: 'babel-loader',
+        exclude: /node_modules\/(?!(obs-store|etherscan-api))/,
+        options: {
+            presets: ['react', 'es2017', 'es2016', 'stage-0'],
+            plugins: ['transform-decorators-legacy', 'transform-class-properties']
+        }
+    };
+}
+
+function getTSLoader() {
+    return {
+        test: /\.tsx?$/,
+        loader: 'awesome-typescript-loader',
+        options: {
+            // silent: true,
+            configFile: Path.resolve(__dirname, 'tsconfig.json'),
+            plugins: ['transform-decorators-legacy', 'transform-class-properties']
+        }
+    };
+}
+
+function getSvgLoader() {
+    return {
+        test: /\.svg$/,
+        use: [
+            {
+                loader: "babel-loader"
+            }, {
+                loader: "react-svg-loader",
+                options: {
+                    jsx: true,
+                    svgo: {
+                        plugins: [{cleanupIDs: false}]
+                    }
+                }
+            }
+        ]
+    };
+}
+
+function getScssLoader() {
+    return {
+        test: /\.scss$/,
+        use: extractScss.extract({
+            use: [{
+                loader: "css-loader"
+            }, {
+                loader: "sass-loader",
+                options: {
+                    data: `@import "common.scss";`,
+                    includePaths: [
+                        Path.resolve(__dirname, './src/Style')
+                    ]
+                }
+            }],
+            // use style-loader in development
+            fallback: "style-loader"
+        })
+    };
+}
+
+
 const Plugins = [
     new webpack.DefinePlugin({
         "process.env.NODE_ENV": JSON.stringify(NODE_ENV)
@@ -43,42 +108,6 @@ const Plugins = [
 
     extractScss
 ];
-
-const Loaders = [{
-    test: /\.tsx?$/,
-    loader: 'awesome-typescript-loader',
-    options: {
-        // silent: true,
-        configFile: Path.resolve(__dirname, 'tsconfig.json'),
-        plugins: ['transform-decorators-legacy', 'transform-class-properties']
-    }
-}, {
-    test: /\.jsx?$/,
-    loader: 'babel-loader',
-    exclude: /node_modules\/(?!(obs-store|etherscan-api))/,
-    options: {
-        presets: ['react', 'es2017', 'es2016', 'stage-0'],
-        plugins: ['transform-decorators-legacy', 'transform-class-properties']
-    }
-}, {
-    test: /\.scss$/,
-    use: extractScss.extract({
-        use: [{
-            loader: "css-loader"
-        }, {
-            loader: "sass-loader",
-            options: {
-                data: `@import "common.scss";`,
-                includePaths: [
-                    Path.resolve(__dirname, './src/Style')
-                ]
-            }
-        }],
-        // use style-loader in development
-        fallback: "style-loader"
-    })
-}];
-
 
 const OptimisationProps = {
     minimizer: [
@@ -117,10 +146,10 @@ const WebpackConfig = {
     },
 
     resolve: {
-        extensions: [".ts", ".tsx", ".js", ".jsx", ".json"],
+        extensions: [".svg", ".ts", ".tsx", ".js", ".jsx", ".json"],
         modules: [
             PATH.SOURCE,
-            Path.resolve(__dirname, 'node_modules')
+            Path.resolve(__dirname, './node_modules')
         ],
         alias: {
             Core: Path.join(__dirname, 'src/Core'),
@@ -129,13 +158,21 @@ const WebpackConfig = {
 
             BeShapy: Path.join(__dirname, 'src/BeShapy'),
 
-            Style: Path.join(__dirname, 'src/Style')
+            Style: Path.join(__dirname, 'src/Style'),
+            svg: Path.join(__dirname, 'src/svg')
         }
     },
 
     plugins: Plugins,
 
-    module: {rules: Loaders},
+    module: {
+        rules: [
+            getJSLoader(),
+            getTSLoader(),
+            getSvgLoader(),
+            getScssLoader()
+        ]
+    },
 
     devServer: {
         compress: true,
@@ -151,6 +188,7 @@ const WebpackConfig = {
     },
 
     stats: {
+        assets: !isProd,
         children: false,
         chunks: false
     },

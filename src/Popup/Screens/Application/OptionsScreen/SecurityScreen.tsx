@@ -1,15 +1,40 @@
 import React from 'react';
-import TrackScreenView from "Popup/Service/ScreenViewAnalitics";
 
-// @TODO Need implement interfaces of SecurityProps ans SecurityState
-export class SecurityScreen extends React.Component<any, any> {
-    render(): JSX.Element {
+import {ActionList, UIActionItem} from 'Popup/UI';
+import {openModal} from "Popup/Modals";
+import TrackScreenView from 'Popup/Service/ScreenViewAnalitics';
+
+export class SecurityScreen extends React.PureComponent {
+
+    protected onViewBackupPhrase = () => {
+        openModal('/view-backup-phrase');
+    };
+
+    protected getActions(): UIActionItem[] {
+        return [{
+            label: 'View Backup Phrase',
+            onClick: this.onViewBackupPhrase
+        }];
+
+        // return [{
+        //     label: 'Change Passcode'
+        // }, {
+        //     label: 'Ask Passcode'
+        // }, {
+        //     label: 'Require Passcode'
+        // }, {
+        //     label: 'View Backup Phrase',
+        //     onClick: this.onViewBackupPhrase
+        // }];
+    }
+
+    public render(): JSX.Element {
         return (
-            <div className="card -full-size">
+            <div className="card -full-size -no-w-padding">
                 <TrackScreenView trackLabel="option-security"/>
+                <h1 className="title">Security Settings</h1>
 
-                <h1 className="title">Security Berrywallet</h1>
-                <div className="reset-content"/>
+                <ActionList actions={this.getActions()}/>
             </div>
         );
     }

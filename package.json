@@ -8,7 +8,7 @@
         "webpack:watch": "webpack-cli --watch",
         "resource": "gulp build",
         "build": "webpack-cli && gulp build",
-        "build:prod": "NODE_ENV=production webpack-cli --output-pathinfo=false && gulp build && gulp zip"
+        "build:prod": "NODE_ENV=production webpack-cli && gulp build && gulp zip"
     },
     "dependencies": {
         "@babel/register": "^7.0.0-beta.44",
@@ -47,6 +47,7 @@
         "react-router": "^4.2.0",
         "react-router-dom": "^4.2.2",
         "react-svg": "^2.2.5",
+        "react-svg-loader": "2.1.0",
         "react-transition-group": "^2.3.1",
         "redux": "^3.7.2",
         "reselect": "^3.0.1",
