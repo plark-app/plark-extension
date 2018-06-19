@@ -11,7 +11,7 @@ import {Helper} from 'Core';
 import {CoinInterface, findCoin, TxDirection} from 'Core/Coins';
 import {IStore} from 'Core/Declarations/Store';
 import {RemoteLink, Notice, Badge} from 'Popup/UI';
-import {DotLoader} from 'Popup/UI';
+import {DotLoader, Button} from 'Popup/UI';
 
 import {ModalLayout} from "../ModalLayout";
 
@@ -118,11 +118,12 @@ class TransactionComponent extends React.Component<ITransactionProps> {
                         <dd className="tx-info-item__value -txid">
                             {shortTx}
                             <div className="tx-info-copy-txid">
-                                <button
-                                    className="tx-info-copy-txid__btn btn -outline"
+                                <Button
                                     onClick={this.copyToClipboard}
-                                >Copy TXID
-                                </button>
+                                    className="tx-info-copy-txid__btn"
+                                    isOutline
+                                >Copy TXID</Button>
+                                
                                 <input type="text"
                                        style={{position: 'absolute', left: '-9999px'}}
                                        value={tx.txid}

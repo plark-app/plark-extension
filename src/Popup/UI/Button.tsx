@@ -5,27 +5,28 @@ import './button.scss';
 
 export interface IButtonProps extends React.HTMLProps<any> {
     isLight?: boolean;
+    isOutline?: boolean;
     width?: number;
     loading?: boolean;
 }
 
-export class Button extends React.PureComponent<IButtonProps, any> {
-    render() {
+export class Button extends React.PureComponent<IButtonProps> {
+    public render(): JSX.Element {
         const {
             className,
             children,
-            type,
-            isLight = false,
-            loading = false,
             width,
-            disabled = false,
             ...elseProps
         } = this.props;
 
         const buttonComponentProps = {
-            className: classNames('btn', className, isLight && '-light', loading && '-loading'),
-            type: type ? type : 'submit',
-            disabled: disabled || loading,
+            className: classNames('btn', className, {
+                '-light': this.props.isLight,
+                '-loading': this.props.loading,
+                '-outline': this.props.isOutline
+            }),
+            type: this.props.type || 'submit',
+            disabled: this.props.disabled || this.props.loading,
             style: {
                 width: width ? `${width}px` : null
             },
@@ -34,7 +35,7 @@ export class Button extends React.PureComponent<IButtonProps, any> {
 
         return (
             <button {...buttonComponentProps}>
-                {loading ? <DotLoader/> : children}
+                {this.props.loading ? <DotLoader/> : children}
             </button>
         );
     }
