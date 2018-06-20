@@ -1,20 +1,21 @@
 import React from 'react';
-import ReactSVG from 'react-svg';
+import {Notice} from 'svg';
+import {CoinInterface} from "Core/Coins";
 
-export class WaitInitializingScreen extends React.Component<any, any> {
-    render(): JSX.Element {
+interface IProps {
+    coin: CoinInterface;
+}
+
+export class WaitInitializingScreen extends React.PureComponent<IProps> {
+    public render(): JSX.Element {
         const {coin} = this.props;
 
         return (
             <div className="wallet-initializing">
-                <ReactSVG
-                    path={`/images/icons/notice.svg`}
-                    className="wallet-initializing__notice"
-                    wrapperClassName="wallet-initializing__notice-wrapper"
-                />
-                <div className="wallet-initializing__title">Initializing {coin.name} Wallet…</div>
+                <Notice className="wallet-initializing__notice"/>
+                <div className="wallet-initializing__title">Initializing {coin.getName()} Wallet…</div>
                 <p className="wallet-initializing__desc">
-                    Please wait, your {coin.name} Wallet is being imported to BerryWallet.
+                    Please wait, your {coin.getName()} Wallet is being imported to BerryWallet.
                 </p>
             </div>
         )

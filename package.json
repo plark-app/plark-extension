@@ -1,7 +1,7 @@
 {
     "name": "berrywallet",
     "description": "The safest multi-wallet that brings your crypto currency management and storage to the next level.",
-    "version": "1.5.0",
+    "version": "1.5.1",
     "public": true,
     "scripts": {
         "webpack": "webpack-cli",

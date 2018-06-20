@@ -12,7 +12,14 @@ import {MiningFeeScreen} from "./MiningFeeScreen";
 import {SecurityScreen} from "./SecurityScreen";
 import {ResetScreen} from "./ResetScreen";
 
-const links = [{
+interface ILink {
+    path: string;
+    name: string;
+    disabled?: boolean;
+    component: React.ComponentClass;
+}
+
+const links: ILink[] = [{
     path: '/app/options/wallet',
     name: 'Wallets',
     component: WalletsScreen
@@ -23,7 +30,6 @@ const links = [{
 }, {
     path: '/app/options/addresses',
     name: 'Addresses',
-    disabled: true,
     component: AddressesScreen
 }, {
     path: '/app/options/security',
@@ -57,13 +63,13 @@ export class OptionsScreen extends React.Component<TOptionProps, TOptionState> {
     }
 
     protected redirectFromRoot = () => {
-        const firstEnabled = find(links, (item) => !item.disabled);
+        const firstEnabled = find(links, (item: ILink) => !item.disabled);
 
         return <Redirect to={firstEnabled.path}/>;
     };
 
     public render(): JSX.Element {
-        const enabledLinks = filter(links, (item) => !item.disabled);
+        const enabledLinks = filter(links, (item: ILink) => !item.disabled);
 
         return (
             <div className="page-wrapper">

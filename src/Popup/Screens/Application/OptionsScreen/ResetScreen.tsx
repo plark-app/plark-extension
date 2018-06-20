@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactSVG from 'react-svg';
+import {Notice} from 'svg';
 import {Button} from 'Popup/UI';
 import TrackScreenView from 'Popup/Service/ScreenViewAnalitics';
 import {openModal} from 'Popup/Modals';
@@ -16,10 +16,7 @@ export class ResetScreen extends React.Component<any, any> {
                 <TrackScreenView trackLabel="option-reset"/>
                 <h1 className="title">Reset Berrywallet</h1>
                 <div className="reset-content">
-                    <ReactSVG path={`/images/icons/notice.svg`}
-                              className="wallet-initializing__notice"
-                              wrapperClassName="wallet-initializing__notice-wrapper"
-                    />
+                    <Notice className="wallet-initializing__notice"/>
 
                     <h2 className="title">Warning</h2>
                     <p>
@@ -29,7 +26,7 @@ export class ResetScreen extends React.Component<any, any> {
                     </p>
 
                     <br/><br/>
-
+                    
                     <Button onClick={this.resetAllWallet} className="reset-button">Reset</Button>
                 </div>
             </div>

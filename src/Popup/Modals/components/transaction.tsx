@@ -123,7 +123,7 @@ class TransactionComponent extends React.Component<ITransactionProps> {
                                     className="tx-info-copy-txid__btn"
                                     isOutline
                                 >Copy TXID</Button>
-                                
+
                                 <input type="text"
                                        style={{position: 'absolute', left: '-9999px'}}
                                        value={tx.txid}
