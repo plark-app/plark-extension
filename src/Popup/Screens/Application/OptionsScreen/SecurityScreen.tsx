@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {ActionList, UIActionItem} from 'Popup/UI';
-import {openModal} from "Popup/Modals";
+import {openModal} from 'Popup/Modals';
 import TrackScreenView from 'Popup/Service/ScreenViewAnalitics';
 
 export class SecurityScreen extends React.PureComponent {

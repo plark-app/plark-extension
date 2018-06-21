@@ -3,7 +3,12 @@ import {Coins} from 'Core'
 import {map, orderBy} from 'lodash';
 import {Wallet} from '@berrywallet/core';
 import BigNumber from 'bignumber.js';
-import {AddressRow, TAddressUnit} from "./address-row";
+
+import {Controller} from 'Core/Actions';
+import {Background} from 'Popup/Service';
+import {openModal} from 'Popup/Modals';
+
+import {AddressRow, TAddressUnit} from './address-row';
 
 type TAddressListProps = {
     coinSymbol: Coins.CoinSymbol;
@@ -31,6 +36,31 @@ export class AddressList extends React.Component<TAddressListProps> {
         return orderBy(units, 'balance', 'desc');
     }
 
+    protected openAddressModal(unit: TAddressUnit) {
+        const {wdProvider, coinSymbol} = this.props;
+
+        const coin: Coins.CoinInterface = Coins.coinList[coinSymbol];
+        const walletAddress = wdProvider.address.get(unit.address);
+
+        Background
+            .sendRequest(Controller.WalletEvent.GetPrivateKey, {
+                coin: coin.getKey(),
+                walletAddress: walletAddress
+            })
+            .then((privateKey: any) => {
+                openModal('/address-info', {
+                    coin: coin,
+                    address: unit.address,
+                    privateKey: privateKey,
+                    balance: unit.balance
+                });
+            });
+    }
+
+    protected openAddressInfo = (unit: TAddressUnit) => {
+        return () => this.openAddressModal(unit);
+    };
+
     public render(): JSX.Element {
         const {coinSymbol} = this.props;
         const coin = Coins.coinList[coinSymbol];
@@ -38,7 +68,11 @@ export class AddressList extends React.Component<TAddressListProps> {
         return (
             <div className="currency-option-list">
                 {map(this.fetchAddressUnits(), (unit: TAddressUnit) => (
-                    <AddressRow coin={coin} addressUnit={unit} key={unit.address}/>
+                    <AddressRow key={unit.address}
+                                coin={coin}
+                                addressUnit={unit}
+                                onClick={this.openAddressInfo(unit)}
+                    />
                 ))}
             </div>
         )

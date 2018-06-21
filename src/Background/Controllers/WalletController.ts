@@ -34,8 +34,8 @@ export class WalletController extends AbstractController {
         });
 
         this.bindEventListener(Actions.Controller.WalletEvent.CreateTransaction, this.createTransaction);
-
         this.bindEventListener(Actions.Controller.WalletEvent.CalculateFee, this.calculateFee);
+        this.bindEventListener(Actions.Controller.WalletEvent.GetPrivateKey, this.getPrivateKey)
 
         each(this.getState().Coin.coins, (coinSymbol: Coins.CoinSymbol) => {
             try {
@@ -215,5 +215,11 @@ export class WalletController extends AbstractController {
                     fee: fee.toNumber()
                 }
             });
+    };
+
+    protected getPrivateKey = (request: any) => {
+        const {coin, walletAddress} = request;
+
+        return this.getWalletManager(coin).getPrivateKey(walletAddress);
     };
 }

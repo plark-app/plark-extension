@@ -11,6 +11,7 @@ export type TAddressUnit = {
 type TAddressRowProps = {
     coin: Coins.CoinInterface;
     addressUnit: TAddressUnit;
+    onClick?: () => void;
 }
 
 export const AddressRow = (props: TAddressRowProps): JSX.Element => {
@@ -26,7 +27,7 @@ export const AddressRow = (props: TAddressRowProps): JSX.Element => {
     });
 
     return (
-        <label className="row address-row">
+        <label className="row address-row" onClick={props.onClick}>
             <div className="address-row__address">{addressRender}</div>
             <div className={balanceClass}>
                 {Numeral(balance).format('0,0.00[0000]')} {props.coin.getKey()}

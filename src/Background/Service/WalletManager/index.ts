@@ -198,5 +198,13 @@ export class WalletManager {
         }
 
         this.updaterTimeoutIndex = setInterval(this.updateWalletData, 15 * 60 * 1000);
+    };
+
+    public getPrivateKey(walletAddress: Wallet.Entity.WalletAddress): string {
+        const bufferSeed = this.controller.getSeed();
+        const privateWallet = this.wdProvider.getPrivate(bufferSeed);
+        const addressNode = privateWallet.deriveAddressNode(walletAddress);
+
+        return addressNode.getPrivateKey().toString();
     }
 }

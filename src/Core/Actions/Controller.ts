@@ -10,7 +10,8 @@ export enum WalletEvent {
     ActivateCoin = 'WALLET::ACTIVATE_COIN',
     DisActivateCoin = 'WALLET::DIS_ACTIVATE_COIN',
     CreateTransaction = 'WALLET::CREATE_TRANSACTION',
-    CalculateFee = 'WALLET::CALCULATE_FEE'
+    CalculateFee = 'WALLET::CALCULATE_FEE',
+    GetPrivateKey = 'WALLET::GET_PRIVATE_KEY'
 }
 
 export enum KeyringEvent {
