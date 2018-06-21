@@ -1,0 +1,83 @@
+.coin-select {
+  z-index: 50;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  &-units {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 40px;
+    z-index: 11;
+    overflow: hidden;
+    visibility: hidden;
+    opacity: 0;
+    padding-bottom: 10px;
+
+    transition: all 0.4s;
+    border-top: 1px solid transparent;
+
+    &-wrapper {
+      background: white;
+      border-radius: 0 0 3px 3px;
+      width: 100%;
+      max-height: 240px;
+      overflow-y: auto;
+      overflow-x: hidden;
+      box-shadow: 0 1px 3px 0 #A0A4B8;
+      padding: 10px 0 0 0;
+
+      transition: all 0.4s;
+      transform: translateY(-100%);
+    }
+  }
+
+  &.-is-open &-units {
+    opacity: 1;
+    visibility: visible;
+    border-top-color: $color-input-border;
+
+    &-wrapper {
+      transform: translateY(0);
+    }
+  }
+
+  &__unit {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    padding-right: 15px;
+    height: 40px;
+
+    & .coin-unit {
+      transition: all 0.4s;
+    }
+
+    &:hover .coin-unit {
+      transform: translateX(-5px);
+    }
+
+    &-txcount {
+      font-size: 12px;
+      color: $color-grey;
+    }
+  }
+
+  &__current {
+    height: 40px;
+    display: flex;
+    align-items: center;
+
+    cursor: pointer;
+    background: white;
+    z-index: 1;
+    border-radius: 0 0 3px 3px;
+  }
+
+  &.-is-open &__current {
+    border-radius: 0;
+  }
+}

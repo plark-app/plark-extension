@@ -1,0 +1,28 @@
+
+.address-list-head {
+  padding-left: 0;
+  padding-right: 0;
+  padding-bottom: 0;
+}
+
+.address-row {
+  display: flex;
+  font-size: 12px;
+
+  &__address {
+    
+  }
+
+  &__value {
+    transition: all 0.2s;
+    color: $color-dark;
+    text-align: center;
+    line-height: 30px;
+    border-left: 1px solid $color-input-border;
+    width: 90px;
+  }
+
+  &:hover &__value {
+    color: $color-main;
+  }
+}

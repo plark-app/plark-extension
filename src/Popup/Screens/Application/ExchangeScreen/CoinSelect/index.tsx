@@ -21,23 +21,23 @@ export interface ICSelectProps {
 
 export class CoinSelect extends React.Component<ICSelectProps, ICSelectState> {
 
-    state: ICSelectState = {
+    public readonly state: ICSelectState = {
         open: false
     };
 
-    getCoin(): Coins.CoinInterface {
+    protected getCoin(): Coins.CoinInterface {
         const {fromCoin, toCoin, isFrom} = this.props;
 
         return isFrom ? fromCoin : toCoin;
     }
 
-    getSelectItems() {
+    protected getSelectItems() {
         const coin = this.getCoin();
 
         return filter(Coins.getRealCoins(), cn => cn !== coin);
     }
 
-    resolveChanging(cn: Coins.CoinInterface) {
+    protected resolveChanging(cn: Coins.CoinInterface) {
         const {fromCoin, toCoin, isFrom} = this.props;
 
         this.closeCoinList();
@@ -59,21 +59,21 @@ export class CoinSelect extends React.Component<ICSelectProps, ICSelectState> {
         screenHistory.push(`/app/exchange/${newFrom.getKey()}/${newTo.getKey()}`);
     }
 
-    onChangeCoin = (cn: Coins.CoinInterface) => {
+    protected onChangeCoin = (cn: Coins.CoinInterface) => {
         return () => this.resolveChanging(cn);
     };
 
-    closeCoinList = () => {
+    protected closeCoinList = () => {
         this.setState(() => ({open: false}));
         document.removeEventListener('click', this.closeCoinList);
     };
 
-    openCoinList = () => {
+    protected openCoinList = () => {
         this.setState(() => ({open: true}));
         document.addEventListener('click', this.closeCoinList);
     };
 
-    render() {
+    public render(): JSX.Element {
         const coin = this.getCoin();
         const {open} = this.state;
 

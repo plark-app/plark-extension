@@ -12,7 +12,7 @@ import {
     SeedVaultProvider,
     InvalidPasswordException,
     generateSeedVault
-} from "Core/Service/SeedVault";
+} from 'Core/Service/SeedVault';
 
 const TIMEOUT_30M: number = 1800;
 const TIMEOUT_1H: number = 3600;
