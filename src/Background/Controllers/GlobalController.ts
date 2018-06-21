@@ -1,6 +1,5 @@
 import {Store} from "redux";
 import {IStore} from "Core/Declarations/Store";
-import {IBackgroundCore} from 'Core/Declarations/Service';
 import {Reducer, Controller} from 'Core/Actions';
 import {AbstractController} from 'Background/Service/AbstractController'
 import {WalletController} from "./WalletController";
@@ -8,10 +7,10 @@ import {WalletController} from "./WalletController";
 export class GlobalController extends AbstractController {
 
     /**
-     * @param {IBackgroundCore} app
+     * @param {BgController.IBackgroundCore} app
      * @param {Store<IStore>} store
      */
-    public constructor(app: IBackgroundCore, store: Store<IStore>) {
+    public constructor(app: BgController.IBackgroundCore, store: Store<IStore>) {
         super(app, store);
 
         this.bindEventListener(Controller.GlobalEvent.ClearAllData, this.clearAllData);

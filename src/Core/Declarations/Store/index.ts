@@ -6,7 +6,7 @@ import {IKeyringStore} from './Keyring';
 import {IWalletStore} from './Wallet';
 import {IOptionStore} from './Option';
 
-interface IStore {
+export interface IStore {
     Welcome: IWelcomeStore
     Global: IGlobalStore
     Coin: ICoinStore
@@ -17,8 +17,6 @@ interface IStore {
 }
 
 export {
-    IStore,
-
     IGlobalStore,
     IWelcomeStore,
     ICoinStore,

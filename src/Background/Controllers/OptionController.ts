@@ -1,6 +1,5 @@
 import {Store} from "redux";
 import {IStore} from "Core/Declarations/Store";
-import {IBackgroundCore} from 'Core/Declarations/Service';
 import {Reducer, Controller} from 'Core/Actions';
 import {AbstractController} from 'Background/Service/AbstractController';
 
@@ -10,7 +9,7 @@ export class OptionController extends AbstractController {
      * @param {IBackgroundCore} app
      * @param {Store<IStore>} store
      */
-    public constructor(app: IBackgroundCore, store: Store<IStore>) {
+    public constructor(app: BgController.IBackgroundCore, store: Store<IStore>) {
         super(app, store);
 
         this.bindEventListener(Controller.OptionEvent.SetFee, this.setFee);

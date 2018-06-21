@@ -1,7 +1,6 @@
 import {Store} from 'redux';
 import {each, find} from 'lodash';
 import createClient, {IBerryMarketCap, ITickerData} from 'berrymarketcap';
-import {IBackgroundCore} from 'Core/Declarations/Service';
 import {AbstractController} from "Background/Service/AbstractController";
 import {IStore} from 'Core/Declarations/Store';
 import {CoinAction} from 'Core/Actions/Reducer';
@@ -15,7 +14,7 @@ export class TickerController extends AbstractController {
     tickerObserverTimeout;
     coinMarkerCapClient: IBerryMarketCap;
 
-    public constructor(app: IBackgroundCore, store: Store<IStore>) {
+    public constructor(app: BgController.IBackgroundCore, store: Store<IStore>) {
         super(app, store);
 
         this.coinMarkerCapClient = createClient({timeout: 10000});
@@ -59,12 +58,6 @@ export class TickerController extends AbstractController {
             .then(onSuccess);
     };
 
-    /**
-     * Action
-     *
-     * @param request
-     * @returns {any}
-     */
     public changeCurrentFiat: EventHandlerType = (request: any): any => {
         this.dispatchStore(CoinAction.SetCurrentFiat, {
             fiatKey: request.fiat

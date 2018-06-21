@@ -5,12 +5,12 @@ import {filter, find} from 'lodash';
 
 import {MenuLayout} from 'Popup/UI/Layouts';
 
-import {WalletsScreen} from "./WalletsScreen";
-import {FiatsScreen} from "./FiatsScreen";
-import {AddressesScreen} from "./AddressesScreen";
-import {MiningFeeScreen} from "./MiningFeeScreen";
-import {SecurityScreen} from "./SecurityScreen";
-import {ResetScreen} from "./ResetScreen";
+import {WalletsScreen} from './WalletsScreen';
+import {FiatsScreen} from './FiatsScreen';
+import {AddressesScreen} from './AddressesScreen';
+import {MiningFeeScreen} from './MiningFeeScreen';
+import {SecurityScreen} from './SecurityScreen';
+import {ResetScreen} from './ResetScreen';
 
 interface ILink {
     path: string;

@@ -5,18 +5,11 @@ import {createDebugger} from 'Core';
 import {IStore} from 'Core/Declarations/Store';
 import {EventEmitter} from 'events';
 
-import {
-    IController,
-    IBackgroundCore,
-    ControllerConstructorType
-} from 'Core/Declarations/Service';
-
 const debug = createDebugger('BACKGROUND_EVENT');
 
-
-export class BackgroundCore extends EventEmitter implements IBackgroundCore {
+export class BackgroundCore extends EventEmitter implements BgController.IBackgroundCore {
     store: Store<IStore>;
-    controllers: IController[] = [];
+    controllers: BgController.IController[] = [];
     eventHandlers: Dictionary<EventHandlerType> = {} as Dictionary<EventHandlerType>;
 
     /**
@@ -32,7 +25,7 @@ export class BackgroundCore extends EventEmitter implements IBackgroundCore {
     /**
      * @param {ControllerConstructorType<T extends IController>} controller
      */
-    registerController<T extends IController>(controller: ControllerConstructorType<T>) {
+    registerController<T extends BgController.IController>(controller: BgController.ControllerConstructorType<T>) {
         const newController: T = new controller(this, this.store);
         this.controllers.push(newController);
 
@@ -43,8 +36,9 @@ export class BackgroundCore extends EventEmitter implements IBackgroundCore {
      * @param {string} alias
      * @returns {IController}
      */
-    get(alias: string): IController {
-        const controller: IController = find(this.controllers, {alias: alias}) as IController;
+    get(alias: string): BgController.IController {
+        const controller: BgController.IController
+            = find(this.controllers, {alias: alias}) as BgController.IController;
 
         if (!controller) {
             throw Error(`Service '${alias}' has not registered!`);
