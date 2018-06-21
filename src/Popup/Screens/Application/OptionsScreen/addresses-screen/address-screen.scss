@@ -10,7 +10,7 @@
   font-size: 12px;
 
   &__address {
-    
+
   }
 
   &__value {
@@ -20,6 +20,10 @@
     line-height: 30px;
     border-left: 1px solid $color-input-border;
     width: 90px;
+
+    &.-is-empty {
+      color: $color-grey;
+    }
   }
 
   &:hover &__value {

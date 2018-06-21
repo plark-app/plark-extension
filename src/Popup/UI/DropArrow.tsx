@@ -9,8 +9,8 @@ export interface IDropDOwnProps {
     wrapperClassName?: any;
 }
 
-export class DropArrow extends React.Component<IDropDOwnProps, any> {
-    render() {
+export class DropArrow extends React.PureComponent<IDropDOwnProps, any> {
+    public render(): JSX.Element {
 
         const {className, wrapperClassName, active = false} = this.props;
 

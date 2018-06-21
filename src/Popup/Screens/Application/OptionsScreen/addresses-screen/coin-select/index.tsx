@@ -4,6 +4,7 @@ import cn from 'classnames';
 import {Coins} from 'Core';
 import {ICoinWallet} from 'Core/Declarations/Wallet';
 import {IWalletStore} from 'Core/Declarations/Store';
+import {DropArrow} from 'Popup/UI';
 import {Unit} from "./unit";
 
 import './coin-select.scss';
@@ -74,6 +75,7 @@ export class CoinSelect extends React.PureComponent<TCoinSelectProps, TCoinSelec
             <div className={cn("coin-select", this.state.isOpen && '-is-open')}>
                 <div className="coin-select__current" onClick={this.openSelect}>
                     <Unit coin={activeCoin}/>
+                    <DropArrow active={this.state.isOpen} />
                 </div>
                 <div className="coin-select-units">
                     <div className="coin-select-units-wrapper">

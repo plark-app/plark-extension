@@ -69,6 +69,8 @@
   &__current {
     height: 40px;
     display: flex;
+    justify-content: space-between;
+    padding-right: 15px;
     align-items: center;
 
     cursor: pointer;
