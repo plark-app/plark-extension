@@ -1,4 +1,5 @@
 import {ComponentType} from 'react';
+
 import {FAQScreen} from "./FAQScreen";
 import {VersionScreen} from "./VersionScreen";
 import {TutorialScreen} from "./TutorialScreen";
@@ -27,8 +28,7 @@ export const routerElements: IRouteElement[] = [{
 }, {
     path: '/app/help/feedback',
     name: 'Feedback',
-    component: FeedbackScreen,
-    disabled: true
+    component: FeedbackScreen
 }, {
     path: '/app/help/contacts',
     name: 'Contacts',
