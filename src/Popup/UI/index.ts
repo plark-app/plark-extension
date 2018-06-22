@@ -10,6 +10,7 @@ export {DropArrow} from "./DropArrow";
 export {BerrywalletLogo} from './BerrywalletLogo';
 export {EmptyDummy} from './EmptyDummy';
 export {ActionList, UIActionItem} from './ActionList';
+export {Tooltip} from './Tooltip';
 
 import * as Alert from "./Alert";
 export {Alert};

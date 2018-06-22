@@ -2,6 +2,7 @@ import React from 'react';
 import Extberry from 'extberry';
 import QRCode from 'qrcode-react';
 import cn from 'classnames';
+import {Notice, Tooltip} from 'Popup/UI';
 import {Flip, Copy, QR, Link} from 'svg';
 import {copyToClipboard} from 'Core/Utils';
 
@@ -40,7 +41,9 @@ export class InfoCard extends React.PureComponent<TInfoCardProps, TInfoCardState
 
     protected onClickCopy = () => {
         copyToClipboard(this.textarea).then(() => {
-            console.log('Copied');
+            this.setState({copied: true});
+
+            setTimeout(() => this.setState({copied: false}), 1000);
         });
     };
 
@@ -57,12 +60,23 @@ export class InfoCard extends React.PureComponent<TInfoCardProps, TInfoCardState
                                   ref={(elem) => this.textarea = elem}
                         />
 
+                        <Notice className='info-card-side__copied' show={this.state.copied}>
+                            {this.props.title} copied!
+                        </Notice>
+
                         <div className="info-card-side__buttons">
-                            <Copy className="info-card-side-button" onClick={this.onClickCopy}/>
-                            <QR className="info-card-side-button" onClick={this.flipToQr}/>
-                            {this.props.link &&
-                            <Link className="info-card-side-button" onClick={this.onClickLink}/>
-                            }
+
+                            <Tooltip title="Copy">
+                                <Copy className="info-card-side-button" onClick={this.onClickCopy}/>
+                            </Tooltip>
+
+                            <Tooltip title="Show QR code">
+                                <QR className="info-card-side-button" onClick={this.flipToQr}/>
+                            </Tooltip>
+
+                            {this.props.link && <Tooltip title="Open link">
+                                <Link className="info-card-side-button" onClick={this.onClickLink}/>
+                            </Tooltip>}
                         </div>
                     </div>
 
