@@ -2,20 +2,12 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {map, filter} from 'lodash';
 import {fiatList} from 'Core/Coins';
-import {TickerEvent} from "Core/Actions/Controller";
+import {TickerEvent} from 'Core/Actions/Controller';
 import {InputCheck, EmptyDummy} from 'Popup/UI';
-import {Background} from 'Popup/Service';
-import {Analytics} from "Popup/Service";
-import {SearchInputComponent} from './Components';
+import {Analytics, Background} from 'Popup/Service';
+import {SearchInputComponent} from './components';
 
-const mapStateToProps = (store) => {
-    return {
-        currentFiatKey: store.Coin.currentFiatKey
-    }
-};
-
-@connect(mapStateToProps)
-export class FiatsScreen extends React.Component {
+export class FiatsScreenComponent extends React.Component {
 
     state = {
         search: ''
@@ -51,7 +43,7 @@ export class FiatsScreen extends React.Component {
             .sendRequest(TickerEvent.ChangeCurrentFiat, {fiat: fiatKey})
             .then(this.onPreparedResponse);
 
-        Analytics.event('Fiat', 'choose', fiatKey);
+        Analytics.event('SETTINGS', 'CHANGE_FIAT', fiatKey);
     };
 
     drawCurrencyRow = (fiat) => {
@@ -95,3 +87,13 @@ export class FiatsScreen extends React.Component {
         );
     }
 }
+
+const mapStateToProps = (store) => {
+    return {
+        currentFiatKey: store.Coin.currentFiatKey
+    }
+};
+
+
+
+export const FiatsScreen = connect(mapStateToProps)(FiatsScreenComponent);

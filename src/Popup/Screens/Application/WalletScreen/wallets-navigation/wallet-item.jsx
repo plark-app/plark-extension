@@ -4,14 +4,13 @@ import classNames from 'classnames';
 import numeral from 'numeral';
 import ReactSVG from 'react-svg';
 
+import {Wallet} from "@berrywallet/core";
 import {CoinIcon} from "Popup/UI";
 import {findFiat} from "Core/Coins";
 import proxyStore from 'Popup/Store';
 import {extractTicker} from "Popup/Store/Helpers";
 import {CoinAction} from "Core/Actions/Reducer";
 import {Analytics} from "Popup/Service";
-import {Wallet} from "@berrywallet/core";
-
 
 @connect((store, ownProps) => {
     const {walletData = null} = store.Wallet[ownProps.coin.getKey()];
@@ -28,7 +27,7 @@ import {Wallet} from "@berrywallet/core";
         fiat: findFiat(store.Coin.currentFiatKey)
     }
 })
-export default class CoinItem extends React.Component {
+export class WalletItem extends React.Component {
 
     onChangeIt = () => {
         if (this.props.isActive) {
@@ -42,7 +41,7 @@ export default class CoinItem extends React.Component {
             coinKey: coinKey
         });
 
-        Analytics.event('Coin', 'choose', coinKey);
+        Analytics.event('WALLET', 'CHOOSE_WALLET', coinKey);
     };
 
     render() {
