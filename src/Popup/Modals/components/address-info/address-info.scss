@@ -103,6 +103,22 @@
       }
     }
 
+    &__buttons {
+      margin-top: 8px;
+      text-align: center;
+    }
+
+    &-button {
+      transition: all 0.2s;
+      cursor: pointer;
+      margin: 0 10px;
+
+      fill: $color-dark;
+      &:hover {
+        fill: $color-main;
+      }
+    }
+
     &.-back {
       transform: rotateY(180deg);
     }

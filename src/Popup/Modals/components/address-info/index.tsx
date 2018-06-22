@@ -24,7 +24,7 @@ export class AddressInfo extends React.Component<TAddressInfoProps> {
                 <p className="desc">{Numeral(balance).format('0,0.00[000000]')} {coin.getKey()}</p>
 
                 <div className="address-info-wrapper">
-                    <InfoCard title="Address" data={address}/>
+                    <InfoCard title="Address" data={address} link={coin.generateAddrLink(address)}/>
                     <InfoCard title="Private Key" data={privateKey}/>
                 </div>
             </ModalLayout>
