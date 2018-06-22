@@ -7,21 +7,24 @@ export const mapWelcomeProps = (state, ownProps) => {
     }
 };
 
-export const mapWelcomeDispatchers = (dispatch) => {
+export interface IWelcomeDispatcher {
+    setWelcomeLocation: (location) => void;
+    pushWelcomeLocation: (location) => any;
+}
 
-    const dispatchWelcomeLocation = (location) => {
+export const mapWelcomeDispatchers = (dispatch): IWelcomeDispatcher => {
+
+    const setWelcomeLocation = (location) => {
         return dispatch({
             type: 'WELCOME::SET_LOCATION',
             location: location
         });
     };
 
-    return {
-        setWelcomeLocation: dispatchWelcomeLocation,
+    const pushWelcomeLocation = (location) => {
+        setWelcomeLocation(location);
+        screenHistory.push(location);
+    };
 
-        pushWelcomeLocation: (location) => {
-            dispatchWelcomeLocation(location);
-            screenHistory.push(location);
-        }
-    }
+    return {setWelcomeLocation, pushWelcomeLocation};
 };

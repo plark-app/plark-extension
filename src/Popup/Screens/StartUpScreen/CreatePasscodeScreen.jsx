@@ -2,11 +2,10 @@ import React from 'react';
 import classNames from 'classnames';
 import {connect} from 'react-redux';
 import proxyStore from 'Popup/Store';
-import {Button, Alert} from "Popup/UI";
-import WelcomeLink from './Parts/WelcomeLink';
+import {Button, Alert} from 'Popup/UI';
 import {MIN_PASSCODE_CHARS, validatePasscode} from 'Core/Passcode';
 import {mapWelcomeDispatchers} from 'Popup/Store/KeyringConnector';
-import WelcomeLayout from './Parts/WelcomeLayout';
+import {WelcomeLink, WelcomeLayout} from './Parts';
 
 const ScreenStates = {
     CREATE: 'create',
@@ -14,7 +13,7 @@ const ScreenStates = {
 };
 
 @connect(null, mapWelcomeDispatchers)
-export default class CreatePasscodeScreen extends React.Component {
+export class CreatePasscodeScreen extends React.Component {
     state = {
         inputData: '',
         valid: false,

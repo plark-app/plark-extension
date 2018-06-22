@@ -2,17 +2,14 @@ import React from 'react';
 import {connect} from 'react-redux';
 import classNames from 'classnames';
 import {Helper} from 'Core';
+import {Button} from 'Popup/UI';
 import proxyStore from 'Popup/Store';
-import WelcomeLink from './Parts/WelcomeLink';
-import WelcomeLayout from './Parts/WelcomeLayout';
 import {mapWelcomeDispatchers} from 'Popup/Store/KeyringConnector';
-
-
 import {SEED_WORD_COUNT} from 'Core/Constant';
-import {Button} from "Popup/UI";
+import {WelcomeLink, WelcomeLayout} from './Parts';
 
 @connect(null, mapWelcomeDispatchers)
-export default class ImportSeedScreen extends React.Component {
+export class ImportSeedScreen extends React.Component {
 
     state = {
         seed: '',

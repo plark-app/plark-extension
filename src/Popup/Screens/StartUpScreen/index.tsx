@@ -2,16 +2,16 @@ import React from 'react';
 import {Route, Switch, RouteComponentProps} from 'react-router-dom';
 
 import {WelcomeScreen} from './WelcomeScreen';
-import ImportSeedScreen from './ImportSeedScreen';
-import CreateSeedScreen from './CreateSeedScreen';
-import ChooseCoinsScreen from './ChooseCoinsScreen';
-import CreatePasscodeScreen from './CreatePasscodeScreen';
-import PasscodeSuccessScreen from './PasscodeSuccessScreen';
+import {ImportSeedScreen} from './ImportSeedScreen';
+import {CreateSeedScreen} from './CreateSeedScreen';
+import {ChooseCoinsScreen} from './ChooseCoinsScreen';
+import {CreatePasscodeScreen} from './CreatePasscodeScreen';
+import {PasscodeSuccessScreen} from './PasscodeSuccessScreen';
 import {PrepareWalletScreen} from './PrepareWalletScreen';
 
 type TProps = RouteComponentProps<any>;
 
-export class StartUpScreen extends React.Component<TProps> {
+export class StartUpScreen extends React.PureComponent<TProps> {
     public render(): JSX.Element {
         const {path} = this.props.match;
         return (

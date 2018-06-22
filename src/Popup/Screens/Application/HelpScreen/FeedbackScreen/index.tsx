@@ -3,13 +3,18 @@ import {random} from 'lodash';
 import TrackScreenView from 'Popup/Service/ScreenViewAnalitics';
 import {Button} from 'Popup/UI';
 import Extberry from 'extberry';
+
 import './feedback.scss';
 
 const images = ['/images/feedback-1.png', '/images/feedback-2.png'];
 
-export class FeedbackScreen extends React.PureComponent {
+interface IFeedbackState {
+    image: string;
+}
 
-    public readonly state = {
+export class FeedbackScreen extends React.PureComponent<null, IFeedbackState> {
+
+    public readonly state: IFeedbackState = {
         image: images[random(0, 1, false)]
     };
 
