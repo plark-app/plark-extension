@@ -4,6 +4,7 @@ import BigNumber from 'bignumber.js';
 import {Wallet} from '@berrywallet/core';
 import classNames from 'classnames';
 import ReactSVG from 'react-svg';
+import {ArrowRight} from 'svg';
 import {Coins} from "Core";
 import {Controller} from "Core/Actions";
 import {IStore} from "Core/Declarations/Store";
@@ -137,9 +138,7 @@ class Exchange extends React.Component<IExchangeProps, IExchangeModalState> {
                 </p>
 
                 <div className="modal-buttons">
-                    <Button onClick={this.activateWallet} width={200} loading={waitingWallet}>
-                        Create Wallet
-                    </Button>
+                    <Button onClick={this.activateWallet} width={200} loading={waitingWallet}>Create Wallet</Button>
                     <br/>
                     <Button onClick={this.closeModal} isLight={true}>Cancel</Button>
                 </div>
@@ -166,7 +165,7 @@ class Exchange extends React.Component<IExchangeProps, IExchangeModalState> {
                                       isRight={false}
                     />
 
-                    <div className="modal-exchange-info-separator">-></div>
+                    <ArrowRight className="modal-exchange-info-separator"/>
 
                     <ExchangeCoinCard label="Receive"
                                       coin={toCoin}

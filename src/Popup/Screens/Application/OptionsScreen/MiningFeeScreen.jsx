@@ -12,21 +12,19 @@ const mapStateToProps = (store) => {
     }
 };
 
-const feesList = [
-    {
-        key: Coin.FeeTypes.High,
-        name: 'Fast',
-        subname: 'Pricey Fees'
-    }, {
-        key: Coin.FeeTypes.Medium,
-        name: 'Average',
-        subname: 'Average Fees'
-    }, {
-        key: Coin.FeeTypes.Low,
-        name: 'Slow',
-        subname: 'Cheap Fees'
-    }
-];
+const feesList = [{
+    key: Coin.FeeTypes.High,
+    name: 'Fast',
+    subname: 'Pricey Fees'
+}, {
+    key: Coin.FeeTypes.Medium,
+    name: 'Average',
+    subname: 'Average Fees'
+}, {
+    key: Coin.FeeTypes.Low,
+    name: 'Slow',
+    subname: 'Cheap Fees'
+}];
 
 @connect(mapStateToProps)
 export class MiningFeeScreen extends React.Component {
@@ -38,7 +36,7 @@ export class MiningFeeScreen extends React.Component {
             .sendRequest(OptionEvent.SetFee, {fee: feeKey})
             .then(this.onPreparedResponse);
 
-        Analytics.event('Fee', 'choose', feeKey);
+        Analytics.event('SETTINGS', 'CHANGE_FEE', feeKey);
     };
 
     drawFeeRow = (feeItem) => {

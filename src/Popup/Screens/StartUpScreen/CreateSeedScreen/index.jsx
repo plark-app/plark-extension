@@ -6,8 +6,7 @@ import {WelcomeAction} from 'Core/Actions/Reducer';
 
 import proxyStore from 'Popup/Store';
 import {mapWelcomeDispatchers} from 'Popup/Store/KeyringConnector';
-import WelcomeLink from '../Parts/WelcomeLink';
-import WelcomeLayout from '../Parts/WelcomeLayout';
+import {WelcomeLink, WelcomeLayout} from '../Parts';
 import NoticePart from './NoticePart';
 import PhrasePart from './PhrasePart';
 import CheckPart from './CheckPart';
@@ -19,7 +18,7 @@ const mapStateToProps = (state) => {
 };
 
 @connect(mapStateToProps, mapWelcomeDispatchers)
-export default class CreateSeedScreen extends React.Component {
+export class CreateSeedScreen extends React.Component {
 
     componentDidMount() {
         const {seed} = this.props;

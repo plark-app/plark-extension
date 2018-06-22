@@ -1,19 +1,16 @@
 import React from 'react';
-import classNames from 'classnames';
-import ReactSVG from 'react-svg'
-
+import cn from 'classnames';
+import ReactSVG from 'react-svg';
 
 export interface ISearchOwnProps {
     onChangeSearch?: (value: string) => void;
     placeholder?: string;
 }
 
-
 export interface ISearchOwnState {
     search: string;
     focused: boolean;
 }
-
 
 export class SearchInputComponent extends React.Component<ISearchOwnProps, ISearchOwnState> {
 
@@ -28,16 +25,13 @@ export class SearchInputComponent extends React.Component<ISearchOwnProps, ISear
 
     public setSearchValue(value) {
         const {onChangeSearch} = this.props;
-        this.setState(() => {
-            return {search: value};
-        });
+        this.setState({search: value});
+
         onChangeSearch && onChangeSearch(value);
     }
 
     public setFocus = (focusValue) => {
-        return () => this.setState(() => {
-            return {focused: focusValue};
-        });
+        return () => this.setState({focused: focusValue});
     };
 
     public onClearEvent = () => {
@@ -47,10 +41,7 @@ export class SearchInputComponent extends React.Component<ISearchOwnProps, ISear
     public render(): JSX.Element {
 
         const {placeholder = ''} = this.props;
-        const {
-            search = '',
-            focused = false
-        } = this.state;
+        const {search = '', focused = false} = this.state;
 
         const inputProps = {
             className: "currency-option-search__input",
@@ -66,15 +57,14 @@ export class SearchInputComponent extends React.Component<ISearchOwnProps, ISear
         return (
             <label className="currency-option-search">
                 <ReactSVG path="/images/icons/search.svg"
-                          className={classNames("currency-option-search__icon", {'-active': !!search || focused})}
+                          className={cn("currency-option-search__icon", {'-active': !!search || focused})}
                           wrapperClassName="currency-option-search__icon-wrapper"
                 />
                 <input {...inputProps}/>
-                <div className={classNames("currency-option-search__clear-wrapper", {'-active': !!search})}
+                <div className={cn("currency-option-search__clear-wrapper", {'-active': !!search})}
                      onClick={this.onClearEvent}>
 
-                    <ReactSVG path="/images/icons/close-round.svg"
-                              className="currency-option-search__clear"/>
+                    <ReactSVG path="/images/icons/close-round.svg" className="currency-option-search__clear"/>
                 </div>
             </label>
         );

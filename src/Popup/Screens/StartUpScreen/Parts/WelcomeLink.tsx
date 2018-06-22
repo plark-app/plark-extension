@@ -1,26 +1,32 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import screenHistory from 'Popup/ScreenAddressHistory';
+import {mapWelcomeDispatchers, IWelcomeDispatcher} from 'Popup/Store/KeyringConnector';
 
-import {mapWelcomeDispatchers} from 'Popup/Store/KeyringConnector';
+interface IWelcomeLinkProps extends IWelcomeDispatcher, React.HTMLProps<{}> {
+    to: string;
+    welcomeLocation?: string;
+}
 
-@connect(null, mapWelcomeDispatchers)
-export default class WelcomeLink extends React.Component {
+class WelcomeLinkComponent extends React.Component<IWelcomeLinkProps> {
 
-    isDisabled() {
+    protected isDisabled(): boolean {
         return this.props.disabled || false;
     }
 
-    handleOnClick = (event) => {
+    protected handleOnClick = (event): void => {
         if (this.isDisabled()) {
-            return false;
+            return;
         }
 
         const {onClick} = this.props;
 
         if (typeof onClick === 'function') {
-            let result = onClick(event);
-            if (false === result) return;
+            try {
+                onClick(event);
+            } catch (e) {
+                return;
+            }
         }
 
         const {to, welcomeLocation = null} = this.props;
@@ -29,7 +35,7 @@ export default class WelcomeLink extends React.Component {
         this.props.setWelcomeLocation(to);
     };
 
-    render() {
+    public render(): JSX.Element {
         const componentProps = {
             className: this.props.className,
             onClick: this.handleOnClick,
@@ -39,3 +45,5 @@ export default class WelcomeLink extends React.Component {
         return <button {...componentProps}>{this.props.children}</button>;
     }
 }
+
+export const WelcomeLink = connect(null, mapWelcomeDispatchers)(WelcomeLinkComponent);

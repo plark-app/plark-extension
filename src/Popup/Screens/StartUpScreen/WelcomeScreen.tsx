@@ -1,7 +1,6 @@
 import React from 'react';
-import {WelcomeLink} from './Parts';
-import {mapWelcomeProps, mapWelcomeDispatchers} from 'Popup/Store/KeyringConnector';
 import TrackScreenView from 'Popup/Service/ScreenViewAnalitics';
+import {WelcomeLink} from './Parts';
 
 export class WelcomeScreen extends React.Component {
     public render(): JSX.Element {
@@ -23,8 +22,13 @@ export class WelcomeScreen extends React.Component {
                 </div>
 
                 <div>
-                    <WelcomeLink to="/startup/import" className="btn startup-welcome-button -white">Import wallet</WelcomeLink>
-                    <WelcomeLink to="/startup/create" className="btn startup-welcome-button">Create a wallet</WelcomeLink>
+                    <WelcomeLink to="/startup/import" className="btn startup-welcome-button -white">
+                        Import wallet
+                    </WelcomeLink>
+
+                    <WelcomeLink to="/startup/create" className="btn startup-welcome-button">
+                        Create a wallet
+                    </WelcomeLink>
                 </div>
 
 

@@ -21,6 +21,7 @@
 
         &-separator {
             margin: 0 16px;
+            fill: white;
         }
 
         &__card {
@@ -47,7 +48,7 @@
                     right: 0;
                 }
 
-                & > .coin-icon-wrapper {
+                & .coin-icon {
                     margin: 0 6px;
                 }
             }

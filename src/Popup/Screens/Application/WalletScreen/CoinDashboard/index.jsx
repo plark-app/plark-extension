@@ -97,6 +97,7 @@ export class CoinDashboardLayout extends React.Component {
                             <CoinIcon coin={activeCoin.getKey()}
                                       className="dashboard-head-info__coin"
                                       wrapperClassName="dashboard-head-info__coin-wrapper"
+                                      size={40}
                             />
                             <div className="dashboard-head-info__price">
                                 <div className="dashboard-head-info__price-coin">

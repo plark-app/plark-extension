@@ -1,15 +1,13 @@
 import React from 'react';
 import ReactSVG from 'react-svg';
-import proxyStore from 'Popup/Store';
-import WelcomeLink from './Parts/WelcomeLink';
 import {connect} from 'react-redux';
-import WelcomeLayout from './Parts/WelcomeLayout';
-import {Button} from "Popup/UI";
+import proxyStore from 'Popup/Store';
+import {Button} from 'Popup/UI';
 import {mapWelcomeDispatchers} from 'Popup/Store/KeyringConnector';
-
+import {WelcomeLink, WelcomeLayout} from './Parts';
 
 @connect(null, mapWelcomeDispatchers)
-export default class PasscodeSuccessScreen extends React.Component {
+export class PasscodeSuccessScreen extends React.Component {
     onBack = () => {
         proxyStore.dispatch({type: "WELCOME::CLEAR_PASSCODE"});
     };

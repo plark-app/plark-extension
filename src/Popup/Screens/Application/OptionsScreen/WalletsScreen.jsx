@@ -6,7 +6,7 @@ import {coinList} from 'Core/Coins';
 import {Controller} from 'Core/Actions';
 import {Background, Analytics} from 'Popup/Service';
 import {InputCheck, Alert, EmptyDummy} from 'Popup/UI';
-import {SearchInputComponent} from './Components';
+import {SearchInputComponent} from './components';
 
 
 const mapStateToProps = (store) => {
@@ -82,14 +82,14 @@ export class WalletsScreen extends React.Component {
 
             type = Controller.WalletEvent.DisActivateCoin;
             callback = () => {
-                Analytics.event('Coin', 'remove', toTriggerCoin);
+                Analytics.event('SETTINGS', 'REMOVE_WALLET', toTriggerCoin);
 
                 return toTriggerCoin;
             }
         } else {
             type = Controller.WalletEvent.ActivateCoin;
             callback = () => {
-                Analytics.event('Coin', 'add', toTriggerCoin);
+                Analytics.event('SETTINGS', 'ADD_WALLET', toTriggerCoin);
 
                 return toTriggerCoin;
             };

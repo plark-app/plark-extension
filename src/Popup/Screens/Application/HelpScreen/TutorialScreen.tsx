@@ -1,8 +1,8 @@
 import React from 'react';
-import TrackScreenView from "Popup/Service/ScreenViewAnalitics";
+import TrackScreenView from 'Popup/Service/ScreenViewAnalitics';
 
 export class TutorialScreen extends React.Component {
-    render() {
+    public render(): JSX.Element {
         return (
             <div className="card tutorial">
                 <TrackScreenView trackLabel="help-tutorial"/>

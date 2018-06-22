@@ -8,12 +8,11 @@ import {Button, Alert} from "Popup/UI";
 import proxyStore from 'Popup/Store';
 import {mapWelcomeDispatchers} from 'Popup/Store/KeyringConnector';
 import {coinList, CoinSymbol} from 'Core/Coins';
-import WelcomeLayout from './Parts/WelcomeLayout';
-import WelcomeLink from './Parts/WelcomeLink';
+import {WelcomeLayout, WelcomeLink} from './Parts';
 
 
 @connect(null, mapWelcomeDispatchers)
-export default class ChooseCoinsScreen extends React.Component {
+export class ChooseCoinsScreen extends React.Component {
 
     state = {
         selected: [CoinSymbol.Bitcoin]

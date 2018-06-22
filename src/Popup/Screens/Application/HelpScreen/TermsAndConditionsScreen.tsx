@@ -1,24 +1,24 @@
 import React from 'react';
 import {extractHtmlLegal} from 'Core/Legal';
-import TrackScreenView from "Popup/Service/ScreenViewAnalitics";
+import TrackScreenView from 'Popup/Service/ScreenViewAnalitics';
 
-export class TermsAndConditionsScreen extends React.Component {
+interface ITermsState {
+    content: string;
+}
 
-    state = {
+export class TermsAndConditionsScreen extends React.Component<object, ITermsState> {
+
+    public state: ITermsState = {
         content: null
     };
 
-    componentDidMount() {
-        extractHtmlLegal('/views/terms.md').then((content) => {
-            this.setState(() => {
-                return {
-                    content: content
-                };
-            });
+    public componentDidMount(): void {
+        extractHtmlLegal('/views/terms.md').then((content: string) => {
+            this.setState({content: content});
         })
     };
 
-    render() {
+    public render(): JSX.Element {
         return (
             <div className="scroll-wrapper">
                 <TrackScreenView trackLabel="help-terms"/>

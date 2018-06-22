@@ -1,8 +1,3 @@
-@mixin coinLayoutSize {
-  width: 130px;
-  height: 74px;
-}
-
 .dashboard {
   display: flex;
   width: 100%;
@@ -42,7 +37,7 @@
     text-decoration: none;
     transition: all 0.2s;
 
-    @include coinLayoutSize;
+    @include walletLayoutSize;
     margin-bottom: 10px;
     border-radius: 3px;
     overflow: hidden;
@@ -114,7 +109,7 @@
 
   &-add-coin {
     display: block;
-    @include coinLayoutSize;
+    @include walletLayoutSize;
 
     padding: 16px 0;
 
@@ -196,6 +191,7 @@
       border-radius: 3px 3px 0 0;
       padding: 15px 0;
       text-align: center;
+      height: 125px;
 
       &__coin {
         width: 40px;
@@ -263,45 +259,6 @@
   }
 
   &-head {
-  }
-}
-
-.coming-soon {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  position: absolute;
-  left: 0;
-  bottom: 10px;
-
-  @include coinLayoutSize;
-
-  padding: 0;
-  font-weight: 500;
-  color: white;
-  opacity: 0.5;
-
-  &__label {
-    text-align: center;
-    width: 86px;
-    margin: 0 auto;
-    line-height: 1;
-  }
-
-  &__currencies {
-    text-align: center;
-    margin-bottom: 4px;
-    &-item {
-      display: inline-block;
-      width: 16px;
-      height: 16px;
-      fill: white;
-
-      &-wrapper {
-        display: inline-block;
-        margin: 0 3px;
-      }
-    }
   }
 }
 
@@ -533,8 +490,4 @@
       opacity: 1;
     }
   }
-}
-
-.history {
-
 }

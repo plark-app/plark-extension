@@ -1,13 +1,11 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Dictionary} from 'lodash';
-
 import {Coins} from 'Core';
 import {IStore} from 'Core/Declarations/Store';
 import {Selector} from 'Popup/Store';
-
 import {CoinDashboardLayout} from "./CoinDashboard";
-import {CoinsNav} from "./CoinsNav";
+import {WalletsNavigation} from "./wallets-navigation";
 
 
 export interface IWalletScreenOwnProps {
@@ -19,11 +17,11 @@ interface IWalletScreenProps {
     mindAddNew: boolean;
 }
 
-export class WalletScreen extends React.Component<IWalletScreenOwnProps & IWalletScreenProps, any> {
-    render() {
+export class WalletScreen extends React.PureComponent<IWalletScreenOwnProps & IWalletScreenProps, any> {
+    public render(): JSX.Element {
         return (
             <div className="dashboard">
-                <CoinsNav
+                <WalletsNavigation
                     activeCoin={this.props.coin}
                     coinList={this.props.coinList}
                     mindAddNew={this.props.mindAddNew}
@@ -34,6 +32,7 @@ export class WalletScreen extends React.Component<IWalletScreenOwnProps & IWalle
         );
     }
 }
+
 
 const mapStateToProps = (store: IStore): IWalletScreenProps => {
     const {Coin} = store;
