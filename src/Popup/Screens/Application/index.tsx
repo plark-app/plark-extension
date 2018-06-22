@@ -1,11 +1,10 @@
 import React from 'react';
-import {Wallet} from '@berrywallet/core';
-import {connect} from 'react-redux';
-import {Route, Switch} from 'react-router-dom';
-import classNames from 'classnames';
-import numeral from 'numeral';
 import {each} from 'lodash';
-
+import {connect} from 'react-redux';
+import {Route, Switch, Link} from 'react-router-dom';
+import cn from 'classnames';
+import numeral from 'numeral';
+import {Wallet} from '@berrywallet/core';
 import {MenuLayout} from 'Popup/UI/Layouts';
 import {extractTicker} from "Popup/Store/Helpers";
 import {IStore} from "Core/Declarations/Store";
@@ -16,7 +15,6 @@ import {ExchangeRouterComponent} from './ExchangeScreen';
 import {OptionsScreen} from './OptionsScreen';
 import {HelpScreen} from './HelpScreen';
 import {PasscodeWrapper} from './NeedPasswordScreen';
-
 
 const links = [{
     path: '/app/wallet',
@@ -59,10 +57,12 @@ export class ApplicationRootScreenComponent extends React.Component<TApplication
 
         return (
             <div className="wallet">
-                <div className={classNames("wallet-application-content", {'-blured': needPassword})}>
+                <div className={cn("wallet-application-content", {'-blured': needPassword})}>
                     <div className="wallet-sidebar">
                         <div className="wallet-sidebar-head">
-                            <img src="/images/logo.svg" className="wallet-sidebar-head__logo"/>
+                            <Link to="/app/wallet">
+                                <img src="/images/logo.svg" className="wallet-sidebar-head__logo"/>
+                            </Link>
                             <div className="wallet-sidebar-head__bitcoin">
                                 <span>{numeral(balance.bitcoin).format("0,0.00[000000]")}</span>
                                 <span className='wallet-sidebar-head__bitcoin-postfix'>BTC</span>
@@ -83,7 +83,7 @@ export class ApplicationRootScreenComponent extends React.Component<TApplication
                         />
                     </div>
 
-                    <div className={classNames("wallet-main")}>
+                    <div className="wallet-main">
                         <Switch>
                             <Route path='/app/wallet' component={WalletScreenComponent}/>
                             <Route path='/app/exchange' component={ExchangeRouterComponent}/>

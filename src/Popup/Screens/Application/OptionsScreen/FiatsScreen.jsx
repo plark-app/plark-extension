@@ -94,6 +94,4 @@ const mapStateToProps = (store) => {
     }
 };
 
-
-
 export const FiatsScreen = connect(mapStateToProps)(FiatsScreenComponent);
