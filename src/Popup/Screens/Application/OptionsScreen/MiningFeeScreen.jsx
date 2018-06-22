@@ -2,10 +2,9 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {map} from 'lodash';
 import {Coin} from '@berrywallet/core';
-import {Background} from 'Popup/Service';
-import {OptionEvent} from "Core/Actions/Controller";
-import {Analytics} from "Popup/Service";
 import {InputCheck} from 'Popup/UI';
+import {Background, Analytics} from 'Popup/Service';
+import {OptionEvent} from 'Core/Actions/Controller';
 
 const mapStateToProps = (store) => {
     return {

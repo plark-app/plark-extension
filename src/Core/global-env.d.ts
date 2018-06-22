@@ -1,4 +1,4 @@
-import {IStore} from "./Declarations/Store";
+import {IStore} from './Declarations/Store';
 
 declare global {
 
@@ -17,4 +17,9 @@ declare global {
 
     type EventListenerType = (request: IRuntimeRequest, sender: any, sendResponse) => void | any;
     type EventHandlerType = <T>(request: any, sender: any) => Promise<T> | any;
+
+
+    namespace Store {
+        type TStore = IStore;
+    }
 }

@@ -3,10 +3,9 @@ import {filter, map, includes} from 'lodash';
 import {connect} from 'react-redux';
 import classNames from 'classnames';
 import {coinList} from 'Core/Coins';
-import {Controller} from "Core/Actions";
-import {Background} from 'Popup/Service';
+import {Controller} from 'Core/Actions';
+import {Background, Analytics} from 'Popup/Service';
 import {InputCheck, Alert, EmptyDummy} from 'Popup/UI';
-import {Analytics} from "Popup/Service";
 import {SearchInputComponent} from './Components';
 
 

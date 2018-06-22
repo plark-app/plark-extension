@@ -7,7 +7,7 @@ import {Transaction} from './components/transaction';
 import {ResetWallet} from './components/reset-wallet';
 import {ExchangeModal} from './components/exchange';
 import {ViewBackupPhrase} from './components/view-backup-phrase';
-
+import {AddressInfo} from './components/address-info';
 import {
     Router,
     Switch,
@@ -22,7 +22,8 @@ const modalRoutes = {
     '/reset-wallet': ResetWallet,
     '/transaction': Transaction,
     '/exchange': ExchangeModal,
-    '/view-backup-phrase': ViewBackupPhrase
+    '/view-backup-phrase': ViewBackupPhrase,
+    '/address-info': AddressInfo
 };
 
 export class ModalRootComponent extends React.Component<IModalProps> {

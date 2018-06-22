@@ -8,12 +8,14 @@ import ReactSVG from 'react-svg';
 
 import {Wallet} from "@berrywallet/core";
 import {Helper} from 'Core';
+import {copyToClipboard} from "Core/Utils";
 import {CoinInterface, findCoin, TxDirection} from 'Core/Coins';
 import {IStore} from 'Core/Declarations/Store';
 import {RemoteLink, Notice, Badge} from 'Popup/UI';
 import {DotLoader, Button} from 'Popup/UI';
 
 import {ModalLayout} from "../ModalLayout";
+
 
 interface IStoreProps {
     coin?: CoinInterface;
@@ -48,20 +50,13 @@ class TransactionComponent extends React.Component<ITransactionProps> {
     };
 
     protected copyToClipboard = () => {
-        this.txidHiddenTextarea.select();
+        copyToClipboard(this.txidHiddenTextarea).then(() => {
+            this.setState({copied: true});
 
-        try {
-            let successful = document.execCommand('copy');
-            // @TODO There is no way to keep it here.. Should be other way.
-            if (successful) {
-                this.setState({copied: true});
-
-                setTimeout(() => {
-                    this.setState({copied: false});
-                }, 2000);
-            }
-        } catch (err) {
-        }
+            setTimeout(() => {
+                this.setState({copied: false});
+            }, 2000);
+        });
     };
 
     protected get fromAddress(): string | null {
@@ -123,7 +118,7 @@ class TransactionComponent extends React.Component<ITransactionProps> {
                                     className="tx-info-copy-txid__btn"
                                     isOutline
                                 >Copy TXID</Button>
-                                
+
                                 <input type="text"
                                        style={{position: 'absolute', left: '-9999px'}}
                                        value={tx.txid}

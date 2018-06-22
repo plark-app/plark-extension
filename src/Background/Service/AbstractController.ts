@@ -2,21 +2,20 @@ import {Dictionary} from 'lodash';
 import {AnyAction, Store} from 'redux';
 import {IStore} from 'Core/Declarations/Store';
 import {createDebugger} from "Core";
-import {IBackgroundCore, IController} from 'Core/Declarations/Service';
 
-export abstract class AbstractController implements IController {
+export abstract class AbstractController implements BgController.IController {
 
     public store: Store<IStore>;
-    public app: IBackgroundCore;
+    public app: BgController.IBackgroundCore;
     protected debug: (...param: any[]) => void;
 
     public eventListeners: Dictionary<EventHandlerType> = {};
 
     /**
-     * @param {IBackgroundCore} app
+     * @param {BgController.IBackgroundCore} app
      * @param {Store<IStore>} store
      */
-    constructor(app: IBackgroundCore, store: Store<IStore>) {
+    protected constructor(app: BgController.IBackgroundCore, store: Store<IStore>) {
         this.app = app;
         this.store = store;
         this.debug = createDebugger(this.constructor.name);
@@ -44,7 +43,7 @@ export abstract class AbstractController implements IController {
     /**
      * @returns {IBackgroundCore}
      */
-    public getApp(): IBackgroundCore {
+    public getApp(): BgController.IBackgroundCore {
         return this.app;
     }
 

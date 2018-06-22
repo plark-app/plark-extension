@@ -9,6 +9,7 @@ import q from 'querystring';
 import {Notice} from 'Popup/UI';
 import {mapWalletCoinToProps} from 'Popup/Store/WalletCoinConnector';
 import TrackScreenView from 'Popup/Service/ScreenViewAnalitics';
+import {copyToClipboard} from "Core/Utils";
 
 const browserTabs = Extberry.tabs;
 
@@ -27,33 +28,19 @@ const ButtonComponent = (props): JSX.Element => {
 
 // @TODO Need implement Props and State interface
 class ReceiveScreen extends React.Component<any, any> {
-    addressInput;
+    protected addressInput;
+
     public state = {
         copied: false
     };
 
-    protected onCopy = (event) => {
-        this.addressInput.select();
-
-        try {
-            let successful = document.execCommand('copy');
-            if (!successful) {
-                return;
-            }
-
-            this.setState(() => {
-                setTimeout(() => {
-                    this.setState(() => {
-                        return {copied: false};
-                    });
-                }, 2000);
-
-                return {
-                    copied: true
-                };
-            });
-        } catch (err) {
-        }
+    protected onCopy = (event): void => {
+        copyToClipboard(this.addressInput).then(() => {
+            this.setState({copied: true});
+            setTimeout(() => {
+                this.setState({copied: false});
+            }, 2000);
+        });
     };
 
     protected extractAddress = (): string => {
@@ -67,7 +54,7 @@ class ReceiveScreen extends React.Component<any, any> {
         return addr.address;
     };
 
-    onEmail = () => {
+    protected onEmail = () => {
         const {coin} = this.props;
         const address = this.extractAddress();
 

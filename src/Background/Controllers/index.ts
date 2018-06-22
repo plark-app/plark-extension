@@ -1,21 +1,9 @@
-import {BackgroundCore} from './BackgroundCore';
+export {BackgroundCore} from './BackgroundCore';
 
-import {OptionController} from './OptionController';
-import {StartUpController} from './StartUpController';
-import {TickerController} from './TickerController';
-import {WalletController} from './WalletController';
-import {KeyringController} from './KeyringController';
-import {GlobalController} from './GlobalController';
-import {ExchangeController} from './ExchangeController';
-
-export {
-    BackgroundCore,
-
-    GlobalController,
-    KeyringController,
-    WalletController,
-    TickerController,
-    StartUpController,
-    OptionController,
-    ExchangeController
-}
+export {OptionController} from './OptionController';
+export {StartUpController} from './StartUpController';
+export {TickerController} from './TickerController';
+export {WalletController} from './WalletController';
+export {KeyringController} from './KeyringController';
+export {GlobalController} from './GlobalController';
+export {ExchangeController} from './ExchangeController';

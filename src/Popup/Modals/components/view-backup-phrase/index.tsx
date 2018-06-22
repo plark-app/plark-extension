@@ -1,11 +1,12 @@
 import React from 'react';
 import {Switch, Route} from 'react-router-dom';
-import {ModalLayout} from "../../ModalLayout";
-import {Controller} from "Core/Actions";
-import {Background} from 'Popup/Service';
 import {Notice} from 'svg';
-import {Button} from "Popup/UI";
-import {openModal, closeModal} from "../../Observer";
+
+import {openModal, closeModal, ModalLayout} from '../../';
+import {Controller} from 'Core/Actions';
+import {Background} from 'Popup/Service';
+import {Button} from 'Popup/UI';
+
 
 import './view-backup-phrase.scss'
 

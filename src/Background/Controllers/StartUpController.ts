@@ -1,7 +1,6 @@
 import {Store} from "redux";
 
 import {IStore, IWelcomeStore} from "Core/Declarations/Store";
-import {IBackgroundCore} from 'Core/Declarations/Service';
 import {StartUpEvent} from 'Core/Actions/Controller';
 import {GlobalAction, WelcomeAction, KeyringAction} from 'Core/Actions/Reducer';
 import {generateSeedVault} from "Core/Service/SeedVault";
@@ -9,8 +8,8 @@ import {AbstractController} from 'Background/Service/AbstractController'
 import {KeyringController, WalletController} from "Background/Controllers";
 
 export class StartUpController extends AbstractController {
-
-    public constructor(app: IBackgroundCore, store: Store<IStore>) {
+    
+    public constructor(app: BgController.IBackgroundCore, store: Store<IStore>) {
         super(app, store);
 
         this.bindEventListener(StartUpEvent.Prepare, this.prepare);

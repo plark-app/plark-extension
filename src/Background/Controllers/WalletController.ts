@@ -5,7 +5,6 @@ import {WalletManager} from "Background/Service/WalletManager";
 import {Actions, Coins} from "Core";
 import {IStore} from 'Core/Declarations/Store';
 import {ICoinWallet} from 'Core/Declarations/Wallet';
-import {IBackgroundCore} from 'Core/Declarations/Service';
 import {AbstractController} from 'Background/Service/AbstractController';
 import {KeyringController} from './KeyringController';
 import {WalletManagerGenerator} from 'Background/Service/WalletManager/WalletManagerGenerator';
@@ -20,10 +19,10 @@ export class WalletController extends AbstractController {
     protected walletManagers: Dictionary<WalletManager> = {};
 
     /**
-     * @param {IBackgroundCore} app
+     * @param {BgController.IBackgroundCore} app
      * @param {Store<IStore>} store
      */
-    public constructor(app: IBackgroundCore, store: Store<IStore>) {
+    public constructor(app: BgController.IBackgroundCore, store: Store<IStore>) {
         super(app, store);
 
         this.bindEventListener(Actions.Controller.WalletEvent.ActivateCoin, (request: any): any => {
@@ -35,8 +34,8 @@ export class WalletController extends AbstractController {
         });
 
         this.bindEventListener(Actions.Controller.WalletEvent.CreateTransaction, this.createTransaction);
-
         this.bindEventListener(Actions.Controller.WalletEvent.CalculateFee, this.calculateFee);
+        this.bindEventListener(Actions.Controller.WalletEvent.GetPrivateKey, this.getPrivateKey)
 
         each(this.getState().Coin.coins, (coinSymbol: Coins.CoinSymbol) => {
             try {
@@ -216,5 +215,11 @@ export class WalletController extends AbstractController {
                     fee: fee.toNumber()
                 }
             });
+    };
+
+    protected getPrivateKey = (request: any) => {
+        const {coin, walletAddress} = request;
+
+        return this.getWalletManager(coin).getPrivateKey(walletAddress);
     };
 }

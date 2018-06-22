@@ -5,7 +5,6 @@ import {Store} from 'redux';
 import {IStore} from 'Core/Declarations/Store';
 import {KeyringEvent} from 'Core/Actions/Controller';
 import {KeyringAction} from 'Core/Actions/Reducer';
-import {IBackgroundCore} from 'Core/Declarations/Service';
 import {AbstractController} from 'Background/Service/AbstractController';
 
 import {
@@ -13,7 +12,7 @@ import {
     SeedVaultProvider,
     InvalidPasswordException,
     generateSeedVault
-} from "Core/Service/SeedVault";
+} from 'Core/Service/SeedVault';
 
 const TIMEOUT_30M: number = 1800;
 const TIMEOUT_1H: number = 3600;
@@ -28,7 +27,7 @@ export class KeyringController extends AbstractController {
         return 'KEYRING';
     }
 
-    public constructor(app: IBackgroundCore, store: Store<IStore>) {
+    public constructor(app: BgController.IBackgroundCore, store: Store<IStore>) {
         super(app, store);
 
         const {Keyring, Global} = this.getState();
