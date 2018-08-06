@@ -1,8 +1,8 @@
 import React from 'react';
-import classNames from 'classnames';
-import {TransitionGroup, CSSTransition} from "react-transition-group";
-import {alertObserver, IAlert} from './Observer';
-import {AlertComponent} from "./AlertComponent";
+import cn from 'classnames';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
+import { alertObserver, IAlert } from './observer';
+import { AlertComponent } from './alert-component';
 
 interface IModalProps {
 }
@@ -14,7 +14,7 @@ interface IAlertState {
 export class AlertRootComponent extends React.Component<IModalProps, IAlertState> {
 
     public state: IAlertState = {
-        alert: null
+        alert: null,
     };
 
     public componentDidMount(): void {
@@ -23,7 +23,7 @@ export class AlertRootComponent extends React.Component<IModalProps, IAlertState
     }
 
     protected handleAlertShow = (alertToShow: IAlert) => {
-        const {alert} = this.state;
+        const { alert } = this.state;
         if (alert) {
             return;
         }
@@ -34,13 +34,13 @@ export class AlertRootComponent extends React.Component<IModalProps, IAlertState
 
         this.setState(() => {
             return {
-                alert: alertToShow
+                alert: alertToShow,
             };
         });
     };
 
     protected handleAlertClose = () => {
-        const {alert} = this.state;
+        const { alert } = this.state;
 
         if (!alert) {
             return;
@@ -51,29 +51,29 @@ export class AlertRootComponent extends React.Component<IModalProps, IAlertState
 
         this.setState(() => {
             return {
-                alert: null
+                alert: null,
             };
         });
     };
 
     public render(): JSX.Element {
-        const {alert} = this.state;
+        const { alert } = this.state;
 
-        const alertContainerClass = classNames(
-            "alert-container",
+        const alertContainerClass = cn(
+            'alert-container',
             alert && {
                 '-active': true,
-                '-no-body': alert.noBody
-            }
+                '-no-body': alert.noBody,
+            },
         );
 
         return (
             <TransitionGroup className={alertContainerClass}>
-                {alert ? (
+                {alert && (
                     <CSSTransition key={`alert-${alert.time}`} classNames="-animation" timeout={400}>
                         <AlertComponent {...alert} />
                     </CSSTransition>
-                ) : null}
+                )}
             </TransitionGroup>
         );
     };

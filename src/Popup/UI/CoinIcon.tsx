@@ -1,7 +1,7 @@
 import React from 'react';
-import classNames from 'classnames';
-import {coinSvgs} from 'svg';
-import {Coins} from 'Core';
+import cn from 'classnames';
+import { Coins } from 'Core';
+import { coinSvgs } from 'svg';
 
 import './coin-icon.scss';
 
@@ -10,13 +10,11 @@ export interface ICoinIconProps extends React.HTMLProps<{}> {
     size?: number;
 }
 
-export class CoinIcon extends React.Component<ICoinIconProps> {
-    public render(): JSX.Element {
-        const {coin, size = 32, className} = this.props;
+export const CoinIcon = (props: ICoinIconProps) => {
+    const { coin, size = 32, className } = props;
 
-        return React.createElement(coinSvgs[coin], {
-            className: classNames('coin-icon', `-${coin}`, className),
-            style: {width: `${size}px`, height: `${size}px`}
-        });
-    }
-}
+    return React.createElement(coinSvgs[coin], {
+        className: cn('coin-icon', `-${coin}`, className),
+        style: { width: `${size}px`, height: `${size}px` },
+    });
+};

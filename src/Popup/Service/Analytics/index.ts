@@ -1,29 +1,29 @@
-import {createDebugger} from 'Core/Debugger';
 import Extberry from 'extberry';
+import uuid from 'uuid';
+import UniversalAnalytics from 'universal-analytics';
+import { createDebugger } from 'Core';
 
-const UniversalAnalytics = require('universal-analytics');
-const uuidv4 = require('uuid/v4');
 const localStorage = require('local-storage');
-const debugAnalytics = createDebugger('analytics');
 
+const debugAnalytics = createDebugger('analytics');
 const USER_UUID_KEY = 'USER_UUID';
 
 let visitorUUID = localStorage.get(USER_UUID_KEY);
 
 if (!visitorUUID) {
-    visitorUUID = uuidv4();
+    visitorUUID = uuid.v4();
     localStorage.set(USER_UUID_KEY, visitorUUID);
 }
 
 export const AnalyticsOptions = {
     GA_IDENTIFY: 'UA-116441094-1',
     NAME: 'BERRYWALLET',
-    VERSION: Extberry.version
+    VERSION: Extberry.version,
 };
 
-export const visitor = UniversalAnalytics(AnalyticsOptions.GA_IDENTIFY, visitorUUID, {https: true});
+export const visitor = UniversalAnalytics(AnalyticsOptions.GA_IDENTIFY, visitorUUID, { https: true });
 
-export function screenview(title: string) {
+export function screenView(title: string) {
     visitor
         .screenview(title, AnalyticsOptions.NAME, AnalyticsOptions.VERSION)
         .send();
@@ -36,7 +36,7 @@ export function event(category: string, action: string, label?: string, value?: 
         eventCategory: category,
         eventAction: action,
         eventLabel: label,
-        eventValue: value
+        eventValue: value,
     };
 
     visitor.event(params).send();
@@ -50,19 +50,18 @@ export function exception(exception: Error, isFatal: boolean = false) {
 }
 
 export function trackExchange(txid: string, pair: string, income: number) {
-    const transaction = {ti: txid, tr: income, cu: 'USD'};
-    const item = {ti: txid, 'in': pair, ip: income, iq: 1, cu: 'USD'};
+    const transaction = { ti: txid, tr: income, cu: 'USD' };
+    const item = { ti: txid, 'in': pair, ip: income, iq: 1, cu: 'USD' };
 
     debugAnalytics(`Track transaction with ID: ${txid}, Income: ${income}, Pair: ${pair}`);
 
     try {
         visitor
-            .event({eventCategory: "Exchange", eventAction: "success", eventLabel: pair})
+            .event({ eventCategory: "Exchange", eventAction: "success", eventLabel: pair })
             .transaction(transaction)
             .item(item)
             .send();
-
     } catch (error) {
-        debugAnalytics(`Error on Track Transaction! ${txid}`)
+        debugAnalytics(`Error on Track Transaction! ${txid}`);
     }
 }

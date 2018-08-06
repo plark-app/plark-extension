@@ -1,11 +1,9 @@
-import 'Core/global-env.d.ts';
-
 import React from 'react';
-import {Provider} from 'react-redux';
+import { Provider } from 'react-redux';
 
-import {ApplicationRouter} from './Router';
+import { ApplicationRouter } from './Router';
 import proxyStore from './Store';
-import {Analytics} from './Service';
+import { Analytics } from './Service';
 
 interface IPopupApplicationState {
     ready: boolean;
@@ -13,7 +11,7 @@ interface IPopupApplicationState {
 
 export class PopupApplication extends React.Component<{}, IPopupApplicationState> {
     public state: IPopupApplicationState = {
-        ready: false
+        ready: false,
     };
 
     public componentDidCatch(error, info): void {
@@ -23,7 +21,7 @@ export class PopupApplication extends React.Component<{}, IPopupApplicationState
     public componentDidMount(): void {
         proxyStore.ready(() => {
             setTimeout(() => {
-                this.setState(() => ({ready: true}));
+                this.setState(() => ({ ready: true }));
             }, 100);
         });
     }
@@ -39,7 +37,7 @@ export class PopupApplication extends React.Component<{}, IPopupApplicationState
 
         return (
             <Provider store={proxyStore}>
-                <ApplicationRouter/>
+                <ApplicationRouter />
             </Provider>
         );
     }

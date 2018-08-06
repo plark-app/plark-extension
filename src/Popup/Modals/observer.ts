@@ -1,5 +1,5 @@
-import {createDebugger} from 'Core/Debugger';
-import {createMemoryHistory} from "history";
+import { createMemoryHistory } from 'history';
+import { createDebugger } from 'Core';
 
 const debug = createDebugger('MODAL');
 export const modalHistory = createMemoryHistory();

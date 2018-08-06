@@ -1,5 +1,7 @@
-import {createDebugger} from "Core/Debugger";
-const debugStore = createDebugger('store');
+import { IDebugger } from 'debug';
+import { createDebugger } from 'Core';
+
+const debugStore: IDebugger = createDebugger('store');
 
 export const loggerMiddleware = store => next => action => {
     debugStore("ACTION", action);

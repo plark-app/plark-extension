@@ -5,7 +5,9 @@
         "moduleResolution": "node",
         "jsx": "react",
         "lib": [
-            "es2016",
+            "es5",
+            "es6",
+            "es2015",
             "dom"
         ],
         "rootDirs": [

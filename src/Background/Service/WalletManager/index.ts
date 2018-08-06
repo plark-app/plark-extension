@@ -102,11 +102,11 @@ export class WalletManager {
      * @param {number} value
      * @param {FeeTypes} fee
      *
-     * @returns {Promise<WalletTransaction | void>}
+     * @returns {Promise<WalletTransaction>}
      */
     public sendTransaction = (address: string,
                               value: BigNumber,
-                              fee: Coin.FeeTypes = Coin.FeeTypes.Medium): Promise<Wallet.Entity.WalletTransaction | void> => {
+                              fee: Coin.FeeTypes = Coin.FeeTypes.Medium): Promise<Wallet.Entity.WalletTransaction> => {
 
         const bufferSeed = this.controller.getSeed();
 

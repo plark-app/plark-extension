@@ -1,17 +1,17 @@
-import {NeedPasswordError} from "../Errors";
+import { NeedPasswordError } from "../Errors";
 
-const BIP39 = require('bip39');
-import {Store} from 'redux';
-import {IStore} from 'Core/Declarations/Store';
-import {KeyringEvent} from 'Core/Actions/Controller';
-import {KeyringAction} from 'Core/Actions/Reducer';
-import {AbstractController} from 'Background/Service/AbstractController';
+import BIP39 from 'bip39';
+import { Store } from 'redux';
+import { IStore } from 'Core/Declarations/Store';
+import { KeyringEvent } from 'Core/Actions/Controller';
+import { KeyringAction } from 'Core/Actions/Reducer';
+import { AbstractController } from 'Background/Service/AbstractController';
 
 import {
     VaultDataInterface,
     SeedVaultProvider,
     InvalidPasswordException,
-    generateSeedVault
+    generateSeedVault,
 } from 'Core/Service/SeedVault';
 
 const TIMEOUT_30M: number = 1800;
@@ -19,7 +19,7 @@ const TIMEOUT_1H: number = 3600;
 
 export class KeyringController extends AbstractController {
 
-    vaultProvider?: SeedVaultProvider;
+    public vaultProvider?: SeedVaultProvider;
     private password?: string;
     private timeout;
 
@@ -30,7 +30,7 @@ export class KeyringController extends AbstractController {
     public constructor(app: BgController.IBackgroundCore, store: Store<IStore>) {
         super(app, store);
 
-        const {Keyring, Global} = this.getState();
+        const { Keyring, Global } = this.getState();
         if (Keyring.vault) {
             this.vaultProvider = new SeedVaultProvider(Keyring.vault);
         }
@@ -61,14 +61,14 @@ export class KeyringController extends AbstractController {
      * @returns {Promise<any>}
      */
     public onTryPassword = (request: any): any => {
-        const {passcode} = request;
+        const { passcode } = request;
         this.setPassword(passcode);
 
         return new Promise<any>((resolve) => {
             setTimeout(() => {
                 resolve({
                     type: this.alias,
-                    success: true
+                    success: true,
                 });
             }, 5000);
         });
@@ -79,12 +79,12 @@ export class KeyringController extends AbstractController {
      * Action
      */
     public onCheckSeed = (request: any): any => {
-        const {seed} = request;
+        const { seed } = request;
         this.checkSeed(seed);
 
         return {
             type: this.alias,
-            success: true
+            success: true,
         };
     };
 
@@ -93,7 +93,7 @@ export class KeyringController extends AbstractController {
      * Actions
      */
     public onSetNewPasscode = (request: any): any => {
-        const {seed, passcode} = request;
+        const { seed, passcode } = request;
 
         this.checkSeed(seed);
 
@@ -102,7 +102,7 @@ export class KeyringController extends AbstractController {
 
         return {
             type: this.alias,
-            success: true
+            success: true,
         };
     };
 
@@ -161,21 +161,19 @@ export class KeyringController extends AbstractController {
         this.timeout = setTimeout(this.clearPassword.bind(this), timeoutTime);
     }
 
-
     public clearTimeout() {
         if (this.timeout) {
             clearTimeout(this.timeout);
         }
     }
 
-
     public getSeed(): string[] {
         if (!this.vaultProvider) {
-            throw new Error('Set the Vault provider with a vault!')
+            throw new Error('Set the Vault provider with a vault!');
         }
 
         if (!this.password) {
-            throw new NeedPasswordError('Set vault password!')
+            throw new NeedPasswordError('Set vault password!');
         }
 
         return this.vaultProvider.getSeed(this.password);

@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import ReactSVG from 'react-svg';
-import {alertObserver} from './Observer';
+import {alertObserver} from './observer';
 
 interface IAlertProps {
     message: string;

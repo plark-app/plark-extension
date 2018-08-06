@@ -1,12 +1,12 @@
-import {alertObserver, IAlert, ShowAlertOptions} from './Observer';
-import {AlertRootComponent} from "./AlertRootComponent";
+import { alertObserver, IAlert, ShowAlertOptions } from './observer';
+import { AlertRootComponent } from './alert-root-component';
 
 import './alert.scss';
 
 export function showAlert(options: ShowAlertOptions | string) {
     if (typeof options === 'string') {
         options = {
-            message: options
+            message: options,
         };
     }
 
@@ -21,5 +21,5 @@ export {
     IAlert,
     ShowAlertOptions,
     alertObserver,
-    AlertRootComponent
-}
+    AlertRootComponent,
+};

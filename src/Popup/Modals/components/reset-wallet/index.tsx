@@ -1,33 +1,31 @@
 import React from 'react';
-import {Notice} from 'svg';
-import {Controller} from "Core/Actions";
+import { Notice } from 'svg';
+import { Controller } from 'Core/Actions';
 import screenAddressHistory from 'Popup/ScreenAddressHistory';
-import {Button} from "Popup/UI";
-import {Background} from 'Popup/Service';
-import {ModalLayout} from "../../ModalLayout";
-import {closeModal} from "../../Observer";
+import { Button } from 'Popup/UI';
+import { Background } from 'Popup/Service';
+import { ModalLayout } from '../../ModalLayout';
+import { closeModal } from '../../observer';
 
 import './reset-wallet.scss';
 
-export class ResetWallet extends React.Component<any, any> {
+export class ResetWallet extends React.PureComponent {
 
-    protected resetWallet = () => {
-        Background
-            .sendRequest(Controller.GlobalEvent.ClearAllData)
-            .then(() => {
-                screenAddressHistory.push('/startup');
-                closeModal();
-            });
+    protected resetWallet = async () => {
+        await Background.sendRequest(Controller.GlobalEvent.ClearAllData);
+
+        screenAddressHistory.push('/startup');
+        closeModal();
     };
 
     public render(): JSX.Element {
         return (
             <ModalLayout>
                 <div className="reset-popup">
-                    <Notice className="svg-notice reset-popup__svg"/>
+                    <Notice className="svg-notice reset-popup__svg" />
 
                     <h2 className="title">
-                        Are You Sure You Want <br/>
+                        Are You Sure You Want <br />
                         to Reset Berrywallet?
                     </h2>
                     <p className="desc">

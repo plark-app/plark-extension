@@ -1,4 +1,4 @@
-import { IStore } from './Declarations/Store';
+import { IStore } from 'Core/Declarations/Store';
 
 declare global {
 

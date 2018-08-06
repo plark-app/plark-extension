@@ -1,11 +1,9 @@
-import 'Core/global-env.d.ts';
-
-import {wrapStore} from 'react-chrome-redux';
-import {debounce} from 'lodash';
+import { wrapStore } from 'react-chrome-redux';
+import { debounce } from 'lodash';
 import * as BerryWalletCore from '@berrywallet/core';
-import {STORE_KEY} from 'Core/Constant';
-import {store, stateStorage} from 'Core/Store';
-import {IStore} from "Core/Declarations/Store";
+import { store, stateStorage } from 'Core/Store';
+import { STORE_KEY } from 'Core/Constant';
+import { IStore } from 'Core/Declarations/Store';
 
 import {
     BackgroundCore,
@@ -15,7 +13,7 @@ import {
     TickerController,
     WalletController,
     KeyringController,
-    ExchangeController
+    ExchangeController,
 } from 'Background/Controllers';
 
 declare global {
@@ -29,7 +27,7 @@ declare global {
 export const initializeBackgroundApplication = (): void => {
 
     wrapStore(store, {
-        portName: STORE_KEY
+        portName: STORE_KEY,
     });
 
     const backgroundCore = new BackgroundCore(store);
@@ -52,6 +50,6 @@ export const initializeBackgroundApplication = (): void => {
     store.subscribe(debounce(updateStoreListener, 200));
 
     window.getState = () => {
-        return store.getState()
+        return store.getState();
     };
 };

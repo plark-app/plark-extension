@@ -1,7 +1,7 @@
-import {Store} from 'redux';
-import {Dictionary} from 'lodash';
-import {EventEmitter} from 'events';
-import {IStore} from 'Core/Declarations/Store';
+import { Store } from 'redux';
+import { Dictionary } from 'lodash';
+import { EventEmitter } from 'events';
+import { IStore } from 'Core/Declarations/Store';
 
 declare global {
     namespace BgController {

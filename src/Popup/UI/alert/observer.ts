@@ -1,5 +1,5 @@
-import {EventEmitter} from 'events';
-import {createDebugger} from 'Core';
+import { EventEmitter } from 'events';
+import { createDebugger } from 'Core';
 
 const debug = createDebugger('ALERT');
 
@@ -35,7 +35,7 @@ export class AlertObserver extends EventEmitter {
             lifetime: alertProps.lifetime || ALERT_LIFETIME,
 
             time: new Date().getTime(),
-            tokenToClear: null
+            tokenToClear: null,
         };
 
         debug('show', alert);

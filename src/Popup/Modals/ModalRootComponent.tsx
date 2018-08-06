@@ -1,7 +1,7 @@
 import React from 'react';
 import {map} from 'lodash';
 import {TransitionGroup, CSSTransition} from "react-transition-group";
-import {modalHistory} from './Observer';
+import {modalHistory} from './observer';
 
 import {Transaction} from './components/transaction';
 import {ResetWallet} from './components/reset-wallet';

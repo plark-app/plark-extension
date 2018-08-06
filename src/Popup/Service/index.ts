@@ -3,5 +3,5 @@ import * as Analytics from './Analytics';
 
 export {
     Analytics,
-    Background
-}
+    Background,
+};
