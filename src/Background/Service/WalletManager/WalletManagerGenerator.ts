@@ -1,16 +1,11 @@
-import {Wallet} from '@berrywallet/core';
-
-import {Coins, createDebugger, Actions, Wallet as CoreWallet} from "Core";
-import {NeedPasswordError} from "Background/Errors";
-import {WalletController} from "Background/Controllers";
-
-import {WalletManager} from "./";
-
+import { Wallet } from '@berrywallet/core';
+import { Coins, createDebugger, Actions, Wallet as CoreWallet } from 'Core';
+import { NeedPasswordError } from 'Background/Errors';
+import { WalletController } from 'Background/Controllers';
+import { WalletManager } from './';
 
 export interface IWalletManagerGenerator {
-    /**
-     * @returns {Promise<WalletManager>}
-     */
+
     generate(): Promise<WalletManager>;
 }
 
@@ -24,59 +19,51 @@ export class WalletManagerGenerator implements IWalletManagerGenerator {
      * @param {CoinInterface} coin
      * @param {WalletController} controller
      */
-    constructor(coin: Coins.CoinInterface, controller: WalletController) {
+    public constructor(coin: Coins.CoinInterface, controller: WalletController) {
         this.coin = coin;
         this.controller = controller;
-        this.debug = createDebugger("WD_Generator:" + this.coin.getUnit());
+        this.debug = createDebugger(`WD_Generator: ${this.coin.getUnit()}`);
     }
 
-    /**
-     * @returns {Promise<WalletManager>}
-     */
-    public generate(): Promise<WalletManager> {
+    public async generate(): Promise<WalletManager> {
 
-        this.debug("Creating WalletManager for coin: " + this.coin.getKey());
-        const extractingResolver = this.extractWDFromStorage();
+        this.debug(`Creating WalletManager for coin: ${this.coin.getKey()}`);
+        const wdFromStorage: Wallet.Provider.WDProvider | undefined = await this.extractWDFromStorage();
 
-        if (extractingResolver) {
-            return extractingResolver.then(this.readyWalletData);
+        if (wdFromStorage) {
+            return this.buildWalletManager(wdFromStorage);
         }
 
-        this.debug("Start generation for coin: " + this.coin.getKey());
+        this.debug(`Start generation for coin: ${this.coin.getKey()}`);
 
         let wdGenerator: Wallet.Generator.IWDGenerator = null;
         try {
             const seed = this.controller.getSeed();
             wdGenerator = CoreWallet.createWDGenerator(this.coin, seed);
         } catch (error) {
-            this.debug("Error on data generating", error);
+            this.debug('Error on data generating', error);
             if (error instanceof NeedPasswordError) {
                 // @TODO Need some code
             }
 
-            return Promise.reject(error);
+            throw error;
         }
 
-        const filledWalletData = (wdProvider: Wallet.Provider.WDProvider) => {
-            const actionPayload = {
-                walletCoinKey: this.coin.getKey(),
-                walletData: wdProvider.getData()
-            };
+        const wdProvider: Wallet.Provider.WDProvider = await wdGenerator.fill();
 
-            this.controller.dispatchStore(Actions.Reducer.WalletAction.Activate, actionPayload);
-            this.controller.stopWalletLoading(this.coin);
-
-            return wdProvider;
+        const actionPayload = {
+            walletCoinKey: this.coin.getKey(),
+            walletData: wdProvider.getData(),
         };
 
-        return wdGenerator.fill().then(filledWalletData).then(this.readyWalletData);
+        this.controller.dispatchStore(Actions.Reducer.WalletAction.Activate, actionPayload);
+        this.controller.stopWalletLoading(this.coin);
+
+        return this.buildWalletManager(wdProvider);
     }
 
-    /**
-     * @returns {Promise<WDProvider> | null}
-     */
-    protected extractWDFromStorage(): Promise<Wallet.Provider.WDProvider> | null {
-        this.debug("Start extracting WD from storage for coin: " + this.coin.getKey());
+    protected async extractWDFromStorage(): Promise<Wallet.Provider.WDProvider | undefined> {
+        this.debug(`Start extracting WD from storage for coin: ${this.coin.getKey()}`);
 
         let iCoinWallet,
             walletData: Wallet.Entity.WalletData = null;
@@ -85,13 +72,13 @@ export class WalletManagerGenerator implements IWalletManagerGenerator {
             iCoinWallet = this.controller.getWalletData(this.coin.getKey());
             walletData = iCoinWallet.walletData;
         } catch (error) {
-            this.debug("Extracting error", error);
+            this.debug('Extracting error', error);
 
-            return null;
+            return;
         }
 
         if (!walletData) {
-            return null;
+            return;
         }
 
         const wdProvider = new Wallet.Provider.WDProvider(walletData);
@@ -100,15 +87,10 @@ export class WalletManagerGenerator implements IWalletManagerGenerator {
             this.controller.stopWalletLoading(this.coin);
         });
 
-        return Promise.resolve(wdProvider);
+        return wdProvider;
     }
 
-    protected readyWalletData = (wdProvider: Wallet.Provider.WDProvider): Promise<WalletManager> => {
-        return Promise.resolve(new WalletManager(
-            wdProvider,
-            this.coin,
-            this.controller
-        ));
-    }
-
+    protected buildWalletManager = (wdProvider: Wallet.Provider.WDProvider): WalletManager => {
+        return new WalletManager(wdProvider, this.coin, this.controller);
+    };
 }

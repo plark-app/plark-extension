@@ -98,7 +98,7 @@ export class WalletController extends AbstractController {
     /**
      * @param {CoinSymbol} coinKey
      */
-    protected resolveWalletManager(coinKey: Coins.CoinSymbol) {
+    protected async resolveWalletManager(coinKey: Coins.CoinSymbol) {
 
         const coin = Coins.findCoin(coinKey);
         if (!(coin.getKey() in this.getState().Wallet)) {
@@ -109,14 +109,12 @@ export class WalletController extends AbstractController {
 
         const wmGenerator = new WalletManagerGenerator(coin, this);
 
-        wmGenerator.generate()
-            .then((wm: WalletManager) => {
-                this.walletManagers[coinKey] = wm;
-            })
-            .catch((error: Error) => {
-                this.disActivateWallet(coin.getKey());
-                this.stopWalletLoading(coin);
-            });
+        try {
+            this.walletManagers[coinKey] = await wmGenerator.generate();
+        } catch (e) {
+            this.disActivateWallet(coin.getKey());
+            this.stopWalletLoading(coin);
+        }
     }
 
     /**
@@ -203,18 +201,15 @@ export class WalletController extends AbstractController {
      *
      * @param request
      */
-    protected calculateFee = (request: any) => {
+    protected calculateFee = async (request: any): Promise<{ fee: number; }> => {
         const { coinKey, address, value } = request;
 
         const fee = this.getState().Option.fee;
+        const responseFee: BigNumber = await this.getWalletManager(coinKey).calculateFee(address, value, fee);
 
-        return this.getWalletManager(coinKey)
-            .calculateFee(address, value, fee)
-            .then((fee: BigNumber) => {
-                return {
-                    fee: fee.toNumber(),
-                };
-            });
+        return {
+            fee: responseFee.toNumber(),
+        };
     };
 
     protected getPrivateKey = (request: any) => {
