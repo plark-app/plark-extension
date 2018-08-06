@@ -1,30 +1,28 @@
-export interface Rate {
+export type Rate = {
     pair: string;
     rate: number | string;
-}
+};
 
-
-export interface Limit {
+export type Limit = {
     pair: string;
     limit: number | string;
-}
+};
 
-
-export interface MarketInfo {
+export type MarketInfo = {
     limit: number;
     maxLimit: number;
     minerFee: number;
     minimum: number;
     pair: string;
     rate: number;
-}
+};
 
 export enum BeShapyCoinStatus {
     Available = "available",
     Unavailable = "unavailable"
 }
 
-export interface CoinInfo {
+export type CoinInfo = {
     name: string;
     symbol: string;
     image: string;
@@ -37,10 +35,9 @@ export interface CoinInfo {
     fieldName?: string;
     fieldKey?: string;
     qrName?: string;
-}
+};
 
-
-export interface RecentTx {
+export type RecentTx = {
     curIn: string;
     curOut: string;
     timestamp: number;
@@ -50,10 +47,9 @@ export interface RecentTx {
      * What a Fuck???
      */
     txid: number;
-}
+};
 
-
-export interface TxStatus {
+export type TxStatus = {
     status: string;
     address?: string;
     withdraw?: string;
@@ -64,10 +60,9 @@ export interface TxStatus {
     transaction?: string;
     transactionURL?: string;
     error?: string;
-}
+};
 
-
-export interface Shift {
+export type Shift = {
     deposit: string;
     depositType: string;
     withdrawal: string;
@@ -75,4 +70,4 @@ export interface Shift {
     public?: string;
     xrpDestTag?: string;
     apiPubKey?: string;
-}
+};

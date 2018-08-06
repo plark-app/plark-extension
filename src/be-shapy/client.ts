@@ -1,15 +1,8 @@
-import {Dictionary, filter} from 'lodash';
-import Axios, {AxiosResponse, AxiosRequestConfig, AxiosInstance} from 'axios';
-import {SHAPESHIFT_URL, SHAPESHIFT_DEFAULT_API_KEY} from './constants';
-import {pair} from './utils';
-import {
-    Limit,
-    Rate,
-    MarketInfo,
-    TxStatus,
-    RecentTx,
-    CoinInfo, Shift
-} from "./units";
+import { Dictionary } from 'lodash';
+import Axios, { AxiosRequestConfig, AxiosInstance } from 'axios';
+import { SHAPESHIFT_URL, SHAPESHIFT_DEFAULT_API_KEY } from './constants';
+import { pair } from './utils';
+import { Limit, Rate, MarketInfo, TxStatus, RecentTx, CoinInfo, Shift } from './units';
 
 export interface BeShapyRequestParams {
     url: string;
@@ -25,7 +18,7 @@ export class BeShapyClient {
     public constructor(apiKey?: string, apiSecret?: string) {
         this.client = Axios.create({
             baseURL: SHAPESHIFT_URL,
-            withCredentials: false
+            withCredentials: false,
         });
 
         this.apiKey = apiKey || SHAPESHIFT_DEFAULT_API_KEY;
@@ -36,12 +29,12 @@ export class BeShapyClient {
         const config: AxiosRequestConfig = {
             url: url,
             method: postParams ? 'POST' : 'GET',
-            data: postParams ? postParams : null
+            data: postParams ? postParams : null,
         };
 
-        return this.client.request(config).then((response: AxiosResponse) => {
-            return response.data as T;
-        });
+        const { data } = await this.client.request(config);
+
+        return data as T;
     }
 
     public async getRate(from: string, to: string): Promise<Rate> {
@@ -73,7 +66,7 @@ export class BeShapyClient {
             pair: pair(from, to),
             withdrawal: toAddress,
             returnAddress: returnAddress,
-            apiKey: this.apiKey
+            apiKey: this.apiKey,
         });
     }
 }

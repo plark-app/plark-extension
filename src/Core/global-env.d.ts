@@ -1,7 +1,6 @@
 import { IStore } from './Declarations/Store';
 
 declare global {
-
     type DummyCallable<R> = (...data: any[]) => R;
 
     interface Window {

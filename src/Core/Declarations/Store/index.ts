@@ -1,10 +1,10 @@
-import {IWelcomeStore} from './Welcome';
-import {IGlobalStore} from './Global';
-import {ICoinStore} from './Coin';
-import {ITermsStore} from './Terms';
-import {IKeyringStore} from './Keyring';
-import {IWalletStore} from './Wallet';
-import {IOptionStore} from './Option';
+import { IWelcomeStore } from './Welcome';
+import { IGlobalStore } from './Global';
+import { ICoinStore } from './Coin';
+import { ITermsStore } from './Terms';
+import { IKeyringStore } from './Keyring';
+import { IWalletStore } from './Wallet';
+import { IOptionStore } from './Option';
 
 export interface IStore {
     Welcome: IWelcomeStore
@@ -23,5 +23,5 @@ export {
     ITermsStore,
     IKeyringStore,
     IWalletStore,
-    IOptionStore
-}
+    IOptionStore,
+};
