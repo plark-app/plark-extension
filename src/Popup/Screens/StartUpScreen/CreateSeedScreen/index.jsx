@@ -1,13 +1,13 @@
 import React from 'react';
 import BIP39 from 'bip39';
-import {connect} from 'react-redux';
-import {Route, Switch} from 'react-router-dom';
-import {WelcomeAction} from 'Core/Actions/Reducer';
+import { connect } from 'react-redux';
+import { Route, Switch } from 'react-router-dom';
+import { WelcomeAction } from 'Core/Actions/Reducer';
 
 import proxyStore from 'Popup/Store';
-import {mapWelcomeDispatchers} from 'Popup/Store/KeyringConnector';
-import {WelcomeLink, WelcomeLayout} from '../Parts';
-import NoticePart from './NoticePart';
+import { mapWelcomeDispatchers } from 'Popup/Store/KeyringConnector';
+import { WelcomeLink, WelcomeLayout } from '../Parts';
+import { NoticeScreen } from './notice-screen';
 import PhrasePart from './PhrasePart';
 import CheckPart from './CheckPart';
 
@@ -38,19 +38,19 @@ export class CreateSeedScreen extends React.Component {
     drawPhrasePart = () => {
         const {seed} = this.props;
 
-        return <PhrasePart seed={seed}/>
+        return <PhrasePart seed={seed} />
     };
 
     drawCheckPart = () => {
-        const {seed} = this.props;
+        const { seed } = this.props;
 
-        return <CheckPart seed={seed}/>
+        return <CheckPart seed={seed} />
     };
 
     drawNoticePart = () => {
         const {seed} = this.props;
 
-        return <NoticePart seed={seed}/>
+        return <NoticeScreen seed={seed} />
     };
 
     render() {
@@ -68,9 +68,9 @@ export class CreateSeedScreen extends React.Component {
         return (
             <WelcomeLayout {...welcomeProps}>
                 <Switch>
-                    <Route path={`${match.path}`} render={this.drawNoticePart} exact={true}/>
-                    <Route path={`${match.path}/phrase`} render={this.drawPhrasePart}/>
-                    <Route path={`${match.path}/check`} render={this.drawCheckPart}/>
+                    <Route path={`${match.path}`} render={this.drawNoticePart} exact={true} />
+                    <Route path={`${match.path}/phrase`} render={this.drawPhrasePart} />
+                    <Route path={`${match.path}/check`} render={this.drawCheckPart} />
                 </Switch>
 
                 <WelcomeLink

@@ -1,22 +1,20 @@
 import React from 'react';
+import classNames from 'classnames';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { filter, find } from 'lodash';
-import classNames from 'classnames';
 import { MenuLayout } from 'Popup/UI/Layouts';
+import { routerElements, disabledFilter, RouteDescriptor } from './routes';
 
-import { routerElements, disabledFilter, IRouteElement } from './Routes';
-
-interface IHelpState {
+interface HelpScreenState {
     loaded: boolean;
 }
 
-// @TODO Need implement interfaces of HelpProps
-export class HelpScreen extends React.Component<any, IHelpState> {
-    public state: IHelpState = {
+export class HelpScreen extends React.Component<object, HelpScreenState> {
+    public state: HelpScreenState = {
         loaded: false,
     };
 
-    public componentDidMount() {
+    public componentDidMount(): void {
         setTimeout(() => {
             this.setState(() => ({ loaded: true }));
         }, 0);
@@ -29,7 +27,7 @@ export class HelpScreen extends React.Component<any, IHelpState> {
     };
 
     public render(): JSX.Element {
-        const enabledElements = filter<IRouteElement>(routerElements, disabledFilter);
+        const enabledElements = filter<RouteDescriptor>(routerElements, disabledFilter);
 
         return (
             <div className="page-wrapper">
@@ -44,12 +42,8 @@ export class HelpScreen extends React.Component<any, IHelpState> {
                 <div className="page-content">
                     <Switch>
                         <Route path="/app/help" exact={true} component={this.redirectFromRoot} />
-                        {enabledElements.map((elem: IRouteElement, index: number) => (
-                            <Route
-                                key={index}
-                                path={elem.path}
-                                component={elem.component || null}
-                            />
+                        {enabledElements.map((elem: RouteDescriptor, index: number) => (
+                            <Route key={index} path={elem.path} component={elem.component} />
                         ))}
                     </Switch>
                 </div>
