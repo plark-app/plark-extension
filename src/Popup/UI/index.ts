@@ -6,9 +6,8 @@ export { DotLoader } from './DotLoader';
 export { InputCheck } from './InputCheck';
 export { CoinIcon } from './CoinIcon';
 export { ValueSnippet } from './ValueSnippet';
-export { DropArrow } from './DropArrow';
-export { BerrywalletLogo } from './BerrywalletLogo';
-export { EmptyDummy } from './EmptyDummy';
+export { DropArrow } from './drop-arrow';
+export { EmptyDummy } from './empty-dummy';
 export { ActionList, UIActionItem } from './ActionList';
 export { Tooltip } from './Tooltip';
 

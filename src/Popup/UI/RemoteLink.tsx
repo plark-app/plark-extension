@@ -6,15 +6,16 @@ interface IRemoteLinkProps {
     className?: string;
 }
 
-export class RemoteLink extends React.Component<IRemoteLinkProps, any> {
-    onClickLink = () => {
-        const {to} = this.props;
-        Extberry.openTab({url: to});
+export class RemoteLink extends React.Component<IRemoteLinkProps> {
+    protected onClickLink = () => {
+        const { to } = this.props;
+
+        Extberry.openTab({ url: to });
     };
 
-    render() {
-        const {children, className} = this.props;
+    public render(): JSX.Element {
+        const { children, className } = this.props;
 
-        return <a onClick={this.onClickLink} className={className}>{children}</a>
+        return <a onClick={this.onClickLink} className={className}>{children}</a>;
     }
 }

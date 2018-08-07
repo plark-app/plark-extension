@@ -1,17 +1,17 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import {chain, isEmpty} from 'lodash';
+import { connect } from 'react-redux';
+import { chain, isEmpty } from 'lodash';
 import ReactSVG from 'react-svg';
 import numeral from 'numeral';
 import moment from 'moment';
 import classNames from 'classnames';
-import {Wallet} from '@berrywallet/core';
+import { Wallet } from '@berrywallet/core';
 
-import {Helper, Coins} from 'Core';
-import {mapWalletCoinToProps} from 'Popup/Store/WalletCoinConnector';
+import { Helper, Coins } from 'Core';
+import { mapWalletCoinToProps } from 'Popup/Store/WalletCoinConnector';
 import TrackScreenView from 'Popup/Service/ScreenViewAnalitics';
-import {Badge, EmptyDummy} from 'Popup/UI';
-import {openModal} from 'Popup/Modals';
+import { Badge, EmptyDummy } from 'Popup/UI';
+import { openModal } from 'Popup/Modals';
 
 import './history-screen.scss';
 
@@ -19,20 +19,20 @@ import './history-screen.scss';
 class HistoryScreen extends React.Component<any, any> {
 
     protected openTransaction(transaction) {
-        const {balance} = this.props;
+        const { balance } = this.props;
 
         return (event) => {
             openModal('/transaction', {
                 coin: this.props.coin.key,
                 amount: Wallet.Helper.calculateTxBalance(balance, transaction.txid),
                 txid: transaction.txid,
-                tx: transaction
+                tx: transaction,
             });
         };
     }
 
     protected drawTransactionList() {
-        const {walletData, balance} = this.props;
+        const { walletData, balance } = this.props;
 
         if (isEmpty(walletData.txs)) {
             return <EmptyDummy
@@ -47,7 +47,7 @@ class HistoryScreen extends React.Component<any, any> {
                 const rowProps = {
                     key: index,
                     className: "row tx-row",
-                    onClick: this.openTransaction(tx)
+                    onClick: this.openTransaction(tx),
                 };
 
                 const time = tx.blockTime ? tx.blockTime : tx.receiveTime;
@@ -61,27 +61,26 @@ class HistoryScreen extends React.Component<any, any> {
                         path={`/images/icons/arrow-${directionKey}.svg`}
                         className={classNames("tx-row__direction", `-${directionKey}`)}
                         wrapperClassName="tx-row__direction-wrapper"
-                        style={{width: 7, height: 11}}
+                        style={{ width: 7, height: 11 }}
                     />
                     <div className="tx-row__amount">{numeral(amount).format('0,0.00[000000]')}</div>
-                    <Badge status={status}/>
+                    <Badge status={status} />
                     <div className="tx-row__time">{moment(time).format("MMM D, YYYY")}</div>
-                </label>
+                </label>;
             });
 
         return txsRows.value();
     }
 
     public render(): JSX.Element {
-        const {coin} = this.props;
+        const { coin } = this.props;
         return (
             <div className="history-list">
-                <TrackScreenView trackLabel={`wallet-${coin.getKey()}-history`}/>
+                <TrackScreenView trackLabel={`wallet-${coin.getKey()}-history`} />
                 {this.drawTransactionList()}
             </div>
-        )
+        );
     }
 }
-
 
 export const HistoryScreenComponent = connect(mapWalletCoinToProps)(HistoryScreen);

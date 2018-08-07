@@ -15,7 +15,7 @@ import { Selector } from 'Popup/Store';
 import { extractTicker } from 'Popup/Store/Helpers';
 import { TrackScreenLayout } from 'Popup/UI/Layouts';
 
-import { CoinSideComponent } from './Side';
+import { CoinSide } from './side';
 import { FooterComponent } from './FooterComponent';
 
 export interface ExchangeMountedProps {
@@ -99,10 +99,10 @@ class ExchangeScreen extends React.Component<IExchangeProps, IExchangeState> {
         const value = this.fromValue;
 
         if (null !== marketInfo &&
-            value.greaterThan(0) &&
-            value.lessThan(fromBalance) &&
-            value.greaterThanOrEqualTo(marketInfo.minimum) &&
-            value.lessThanOrEqualTo(marketInfo.limit)
+            value.isGreaterThan(0) &&
+            value.isLessThan(fromBalance) &&
+            value.isGreaterThanOrEqualTo(marketInfo.minimum) &&
+            value.isLessThanOrEqualTo(marketInfo.limit)
         ) {
             return true;
         }
@@ -126,7 +126,7 @@ class ExchangeScreen extends React.Component<IExchangeProps, IExchangeState> {
             return value;
         }
 
-        return value.add(marketInfo.minerFee).div(this.rate);
+        return value.plus(marketInfo.minerFee).div(this.rate);
     }
 
     get toValue(): BigNumber {
@@ -139,7 +139,7 @@ class ExchangeScreen extends React.Component<IExchangeProps, IExchangeState> {
             return value;
         }
 
-        return value.mul(this.rate).minus(marketInfo.minerFee);
+        return value.times(this.rate).minus(marketInfo.minerFee);
     }
 
     onSubmitForm = (event) => {
@@ -154,45 +154,47 @@ class ExchangeScreen extends React.Component<IExchangeProps, IExchangeState> {
         });
     };
 
-    render() {
+    public render(): JSX.Element {
         const { fromCoin, toCoin, fromTicker, toTicker } = this.props;
         const { masterSide, marketInfo } = this.state;
 
         const trackLabel = `exchange-${fromCoin.getKey()}-${toCoin.getKey()}`;
 
-        return <TrackScreenLayout className="exchange" trackLabel={trackLabel}>
-            <form onSubmit={this.onSubmitForm} className="exchange-form">
-                <div className="exchange-sides">
-                    <CoinSideComponent label="Exchange"
-                                       resultLabel="You are exchanging"
-                                       isReady={!marketInfo}
-                                       fromCoin={fromCoin}
-                                       toCoin={toCoin}
-                                       isFrom={true}
-                                       ticker={fromTicker}
-                                       isMaster={masterSide === SideTypes.From}
-                                       value={this.fromValue}
-                                       onSetValue={this.generateOnSetValue(SideTypes.From)}
-                    />
+        return (
+            <TrackScreenLayout className="exchange" trackLabel={trackLabel}>
+                <form onSubmit={this.onSubmitForm} className="exchange-form">
+                    <div className="exchange-sides">
+                        <CoinSide label="Exchange"
+                                  resultLabel="You are exchanging"
+                                  isReady={!marketInfo}
+                                  fromCoin={fromCoin}
+                                  toCoin={toCoin}
+                                  isFrom={true}
+                                  ticker={fromTicker}
+                                  isMaster={masterSide === SideTypes.From}
+                                  value={this.fromValue}
+                                  onSetValue={this.generateOnSetValue(SideTypes.From)}
+                        />
 
-                    <CoinSideComponent label="Receive"
-                                       resultLabel="You will receive"
-                                       isReady={!marketInfo}
-                                       fromCoin={fromCoin}
-                                       toCoin={toCoin}
-                                       isFrom={false}
-                                       ticker={toTicker}
-                                       isMaster={masterSide === SideTypes.To}
-                                       value={this.toValue}
-                                       onSetValue={this.generateOnSetValue(SideTypes.To)}
-                    />
-                </div>
+                        <CoinSide label="Receive"
+                                  resultLabel="You will receive"
+                                  isReady={!marketInfo}
+                                  fromCoin={fromCoin}
+                                  toCoin={toCoin}
+                                  isFrom={false}
+                                  ticker={toTicker}
+                                  isMaster={masterSide === SideTypes.To}
+                                  value={this.toValue}
+                                  onSetValue={this.generateOnSetValue(SideTypes.To)}
+                        />
+                    </div>
 
-                <Button className="-full-size" disabled={!this.isEnableExchange}>Exchange</Button>
+                    <Button className="-full-size" disabled={!this.isEnableExchange}>Exchange</Button>
 
-                <FooterComponent fromCoin={fromCoin} toCoin={toCoin} marketInfo={marketInfo} />
-            </form>
-        </TrackScreenLayout>;
+                    <FooterComponent fromCoin={fromCoin} toCoin={toCoin} marketInfo={marketInfo} />
+                </form>
+            </TrackScreenLayout>
+        );
     }
 }
 

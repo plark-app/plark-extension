@@ -1,13 +1,12 @@
 import React from 'react';
-import {map, filter} from 'lodash';
+import { map, filter } from 'lodash';
 import classNames from 'classnames';
-import {Coins} from 'Core';
 import screenHistory from 'Popup/ScreenAddressHistory';
-import {DropArrow} from 'Popup/UI';
+import { Coins } from 'Core';
+import { DropArrow } from 'Popup/UI';
+import { CoinUnit } from './coin-unit';
 
-import {CoinUnitComponent} from "./CoinUnit";
-
-import "./coin-select.scss";
+import './coin-select.scss';
 
 export interface ICSelectState {
     open: boolean;
@@ -20,13 +19,12 @@ export interface ICSelectProps {
 }
 
 export class CoinSelect extends React.Component<ICSelectProps, ICSelectState> {
-
     public readonly state: ICSelectState = {
-        open: false
+        open: false,
     };
 
     protected getCoin(): Coins.CoinInterface {
-        const {fromCoin, toCoin, isFrom} = this.props;
+        const { fromCoin, toCoin, isFrom } = this.props;
 
         return isFrom ? fromCoin : toCoin;
     }
@@ -38,7 +36,7 @@ export class CoinSelect extends React.Component<ICSelectProps, ICSelectState> {
     }
 
     protected resolveChanging(cn: Coins.CoinInterface) {
-        const {fromCoin, toCoin, isFrom} = this.props;
+        const { fromCoin, toCoin, isFrom } = this.props;
 
         this.closeCoinList();
 
@@ -64,35 +62,35 @@ export class CoinSelect extends React.Component<ICSelectProps, ICSelectState> {
     };
 
     protected closeCoinList = () => {
-        this.setState(() => ({open: false}));
+        this.setState(() => ({ open: false }));
         document.removeEventListener('click', this.closeCoinList);
     };
 
     protected openCoinList = () => {
-        this.setState(() => ({open: true}));
+        this.setState(() => ({ open: true }));
         document.addEventListener('click', this.closeCoinList);
     };
 
     public render(): JSX.Element {
         const coin = this.getCoin();
-        const {open} = this.state;
+        const { open } = this.state;
 
         return <div className={classNames("exch-select", open && "-open")}>
             <div className="exch-select__current" onClick={this.openCoinList}>
-                <CoinUnitComponent coin={coin}/>
-                <DropArrow active={open} wrapperClassName="exch-select__current-arrow"/>
+                <CoinUnit coin={coin} />
+                <DropArrow active={open} wrapperClassName="exch-select__current-arrow" />
             </div>
             <div className="exch-select__units">
                 <div className="exch-select__units-wrapper">
                     {map(this.getSelectItems(), (cn: Coins.CoinInterface) => {
                         return (
                             <div className="exch-select__unit" key={cn.getKey()} onClick={this.onChangeCoin(cn)}>
-                                <CoinUnitComponent coin={cn}/>
+                                <CoinUnit coin={cn} />
                             </div>
                         );
                     })}
                 </div>
             </div>
-        </div>
+        </div>;
     }
 }

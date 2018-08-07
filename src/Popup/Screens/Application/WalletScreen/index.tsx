@@ -1,48 +1,40 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import {Dictionary} from 'lodash';
-import {Coins} from 'Core';
-import {IStore} from 'Core/Declarations/Store';
-import {Selector} from 'Popup/Store';
-import {CoinDashboardLayout} from "./CoinDashboard";
-import {WalletsNavigation} from "./wallets-navigation";
+import { connect } from 'react-redux';
+import { Dictionary } from 'lodash';
+import { Coins } from 'Core';
+import { IStore } from 'Core/Declarations/Store';
+import { Selector } from 'Popup/Store';
+import { CoinDashboardLayout } from './CoinDashboard';
+import { WalletsNavigation } from './wallets-navigation';
 
+export const WalletScreen = (props: WalletScreenProps) => (
+    <div className="dashboard">
+        <WalletsNavigation
+            activeCoin={props.coin}
+            coinList={props.coinList}
+            mindAddNew={props.mindAddNew}
+        />
 
-export interface IWalletScreenOwnProps {
-}
+        <CoinDashboardLayout activeCoin={props.coin} />
+    </div>
+);
 
-interface IWalletScreenProps {
+type StoreProps = {
     coin: Coins.CoinInterface;
     coinList: Dictionary<Coins.CoinInterface>;
     mindAddNew: boolean;
-}
+};
 
-export class WalletScreen extends React.PureComponent<IWalletScreenOwnProps & IWalletScreenProps, any> {
-    public render(): JSX.Element {
-        return (
-            <div className="dashboard">
-                <WalletsNavigation
-                    activeCoin={this.props.coin}
-                    coinList={this.props.coinList}
-                    mindAddNew={this.props.mindAddNew}
-                />
+type WalletScreenProps = StoreProps;
 
-                <CoinDashboardLayout activeCoin={this.props.coin}/>
-            </div>
-        );
-    }
-}
-
-
-const mapStateToProps = (store: IStore): IWalletScreenProps => {
-    const {Coin} = store;
+const mapStateToProps = (store: IStore): StoreProps => {
+    const { Coin } = store;
 
     return {
         coin: Selector.currentCoinSelector(store),
         coinList: Coins.filterCoinList(Coin.coins),
-        mindAddNew: Object.keys(Coins.coinList).length > Coin.coins.length
+        mindAddNew: Object.keys(Coins.coinList).length > Coin.coins.length,
     };
 };
-
 
 export const WalletScreenComponent = connect(mapStateToProps)(WalletScreen);

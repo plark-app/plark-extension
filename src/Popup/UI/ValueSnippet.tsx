@@ -1,10 +1,11 @@
 import React from 'react';
+import cn from 'classnames';
 import BigNumber from 'bignumber.js';
-import {Helper, Coins} from "Core";
-import classNames from "classnames";
-import './value-snippet.scss'
+import { Helper, Coins } from 'Core';
 
-interface IValueSnippetProps {
+import './value-snippet.scss';
+
+type ValueSnippetProps = {
     label?: string;
     coin: Coins.CoinInterface;
     ticker: Coins.TickerInterface;
@@ -15,21 +16,20 @@ interface IValueSnippetProps {
     className?: string;
 }
 
-export class ValueSnippet extends React.Component<IValueSnippetProps, any> {
-    render() {
-
-        const {label, value, coin, fiat, ticker, isRight, isLeft, className} = this.props;
+export class ValueSnippet extends React.Component<ValueSnippetProps> {
+    public render(): JSX.Element {
+        const { label, value, coin, fiat, ticker, isRight, isLeft, className } = this.props;
 
         return (
-            <div className={classNames('value-snippet', isRight && '-right', isLeft && '-left', className)}>
+            <div className={cn('value-snippet', isRight && '-right', isLeft && '-left', className)}>
                 {label && <h3 className="value-snippet__title">{label}</h3>}
                 <div className="value-snippet__coin">
-                    {value.greaterThan(0) ? Helper.renderCoin(value) : 0} {coin.getKey()}
+                    {value.isGreaterThan(0) ? Helper.renderCoin(value) : 0} {coin.getKey()}
                 </div>
                 <div className="value-snippet__fiat">
-                    {fiat.prefix}{Helper.renderFiat(value.greaterThan(0) ? value.mul(ticker.priceFiat) : 0)}
+                    {fiat.prefix}{Helper.renderFiat(value.isGreaterThan(0) ? value.times(ticker.priceFiat) : 0)}
                 </div>
             </div>
-        )
+        );
     }
 }

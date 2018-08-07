@@ -19,7 +19,6 @@ export interface IBackgroundRequestMessage {
 }
 
 export class BackgroundResponseError extends Error {
-
     protected _response: IBackgroundResponse;
     protected _request: IBackgroundRequestMessage;
 

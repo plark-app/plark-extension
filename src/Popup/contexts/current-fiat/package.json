@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "name": "current-fiat",
+    "main": "current-fiat.tsx",
+    "typings": "current-fiat.tsx"
+}

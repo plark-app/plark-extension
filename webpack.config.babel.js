@@ -96,7 +96,7 @@ function getScssLoader() {
 function getMDLoader() {
     return {
         test: /\.md$/,
-        use: ['raw-loader', { loader: 'markdown-loader' }],
+        use: ['raw-loader', {loader: 'markdown-loader'}],
     };
 }
 
@@ -118,7 +118,7 @@ const Plugins = [
 ];
 
 const OptimisationProps = {
-    minimizer: [
+    minimizer: isProd ? [
         new UglifyJsPlugin({
             cache: true,
             parallel: true,
@@ -129,7 +129,7 @@ const OptimisationProps = {
             },
             sourceMap: true
         })
-    ]
+    ] : undefined
 };
 
 const WebpackConfig = {
@@ -203,7 +203,7 @@ const WebpackConfig = {
         chunks: false
     },
 
-    optimization: isProd ? OptimisationProps : undefined,
+    optimization: OptimisationProps,
     mode: isProd ? 'production' : 'development'
 };
 

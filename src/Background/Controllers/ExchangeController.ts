@@ -74,7 +74,7 @@ export class ExchangeController extends AbstractController {
             Analytics.trackExchange(
                 transaction.txid,
                 pairItem,
-                new BigNumber(value).mul(fromTicker.priceUsd).mul(0.0025).round(2).toNumber(),
+                new BigNumber(value).times(fromTicker.priceUsd).times(0.0025).decimalPlaces(2).toNumber(),
             );
         } catch (error) {
             this.debug('Something wrong with analitics');

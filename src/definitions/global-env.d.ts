@@ -2,6 +2,11 @@ import { IStore } from 'Core/Declarations/Store';
 
 declare global {
 
+    type ReactRef<T extends Element> = T | null;
+    type ReactRefHandler<T extends Element> = (ref: ReactRef<T>) => void;
+    type Diff<T, U> = Pick<T, Exclude<keyof T, keyof U>>;
+    type Omit<T, K> = Pick<T, keyof Diff<T, K>>;
+
     type DummyCallable<R> = (...data: any[]) => R;
 
     interface Window {
@@ -23,3 +28,5 @@ declare global {
         type TStore = IStore;
     }
 }
+
+export {};

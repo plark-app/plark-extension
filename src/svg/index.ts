@@ -1,3 +1,4 @@
+import BerrywalletLogo from './elements/berrywallet-logo.svg';
 import SlideRight from './elements/slide-right.svg';
 import ArrowRight from './elements/arrow-right.svg';
 import Notice from './elements/notice.svg';
@@ -9,4 +10,4 @@ import QR from './elements/qr.svg';
 
 export { coinSvgs } from './coins';
 
-export { SlideRight, ArrowRight, Notice, Flip, Copy, QR, Link, Tick };
+export { BerrywalletLogo, SlideRight, ArrowRight, Notice, Flip, Copy, QR, Link, Tick };

@@ -2,8 +2,8 @@ import React from 'react';
 import BigNumber from 'bignumber.js';
 import Numeral from "numeral";
 import classNames from 'classnames';
-import {CoinInterface, FiatInterface, TickerInterface} from "Core/Coins/Interfaces";
-import {DotLoader} from 'Popup/UI';
+import { CoinInterface, FiatInterface, TickerInterface } from "Core/Coins/Interfaces";
+import { DotLoader } from 'Popup/UI';
 
 export interface IFooterRowProps {
     key?: string;
@@ -16,7 +16,7 @@ export interface IFooterRowProps {
     loading: boolean;
 }
 
-export class SendDataFooterRow extends React.PureComponent<IFooterRowProps, any> {
+export class SendDataFooterRow extends React.PureComponent<IFooterRowProps> {
 
     getValue(): BigNumber {
         let value = this.props.value;
@@ -28,9 +28,9 @@ export class SendDataFooterRow extends React.PureComponent<IFooterRowProps, any>
     }
 
     renderValue() {
-        const {coin, fiat, ticker, loading = false} = this.props;
+        const { coin, fiat, ticker, loading = false } = this.props;
         if (loading) {
-            return <span className="send-footer-row__loading"><DotLoader/></span>;
+            return <span className="send-footer-row__loading"><DotLoader /></span>;
         }
 
         const value = this.getValue();
@@ -41,16 +41,16 @@ export class SendDataFooterRow extends React.PureComponent<IFooterRowProps, any>
                     {Numeral(value).format('0,0.00[000000]')} {coin.getKey()}
                 </span>
                 <b className="send-footer-row__value-fiat">
-                    {fiat.prefix}{Numeral(value.mul(ticker.priceFiat)).format('0,0.00')}
+                    {fiat.prefix}{Numeral(value.times(ticker.priceFiat)).format('0,0.00')}
                 </b>
             </React.Fragment>
-        )
+        );
     }
 
     render(): JSX.Element {
         const {
             label = '',
-            isError = false
+            isError = false,
         } = this.props;
 
         return (
@@ -58,6 +58,6 @@ export class SendDataFooterRow extends React.PureComponent<IFooterRowProps, any>
                 <div className="send-footer-row__label">{label}</div>
                 <div className="send-footer-row__value">{this.renderValue()}</div>
             </div>
-        )
+        );
     }
 }

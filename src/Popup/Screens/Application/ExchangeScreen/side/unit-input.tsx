@@ -1,8 +1,8 @@
 import React from 'react';
 import BigNumber from 'bignumber.js';
-import {Helper, Coins} from "Core";
+import { Helper, Coins } from 'Core';
 
-interface IUnitInputProps {
+type UnitInputProps = {
     rootCoinValue: BigNumber;
     isMaster: boolean;
     isMasterInput: boolean;
@@ -11,48 +11,47 @@ interface IUnitInputProps {
     value: string;
     isCoin: boolean;
     ticker: Coins.TickerInterface;
-}
+};
 
-export class UnitInput extends React.Component<IUnitInputProps, any> {
+export class UnitInput extends React.Component<UnitInputProps> {
 
-    get dummy() {
+    public get dummy(): JSX.Element | undefined {
         const {
             rootCoinValue,
             isMaster,
             isMasterInput,
             isCoin,
-            ticker
+            ticker,
         } = this.props;
 
-        if (rootCoinValue.lessThanOrEqualTo(0) || (isMaster && isMasterInput)) {
-            return null;
+        if (rootCoinValue.isLessThanOrEqualTo(0) || (isMaster && isMasterInput)) {
+            return;
         }
 
         return (
             <span className="split-case__input-dummy">
-                {isCoin ? Helper.renderCoin(rootCoinValue) : Helper.renderFiat(rootCoinValue.mul(ticker.priceFiat))}
+                {isCoin ? Helper.renderCoin(rootCoinValue) : Helper.renderFiat(rootCoinValue.times(ticker.priceFiat))}
             </span>
-        )
+        );
     }
 
+    public get placeholder(): string | undefined {
+        const { rootCoinValue } = this.props;
 
-    get placeholder() {
-        const {rootCoinValue} = this.props;
-
-        if (rootCoinValue.greaterThan(0)) {
-            return null;
+        if (rootCoinValue.isGreaterThan(0)) {
+            return;
         }
 
         return '0.00';
     }
 
-    render(): JSX.Element {
+    public render(): JSX.Element {
         const {
             isMaster,
             isMasterInput,
             onChange,
             symbolLabel,
-            value
+            value,
         } = this.props;
 
         return (
@@ -66,6 +65,6 @@ export class UnitInput extends React.Component<IUnitInputProps, any> {
                 />
                 <span className="split-case__input-symbol">{symbolLabel}</span>
             </label>
-        )
+        );
     }
 }

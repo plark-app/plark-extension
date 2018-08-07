@@ -9,7 +9,7 @@ import q from 'querystring';
 import {Notice} from 'Popup/UI';
 import {mapWalletCoinToProps} from 'Popup/Store/WalletCoinConnector';
 import TrackScreenView from 'Popup/Service/ScreenViewAnalitics';
-import {copyToClipboard} from "Core/Utils";
+import {copyToClipboard} from "Core/utils";
 
 const browserTabs = Extberry.tabs;
 

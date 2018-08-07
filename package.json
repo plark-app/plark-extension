@@ -13,11 +13,12 @@
         "tag:minor": "yarn version --new-version minor"
     },
     "dependencies": {
-        "@berrywallet/core": "^0.3.1-alpha.2",
+        "@berrywallet/core": "^0.3.1-alpha.3",
         "add": "^2.0.6",
         "axios": "^0.17.0",
         "berrymarketcap": "^1.4.0",
-        "bip39": "^2.5.0",
+        "bignumber.js": "7.2.1",
+        "bip39": "2.5.0",
         "circular-dependency-plugin": "^4.2.1",
         "classnames": "2.2.6",
         "clipboard": "^1.7.1",

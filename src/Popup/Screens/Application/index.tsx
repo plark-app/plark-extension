@@ -11,7 +11,7 @@ import { IStore } from 'Core/Declarations/Store';
 import { FiatInterface, filterCoinList, findFiat } from 'Core/Coins';
 
 import { WalletScreenComponent } from './WalletScreen';
-import { ExchangeRouterComponent } from './ExchangeScreen';
+import { ExchangeRouter } from './ExchangeScreen';
 import { OptionsScreen } from './OptionsScreen';
 import { HelpScreen } from './HelpScreen';
 import { PasscodeWrapper } from './NeedPasswordScreen';
@@ -86,7 +86,7 @@ class ApplicationRootScreenComponent extends React.Component<TApplicationProps, 
                     <div className="wallet-main">
                         <Switch>
                             <Route path='/app/wallet' component={WalletScreenComponent} />
-                            <Route path='/app/exchange' component={ExchangeRouterComponent} />
+                            <Route path='/app/exchange' component={ExchangeRouter} />
                             <Route path='/app/options' component={OptionsScreen} />
                             <Route path='/app/help' component={HelpScreen} />
                         </Switch>

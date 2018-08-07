@@ -3,6 +3,8 @@ import cn from 'classnames';
 import { ModalRootComponent } from 'Popup/Modals';
 import { Alert } from 'Popup/UI';
 
+import { CurrentFiatProvider } from 'Popup/contexts/current-fiat';
+
 export interface IApplicationLayoutProps {
     children: any;
 }
@@ -33,11 +35,13 @@ export class ApplicationLayout extends React.Component<IApplicationLayoutProps, 
         const containerClass = cn('application-body', this.state.hidden && '-hidden');
 
         return (
-            <div className="application">
-                <Alert.AlertRootComponent />
-                <div className={containerClass}>{this.props.children}</div>
-                <ModalRootComponent />
-            </div>
+            <CurrentFiatProvider>
+                <div className="application">
+                    <Alert.AlertRootComponent />
+                    <div className={containerClass}>{this.props.children}</div>
+                    <ModalRootComponent />
+                </div>
+            </CurrentFiatProvider>
         );
     }
 }

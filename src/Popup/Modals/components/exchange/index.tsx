@@ -44,7 +44,7 @@ class Exchange extends React.PureComponent<TExchangeModalProps, IExchangeModalSt
         closeModal();
     };
 
-    private tryExchange = () => {
+    private tryExchange = async () => {
         const { fromCoin, toCoin, fromValue, fromTicker } = this.props;
 
         const payload = {
@@ -55,22 +55,16 @@ class Exchange extends React.PureComponent<TExchangeModalProps, IExchangeModalSt
 
         this.setState({ waitingExchanging: true });
 
-        const onSuccess = (tx: Wallet.Entity.WalletTransaction) => {
-            this.setState(() => ({ successfulExchange: true }));
-        };
+        try {
+            const tx: Wallet.Entity.WalletTransaction = await Background
+                .sendRequest(Controller.Exchange.TryExchange, payload);
 
-        const onError = (error) => {
-            Alert.showAlert({
-                message: error.message,
-            });
+            this.setState({ successfulExchange: true });
+        } catch (error) {
+            Alert.showAlert({ message: error.message });
 
-            this.setState(() => ({ waitingExchanging: false }));
-        };
-
-        Background
-            .sendRequest(Controller.Exchange.TryExchange, payload)
-            .then(onSuccess, onError)
-            .catch(onError);
+            this.setState({ waitingExchanging: false });
+        }
     };
 
     protected renderNoWalletScreen = () => {

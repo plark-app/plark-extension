@@ -5,7 +5,4 @@ export function createBeShapy(apiKey?: string, apiSecret?: string): BeShapyClien
     return new BeShapyClient(apiKey, apiSecret);
 }
 
-export {
-    BeShapyUnits,
-    BeShapyClient,
-};
+export { BeShapyUnits, BeShapyClient };
