@@ -1,12 +1,12 @@
 import React from 'react';
 import Extberry from 'extberry';
 
-interface IRemoteLinkProps {
+type RemoteLinkProps = {
     to: string;
     className?: string;
-}
+};
 
-export class RemoteLink extends React.Component<IRemoteLinkProps> {
+export class RemoteLink extends React.PureComponent<RemoteLinkProps> {
     protected onClickLink = () => {
         const { to } = this.props;
 

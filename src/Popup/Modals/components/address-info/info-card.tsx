@@ -18,40 +18,19 @@ type TInfoCardState = {
 };
 
 export class InfoCard extends React.PureComponent<TInfoCardProps, TInfoCardState> {
-
-    protected textarea;
-
     public readonly state: TInfoCardState = {
         isQr: false,
         copied: false,
     };
 
-    protected flipToQr = () => {
-        this.setState({ isQr: true });
-    };
-
-    protected flipBack = () => {
-        this.setState({ isQr: false });
-    };
-
-    protected onClickLink = () => {
-        Extberry.openTab({ url: this.props.link });
-    };
-
-    protected onClickCopy = () => {
-        copyToClipboard(this.textarea).then(() => {
-            this.setState({ copied: true });
-
-            setTimeout(() => this.setState({ copied: false }), 1000);
-        });
-    };
+    protected textarea;
 
     public render(): JSX.Element {
         return (
             <div className="info-card-container">
                 <div className={cn("info-card", { '-flip': this.state.isQr })}>
 
-                    <div className={cn("info-card-side", "-front", { '-is-open': !this.state.isQr })}>
+                    <div className={cn('info-card-side', '-front', { '-is-open': !this.state.isQr })}>
                         <label className="info-card-side__title">{this.props.title}</label>
                         <textarea
                             value={this.props.data}
@@ -74,14 +53,16 @@ export class InfoCard extends React.PureComponent<TInfoCardProps, TInfoCardState
                                 <QR className="info-card-side-button" onClick={this.flipToQr} />
                             </Tooltip>
 
-                            {this.props.link && <Tooltip title="Open link">
-                                <Link className="info-card-side-button" onClick={this.onClickLink} />
-                            </Tooltip>}
+                            {this.props.link && (
+                                <Tooltip title="Open link">
+                                    <Link className="info-card-side-button" onClick={this.onClickLink} />
+                                </Tooltip>
+                            )}
                         </div>
                     </div>
 
 
-                    <div className={cn("info-card-side", "-back", { '-is-open': this.state.isQr })}>
+                    <div className={cn('info-card-side', '-back', { '-is-open': this.state.isQr })}>
                         <div className="info-card-side__qr">
                             <QRCode value={this.props.data} size={100} bgColor="#ffffff" fgColor="#333333" />
                         </div>
@@ -93,4 +74,24 @@ export class InfoCard extends React.PureComponent<TInfoCardProps, TInfoCardState
             </div>
         );
     }
+
+    protected flipToQr = () => {
+        this.setState({ isQr: true });
+    };
+
+    protected flipBack = () => {
+        this.setState({ isQr: false });
+    };
+
+    protected onClickLink = () => {
+        Extberry.openTab({ url: this.props.link });
+    };
+
+    protected onClickCopy = () => {
+        copyToClipboard(this.textarea).then(() => {
+            this.setState({ copied: true });
+
+            setTimeout(() => this.setState({ copied: false }), 1000);
+        });
+    };
 }

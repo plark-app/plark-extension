@@ -17,9 +17,4 @@ export function closeAlert(): Promise<void> {
     return alertObserver.close();
 }
 
-export {
-    IAlert,
-    ShowAlertOptions,
-    alertObserver,
-    AlertRootComponent,
-};
+export { IAlert, ShowAlertOptions, alertObserver, AlertRootComponent };

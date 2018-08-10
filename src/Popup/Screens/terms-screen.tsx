@@ -7,11 +7,11 @@ import proxyStore from 'Popup/Store';
 import TrackScreenView from 'Popup/Service/ScreenViewAnalitics';
 import { IStore, ITermsStore } from 'Core/Declarations/Store';
 
-interface IProps extends RouteComponentProps<object> {
+type TermsProps = RouteComponentProps<object> & {
     terms: ITermsStore
-}
+};
 
-export class TermsScreenComponent extends React.Component<IProps> {
+export class TermsScreenComponent extends React.Component<TermsProps> {
     protected onClickAgreeButton = () => {
         const { location } = this.props;
 

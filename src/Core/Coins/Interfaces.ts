@@ -1,5 +1,5 @@
-import {Coin} from "@berrywallet/core";
-import {CoinSymbol, FiatSymbol} from "./Symbols";
+import { Coin } from '@berrywallet/core';
+import { CoinSymbol, FiatSymbol } from './Symbols';
 
 export interface CoinInterface {
     getKey(): CoinSymbol;

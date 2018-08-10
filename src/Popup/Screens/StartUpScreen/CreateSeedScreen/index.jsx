@@ -11,14 +11,7 @@ import { NoticeScreen } from './notice-screen';
 import PhrasePart from './PhrasePart';
 import CheckPart from './CheckPart';
 
-const mapStateToProps = (state) => {
-    return {
-        seed: state.Welcome.seed
-    };
-};
-
-@connect(mapStateToProps, mapWelcomeDispatchers)
-export class CreateSeedScreen extends React.Component {
+class CreateSeedScreenComponent extends React.Component {
 
     componentDidMount() {
         const {seed} = this.props;
@@ -36,7 +29,7 @@ export class CreateSeedScreen extends React.Component {
     };
 
     drawPhrasePart = () => {
-        const {seed} = this.props;
+        const { seed } = this.props;
 
         return <PhrasePart seed={seed} />
     };
@@ -48,7 +41,7 @@ export class CreateSeedScreen extends React.Component {
     };
 
     drawNoticePart = () => {
-        const {seed} = this.props;
+        const { seed } = this.props;
 
         return <NoticeScreen seed={seed} />
     };
@@ -61,8 +54,8 @@ export class CreateSeedScreen extends React.Component {
         }
 
         const welcomeProps = {
-            className: "startup-create",
-            trackLabel: "startup-create"
+            className: 'startup-create',
+            trackLabel: 'startup-create'
         };
 
         return (
@@ -82,3 +75,11 @@ export class CreateSeedScreen extends React.Component {
         )
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+        seed: state.Welcome.seed
+    };
+};
+
+export const CreateSeedScreen = connect(mapStateToProps, mapWelcomeDispatchers)(CreateSeedScreenComponent);

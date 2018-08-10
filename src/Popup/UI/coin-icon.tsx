@@ -5,12 +5,12 @@ import { coinSvgs } from 'svg';
 
 import './coin-icon.scss';
 
-export interface ICoinIconProps extends React.HTMLProps<{}> {
+export type CoinIconProps = React.HTMLProps<{}> & {
     coin: Coins.CoinSymbol;
     size?: number;
-}
+};
 
-export const CoinIcon = (props: ICoinIconProps) => {
+export const CoinIcon = (props: CoinIconProps) => {
     const { coin, size = 32, className } = props;
 
     return React.createElement(coinSvgs[coin], {

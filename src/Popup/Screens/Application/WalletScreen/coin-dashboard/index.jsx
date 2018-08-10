@@ -1,16 +1,16 @@
 import React from 'react';
 import numeral from 'numeral';
-import {connect} from 'react-redux';
-import {NavLink, Route, Switch, matchPath, withRouter} from 'react-router-dom';
-import {Wallet} from '@berrywallet/core';
+import { connect } from 'react-redux';
+import { NavLink, Route, Switch, matchPath, withRouter } from 'react-router-dom';
+import { Wallet } from '@berrywallet/core';
 
-import {CoinIcon} from 'Popup/UI';
-import {mapWalletCoinToProps} from 'Popup/Store/WalletCoinConnector';
+import { CoinIcon } from 'Popup/UI';
+import { mapWalletCoinToProps } from 'Popup/Store/WalletCoinConnector';
 
-import {SeedScreenComponent} from "./SendScreen";
-import {ReceiveScreenComponent} from "./ReceiveScreen";
-import {HistoryScreenComponent} from "./HistoryScreen";
-import {WaitInitializingScreen} from './WaitInitializingScreen';
+import { SeedScreenComponent } from "./SendScreen";
+import { ReceiveScreenComponent } from "./ReceiveScreen";
+import { HistoryScreenComponent } from "./HistoryScreen";
+import { WaitInitializingScreen } from './WaitInitializingScreen';
 
 
 export const links = [{
@@ -52,9 +52,9 @@ export class CoinDashboardLayout extends React.Component {
 
         return (
             <svg className="menu-background" style={{borderRadius: '0 0 3px 3px'}}>
-                <rect height="30px" width="100%" mask="url(#horizontal-menu-hole)" fill="white"/>
+                <rect height="30px" width="100%" mask="url(#horizontal-menu-hole)" fill="white" />
                 <mask id="horizontal-menu-hole">
-                    <rect x="0" y="0" width="100%" height="100%" fill="white"/>
+                    <rect x="0" y="0" width="100%" height="100%" fill="white" />
                     <rect {...svgMaskProps} />
                 </mask>
             </svg>
@@ -65,14 +65,14 @@ export class CoinDashboardLayout extends React.Component {
         const {walletData, activeCoin} = this.props;
 
         if (!activeCoin || !walletData) {
-            return <WaitInitializingScreen coin={activeCoin}/>
+            return <WaitInitializingScreen coin={activeCoin} />
         }
 
         return (
             <Switch>
-                <Route path="/app/wallet" exact={true} component={SeedScreenComponent}/>
-                <Route path="/app/wallet/receive" component={ReceiveScreenComponent}/>
-                <Route path="/app/wallet/history" component={HistoryScreenComponent}/>
+                <Route path="/app/wallet" exact={true} component={SeedScreenComponent} />
+                <Route path="/app/wallet/receive" component={ReceiveScreenComponent} />
+                <Route path="/app/wallet/history" component={HistoryScreenComponent} />
             </Switch>
         );
     };

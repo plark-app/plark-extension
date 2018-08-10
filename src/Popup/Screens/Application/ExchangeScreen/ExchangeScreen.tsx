@@ -1,5 +1,6 @@
 import React from 'react';
 import BigNumber from 'bignumber.js';
+import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
 import { BeShapyUnits } from 'be-shapy';
@@ -14,26 +15,10 @@ import { IStore } from 'Core/Declarations/Store';
 import { Selector } from 'Popup/Store';
 import { extractTicker } from 'Popup/Store/Helpers';
 import { TrackScreenLayout } from 'Popup/UI/Layouts';
+import { withCurrentFiat, WithCurrentFiatProps } from 'Popup/contexts/current-fiat';
 
 import { CoinSide } from './side';
 import { FooterComponent } from './FooterComponent';
-
-export interface ExchangeMountedProps {
-    fromCoin: Coins.CoinInterface;
-    fromTicker: Coins.TickerInterface;
-
-    toCoin: Coins.CoinInterface;
-    toTicker: Coins.TickerInterface;
-    fromBalance: number;
-}
-
-export interface ExchangeUrlParams {
-    fromCoin: Coins.CoinSymbol;
-    toCoin: Coins.CoinSymbol;
-}
-
-export type IExchangeProps = RouteComponentProps<ExchangeUrlParams> & ExchangeMountedProps;
-
 
 enum SideTypes {
     From = "FROM",
@@ -46,7 +31,7 @@ interface IExchangeState {
     marketInfo?: BeShapyUnits.MarketInfo;
 }
 
-class ExchangeScreen extends React.Component<IExchangeProps, IExchangeState> {
+class ExchangeScreen extends React.Component<ExchangeProps, IExchangeState> {
 
     public state: IExchangeState = {
         masterSide: SideTypes.From,
@@ -58,7 +43,7 @@ class ExchangeScreen extends React.Component<IExchangeProps, IExchangeState> {
         this.updateMarketInfo();
     }
 
-    public componentDidUpdate(oldProps: IExchangeProps): void {
+    public componentDidUpdate(oldProps: ExchangeProps): void {
         const { fromCoin, toCoin } = this.props;
         if (oldProps.fromCoin !== fromCoin || oldProps.toCoin !== toCoin) {
             this.setState(this.marketInfoSetter(null));
@@ -93,70 +78,12 @@ class ExchangeScreen extends React.Component<IExchangeProps, IExchangeState> {
         };
     };
 
-    get isEnableExchange(): boolean {
-        const { marketInfo } = this.state;
-        const { fromBalance } = this.props;
-        const value = this.fromValue;
-
-        if (null !== marketInfo &&
-            value.isGreaterThan(0) &&
-            value.isLessThan(fromBalance) &&
-            value.isGreaterThanOrEqualTo(marketInfo.minimum) &&
-            value.isLessThanOrEqualTo(marketInfo.limit)
-        ) {
-            return true;
-        }
-
-        return false;
-    }
-
-    get rate(): BigNumber {
-        const { marketInfo } = this.state;
-
-        return new BigNumber(marketInfo ? marketInfo.rate : 0);
-    }
-
-    get fromValue(): BigNumber {
-        const { masterSide, value, marketInfo } = this.state;
-        if (!marketInfo) {
-            return new BigNumber(0);
-        }
-
-        if (masterSide === SideTypes.From) {
-            return value;
-        }
-
-        return value.plus(marketInfo.minerFee).div(this.rate);
-    }
-
-    get toValue(): BigNumber {
-        const { masterSide, value, marketInfo } = this.state;
-        if (!marketInfo) {
-            return new BigNumber(0);
-        }
-
-        if (masterSide === SideTypes.To) {
-            return value;
-        }
-
-        return value.times(this.rate).minus(marketInfo.minerFee);
-    }
-
-    onSubmitForm = (event) => {
-        const { fromCoin, toCoin } = this.props;
-        event.preventDefault();
-
-        openModal('/exchange', {
-            fromCoin: fromCoin,
-            toCoin: toCoin,
-            fromValue: this.fromValue,
-            toValue: this.toValue,
-        });
-    };
-
     public render(): JSX.Element {
-        const { fromCoin, toCoin, fromTicker, toTicker } = this.props;
+        const { fromCoin, toCoin, currentFiat } = this.props;
         const { masterSide, marketInfo } = this.state;
+
+        const fromTicker = currentFiat.getTicker(fromCoin.getKey());
+        const toTicker = currentFiat.getTicker(toCoin.getKey());
 
         const trackLabel = `exchange-${fromCoin.getKey()}-${toCoin.getKey()}`;
 
@@ -196,10 +123,86 @@ class ExchangeScreen extends React.Component<IExchangeProps, IExchangeState> {
             </TrackScreenLayout>
         );
     }
+
+    protected onSubmitForm = (event) => {
+        const { fromCoin, toCoin } = this.props;
+        event.preventDefault();
+
+        openModal('/exchange', {
+            fromCoin: fromCoin,
+            toCoin: toCoin,
+            fromValue: this.fromValue,
+            toValue: this.toValue,
+        });
+    };
+
+    protected get isEnableExchange(): boolean {
+        const { marketInfo } = this.state;
+        const { fromBalance } = this.props;
+        const value = this.fromValue;
+
+        if (null !== marketInfo &&
+            value.isGreaterThan(0) &&
+            value.isLessThan(fromBalance) &&
+            value.isGreaterThanOrEqualTo(marketInfo.minimum) &&
+            value.isLessThanOrEqualTo(marketInfo.limit)
+        ) {
+            return true;
+        }
+
+        return false;
+    }
+
+    protected get rate(): BigNumber {
+        const { marketInfo } = this.state;
+
+        return new BigNumber(marketInfo ? marketInfo.rate : 0);
+    }
+
+    protected get fromValue(): BigNumber {
+        const { masterSide, value, marketInfo } = this.state;
+        if (!marketInfo) {
+            return new BigNumber(0);
+        }
+
+        if (masterSide === SideTypes.From) {
+            return value;
+        }
+
+        return value.plus(marketInfo.minerFee).div(this.rate);
+    }
+
+    protected get toValue(): BigNumber {
+        const { masterSide, value, marketInfo } = this.state;
+        if (!marketInfo) {
+            return new BigNumber(0);
+        }
+
+        if (masterSide === SideTypes.To) {
+            return value;
+        }
+
+        return value.times(this.rate).minus(marketInfo.minerFee);
+    }
 }
 
 
-const mapStateToProps = (store: IStore, ownProps: IExchangeProps): ExchangeMountedProps => {
+type ExchangeStoreProps = {
+    fromCoin: Coins.CoinInterface;
+    toCoin: Coins.CoinInterface;
+
+    fromBalance: number;
+};
+
+type ExchangeUrlParams = {
+    fromCoin: Coins.CoinSymbol;
+    toCoin: Coins.CoinSymbol;
+};
+
+type ExchangeOwnProps = RouteComponentProps<ExchangeUrlParams>;
+type ExchangeProps = ExchangeOwnProps & ExchangeStoreProps & WithCurrentFiatProps;
+
+const mapStateToProps = (store: IStore, ownProps: ExchangeOwnProps): ExchangeStoreProps => {
     const { fromCoin, toCoin } = ownProps.match.params;
 
     const fromCoinItem = Coins.findCoin(fromCoin);
@@ -214,10 +217,11 @@ const mapStateToProps = (store: IStore, ownProps: IExchangeProps): ExchangeMount
     return {
         fromCoin: fromCoinItem,
         toCoin: toCoinItem,
-        fromTicker: extractTicker(fromCoinItem.getKey()),
-        toTicker: extractTicker(toCoinItem.getKey()),
         fromBalance: Selector.walletBalanceSelector(store)(fromCoinItem.getKey()),
     };
 };
 
-export const ExchangeScreenComponent = connect(mapStateToProps)(ExchangeScreen);
+export const ExchangeScreenComponent = compose<ExchangeProps, ExchangeOwnProps>(
+    withCurrentFiat,
+    connect(mapStateToProps),
+)(ExchangeScreen);

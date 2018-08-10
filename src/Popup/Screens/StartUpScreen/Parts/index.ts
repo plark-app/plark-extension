@@ -1,2 +1,2 @@
-export {WelcomeLink} from './WelcomeLink';
-export {WelcomeLayout} from './WelcomeLayout';
+export { WelcomeLink } from './WelcomeLink';
+export { WelcomeLayout } from './WelcomeLayout';

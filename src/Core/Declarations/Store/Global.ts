@@ -1,8 +1,8 @@
 export interface IGlobalStore {
-    iterator: number
-    walletReady: boolean
+    iterator: number;
+    walletReady: boolean;
     location: {
-        path: string
-        context: any
+        path: string;
+        context: any;
     }
 }

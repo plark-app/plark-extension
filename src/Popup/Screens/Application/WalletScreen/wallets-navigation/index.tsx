@@ -1,53 +1,54 @@
 import React from 'react';
-import classNames from 'classnames';
-import {map, Dictionary} from 'lodash';
-import {AddWalletCard} from './add-wallet-card';
-import {ComingSoon} from './coming-soon';
-import {WalletItem} from './wallet-item';
-import {Coins} from "Core";
+import cn from 'classnames';
+import { map, Dictionary } from 'lodash';
+import { AddWalletCard } from './add-wallet-card';
+import { ComingSoon } from './coming-soon';
+import { WalletItem } from './wallet-item';
+import { Coins } from 'Core';
 
-interface ICoinsNavProps {
+type CoinsNavProps = {
     activeCoin: Coins.CoinInterface;
     coinList: Dictionary<Coins.CoinInterface>;
     mindAddNew: boolean;
-}
+};
 
-interface ICoinsNavState {
+type CoinsNavState = {
     loaded: boolean;
-}
+};
 
-export class WalletsNavigation extends React.PureComponent<ICoinsNavProps, ICoinsNavState> {
-    public state: ICoinsNavState = {
-        loaded: false
+export class WalletsNavigation extends React.PureComponent<CoinsNavProps, CoinsNavState> {
+    public state: CoinsNavState = {
+        loaded: false,
     };
 
     public componentDidMount(): void {
-        setTimeout(() => this.setState({loaded: true}), 0);
+        setTimeout(() => this.setState({ loaded: true }), 0);
     };
 
     protected drawCoins = (): JSX.Element[] => {
-        const {coinList, activeCoin} = this.props;
+        const { coinList, activeCoin } = this.props;
 
         return map(coinList, (coin) => (
-            <WalletItem key={coin.getKey()}
-                        coin={coin}
-                        isActive={activeCoin && activeCoin.getKey() === coin.getKey()}
+            <WalletItem
+                key={coin.getKey()}
+                coin={coin}
+                isActive={activeCoin && activeCoin.getKey() === coin.getKey()}
             />
-        ))
+        ));
     };
 
-    render() {
+    public render(): JSX.Element {
         return (
             <div className="dashboard-coins">
-                <div className={classNames("dashboard-coins__wrapper", {'-loaded': this.state.loaded})}>
+                <div className={cn('dashboard-coins__wrapper', { '-loaded': this.state.loaded })}>
                     <div className="dashboard-coins__container">
                         {this.drawCoins()}
-                        {this.props.mindAddNew && <AddWalletCard/>}
+                        {this.props.mindAddNew && <AddWalletCard />}
 
-                        <ComingSoon/>
+                        <ComingSoon />
                     </div>
                 </div>
             </div>
-        )
+        );
     }
 }

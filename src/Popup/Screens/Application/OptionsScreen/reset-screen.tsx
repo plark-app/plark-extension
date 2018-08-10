@@ -1,22 +1,22 @@
 import React from 'react';
-import {Notice} from 'svg';
-import {Button} from 'Popup/UI';
 import TrackScreenView from 'Popup/Service/ScreenViewAnalitics';
-import {openModal} from 'Popup/Modals';
+import { Notice } from 'svg';
+import { Button } from 'Popup/UI';
+import { openModal } from 'Popup/Modals';
 
-export class ResetScreen extends React.Component<any, any> {
+export class ResetScreen extends React.Component {
 
-    protected resetAllWallet = (event): void => {
+    protected resetAllWallet = (): void => {
         openModal('/reset-wallet');
     };
 
     public render(): JSX.Element {
         return (
             <div className="card -full-size">
-                <TrackScreenView trackLabel="option-reset"/>
+                <TrackScreenView trackLabel="option-reset" />
                 <h1 className="title">Reset Berrywallet</h1>
                 <div className="reset-content">
-                    <Notice className="wallet-initializing__notice"/>
+                    <Notice className="wallet-initializing__notice" />
 
                     <h2 className="title">Warning</h2>
                     <p>
@@ -25,8 +25,8 @@ export class ResetScreen extends React.Component<any, any> {
                         be available.
                     </p>
 
-                    <br/><br/>
-                    
+                    <br /><br />
+
                     <Button onClick={this.resetAllWallet} className="reset-button">Reset</Button>
                 </div>
             </div>

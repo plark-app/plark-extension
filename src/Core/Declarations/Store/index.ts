@@ -16,12 +16,4 @@ export interface IStore {
     Option: IOptionStore
 }
 
-export {
-    IGlobalStore,
-    IWelcomeStore,
-    ICoinStore,
-    ITermsStore,
-    IKeyringStore,
-    IWalletStore,
-    IOptionStore,
-};
+export { IGlobalStore, IWelcomeStore, ICoinStore, ITermsStore, IKeyringStore, IWalletStore, IOptionStore };

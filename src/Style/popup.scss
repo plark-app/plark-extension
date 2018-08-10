@@ -59,6 +59,19 @@ body {
     top: 50%;
     transform: translateY(-50%);
     text-align: center;
+
+    &__logo {
+        display: block;
+        width: 60px;
+        height: 60px;
+        margin: 0 auto;
+    }
+
+    &__text {
+        margin-top: 10px;
+        display: block;
+        font-size: 14px;
+    }
 }
 
 @import './screens/index';

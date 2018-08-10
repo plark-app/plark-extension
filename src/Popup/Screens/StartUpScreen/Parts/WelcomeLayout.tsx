@@ -1,7 +1,8 @@
 import React from 'react';
-import classNames from 'classnames';
+import cn from 'classnames';
 import TrackScreenView from 'Popup/Service/ScreenViewAnalitics';
-import {KeyboardHandler} from 'Popup/SystemComponent';
+import { KeyboardHandler } from 'Popup/SystemComponent';
+import { Topic } from 'Popup/components/topic';
 
 interface IWelcomeLayoutProps extends React.HTMLProps<{}> {
     trackLabel: string;
@@ -10,41 +11,17 @@ interface IWelcomeLayoutProps extends React.HTMLProps<{}> {
     onPressEnter?: () => void;
 }
 
-export class WelcomeLayout extends React.PureComponent<IWelcomeLayoutProps> {
+export const WelcomeLayout = (props: IWelcomeLayoutProps) => {
+    const { topicTitle, topicDescription } = props;
 
-    protected renderTopic(): JSX.Element {
-        const {topicTitle, topicDescription} = this.props;
+    return (
+        <div className={cn('startup', props.className)}>
+            <TrackScreenView trackLabel={props.trackLabel} />
 
-        if (topicTitle) {
-            return (
-                <div className="topic">
-                    <h1 className="topic__title">{topicTitle}</h1>
-                    <p className="topic__desc">{topicDescription}</p>
-                </div>
-            )
-        }
+            {props.onPressEnter && <KeyboardHandler onPressEnter={props.onPressEnter} />}
+            {topicTitle && <Topic title={topicTitle} desc={topicDescription} />}
 
-        return null;
-    }
-
-    protected renderEnterHandler(): JSX.Element {
-        const {onPressEnter} = this.props;
-
-        if (onPressEnter) {
-            return <KeyboardHandler onPressEnter={onPressEnter}/>;
-        }
-
-        return null;
-    }
-
-    public render(): JSX.Element {
-        return (
-            <div className={classNames('startup', this.props.className)}>
-                <TrackScreenView trackLabel={this.props.trackLabel}/>
-                {this.renderEnterHandler()}
-                {this.renderTopic()}
-                {this.props.children}
-            </div>
-        );
-    }
-}
+            {props.children}
+        </div>
+    );
+};

@@ -32,48 +32,13 @@ class CoinSideComp extends React.Component<CoinSideProps, SideState> {
         }
     }
 
-    protected get coin(): Coins.CoinInterface {
-        return this.props.isFrom ? this.props.fromCoin : this.props.toCoin;
-    }
-
-    protected get coinValue(): BigNumber {
-        let resultValue: BigNumber = new BigNumber(0);
-
-        const {
-            value,
-            ticker,
-            isMaster,
-        } = this.props;
-
-        const { masterInput } = this.state;
-
-        if (!masterInput || !isMaster) {
-            return value ? value : resultValue;
-        }
-
-        resultValue = Helper.parseStrToBigN(this.state.value);
-
-        switch (masterInput) {
-            case InputTypes.Coin:
-                break;
-
-            case InputTypes.Fiat:
-                resultValue = resultValue.div(ticker.priceFiat);
-                break;
-        }
-
-        resultValue = resultValue.decimalPlaces(8);
-
-        return resultValue;
-    }
-
     public render(): JSX.Element {
-        const { fromCoin, toCoin, isFrom, label, resultLabel, currentFiat, isMaster, ticker } = this.props;
+        const { fromCoin, toCoin, isFrom, label, resultLabel, currentFiat, isMaster } = this.props;
         const { value, masterInput } = this.state;
 
         const rootCoinValue = this.coinValue;
         const currentCoin = this.coin.getKey();
-        const currentTicker = currentFiat.getTicker(currentCoin);
+        const currentTicker = this.ticker;
 
         return (
             <div className="exchange-side">
@@ -109,7 +74,7 @@ class CoinSideComp extends React.Component<CoinSideProps, SideState> {
                     <ValueSnippet
                         label={resultLabel}
                         coin={this.coin}
-                        ticker={ticker}
+                        ticker={currentTicker}
                         value={rootCoinValue}
                         fiat={currentFiat.fiat}
                         className="exchange-total"
@@ -121,11 +86,52 @@ class CoinSideComp extends React.Component<CoinSideProps, SideState> {
         );
     }
 
+    protected get coin(): Coins.CoinInterface {
+        return this.props.isFrom ? this.props.fromCoin : this.props.toCoin;
+    }
+
+    protected get ticker(): Coins.TickerInterface {
+        return this.props.currentFiat.getTicker(this.coin.getKey());
+    }
+
+    protected get coinValue(): BigNumber {
+        let resultValue: BigNumber = new BigNumber(0);
+
+        const { value, isMaster } = this.props;
+        const ticker = this.ticker;
+
+        const { masterInput } = this.state;
+
+        if (!masterInput || !isMaster) {
+            return value ? value : resultValue;
+        }
+
+        resultValue = Helper.parseStrToBigN(this.state.value);
+
+        switch (masterInput) {
+            case InputTypes.Coin:
+                break;
+
+            case InputTypes.Fiat:
+                resultValue = resultValue.div(ticker.priceFiat);
+                break;
+        }
+
+        resultValue = resultValue.decimalPlaces(8);
+
+        return resultValue;
+    }
+
     protected setRootValue(inputType: InputTypes, value: string) {
-        const { onSetValue, ticker } = this.props;
+        const { onSetValue } = this.props;
 
         let numValue = Helper.parseStrToBigN(value);
-        numValue = (inputType === InputTypes.Coin) ? numValue : numValue.div(ticker.priceFiat);
+
+        if (inputType === InputTypes.Fiat) {
+            const ticker = this.ticker;
+            numValue = numValue.div(ticker.priceFiat);
+        }
+
         numValue = numValue.decimalPlaces(8);
         onSetValue && onSetValue(numValue);
     }

@@ -64,7 +64,7 @@ export class BackgroundCore extends EventEmitter implements BgController.IBackgr
                 sendResponse({
                     error: {
                         message: error.message,
-                        code: "code" in error ? error['code'] : undefined,
+                        code: 'code' in error ? error['code'] : undefined,
                         name: error.name,
                         stack: error.stack,
                     },

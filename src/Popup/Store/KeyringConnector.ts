@@ -1,10 +1,11 @@
 import screenHistory from 'Popup/ScreenAddressHistory';
+import { Dispatch } from 'react-redux';
 
 export const mapWelcomeProps = (state, ownProps) => {
     return {
         keyring: state.Keyring,
-        welcome: state.Welcome
-    }
+        welcome: state.Welcome,
+    };
 };
 
 export interface IWelcomeDispatcher {
@@ -12,12 +13,12 @@ export interface IWelcomeDispatcher {
     pushWelcomeLocation: (location) => any;
 }
 
-export const mapWelcomeDispatchers = (dispatch): IWelcomeDispatcher => {
+export const mapWelcomeDispatchers = (dispatch: Dispatch<Store.TStore>): IWelcomeDispatcher => {
 
     const setWelcomeLocation = (location) => {
         return dispatch({
             type: 'WELCOME::SET_LOCATION',
-            location: location
+            location: location,
         });
     };
 
@@ -26,5 +27,5 @@ export const mapWelcomeDispatchers = (dispatch): IWelcomeDispatcher => {
         screenHistory.push(location);
     };
 
-    return {setWelcomeLocation, pushWelcomeLocation};
+    return { setWelcomeLocation, pushWelcomeLocation };
 };

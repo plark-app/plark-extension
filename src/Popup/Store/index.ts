@@ -7,7 +7,4 @@ export const getState = (): IStore => proxyStore.getState();
 
 export default proxyStore;
 
-export {
-    Selector,
-    Helpers,
-};
+export { Selector, Helpers };

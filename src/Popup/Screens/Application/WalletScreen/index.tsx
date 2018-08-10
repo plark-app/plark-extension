@@ -4,7 +4,7 @@ import { Dictionary } from 'lodash';
 import { Coins } from 'Core';
 import { IStore } from 'Core/Declarations/Store';
 import { Selector } from 'Popup/Store';
-import { CoinDashboardLayout } from './CoinDashboard';
+import { CoinDashboardLayout } from './coin-dashboard';
 import { WalletsNavigation } from './wallets-navigation';
 
 export const WalletScreen = (props: WalletScreenProps) => (
@@ -33,7 +33,7 @@ const mapStateToProps = (store: IStore): StoreProps => {
     return {
         coin: Selector.currentCoinSelector(store),
         coinList: Coins.filterCoinList(Coin.coins),
-        mindAddNew: Object.keys(Coins.coinList).length > Coin.coins.length,
+        mindAddNew: Coins.getRealCoins().length > Coins.getCoinCounts(Coin.coins).real,
     };
 };
 
