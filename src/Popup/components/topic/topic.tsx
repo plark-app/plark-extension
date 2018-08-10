@@ -1,6 +1,8 @@
 import React from 'react';
 import cn from 'classnames';
 
+import './topic.scss';
+
 export type TopicProps = {
     title: string | React.ReactNode;
     desc?: string | React.ReactNode;

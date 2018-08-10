@@ -4,6 +4,12 @@
     margin-right: auto;
     color: white;
 
+    &__title, &__desc {
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
     &__title {
         font-size: 18px;
         font-weight: 500;
@@ -11,11 +17,5 @@
 
     &__desc {
         margin-top: 7px;
-    }
-
-    &__title, &__desc {
-        text-align: center;
-        margin-left: auto;
-        margin-right: auto;
     }
 }
