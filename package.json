@@ -13,7 +13,7 @@
         "tag:minor": "yarn version --new-version minor"
     },
     "dependencies": {
-        "@berrywallet/core": "^0.3.2",
+        "@berrywallet/core": "^0.3.4",
         "add": "^2.0.6",
         "axios": "^0.17.0",
         "berrymarketcap": "^1.4.0",
