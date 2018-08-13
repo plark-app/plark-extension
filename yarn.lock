@@ -21,9 +21,9 @@
     core-js "^2.5.7"
     regenerator-runtime "^0.12.0"
 
-"@berrywallet/core@^0.3.2":
-  version "0.3.2"
-  resolved "https://registry.yarnpkg.com/@berrywallet/core/-/core-0.3.2.tgz#9e762315385fcfb5f716a097ed6d83839ab1c4ca"
+"@berrywallet/core@^0.3.4":
+  version "0.3.4"
+  resolved "https://registry.yarnpkg.com/@berrywallet/core/-/core-0.3.4.tgz#30cafe6b28a29010f05844b4d453fc589b91aa78"
   dependencies:
     axios "0.18.0"
     bignumber.js "7.2.1"
