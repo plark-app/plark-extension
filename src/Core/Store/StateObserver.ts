@@ -1,6 +1,6 @@
 import LocalStorageStore from 'obs-store/lib/localStorage';
-import {applicationStartUpState} from './ApplicationStartUpState';
-import {IStore} from 'Core/Declarations/Store';
+import { applicationStartUpState } from './ApplicationStartUpState';
+import { IStore } from 'Core/Declarations/Store';
 
 interface IApplicationStorage {
     meta: {
@@ -21,8 +21,8 @@ export function generateInitialState(initState: IStore): IApplicationStorage {
             version: 1,
             firstStartTime: (new Date).toTimeString(),
         },
-        data: initState
-    }
+        data: initState,
+    };
 }
 
 /**
@@ -35,10 +35,10 @@ export function loadStateFromPersistence(storage: LocalStorageStore): any {
     let versionedData: IApplicationStorage = Object.assign(
         {},
         initialState,
-        storage.getState()
+        storage.getState(),
     );
 
     storage.putState(versionedData);
 
-    return versionedData.data
+    return versionedData.data;
 }

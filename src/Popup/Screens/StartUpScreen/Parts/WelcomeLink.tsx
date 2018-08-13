@@ -1,14 +1,14 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import screenHistory from 'Popup/ScreenAddressHistory';
-import {mapWelcomeDispatchers, IWelcomeDispatcher} from 'Popup/Store/KeyringConnector';
+import { mapWelcomeDispatchers, IWelcomeDispatcher } from 'Popup/Store/KeyringConnector';
 
-interface IWelcomeLinkProps extends IWelcomeDispatcher, React.HTMLProps<{}> {
+interface WelcomeLinkProps extends IWelcomeDispatcher, React.HTMLProps<{}> {
     to: string;
     welcomeLocation?: string;
 }
 
-class WelcomeLinkComponent extends React.Component<IWelcomeLinkProps> {
+class WelcomeLinkComponent extends React.Component<WelcomeLinkProps> {
 
     protected isDisabled(): boolean {
         return this.props.disabled || false;
@@ -19,7 +19,7 @@ class WelcomeLinkComponent extends React.Component<IWelcomeLinkProps> {
             return;
         }
 
-        const {onClick} = this.props;
+        const { onClick } = this.props;
 
         if (typeof onClick === 'function') {
             try {
@@ -29,7 +29,7 @@ class WelcomeLinkComponent extends React.Component<IWelcomeLinkProps> {
             }
         }
 
-        const {to, welcomeLocation = null} = this.props;
+        const { to, welcomeLocation = null } = this.props;
 
         screenHistory.push(to);
         this.props.setWelcomeLocation(to);
@@ -39,7 +39,7 @@ class WelcomeLinkComponent extends React.Component<IWelcomeLinkProps> {
         const componentProps = {
             className: this.props.className,
             onClick: this.handleOnClick,
-            disabled: this.isDisabled()
+            disabled: this.isDisabled(),
         };
 
         return <button {...componentProps}>{this.props.children}</button>;

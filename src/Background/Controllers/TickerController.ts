@@ -11,8 +11,8 @@ const tickerTimeout = 3 * 60 * 1000;
 
 export class TickerController extends AbstractController {
 
-    tickerObserverTimeout;
-    coinMarkerCapClient: IBerryMarketCap;
+    protected tickerObserverTimeout;
+    protected coinMarkerCapClient: IBerryMarketCap;
 
     public constructor(app: BgController.IBackgroundCore, store: Store<IStore>) {
         super(app, store);
@@ -29,33 +29,29 @@ export class TickerController extends AbstractController {
         return 'TICKER';
     }
 
-    protected extractTickers = () => {
+    protected extractTickers = async () => {
         const {currentFiatKey = FiatSymbol.USDollar} = this.getState().Coin;
         const requestOptions = {convert: currentFiatKey.toUpperCase()};
 
-        const onSuccess = (data: ITickerData[]) => {
-            const payloadTickers: TickerInterface[] = [];
+        const data: ITickerData[] = await this.coinMarkerCapClient.getTickers(requestOptions);
 
-            each(coinList, (coin: CoinInterface) => {
-                const coinTicker: ITickerData = find(data, ((tick: ITickerData) => tick.symbol === coin.getKey()) as any);
-                if (!coinTicker) return;
+        const payloadTickers: TickerInterface[] = [];
 
-                payloadTickers.push({
-                    key: coin.getKey(),
-                    priceBtc: parseFloat(coinTicker.price_btc),
-                    priceUsd: parseFloat(coinTicker.price_usd),
-                    priceFiat: parseFloat(coinTicker[`price_${currentFiatKey.toLowerCase()}`])
-                } as TickerInterface);
-            });
+        each(coinList, (coin: CoinInterface) => {
+            const coinTicker: ITickerData = find(data, ((tick: ITickerData) => tick.symbol === coin.getKey()) as any);
+            if (!coinTicker) return;
 
-            this.dispatchStore(CoinAction.SetTickers, {
-                tickers: payloadTickers
-            });
-        };
+            payloadTickers.push({
+                key: coin.getKey(),
+                priceBtc: parseFloat(coinTicker.price_btc),
+                priceUsd: parseFloat(coinTicker.price_usd),
+                priceFiat: parseFloat(coinTicker[`price_${currentFiatKey.toLowerCase()}`])
+            } as TickerInterface);
+        });
 
-        this.coinMarkerCapClient
-            .getTickers(requestOptions)
-            .then(onSuccess);
+        this.dispatchStore(CoinAction.SetTickers, {
+            tickers: payloadTickers
+        });
     };
 
     public changeCurrentFiat: EventHandlerType = (request: any): any => {

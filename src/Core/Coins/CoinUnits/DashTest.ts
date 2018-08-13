@@ -23,7 +23,7 @@ export default class DashTest extends AbstractUnit {
         return true;
     }
 
-    getExplorerHost(): string {
+    getExplorerOrigin(): string {
         return 'https://testnet-insight.dashevo.org/insight';
     }
 }

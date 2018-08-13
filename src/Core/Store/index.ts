@@ -1,21 +1,20 @@
-import {createStore, applyMiddleware} from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 
 import rootReducer from 'Core/Reducer';
-import {stateStorage} from './StateStorage';
-import {loadStateFromPersistence} from './StateObserver';
-import {loggerMiddleware} from './Middleware';
+import { stateStorage } from './StateStorage';
+import { loadStateFromPersistence } from './StateObserver';
+import { loggerMiddleware } from './middleware';
 
-const initialState = loadStateFromPersistence(stateStorage);
+export const initialState = loadStateFromPersistence(stateStorage);
 
-const store = createStore(
+export const store = createStore(
     rootReducer,
     initialState,
     applyMiddleware(
-        loggerMiddleware
-    )
+        loggerMiddleware,
+    ),
 );
 
 export {
-    store,
-    stateStorage
-}
+    stateStorage,
+};

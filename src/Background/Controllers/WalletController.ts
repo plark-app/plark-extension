@@ -1,13 +1,13 @@
-import {includes, each, Dictionary} from 'lodash';
-import {Store} from "redux";
-import BigNumber from "bignumber.js";
-import {WalletManager} from "Background/Service/WalletManager";
-import {Actions, Coins} from "Core";
-import {IStore} from 'Core/Declarations/Store';
-import {ICoinWallet} from 'Core/Declarations/Wallet';
-import {AbstractController} from 'Background/Service/AbstractController';
-import {KeyringController} from './KeyringController';
-import {WalletManagerGenerator} from 'Background/Service/WalletManager/WalletManagerGenerator';
+import { includes, each, Dictionary } from 'lodash';
+import { Store } from 'redux';
+import BigNumber from 'bignumber.js';
+import { WalletManager } from 'Background/Service/WalletManager';
+import { Actions, Coins } from 'Core';
+import { IStore } from 'Core/Declarations/Store';
+import { ICoinWallet } from 'Core/Declarations/Wallet';
+import { AbstractController } from 'Background/Service/AbstractController';
+import { KeyringController } from './KeyringController';
+import { WalletManagerGenerator } from 'Background/Service/WalletManager/WalletManagerGenerator';
 
 interface CreateTransactionPayload {
     coinKey: Coins.CoinSymbol;
@@ -35,7 +35,7 @@ export class WalletController extends AbstractController {
 
         this.bindEventListener(Actions.Controller.WalletEvent.CreateTransaction, this.createTransaction);
         this.bindEventListener(Actions.Controller.WalletEvent.CalculateFee, this.calculateFee);
-        this.bindEventListener(Actions.Controller.WalletEvent.GetPrivateKey, this.getPrivateKey)
+        this.bindEventListener(Actions.Controller.WalletEvent.GetPrivateKey, this.getPrivateKey);
 
         each(this.getState().Coin.coins, (coinSymbol: Coins.CoinSymbol) => {
             try {
@@ -98,25 +98,23 @@ export class WalletController extends AbstractController {
     /**
      * @param {CoinSymbol} coinKey
      */
-    protected resolveWalletManager(coinKey: Coins.CoinSymbol) {
+    protected async resolveWalletManager(coinKey: Coins.CoinSymbol) {
 
         const coin = Coins.findCoin(coinKey);
         if (!(coin.getKey() in this.getState().Wallet)) {
             this.dispatchStore(Actions.Reducer.WalletAction.InitWallet, {
-                coinKey: coin.getKey()
+                coinKey: coin.getKey(),
             });
         }
 
         const wmGenerator = new WalletManagerGenerator(coin, this);
 
-        wmGenerator.generate()
-            .then((wm: WalletManager) => {
-                this.walletManagers[coinKey] = wm;
-            })
-            .catch((error: Error) => {
-                this.disActivateWallet(coin.getKey());
-                this.stopWalletLoading(coin);
-            });
+        try {
+            this.walletManagers[coinKey] = await wmGenerator.generate();
+        } catch (e) {
+            this.disActivateWallet(coin.getKey());
+            this.stopWalletLoading(coin);
+        }
     }
 
     /**
@@ -127,14 +125,14 @@ export class WalletController extends AbstractController {
     public activateWallet(coinKey: Coins.CoinSymbol): boolean {
         const newCoins: Coins.CoinSymbol[] = [...this.getState().Coin.coins];
 
-        if (newCoins.includes(coinKey)) {
+        if (includes(newCoins, coinKey)) {
             return;
         }
 
         newCoins.push(coinKey);
 
         this.resolveWalletManager(coinKey);
-        this.dispatchStore(Actions.Reducer.CoinAction.SetCoins, {coins: newCoins});
+        this.dispatchStore(Actions.Reducer.CoinAction.SetCoins, { coins: newCoins });
 
         return true;
     }
@@ -160,7 +158,7 @@ export class WalletController extends AbstractController {
         }
 
         newCoins = newCoins.filter((coin) => coin !== coinKey);
-        this.dispatchStore(Actions.Reducer.CoinAction.SetCoins, {coins: newCoins});
+        this.dispatchStore(Actions.Reducer.CoinAction.SetCoins, { coins: newCoins });
         this.deleteWalletManager(coinKey);
 
         return true;
@@ -172,7 +170,7 @@ export class WalletController extends AbstractController {
      * @param request
      */
     public createTransaction = (request: CreateTransactionPayload) => {
-        const {coinKey, address, value} = request;
+        const { coinKey, address, value } = request;
 
         const nValue = new BigNumber(value);
         const fee = this.getState().Option.fee;
@@ -188,13 +186,13 @@ export class WalletController extends AbstractController {
 
     public startWalletLoading(coin: Coins.CoinInterface) {
         this.dispatchStore(Actions.Reducer.WalletAction.StartLoading, {
-            walletCoinKey: coin.getKey()
+            walletCoinKey: coin.getKey(),
         });
     }
 
     public stopWalletLoading(coin: Coins.CoinInterface) {
         this.dispatchStore(Actions.Reducer.WalletAction.StopLoading, {
-            walletCoinKey: coin.getKey()
+            walletCoinKey: coin.getKey(),
         });
     }
 
@@ -203,22 +201,19 @@ export class WalletController extends AbstractController {
      *
      * @param request
      */
-    protected calculateFee = (request: any) => {
-        const {coinKey, address, value} = request;
+    protected calculateFee = async (request: any): Promise<{ fee: number; }> => {
+        const { coinKey, address, value } = request;
 
         const fee = this.getState().Option.fee;
+        const responseFee: BigNumber = await this.getWalletManager(coinKey).calculateFee(address, value, fee);
 
-        return this.getWalletManager(coinKey)
-            .calculateFee(address, value, fee)
-            .then((fee: BigNumber) => {
-                return {
-                    fee: fee.toNumber()
-                }
-            });
+        return {
+            fee: responseFee.toNumber(),
+        };
     };
 
     protected getPrivateKey = (request: any) => {
-        const {coin, walletAddress} = request;
+        const { coin, walletAddress } = request;
 
         return this.getWalletManager(coin).getPrivateKey(walletAddress);
     };

@@ -1,4 +1,4 @@
-import {Action, createMemoryHistory, History, MemoryHistory, Location} from 'history';
+import { createMemoryHistory, MemoryHistory } from 'history';
 
 const screenHistory: MemoryHistory = createMemoryHistory({});
 window['pushHistory'] = screenHistory.push;

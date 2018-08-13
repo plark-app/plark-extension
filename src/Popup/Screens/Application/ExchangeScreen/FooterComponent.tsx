@@ -1,18 +1,18 @@
 import React from 'react';
-import {Coins} from 'Core';
-import {BeShapyUnits} from 'BeShapy';
+import { Coins } from 'Core';
+import { BeShapyUnits } from 'be-shapy';
 
-interface IFooterOwnProps {
+type FooterOwnProps = {
     fromCoin: Coins.CoinInterface;
     toCoin: Coins.CoinInterface;
 
     marketInfo?: BeShapyUnits.MarketInfo;
-}
+};
 
-export class FooterComponent extends React.Component<IFooterOwnProps, any> {
-    render() {
+export class FooterComponent extends React.PureComponent<FooterOwnProps> {
+    public render(): JSX.Element {
 
-        const {fromCoin, toCoin, marketInfo} = this.props;
+        const { fromCoin, toCoin, marketInfo } = this.props;
 
         return (
             <div className="exchange-footer">
@@ -25,6 +25,6 @@ export class FooterComponent extends React.Component<IFooterOwnProps, any> {
                     <div>1 {fromCoin.getKey()} = {marketInfo ? marketInfo.rate : '-'} {toCoin.getKey()}</div>
                 </div>
             </div>
-        )
+        );
     }
 }

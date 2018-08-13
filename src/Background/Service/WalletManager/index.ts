@@ -1,10 +1,9 @@
-import {each, debounce} from 'lodash';
-import BigNumber from "bignumber.js";
-import {Coin, Wallet} from '@berrywallet/core';
-
-import {Coins, createDebugger, Actions} from "Core";
-import {WalletController} from "Background/Controllers";
-import {sendNotification, TransactionNotification} from 'Core/Extension/NotificationManager';
+import { each, debounce } from 'lodash';
+import BigNumber from 'bignumber.js';
+import { Coin, Wallet } from '@berrywallet/core';
+import { Coins, createDebugger, Actions } from 'Core';
+import { WalletController } from 'Background/Controllers';
+import { sendNotification, TransactionNotification } from 'Core/Extension/NotificationManager';
 
 const updateBlockTimeout = 20 * 60 * 1000;
 
@@ -47,15 +46,15 @@ export class WalletManager {
             this.lastConnectionCheck = new Date();
         });
 
-        wdProvider.on('tx:new', (tx: Wallet.Entity.WalletTransaction) => {
+        wdProvider.on('tx:new', async (tx: Wallet.Entity.WalletTransaction) => {
             const balance = this.wdProvider.balance;
             const amount = Wallet.Helper.calculateTxBalance(balance, tx.txid);
 
             if (amount > 0) {
-                sendNotification(new TransactionNotification(this.coin, tx, amount))
-                    .then((notificationId: string) => {
-                        this.debug('Showed Notification with ID:' + notificationId);
-                    });
+                const notificationId: string = await sendNotification(
+                    new TransactionNotification(this.coin, tx, amount),
+                );
+                this.debug('Showed Notification with ID:' + notificationId);
             }
         });
 
@@ -69,7 +68,7 @@ export class WalletManager {
     public updateBlockInfo = (block: Wallet.Entity.Block) => {
         this.controller.dispatchStore(Actions.Reducer.CoinAction.SetBlockHeight, {
             coinKey: this.coin.getKey(),
-            blockHeight: block.height
+            blockHeight: block.height,
         });
     };
 
@@ -81,7 +80,7 @@ export class WalletManager {
         const walletDataSaver = debounce(() => {
             const actionPayload = {
                 walletCoinKey: this.coin.getKey(),
-                walletData: this.wdProvider.getData()
+                walletData: this.wdProvider.getData(),
             };
 
             this.controller.dispatchStore(Actions.Reducer.WalletAction.SetWalletData, actionPayload);
@@ -102,11 +101,11 @@ export class WalletManager {
      * @param {number} value
      * @param {FeeTypes} fee
      *
-     * @returns {Promise<WalletTransaction | void>}
+     * @returns {Promise<WalletTransaction>}
      */
     public sendTransaction = (address: string,
                               value: BigNumber,
-                              fee: Coin.FeeTypes = Coin.FeeTypes.Medium): Promise<Wallet.Entity.WalletTransaction | void> => {
+                              fee: Coin.FeeTypes = Coin.FeeTypes.Medium): Promise<Wallet.Entity.WalletTransaction> => {
 
         const bufferSeed = this.controller.getSeed();
 

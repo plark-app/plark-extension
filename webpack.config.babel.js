@@ -55,17 +55,19 @@ function getSvgLoader() {
     return {
         test: /\.svg$/,
         use: [
+            'react-svg-loader',
             {
-                loader: "babel-loader"
-            }, {
-                loader: "react-svg-loader",
+                loader: 'svgo-loader',
                 options: {
-                    jsx: true,
-                    svgo: {
-                        plugins: [{cleanupIDs: false}]
-                    }
-                }
-            }
+                    floatPrecision: 3,
+                    plugins: [
+                        {
+                            removeViewBox: false,
+                            removeEmptyAttrs: true,
+                        },
+                    ],
+                },
+            },
         ]
     };
 }
@@ -91,6 +93,12 @@ function getScssLoader() {
     };
 }
 
+function getMDLoader() {
+    return {
+        test: /\.md$/,
+        use: ['raw-loader', {loader: 'markdown-loader'}],
+    };
+}
 
 const Plugins = [
     new webpack.DefinePlugin({
@@ -110,7 +118,7 @@ const Plugins = [
 ];
 
 const OptimisationProps = {
-    minimizer: [
+    minimizer: isProd ? [
         new UglifyJsPlugin({
             cache: true,
             parallel: true,
@@ -121,7 +129,7 @@ const OptimisationProps = {
             },
             sourceMap: true
         })
-    ]
+    ] : undefined
 };
 
 const WebpackConfig = {
@@ -133,20 +141,20 @@ const WebpackConfig = {
     node: {fs: 'empty'},
 
     entry: {
-        popup: ["babel-polyfill", "popup"],
-        pageContent: ["babel-polyfill", "pageContent"],
-        background: ["babel-polyfill", "background"]
+        popup: ['babel-polyfill', 'popup'],
+        pageContent: ['babel-polyfill', 'pageContent'],
+        background: ['babel-polyfill', 'background']
     },
 
     output: {
-        filename: "[name].js",
-        chunkFilename: "[name].js",
+        filename: '[name].js',
+        chunkFilename: '[name].js',
         path: Path.resolve(__dirname, './dist/chrome/js'),
         publicPath: '/js'
     },
 
     resolve: {
-        extensions: [".svg", ".ts", ".tsx", ".js", ".jsx", ".json"],
+        extensions: ['.md', ".svg", ".ts", ".tsx", ".js", ".jsx", ".json"],
         modules: [
             PATH.SOURCE,
             Path.resolve(__dirname, './node_modules')
@@ -156,10 +164,11 @@ const WebpackConfig = {
             Popup: Path.join(__dirname, 'src/Popup'),
             Background: Path.join(__dirname, 'src/Background'),
 
-            BeShapy: Path.join(__dirname, 'src/BeShapy'),
+            'be-shapy': Path.join(__dirname, 'src/be-shapy'),
 
             Style: Path.join(__dirname, 'src/Style'),
-            svg: Path.join(__dirname, 'src/svg')
+            svg: Path.join(__dirname, 'src/svg'),
+            resources: Path.resolve(process.cwd(), 'resources'),
         }
     },
 
@@ -169,6 +178,7 @@ const WebpackConfig = {
         rules: [
             getJSLoader(),
             getTSLoader(),
+            getMDLoader(),
             getSvgLoader(),
             getScssLoader()
         ]
@@ -193,7 +203,7 @@ const WebpackConfig = {
         chunks: false
     },
 
-    optimization: isProd ? OptimisationProps : undefined,
+    optimization: OptimisationProps,
     mode: isProd ? 'production' : 'development'
 };
 

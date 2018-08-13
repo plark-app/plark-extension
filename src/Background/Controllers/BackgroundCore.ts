@@ -1,21 +1,21 @@
-import {Dictionary, merge, find} from 'lodash';
+import { Dictionary, merge, find } from 'lodash';
 import Extberry from 'extberry';
-import {Store} from 'redux';
-import {createDebugger} from 'Core';
-import {IStore} from 'Core/Declarations/Store';
-import {EventEmitter} from 'events';
+import { Store } from 'redux';
+import { EventEmitter } from 'events';
+import { createDebugger } from 'Core';
+import { IStore } from 'Core/Declarations/Store';
 
 const debug = createDebugger('BACKGROUND_EVENT');
 
 export class BackgroundCore extends EventEmitter implements BgController.IBackgroundCore {
-    store: Store<IStore>;
-    controllers: BgController.IController[] = [];
-    eventHandlers: Dictionary<EventHandlerType> = {} as Dictionary<EventHandlerType>;
+    public store: Store<IStore>;
+    public controllers: BgController.IController[] = [];
+    public eventHandlers: Dictionary<EventHandlerType> = {} as Dictionary<EventHandlerType>;
 
     /**
      * @param {Store<IStore>} store
      */
-    constructor(store: Store<IStore>) {
+    public constructor(store: Store<IStore>) {
         super();
 
         this.store = store;
@@ -25,7 +25,7 @@ export class BackgroundCore extends EventEmitter implements BgController.IBackgr
     /**
      * @param {ControllerConstructorType<T extends IController>} controller
      */
-    registerController<T extends BgController.IController>(controller: BgController.ControllerConstructorType<T>) {
+    public registerController<T extends BgController.IController>(controller: BgController.ControllerConstructorType<T>) {
         const newController: T = new controller(this, this.store);
         this.controllers.push(newController);
 
@@ -36,9 +36,9 @@ export class BackgroundCore extends EventEmitter implements BgController.IBackgr
      * @param {string} alias
      * @returns {IController}
      */
-    get(alias: string): BgController.IController {
+    public get(alias: string): BgController.IController {
         const controller: BgController.IController
-            = find(this.controllers, {alias: alias}) as BgController.IController;
+            = find(this.controllers, { alias: alias }) as BgController.IController;
 
         if (!controller) {
             throw Error(`Service '${alias}' has not registered!`);
@@ -50,7 +50,7 @@ export class BackgroundCore extends EventEmitter implements BgController.IBackgr
     /**
      * @returns {EventListenerType}
      */
-    generateEventListener(): EventListenerType {
+    public generateEventListener(): EventListenerType {
         return (request: IRuntimeRequest, sender: any, sendResponse): boolean => {
             const eventHandler: EventHandlerType = this.eventHandlers[request.type];
 
@@ -64,16 +64,16 @@ export class BackgroundCore extends EventEmitter implements BgController.IBackgr
                 sendResponse({
                     error: {
                         message: error.message,
-                        code: "code" in error ? error['code'] : undefined,
+                        code: 'code' in error ? error['code'] : undefined,
                         name: error.name,
-                        stack: error.stack
-                    }
+                        stack: error.stack,
+                    },
                 });
             };
 
             try {
                 const onSuccess = (data) => {
-                    sendResponse({data: data});
+                    sendResponse({ data: data });
                 };
 
                 const response = eventHandler(request.payload, sender);

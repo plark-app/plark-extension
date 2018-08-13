@@ -23,7 +23,7 @@ export default class LitecoinTest extends AbstractUnit {
         return 0.003;
     }
 
-    getExplorerHost(): string {
+    getExplorerOrigin(): string {
         return 'https://test.ltc.explorer.berrywallet.io/';
     }
 }

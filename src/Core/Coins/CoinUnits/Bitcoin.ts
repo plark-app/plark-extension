@@ -19,7 +19,7 @@ export default class Bitcoin extends AbstractUnit {
         return 0.00085;
     }
 
-    getExplorerHost(): string {
+    getExplorerOrigin(): string {
         return 'https://blockchain.info';
     }
 }

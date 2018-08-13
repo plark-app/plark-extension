@@ -1,12 +1,12 @@
 import React from 'react';
-import {Analytics} from 'Popup/Service';
+import { Analytics } from 'Popup/Service';
 
 const trackScreenLabel = (trackLabel: string) => {
     if (!trackLabel) {
         return;
     }
 
-    Analytics.screenview(trackLabel);
+    Analytics.screenView(trackLabel);
 };
 
 export interface ITrackScreenViewProps {
@@ -15,7 +15,7 @@ export interface ITrackScreenViewProps {
 
 export default class TrackScreenView extends React.PureComponent<ITrackScreenViewProps, any> {
     public componentDidMount(): void {
-        const {trackLabel} = this.props;
+        const { trackLabel } = this.props;
 
         trackScreenLabel(trackLabel);
     }

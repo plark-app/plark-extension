@@ -1,24 +1,17 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import {Route, Switch, Redirect} from 'react-router-dom';
-import {find} from 'lodash';
+import { connect } from 'react-redux';
+import { Route, Switch, Redirect } from 'react-router-dom';
+import { find } from 'lodash';
 
-import {Coins} from 'Core';
-import {IStore} from 'Core/Declarations/Store';
-import {Selector} from 'Popup/Store';
-import {ExchangeScreenComponent} from './ExchangeScreen';
+import { Coins } from 'Core';
+import { IStore } from 'Core/Declarations/Store';
+import { Selector } from 'Popup/Store';
+import { ExchangeScreenComponent } from './ExchangeScreen';
 
-export interface IExchangeRouterProps {
-    selectedCoin: Coins.CoinInterface;
-}
+export class ExchangeRouterComponent extends React.Component<ExchangeRouterStateProps> {
 
-export interface IOwnProps {
-}
-
-export class ExchangeRouter extends React.Component<IExchangeRouterProps & IOwnProps, any> {
-
-    redirectToMain = () => {
-        const {selectedCoin} = this.props;
+    protected redirectToMain = () => {
+        const { selectedCoin } = this.props;
 
         let fromCoin: Coins.CoinInterface = null,
             toCoin: Coins.CoinInterface = null;
@@ -33,21 +26,27 @@ export class ExchangeRouter extends React.Component<IExchangeRouterProps & IOwnP
             });
         }
 
-        return <Redirect to={`/app/exchange/${fromCoin.getKey()}/${toCoin.getKey()}`}/>
+        return <Redirect to={`/app/exchange/${fromCoin.getKey()}/${toCoin.getKey()}`} />;
     };
 
-    render() {
-        return <Switch>
-            <Route path="/app/exchange/:fromCoin/:toCoin" component={ExchangeScreenComponent}/>
-            <Route path="/app/exchange" render={this.redirectToMain}/>
-        </Switch>
+    public render(): JSX.Element {
+        return (
+            <Switch>
+                <Route path="/app/exchange/:fromCoin/:toCoin" component={ExchangeScreenComponent} />
+                <Route path="/app/exchange" render={this.redirectToMain} />
+            </Switch>
+        );
     }
 }
 
-const mapStateToProps = (store: IStore) => {
+export interface ExchangeRouterStateProps {
+    selectedCoin: Coins.CoinInterface;
+}
+
+const mapStateToProps = (store: IStore): ExchangeRouterStateProps => {
     return {
-        selectedCoin: Selector.currentCoinSelector(store)
+        selectedCoin: Selector.currentCoinSelector(store),
     };
 };
 
-export const ExchangeRouterComponent = connect(mapStateToProps)(ExchangeRouter);
+export const ExchangeRouter = connect(mapStateToProps)(ExchangeRouterComponent);

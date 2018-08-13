@@ -1,7 +1,7 @@
 import React from 'react';
 
-import {ActionList, UIActionItem} from 'Popup/UI';
-import {openModal} from 'Popup/Modals';
+import { ActionList, UIActionItem } from 'Popup/UI';
+import { openModal } from 'Popup/Modals';
 import TrackScreenView from 'Popup/Service/ScreenViewAnalitics';
 
 export class SecurityScreen extends React.PureComponent {
@@ -13,7 +13,7 @@ export class SecurityScreen extends React.PureComponent {
     protected getActions(): UIActionItem[] {
         return [{
             label: 'View Backup Phrase',
-            onClick: this.onViewBackupPhrase
+            onClick: this.onViewBackupPhrase,
         }];
 
         // return [{
@@ -31,10 +31,10 @@ export class SecurityScreen extends React.PureComponent {
     public render(): JSX.Element {
         return (
             <div className="card -full-size -no-w-padding">
-                <TrackScreenView trackLabel="option-security"/>
+                <TrackScreenView trackLabel="option-security" />
                 <h1 className="title">Security Settings</h1>
 
-                <ActionList actions={this.getActions()}/>
+                <ActionList actions={this.getActions()} />
             </div>
         );
     }

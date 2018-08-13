@@ -1,16 +1,16 @@
 import React from 'react';
 import classNames from 'classnames';
-import {Route, Switch, Redirect, RouteComponentProps} from 'react-router-dom';
-import {filter, find} from 'lodash';
+import { Route, Switch, Redirect, RouteComponentProps } from 'react-router-dom';
+import { filter, find } from 'lodash';
 
-import {MenuLayout} from 'Popup/UI/Layouts';
+import { MenuLayout } from 'Popup/UI/Layouts';
 
-import {WalletsScreen} from './WalletsScreen';
-import {FiatsScreen} from './FiatsScreen';
-import {AddressesScreen} from './addresses-screen';
-import {MiningFeeScreen} from './MiningFeeScreen';
-import {SecurityScreen} from './SecurityScreen';
-import {ResetScreen} from './ResetScreen';
+import { WalletsScreen } from './wallets-screen';
+import { FiatsScreen } from './FiatsScreen';
+import { AddressesScreen } from './addresses-screen';
+import { MiningFeeScreen } from './MiningFeeScreen';
+import { SecurityScreen } from './SecurityScreen';
+import { ResetScreen } from './reset-screen';
 
 interface ILink {
     path: string;
@@ -22,27 +22,27 @@ interface ILink {
 const links: ILink[] = [{
     path: '/app/options/wallet',
     name: 'Wallets',
-    component: WalletsScreen
+    component: WalletsScreen,
 }, {
     path: '/app/options/fiat',
     name: 'Currency',
-    component: FiatsScreen
+    component: FiatsScreen,
 }, {
     path: '/app/options/addresses',
     name: 'Addresses',
-    component: AddressesScreen
+    component: AddressesScreen,
 }, {
     path: '/app/options/security',
     name: 'Security',
-    component: SecurityScreen
+    component: SecurityScreen,
 }, {
     path: '/app/options/mining-fee',
     name: 'Mining Fee',
-    component: MiningFeeScreen
+    component: MiningFeeScreen,
 }, {
     path: '/app/options/reset',
     name: 'Reset',
-    component: ResetScreen
+    component: ResetScreen,
 }];
 
 type TOptionProps = RouteComponentProps<{}>;
@@ -53,19 +53,19 @@ type TOptionState = {
 
 export class OptionsScreen extends React.Component<TOptionProps, TOptionState> {
     public state: TOptionState = {
-        loaded: false
+        loaded: false,
     };
 
     public componentDidMount(): void {
         setTimeout(() => {
-            this.setState(() => ({loaded: true}));
+            this.setState(() => ({ loaded: true }));
         }, 0);
     }
 
     protected redirectFromRoot = () => {
         const firstEnabled = find(links, (item: ILink) => !item.disabled);
 
-        return <Redirect to={firstEnabled.path}/>;
+        return <Redirect to={firstEnabled.path} />;
     };
 
     public render(): JSX.Element {
@@ -74,11 +74,11 @@ export class OptionsScreen extends React.Component<TOptionProps, TOptionState> {
         return (
             <div className="page-wrapper">
                 <MenuLayout
-                    containerClassName={classNames('page-nav', {'-loaded': this.state.loaded})}
+                    containerClassName={classNames('page-nav', { '-loaded': this.state.loaded })}
                     itemClassName={'page-nav__item'}
                     links={enabledLinks}
                     maskKey="options"
-                    svgStyle={{borderRadius: "3px"}}
+                    svgStyle={{ borderRadius: "3px" }}
                     isSmall={true}
                 />
                 <div className="page-content">
@@ -87,10 +87,10 @@ export class OptionsScreen extends React.Component<TOptionProps, TOptionState> {
                             return <Route key={index}
                                           path={elem.path}
                                           component={elem.component || null}
-                            />
+                            />;
                         })}
 
-                        <Route path="/app/options" component={this.redirectFromRoot}/>
+                        <Route path="/app/options" component={this.redirectFromRoot} />
                     </Switch>
                 </div>
             </div>

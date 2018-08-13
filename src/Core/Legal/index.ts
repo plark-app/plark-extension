@@ -1,24 +1,17 @@
-import Axios, {AxiosPromise} from 'axios';
+import Axios from 'axios';
 
-const Showdown = require("showdown");
+const Showdown = require('showdown');
 
 const converter = new Showdown.Converter();
 
+export async function extractLegal(path: string): Promise<string> {
+    const { data } = await Axios.get(path);
 
-function extractLegal(path: string): Promise<string> {
-    return Axios.get(path).then((response) => {
-        return response.data as string;
-    });
+    return data as string;
 }
 
-function extractHtmlLegal(path: string): Promise<string> {
-    return extractLegal(path).then((content: string) => {
-        return converter.makeHtml(content);
-    });
+export async function extractHtmlLegal(path: string): Promise<string> {
+    const content = await extractLegal(path);
+
+    return converter.makeHtml(content);
 }
-
-
-export {
-    extractLegal as extractLegal,
-    extractHtmlLegal as extractHtmlLegal
-};

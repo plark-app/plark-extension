@@ -1,16 +1,16 @@
-export {Badge} from "./Badge";
-export {RemoteLink} from './RemoteLink';
-export {Notice} from './Notice';
-export {Button} from "./Button";
-export {DotLoader} from "./DotLoader";
-export {InputCheck} from "./InputCheck";
-export {CoinIcon} from "./CoinIcon";
-export {ValueSnippet} from "./ValueSnippet";
-export {DropArrow} from "./DropArrow";
-export {BerrywalletLogo} from './BerrywalletLogo';
-export {EmptyDummy} from './EmptyDummy';
-export {ActionList, UIActionItem} from './ActionList';
-export {Tooltip} from './Tooltip';
+export { Badge } from './badge';
+export { RemoteLink } from './remote-link';
+export { Notice } from './notice';
+export { Button } from './button';
+export { DotLoader } from './dot-loader';
+export { InputCheck } from './input-check';
+export { CoinIcon } from './coin-icon';
+export { ValueSnippet } from './value-snippet';
+export { DropArrow } from './drop-arrow';
+export { EmptyDummy } from './empty-dummy';
+export { ActionList, UIActionItem } from './action-list';
+export { Tooltip } from './tooltip';
 
-import * as Alert from "./Alert";
-export {Alert};
+import * as Alert from './alert';
+
+export { Alert };
