@@ -21,9 +21,9 @@
     core-js "^2.5.7"
     regenerator-runtime "^0.12.0"
 
-"@berrywallet/core@^0.3.1-alpha.3":
-  version "0.3.1-alpha.3"
-  resolved "https://registry.yarnpkg.com/@berrywallet/core/-/core-0.3.1-alpha.3.tgz#8b34064e9066323d746aed80f7cf49c25decc5cf"
+"@berrywallet/core@^0.3.2":
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/@berrywallet/core/-/core-0.3.2.tgz#9e762315385fcfb5f716a097ed6d83839ab1c4ca"
   dependencies:
     axios "0.18.0"
     bignumber.js "7.2.1"
@@ -1104,7 +1104,7 @@ babel-plugin-transform-class-properties@^6.24.1:
     babel-runtime "^6.22.0"
     babel-template "^6.24.1"
 
-babel-plugin-transform-decorators-legacy@^1.3.4:
+babel-plugin-transform-decorators-legacy@^1.3.5:
   version "1.3.5"
   resolved "https://registry.yarnpkg.com/babel-plugin-transform-decorators-legacy/-/babel-plugin-transform-decorators-legacy-1.3.5.tgz#0e492dffa0edd70529072887f8aa86d4dd8b40a1"
   dependencies:
@@ -7482,7 +7482,7 @@ react-addons-css-transition-group@^15.6.2:
   dependencies:
     react-transition-group "^1.2.0"
 
-react-chrome-redux@^1.4.0:
+react-chrome-redux@1.5.1:
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/react-chrome-redux/-/react-chrome-redux-1.5.1.tgz#b9c6d56a683e71ec5e103a75fc92959e8bea13db"
   dependencies:
