@@ -23,7 +23,7 @@ export default class BitcoinTest extends AbstractUnit {
         return 0.00085;
     }
 
-    getExplorerHost(): string {
-        return 'https://test-insight.bitpay.com';
+    getExplorerOrigin(): string {
+        return 'https://testnet.blockexplorer.com/';
     }
 }

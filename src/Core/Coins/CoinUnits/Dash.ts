@@ -19,7 +19,7 @@ export default class Dash extends AbstractUnit {
         return 0.02;
     }
 
-    getExplorerHost(): string {
+    getExplorerOrigin(): string {
         return 'https://live.blockcypher.com/dash';
     }
 }

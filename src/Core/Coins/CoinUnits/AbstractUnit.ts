@@ -13,7 +13,7 @@ export abstract class AbstractUnit implements CoinInterface {
 
     abstract getFee(): number;
 
-    abstract getExplorerHost(): string;
+    abstract getExplorerOrigin(): string;
 
     getKey(): CoinSymbol {
         return this.key;
@@ -48,10 +48,10 @@ export abstract class AbstractUnit implements CoinInterface {
     }
 
     generateAddrLink(addr: string): string {
-        return this.getExplorerHost() + '/address/' + addr;
+        return this.getExplorerOrigin() + '/address/' + addr;
     }
 
     generateTxLink(txid: string): string {
-        return this.getExplorerHost() + '/tx/' + txid;
+        return this.getExplorerOrigin() + '/tx/' + txid;
     }
 }

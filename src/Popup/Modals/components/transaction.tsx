@@ -6,15 +6,15 @@ import { parse as parseUrl } from 'url';
 import classNames from 'classnames';
 import ReactSVG from 'react-svg';
 
-import { Wallet } from "@berrywallet/core";
+import { Wallet } from '@berrywallet/core';
 import { Helper } from 'Core';
-import { copyToClipboard, delay } from "Core/utils";
+import { copyToClipboard, delay } from 'Core/utils';
 import { CoinInterface, findCoin, TxDirection } from 'Core/Coins';
 import { IStore } from 'Core/Declarations/Store';
 import { RemoteLink, Notice, Badge } from 'Popup/UI';
 import { DotLoader, Button } from 'Popup/UI';
 
-import { ModalLayout } from "../ModalLayout";
+import { ModalLayout } from '../ModalLayout';
 
 
 interface IStoreProps {
@@ -75,7 +75,7 @@ class TransactionComponent extends React.Component<ITransactionProps> {
         const { coin, tx, amount, blockHeight } = this.props;
 
         const shortTx = tx.txid.substr(0, 20) + '...' + tx.txid.substr(tx.txid.length - 14);
-        const blockExplorerHost = parseUrl(coin.getExplorerHost()).host;
+        const blockExplorerHost = parseUrl(coin.getExplorerOrigin()).host;
         const directionKey = amount > 0 ? TxDirection.Up : TxDirection.Down;
 
         const fromAddress = this.fromAddress;

@@ -20,7 +20,7 @@ export interface CoinInterface {
 
     isTest(): boolean;
 
-    getExplorerHost(): string;
+    getExplorerOrigin(): string;
 
     generateAddrLink(address: string): string;
 

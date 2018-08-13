@@ -19,7 +19,7 @@ export default class Ethereum extends AbstractUnit {
         return 0.00042;
     }
 
-    getExplorerHost(): string {
+    getExplorerOrigin(): string {
         return 'https://etherscan.io';
     }
 }
