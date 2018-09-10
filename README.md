@@ -17,6 +17,8 @@
     <a href="https://addons.mozilla.org/firefox/addon/berrywallet" title="Mozilla Add-on">
         <img src="https://github.com/berrywallet/berrywallet-extension/blob/master/docs/mozzila-addon-button.png?raw=true" />
     </a>
+    <br/><br/>
+    <img src="https://github.com/berrywallet/berrywallet-extension/raw/master/docs/extension-preview.gif" />
   </p>
 </p>
 
