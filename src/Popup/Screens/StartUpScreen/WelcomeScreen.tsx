@@ -1,21 +1,21 @@
 import React from 'react';
 import TrackScreenView from 'Popup/Service/ScreenViewAnalitics';
-import {WelcomeLink} from './Parts';
+import { WelcomeLink } from './parts';
 
 export class WelcomeScreen extends React.Component {
     public render(): JSX.Element {
         return (
             <div className="startup startup-welcome">
-                <TrackScreenView trackLabel="startup-welcome"/>
+                <TrackScreenView trackLabel="startup-welcome" />
 
                 <div className="startup-wrapper">
                     <div className="topic startup-welcome-topic">
                         <h1 className="topic__title">
-                            Would You Like to Create a New Wallet <br/>
+                            Would You Like to Create a New Wallet <br />
                             or Import an Existing One?
                         </h1>
                         <p className="topic__desc">
-                            You can set up a new wallet or import the data <br/>
+                            You can set up a new wallet or import the data <br />
                             from a different wallet you already use.
                         </p>
                     </div>

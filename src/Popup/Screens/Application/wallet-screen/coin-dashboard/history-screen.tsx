@@ -17,14 +17,13 @@ import './history-screen.scss';
 
 // @TODO Need implement Props and State interface
 class HistoryScreen extends React.Component<any, any> {
-
     protected openTransaction(transaction) {
         const { balance } = this.props;
 
         return (event) => {
             openModal('/transaction', {
                 coin: this.props.coin.key,
-                amount: Wallet.Helper.calculateTxBalance(balance, transaction.txid),
+                amount: Wallet.calculateTxBalance(balance, transaction.txid),
                 txid: transaction.txid,
                 tx: transaction,
             });
@@ -52,21 +51,23 @@ class HistoryScreen extends React.Component<any, any> {
 
                 const time = tx.blockTime ? tx.blockTime : tx.receiveTime;
 
-                const amount = Wallet.Helper.calculateTxBalance(balance, tx.txid);
+                const amount = Wallet.calculateTxBalance(balance, tx.txid);
                 const directionKey = amount > 0 ? Coins.TxDirection.Up : Coins.TxDirection.Down;
                 const status = Helper.getTXStatus(tx);
 
-                return <label {...rowProps}>
-                    <ReactSVG
-                        path={`/images/icons/arrow-${directionKey}.svg`}
-                        className={classNames("tx-row__direction", `-${directionKey}`)}
-                        wrapperClassName="tx-row__direction-wrapper"
-                        style={{ width: 7, height: 11 }}
-                    />
-                    <div className="tx-row__amount">{numeral(amount).format('0,0.00[000000]')}</div>
-                    <Badge status={status} />
-                    <div className="tx-row__time">{moment(time).format("MMM D, YYYY")}</div>
-                </label>;
+                return (
+                    <label {...rowProps}>
+                        <ReactSVG
+                            path={`/images/icons/arrow-${directionKey}.svg`}
+                            className={classNames("tx-row__direction", `-${directionKey}`)}
+                            wrapperClassName="tx-row__direction-wrapper"
+                            style={{ width: 7, height: 11 }}
+                        />
+                        <div className="tx-row__amount">{numeral(amount).format('0,0.00[000000]')}</div>
+                        <Badge status={status} />
+                        <div className="tx-row__time">{moment(time).format("MMM D, YYYY")}</div>
+                    </label>
+                );
             });
 
         return txsRows.value();

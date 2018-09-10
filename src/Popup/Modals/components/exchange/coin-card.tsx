@@ -2,15 +2,16 @@ import React from 'react';
 import cn from 'classnames';
 import BigNumber from 'bignumber.js';
 import { Coins } from 'Core';
-import { CoinIcon, ValueSnippet } from 'Popup/UI';
+import { CoinIcon } from 'Popup/components/coin-icon';
+import { ValueSnippet } from 'Popup/UI';
 
 type ExchangeCoinCardProps = {
     coin: Coins.CoinInterface;
-    ticker: Coins.TickerInterface;
+    ticker: Coins.TickerData;
     value: BigNumber;
     isRight: boolean;
     label: string;
-    fiat: Coins.FiatInterface;
+    fiat: Coins.FiatData;
 };
 
 export const CoinCard = (props: ExchangeCoinCardProps): JSX.Element => {

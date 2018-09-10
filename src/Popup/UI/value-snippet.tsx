@@ -8,8 +8,8 @@ import './value-snippet.scss';
 type ValueSnippetProps = {
     label?: string;
     coin: Coins.CoinInterface;
-    ticker: Coins.TickerInterface;
-    fiat: Coins.FiatInterface;
+    ticker: Coins.TickerData;
+    fiat: Coins.FiatData;
     value: BigNumber;
     isRight?: boolean;
     isLeft?: boolean;

@@ -24,8 +24,3 @@ export const coinSvgs = {
     // Coming soon Coins
     BCH, NEO, XMR, XRP
 };
-
-type TCoinIconProps = React.HTMLProps<{}> & {
-    coin: string;
-    size?: number;
-}

@@ -6,11 +6,11 @@ import { coinList, CoinInterface, CoinSymbol } from 'Core/Coins';
 import { delay } from 'Core/utils';
 import { Controller } from 'Core/Actions';
 import { IWalletStore } from 'Core/Declarations/Store';
+import { CoinIcon } from 'Popup/components/coin-icon';
 import { Background, Analytics } from 'Popup/Service';
 import { InputCheck, Alert, EmptyDummy } from 'Popup/UI';
 
 import { SearchInputComponent } from '../components';
-
 
 type WalletsScreenState = {
     search: string;
@@ -71,19 +71,14 @@ class WalletsScreenComponent extends React.PureComponent<WalletsScreenProps, Wal
         return (
             <label key={coin.getKey()} className={cn('currency-option-item', 'row', '-coin', `text-${coin.getKey()}`)}>
                 <div className="currency-option-item__title">
-                    <img
-                        src={`/images/coins/${coin.getKey()}.svg`}
-                        alt={coin.getKey()}
-                        className={"currency-option-item__coin-icon"}
-                    />
-
+                    <CoinIcon className="currency-option-item__coin-icon" size={30} coin={coin.getKey()} />
                     {coin.getKey()} - {coin.getName()}
                 </div>
 
                 <InputCheck
-                    isLoading={isLoading}
                     type="checkbox"
                     name="coin-select"
+                    isLoading={isLoading}
                     checked={includes(coins, coin.getKey())}
                     value={coin.getKey()}
                     onChange={this.onChangeCoins}

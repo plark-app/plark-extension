@@ -1,11 +1,11 @@
 import React from 'react';
-import {map, size} from 'lodash';
+import { map, size } from 'lodash';
 import cn from 'classnames';
-import {Coins} from 'Core';
-import {ICoinWallet} from 'Core/Declarations/Wallet';
-import {IWalletStore} from 'Core/Declarations/Store';
-import {DropArrow} from 'Popup/UI';
-import {Unit} from "./unit";
+import { Coins } from 'Core';
+import { ICoinWallet } from 'Core/Declarations/Wallet';
+import { IWalletStore } from 'Core/Declarations/Store';
+import { DropArrow } from 'Popup/UI';
+import { Unit } from "./unit";
 
 import './coin-select.scss';
 
@@ -24,7 +24,7 @@ type TCoinSelectState = {
 export class CoinSelect extends React.PureComponent<TCoinSelectProps, TCoinSelectState> {
 
     public readonly state: TCoinSelectState = {
-        isOpen: false
+        isOpen: false,
     };
 
     public componentWillUnmount() {
@@ -34,17 +34,17 @@ export class CoinSelect extends React.PureComponent<TCoinSelectProps, TCoinSelec
     protected setActiveCoin = (symbol: Coins.CoinSymbol) => {
         return () => {
             this.props.onSelectCoin(symbol);
-        }
+        };
     };
 
     protected openSelect = () => {
-        this.setState({isOpen: true});
+        this.setState({ isOpen: true });
 
         document.addEventListener('click', this.closeSelect);
     };
 
     protected closeSelect = () => {
-        this.setState({isOpen: false});
+        this.setState({ isOpen: false });
 
         document.removeEventListener('click', this.closeSelect);
     };
@@ -53,7 +53,7 @@ export class CoinSelect extends React.PureComponent<TCoinSelectProps, TCoinSelec
         const coin = Coins.coinList[symbol];
 
         const wallet: ICoinWallet = this.props.wallets[symbol];
-        const {walletData} = wallet;
+        const { walletData } = wallet;
 
         let txCount = 0;
         if (walletData) {
@@ -62,7 +62,7 @@ export class CoinSelect extends React.PureComponent<TCoinSelectProps, TCoinSelec
 
         return (
             <div className="coin-select__unit" key={symbol} onClick={walletData ? this.setActiveCoin(symbol) : null}>
-                <Unit coin={coin}/>
+                <Unit coin={coin} />
                 <div className="coin-select__unit-txcount">{txCount} Transactions</div>
             </div>
         );
@@ -74,7 +74,7 @@ export class CoinSelect extends React.PureComponent<TCoinSelectProps, TCoinSelec
         return (
             <div className={cn("coin-select", this.state.isOpen && '-is-open')}>
                 <div className="coin-select__current" onClick={this.openSelect}>
-                    <Unit coin={activeCoin}/>
+                    <Unit coin={activeCoin} />
                     <DropArrow active={this.state.isOpen} />
                 </div>
                 <div className="coin-select-units">
@@ -83,6 +83,6 @@ export class CoinSelect extends React.PureComponent<TCoinSelectProps, TCoinSelec
                     </div>
                 </div>
             </div>
-        )
+        );
     }
 }

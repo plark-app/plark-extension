@@ -90,7 +90,7 @@ class CoinSideComp extends React.Component<CoinSideProps, SideState> {
         return this.props.isFrom ? this.props.fromCoin : this.props.toCoin;
     }
 
-    protected get ticker(): Coins.TickerInterface {
+    protected get ticker(): Coins.TickerData {
         return this.props.currentFiat.getTicker(this.coin.getKey());
     }
 
@@ -156,7 +156,7 @@ export type CoinSideOwnProps = {
     fromCoin: Coins.CoinInterface;
     toCoin: Coins.CoinInterface;
 
-    ticker: Coins.TickerInterface;
+    ticker: Coins.TickerData;
 
     isReady: boolean;
 

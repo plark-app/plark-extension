@@ -4,7 +4,6 @@ export { Notice } from './notice';
 export { Button } from './button';
 export { DotLoader } from './dot-loader';
 export { InputCheck } from './input-check';
-export { CoinIcon } from './coin-icon';
 export { ValueSnippet } from './value-snippet';
 export { DropArrow } from './drop-arrow';
 export { EmptyDummy } from './empty-dummy';

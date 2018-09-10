@@ -6,7 +6,7 @@ import { WelcomeAction } from 'Core/Actions/Reducer';
 
 import proxyStore from 'Popup/Store';
 import { mapWelcomeDispatchers } from 'Popup/Store/KeyringConnector';
-import { WelcomeLink, WelcomeLayout } from '../Parts';
+import { WelcomeLink, WelcomeLayout } from '../parts';
 import { NoticeScreen } from './notice-screen';
 import PhrasePart from './PhrasePart';
 import CheckPart from './CheckPart';

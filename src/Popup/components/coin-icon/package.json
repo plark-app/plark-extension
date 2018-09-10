@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "name": "coin-icon",
+    "main": "coin-icon.tsx",
+    "typings": "coin-icon.tsx"
+}

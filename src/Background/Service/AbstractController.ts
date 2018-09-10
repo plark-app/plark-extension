@@ -1,7 +1,7 @@
-import {Dictionary} from 'lodash';
-import {AnyAction, Store} from 'redux';
-import {IStore} from 'Core/Declarations/Store';
-import {createDebugger} from "Core";
+import { Dictionary } from 'lodash';
+import { AnyAction, Store } from 'redux';
+import { IStore } from 'Core/Declarations/Store';
+import { createDebugger } from 'Core';
 
 export abstract class AbstractController implements BgController.IController {
 
@@ -52,7 +52,7 @@ export abstract class AbstractController implements BgController.IController {
      * @param {object} payload
      */
     public dispatchStore(type: string, payload: any = null) {
-        const action: AnyAction = Object.assign({type: type}, payload);
+        const action: AnyAction = Object.assign({ type: type }, payload);
         this.store.dispatch.call(this, action);
     }
 

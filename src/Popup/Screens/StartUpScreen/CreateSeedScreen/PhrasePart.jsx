@@ -1,10 +1,9 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
 import ReactSVG from 'react-svg';
-import {Button} from 'Popup/UI';
-import {KeyboardHandler} from 'Popup/SystemComponent';
+import { Button } from 'Popup/UI';
+import { KeyboardHandler } from 'Popup/SystemComponent';
 import screenHistory from 'Popup/ScreenAddressHistory';
-import {SEED_WORD_COUNT} from 'Core/Constant';
+import { SEED_WORD_COUNT } from 'Core/Constant';
 
 const SEED_WORD_START_POSITION = 1;
 

@@ -27,17 +27,17 @@ export interface CoinInterface {
     generateTxLink(txid: string): string;
 }
 
-export interface TickerInterface {
+export type TickerData = {
     key: CoinSymbol;
     priceBtc: number;
     priceUsd: number;
     priceFiat: number;
-}
+};
 
-export interface FiatInterface {
+export type FiatData = {
     key: FiatSymbol
     name: string;
     shortName: string;
     prefix?: string;
     format: string;
-}
+};

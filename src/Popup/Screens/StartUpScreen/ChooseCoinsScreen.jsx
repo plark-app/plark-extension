@@ -8,7 +8,7 @@ import {Button, Alert} from "Popup/UI";
 import proxyStore from 'Popup/Store';
 import {mapWelcomeDispatchers} from 'Popup/Store/KeyringConnector';
 import {coinList, CoinSymbol} from 'Core/Coins';
-import {WelcomeLayout, WelcomeLink} from './Parts';
+import {WelcomeLayout, WelcomeLink} from './parts';
 
 
 @connect(null, mapWelcomeDispatchers)

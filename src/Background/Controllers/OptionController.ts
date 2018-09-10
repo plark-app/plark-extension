@@ -1,7 +1,7 @@
-import {Store} from "redux";
-import {IStore} from "Core/Declarations/Store";
-import {Reducer, Controller} from 'Core/Actions';
-import {AbstractController} from 'Background/Service/AbstractController';
+import { Store } from 'redux';
+import { IStore } from 'Core/Declarations/Store';
+import { Reducer, Controller } from 'Core/Actions';
+import { AbstractController } from 'Background/Service/AbstractController';
 
 export class OptionController extends AbstractController {
 
@@ -25,12 +25,12 @@ export class OptionController extends AbstractController {
      */
     private setFee: EventHandlerType = (request: any): any => {
 
-        const {fee} = request;
+        const { fee } = request;
 
-        this.dispatchStore(Reducer.OptionAction.SetFee, {fee: fee});
+        this.dispatchStore(Reducer.OptionAction.SetFee, { fee: fee });
 
         return {
-            success: true
+            success: true,
         };
-    }
+    };
 }

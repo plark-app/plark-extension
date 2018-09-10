@@ -2,16 +2,16 @@ import React from 'react';
 import { Dictionary } from 'lodash';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
-import { CoinSymbol, FiatInterface, FiatSymbol, TickerInterface } from 'Core/Coins';
+import { CoinSymbol, FiatData, FiatSymbol, TickerData } from 'Core/Coins';
 import { IStore } from 'Core/Declarations/Store';
 import { currentFiatSelector, coinStateSelector } from 'Popup/Store/Selector';
 
 interface CurrentFiat {
     key: FiatSymbol;
-    fiat: FiatInterface;
-    tickers: Dictionary<TickerInterface>;
+    fiat: FiatData;
+    tickers: Dictionary<TickerData>;
 
-    getTicker(coinSymbol: CoinSymbol): TickerInterface;
+    getTicker(coinSymbol: CoinSymbol): TickerData;
 }
 
 const { Provider, Consumer } = React.createContext<CurrentFiat>(null);
@@ -31,7 +31,7 @@ class CurrentFiatProviderComponent extends React.PureComponent<ProviderStoreProp
         return <Provider value={providerValue}>{children}</Provider>;
     }
 
-    protected getCoinTicker = (coinSymbol: CoinSymbol): TickerInterface => {
+    protected getCoinTicker = (coinSymbol: CoinSymbol): TickerData => {
         const { tickers = {} } = this.props;
 
         return tickers[coinSymbol] || {
@@ -39,13 +39,13 @@ class CurrentFiatProviderComponent extends React.PureComponent<ProviderStoreProp
             priceBtc: 0,
             priceUsd: 0,
             priceFiat: 0,
-        } as TickerInterface;
+        } as TickerData;
     };
 }
 
 type ProviderStoreProps = {
-    fiat: FiatInterface;
-    tickers: Dictionary<TickerInterface>;
+    fiat: FiatData;
+    tickers: Dictionary<TickerData>;
 };
 
 export const CurrentFiatProvider = compose<ProviderStoreProps, object>(

@@ -1,18 +1,18 @@
 import React from 'react';
-import {Helper} from 'Core';
-import {Background} from 'Popup/Service';
-import {KeyringEvent} from 'Core/Actions/Controller';
-import {Button} from 'Popup/UI';
+import { Helper } from 'Core';
+import { Background } from 'Popup/Service';
+import { KeyringEvent } from 'Core/Actions/Controller';
+import { Button } from 'Popup/UI';
 
-export default class EnterSeedStep extends React.Component {
+export class EnterSeedStep extends React.PureComponent<any, any> {
 
-    state = {
+    public state = {
         seed: ''
     };
 
-    componentDidMount() {
+    public componentDidMount(): void {
         setTimeout(() => {
-            this.refs.seedTextarea.focus();
+            (this.refs.seedTextarea as HTMLInputElement).focus();
         }, 50);
     }
 
@@ -48,7 +48,7 @@ export default class EnterSeedStep extends React.Component {
         onError && onError(error.message);
     };
 
-    render() {
+    public render(): JSX.Element {
         const textareaProps = {
             className: "mnemonic__textarea",
             placeholder: "Enter your backup phrase here",
@@ -63,7 +63,7 @@ export default class EnterSeedStep extends React.Component {
                     <h1 className="topic__title">Enter your backup phrase to reset passcode</h1>
                 </div>
                 <form onSubmit={this.onSendSeed}>
-                    <div className="mnemonic"><textarea {...textareaProps}/></div>
+                    <div className="mnemonic"><textarea {...textareaProps} /></div>
                     <div className="center">
                         <Button disabled={!this.state.seed} type="submit">Reset passcode</Button>
                     </div>

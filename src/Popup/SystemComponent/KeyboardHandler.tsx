@@ -1,15 +1,15 @@
 import React from 'react';
 
-export interface KeyboardHandlerComponent {
+export type KeyboardHandlerComponent = {
     onPressEnter?: DummyCallable<void>;
     onPressLeft?: DummyCallable<void>;
     onPressRight?: DummyCallable<void>;
     onPressBackspace?: DummyCallable<void>;
-}
+};
 
 export class KeyboardHandler extends React.PureComponent<KeyboardHandlerComponent, any> {
-    public onKeyUp = (event) => {
-        const {onPressEnter, onPressLeft, onPressRight, onPressBackspace} = this.props;
+    public onKeyUp = (event): void => {
+        const { onPressEnter, onPressLeft, onPressRight, onPressBackspace } = this.props;
 
         switch (event.which) {
             case 13:
@@ -30,15 +30,15 @@ export class KeyboardHandler extends React.PureComponent<KeyboardHandlerComponen
         }
     };
 
-    public componentDidMount() {
+    public componentDidMount(): void {
         document.addEventListener('keyup', this.onKeyUp);
     }
 
-    public componentWillUnmount() {
+    public componentWillUnmount(): void {
         document.removeEventListener('keyup', this.onKeyUp);
     }
 
-    public render() {
-        return <div/>
+    public render(): JSX.Element {
+        return <div />;
     }
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
-import {MIN_PASSCODE_CHARS, validatePasscode} from 'Core/Passcode';
-import {Button} from "Popup/UI";
+import { MIN_PASSCODE_CHARS, validatePasscode } from 'Core/Passcode';
+import { Button } from "Popup/UI";
 
 const ScreenStates = {
     CREATE: 'create',

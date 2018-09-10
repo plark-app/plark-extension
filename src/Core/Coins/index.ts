@@ -1,10 +1,10 @@
 import { Dictionary, each, includes, filter, countBy } from 'lodash';
-import { CoinInterface, FiatInterface, TickerInterface } from './Interfaces';
+import { CoinInterface, FiatData, TickerData } from './Interfaces';
 import { CoinSymbol, FiatSymbol } from './Symbols';
 import { fiatList } from './FiatList';
 import { coinList } from './CoinList';
 
-export { CoinInterface, FiatInterface, TickerInterface, CoinSymbol, FiatSymbol, coinList, fiatList };
+export { CoinInterface, FiatData, TickerData, CoinSymbol, FiatSymbol, coinList, fiatList };
 
 export enum TxDirection {
     Up = 'up',
@@ -28,7 +28,7 @@ export const findCoin = (coinSymbol: string | CoinSymbol): CoinInterface | null 
     return coinList[coinSymbol];
 };
 
-export const findFiat = (fiatSymbol: string | FiatSymbol): FiatInterface | null => {
+export const findFiat = (fiatSymbol: string | FiatSymbol): FiatData | null => {
     return fiatList[fiatSymbol];
 };
 

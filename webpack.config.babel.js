@@ -142,7 +142,7 @@ const WebpackConfig = {
 
     entry: {
         popup: ['babel-polyfill', 'popup'],
-        pageContent: ['babel-polyfill', 'pageContent'],
+        pageContent: ['babel-polyfill', 'page-content'],
         background: ['babel-polyfill', 'background']
     },
 

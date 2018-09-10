@@ -34,7 +34,6 @@ export class PopupApplication extends React.Component<object, IPopupApplicationS
                 <div className='application -loading'>
                     <div className="loading">
                         <BerrywalletLogo className="loading__logo" />
-                        <span className="loading__text">Loading...</span>
                     </div>
                 </div>
             );

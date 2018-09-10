@@ -5,7 +5,7 @@ import { IStore } from 'Core/Declarations/Store';
 import { createBeShapy, BeShapyClient, BeShapyUnits } from 'be-shapy';
 import { Controller } from 'Core/Actions';
 import { AbstractController } from 'Background/Service/AbstractController';
-import { WalletController } from "./WalletController";
+import { WalletController } from './wallet-controller';
 
 import { Analytics } from 'Popup/Service';
 
@@ -45,8 +45,8 @@ export class ExchangeController extends AbstractController {
         const fromWallet = walletController.getWalletManager(from);
         const toWallet = walletController.getWalletManager(to);
 
-        const toAddress = toWallet.getWDProvider().address.last(HD.BIP44.AddressType.RECEIVE);
-        const returnAddress = fromWallet.getWDProvider().address.last(HD.BIP44.AddressType.RECEIVE);
+        const toAddress = toWallet.getWallet().address.last(HD.BIP44.AddressType.RECEIVE);
+        const returnAddress = fromWallet.getWallet().address.last(HD.BIP44.AddressType.RECEIVE);
 
         if (!toAddress || !returnAddress) {
             if (!toAddress) {

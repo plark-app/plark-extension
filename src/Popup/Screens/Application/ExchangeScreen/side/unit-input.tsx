@@ -10,7 +10,7 @@ type UnitInputProps = {
     symbolLabel: string;
     value: string;
     isCoin: boolean;
-    ticker: Coins.TickerInterface;
+    ticker: Coins.TickerData;
 };
 
 export class UnitInput extends React.Component<UnitInputProps> {

@@ -1,6 +1,3 @@
-import {KeyboardHandler} from './KeyboardHandler';
+import { KeyboardHandler } from './KeyboardHandler';
 
-
-export {
-    KeyboardHandler
-}
+export { KeyboardHandler };
