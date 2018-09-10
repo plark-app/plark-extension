@@ -1,71 +1,37 @@
 import React from 'react';
 import numeral from 'numeral';
+import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import { NavLink, Route, Switch, matchPath, withRouter } from 'react-router-dom';
 import { Wallet } from '@berrywallet/core';
 
-import { CoinIcon } from 'Popup/UI';
+import { CoinIcon } from 'Popup/components/coin-icon';
 import { mapWalletCoinToProps } from 'Popup/Store/WalletCoinConnector';
 
-import { SeedScreenComponent } from "./SendScreen";
-import { ReceiveScreenComponent } from "./ReceiveScreen";
-import { HistoryScreenComponent } from "./HistoryScreen";
+import { SeedScreenComponent } from './send-screen';
+import { ReceiveScreenComponent } from './ReceiveScreen';
+import { HistoryScreenComponent } from './history-screen';
 import { WaitInitializingScreen } from './WaitInitializingScreen';
 
 
 export const links = [{
     path: "/app/wallet",
-    name: "Send"
+    name: "Send",
 }, {
     path: "/app/wallet/receive",
-    name: "Receive"
+    name: "Receive",
 }, {
     path: "/app/wallet/history",
-    name: "History"
+    name: "History",
 }];
 
-
-@withRouter
-@connect(mapWalletCoinToProps)
-export class CoinDashboardLayout extends React.Component {
-
-    renderSvgBackground() {
-        const {location} = this.props;
-
-        const activeIndex = links.findIndex((link) => {
-            return matchPath(location.pathname, {
-                path: link.path,
-                exact: true
-            });
-        });
-
-        const svgMaskProps = {
-            className: "menu-background__hole",
-            width: "70px",
-            height: "6px",
-            fill: "black",
-            x: (100 * activeIndex + 15) + 'px',
-            y: "27px",
-            rx: "3px",
-            ry: "3px"
-        };
-
-        return (
-            <svg className="menu-background" style={{borderRadius: '0 0 3px 3px'}}>
-                <rect height="30px" width="100%" mask="url(#horizontal-menu-hole)" fill="white" />
-                <mask id="horizontal-menu-hole">
-                    <rect x="0" y="0" width="100%" height="100%" fill="white" />
-                    <rect {...svgMaskProps} />
-                </mask>
-            </svg>
-        );
-    };
+export class CoinDashboardLayoutComponent extends React.PureComponent<any, any> {
 
     renderWalletTabs() {
-        const {walletData, activeCoin} = this.props;
+        const { walletData, activeCoin } = this.props;
 
         if (!activeCoin || !walletData) {
-            return <WaitInitializingScreen coin={activeCoin} />
+            return <WaitInitializingScreen coin={activeCoin} />;
         }
 
         return (
@@ -79,14 +45,14 @@ export class CoinDashboardLayout extends React.Component {
 
     render() {
 
-        const {activeCoin = null} = this.props;
+        const { activeCoin = null } = this.props;
 
         if (!activeCoin) {
             return <div className="dashboard-main -loading">Initializing wallet...</div>;
         }
 
-        const {balance = null, ticker, fiat} = this.props;
-        const totalBalance = balance ? Wallet.Helper.calculateBalance(balance, true) : 0;
+        const { balance = null, ticker, fiat } = this.props;
+        const totalBalance = balance ? Wallet.calculateBalance(balance, true) : 0;
 
         return (
             <div className="dashboard-content">
@@ -94,10 +60,10 @@ export class CoinDashboardLayout extends React.Component {
                     <div className="dashboard-head">
 
                         <div className="dashboard-head-info">
-                            <CoinIcon coin={activeCoin.getKey()}
-                                      className="dashboard-head-info__coin"
-                                      wrapperClassName="dashboard-head-info__coin-wrapper"
-                                      size={40}
+                            <CoinIcon
+                                coin={activeCoin.getKey()}
+                                className="dashboard-head-info__coin"
+                                size={40}
                             />
                             <div className="dashboard-head-info__price">
                                 <div className="dashboard-head-info__price-coin">
@@ -125,7 +91,7 @@ export class CoinDashboardLayout extends React.Component {
                                     exact={true}
                                     className="dashboard-head-nav__tab"
                                     activeClassName="-active"
-                                >{lnk.name}</NavLink>
+                                >{lnk.name}</NavLink>;
                             })}
 
                             {this.renderSvgBackground()}
@@ -136,4 +102,41 @@ export class CoinDashboardLayout extends React.Component {
             </div>
         );
     }
+
+    protected renderSvgBackground(): JSX.Element {
+        const { location } = this.props;
+
+        const activeIndex = links.findIndex((link): boolean => {
+            return !!matchPath(location.pathname, {
+                path: link.path,
+                exact: true,
+            });
+        });
+
+        const svgMaskProps = {
+            className: "menu-background__hole",
+            width: "70px",
+            height: "6px",
+            fill: "black",
+            x: (100 * activeIndex + 15) + 'px',
+            y: "27px",
+            rx: "3px",
+            ry: "3px",
+        };
+
+        return (
+            <svg className="menu-background" style={{ borderRadius: '0 0 3px 3px' }}>
+                <rect height="30px" width="100%" mask="url(#horizontal-menu-hole)" fill="white" />
+                <mask id="horizontal-menu-hole">
+                    <rect x="0" y="0" width="100%" height="100%" fill="white" />
+                    <rect {...svgMaskProps} />
+                </mask>
+            </svg>
+        );
+    };
 }
+
+export const CoinDashboardLayout = compose<any, any>(
+    withRouter,
+    connect(mapWalletCoinToProps)
+)(CoinDashboardLayoutComponent);

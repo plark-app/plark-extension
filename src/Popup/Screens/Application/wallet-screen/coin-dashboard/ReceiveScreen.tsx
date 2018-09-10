@@ -44,7 +44,7 @@ class ReceiveScreen extends React.Component<any, any> {
     };
 
     protected extractAddress = (): string => {
-        const wdProvider = Wallet.Helper.createWDProvider(this.props.walletData);
+        const wdProvider = Wallet.createWDProvider(this.props.walletData);
         const addr = wdProvider.address.last(HD.BIP44.AddressType.RECEIVE);
 
         if (!addr) {

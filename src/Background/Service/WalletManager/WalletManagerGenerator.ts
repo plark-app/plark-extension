@@ -36,7 +36,7 @@ export class WalletManagerGenerator implements IWalletManagerGenerator {
 
         this.debug(`Start generation for coin: ${this.coin.getKey()}`);
 
-        let wdGenerator: Wallet.Generator.IWDGenerator = null;
+        let wdGenerator: Wallet.Generator.WDGeneratorInterface = null;
         try {
             const seed = this.controller.getSeed();
             wdGenerator = CoreWallet.createWDGenerator(this.coin, seed);

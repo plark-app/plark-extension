@@ -56,7 +56,7 @@ export default function coinState(state: ICoinStore = initialCoinState, action):
         case Actions.Reducer.CoinAction.SetTickers: {
             const tickers = { ...state.tickers };
 
-            each(payload.tickers, (coinTicker: Coins.TickerInterface) => {
+            each(payload.tickers, (coinTicker: Coins.TickerData) => {
                 tickers[coinTicker.key] = coinTicker;
             });
 

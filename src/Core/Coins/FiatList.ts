@@ -1,8 +1,8 @@
 import { Dictionary } from 'lodash';
-import { FiatInterface } from './Interfaces';
+import { FiatData } from './Interfaces';
 import { FiatSymbol } from './Symbols';
 
-export const fiatList: Dictionary<FiatInterface> = {
+export const fiatList: Dictionary<FiatData> = {
     [FiatSymbol.USDollar]: {
         key: FiatSymbol.USDollar,
         name: 'U.S. Dollar',

@@ -30,10 +30,12 @@ type WalletScreenProps = StoreProps;
 const mapStateToProps = (store: IStore): StoreProps => {
     const { Coin } = store;
 
+    const activeCoinCount = Coins.getCoinCounts(Coin.coins).real || 0;
+
     return {
         coin: Selector.currentCoinSelector(store),
         coinList: Coins.filterCoinList(Coin.coins),
-        mindAddNew: Coins.getRealCoins().length > Coins.getCoinCounts(Coin.coins).real,
+        mindAddNew: Coins.getRealCoins().length > activeCoinCount,
     };
 };
 

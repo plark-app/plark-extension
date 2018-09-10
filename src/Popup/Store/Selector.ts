@@ -3,7 +3,7 @@ import { createSelector } from 'reselect';
 import { Wallet } from '@berrywallet/core';
 import { IStore, IWalletStore, ICoinStore } from 'Core/Declarations/Store';
 import { ICoinWallet } from 'Core/Declarations/Wallet';
-import { findCoin, findFiat, TickerInterface, CoinSymbol } from 'Core/Coins';
+import { findCoin, findFiat, TickerData, CoinSymbol } from 'Core/Coins';
 
 export const coinStateSelector = (state: IStore) => state.Coin;
 export const walletStateSelector = (state: IStore) => state.Wallet;
@@ -32,7 +32,7 @@ export const tickerSelector = createSelector(
             priceBtc: 0,
             priceUsd: 0,
             priceFiat: 0,
-        } as TickerInterface;
+        } as TickerData;
     },
 );
 
@@ -51,7 +51,7 @@ export const walletBalanceSelector = createSelector(
             }
 
             const wdProvider = new Wallet.Provider.WDProvider(wallet.walletData);
-            balances[coin] = Wallet.Helper.calculateBalance(wdProvider.balance);
+            balances[coin] = Wallet.calculateBalance(wdProvider.balance);
 
             return;
         });

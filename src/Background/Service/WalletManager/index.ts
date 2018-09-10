@@ -32,7 +32,7 @@ export class WalletManager {
 
         this.debug = createDebugger('WM:' + this.coin.getUnit());
 
-        this.mapEventsToWDProvider();
+        this.mapEventsToWallet();
 
         wdProvider.getNetworkProvider().onNewBlock(this.updateBlockInfo);
         wdProvider.getNetworkProvider().getTracker().onConnect(() => {
@@ -48,7 +48,10 @@ export class WalletManager {
 
         wdProvider.on('tx:new', async (tx: Wallet.Entity.WalletTransaction) => {
             const balance = this.wdProvider.balance;
-            const amount = Wallet.Helper.calculateTxBalance(balance, tx.txid);
+
+            this.debug(`Balance ${this.coin.getName()}`, JSON.parse(JSON.stringify(this.wdProvider.balance)), tx);
+
+            const amount = Wallet.calculateTxBalance(balance, tx.txid);
 
             if (amount > 0) {
                 const notificationId: string = await sendNotification(
@@ -61,7 +64,7 @@ export class WalletManager {
         this.setUpdateTimeout();
     }
 
-    public getWDProvider(): Wallet.Provider.WDProvider {
+    public getWallet(): Wallet.Provider.WDProvider {
         return this.wdProvider;
     }
 
@@ -76,7 +79,7 @@ export class WalletManager {
         this.wdProvider.tx.add(tx);
     }
 
-    protected mapEventsToWDProvider() {
+    protected mapEventsToWallet() {
         const walletDataSaver = debounce(() => {
             const actionPayload = {
                 walletCoinKey: this.coin.getKey(),
@@ -103,45 +106,36 @@ export class WalletManager {
      *
      * @returns {Promise<WalletTransaction>}
      */
-    public sendTransaction = (address: string,
-                              value: BigNumber,
-                              fee: Coin.FeeTypes = Coin.FeeTypes.Medium): Promise<Wallet.Entity.WalletTransaction> => {
+    public sendTransaction = async (address: string,
+                                    value: BigNumber,
+                                    fee: Coin.FeeTypes = Coin.FeeTypes.Medium): Promise<Wallet.Entity.WalletTransaction> => {
 
         const bufferSeed = this.controller.getSeed();
 
         const privateWallet = this.wdProvider.getPrivate(bufferSeed);
-        const parsedAddress = Coin.Helper.parseAddressByCoin(this.wdProvider.getData().coin, address);
+        const parsedAddress = Coin.parseAddressByCoin(this.wdProvider.getData().coin, address);
 
-        const onBroadcastingError = (error) => {
-            this.debug('Error on send transaction', error);
-
-            throw new Error('Error on send transaction');
-        };
-
-        const onCreatingError = (error) => {
+        let transaction;
+        try {
+            transaction = await privateWallet.createTransaction(parsedAddress, value, fee);
+        } catch (error) {
             this.debug('Error on create transaction', error);
 
             throw new Error('Error on create transaction');
-        };
+        }
 
-        const broadcastTransaction = (transaction: Coin.Transaction.Transaction) => {
-            const onSuccessBroadcastTx = (txid: string) => {
-                const walletTx = Wallet.Helper.coinTxToWalletTx(txid, transaction, this.coin.getCoreCoin());
-                this.putNewTx(walletTx);
+        try {
+            const txid: string = await privateWallet.broadcastTransaction(transaction);
 
-                return walletTx;
-            };
+            const walletTx = Wallet.coinTxToWalletTx(txid, transaction, this.coin.getCoreCoin());
+            this.putNewTx(walletTx);
 
-            return privateWallet
-                .broadcastTransaction(transaction)
-                .then(onSuccessBroadcastTx, onBroadcastingError)
-                .catch(onBroadcastingError);
-        };
+            return walletTx;
+        } catch (error) {
+            this.debug('Error on send transaction', error);
 
-        return privateWallet
-            .createTransaction(parsedAddress, value, fee)
-            .then(broadcastTransaction, onCreatingError)
-            .catch(onCreatingError);
+            throw new Error('Error on send transaction');
+        }
     };
 
     /**
@@ -153,15 +147,23 @@ export class WalletManager {
     public calculateFee = (address: string, value: number, fee: Coin.FeeTypes = Coin.FeeTypes.Medium) => {
         const bufferSeed = this.controller.getSeed();
 
+        if (!address) {
+            throw new Error('Enter address');
+        }
+
         const privateWallet = this.wdProvider.getPrivate(bufferSeed);
         let parsedAddress = null;
 
         if (address) {
             try {
-                parsedAddress = Coin.Helper.parseAddressByCoin(this.wdProvider.getData().coin, address);
+                parsedAddress = Coin.parseAddressByCoin(this.wdProvider.getData().coin, address);
             } catch (error) {
                 this.debug('Parsing address error', error);
             }
+        }
+
+        if (!parsedAddress) {
+            throw new Error('Invalid address');
         }
 
         return privateWallet.calculateFee(new BigNumber(value), parsedAddress, fee);

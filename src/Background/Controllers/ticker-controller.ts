@@ -1,11 +1,11 @@
-import {Store} from 'redux';
-import {each, find} from 'lodash';
-import createClient, {IBerryMarketCap, ITickerData} from 'berrymarketcap';
-import {AbstractController} from "Background/Service/AbstractController";
-import {IStore} from 'Core/Declarations/Store';
-import {CoinAction} from 'Core/Actions/Reducer';
-import {coinList, CoinInterface, TickerInterface, FiatSymbol} from 'Core/Coins';
-import {TickerEvent} from "Core/Actions/Controller";
+import { Store } from 'redux';
+import { each, find } from 'lodash';
+import createClient, { IBerryMarketCap, ITickerData } from 'berrymarketcap';
+import { AbstractController } from "Background/Service/AbstractController";
+import { IStore } from 'Core/Declarations/Store';
+import { CoinAction } from 'Core/Actions/Reducer';
+import { coinList, CoinInterface, TickerData, FiatSymbol } from 'Core/Coins';
+import { TickerEvent } from 'Core/Actions/Controller';
 
 const tickerTimeout = 3 * 60 * 1000;
 
@@ -17,7 +17,7 @@ export class TickerController extends AbstractController {
     public constructor(app: BgController.IBackgroundCore, store: Store<IStore>) {
         super(app, store);
 
-        this.coinMarkerCapClient = createClient({timeout: 10000});
+        this.coinMarkerCapClient = createClient({ timeout: 10000 });
 
         this.extractTickers();
         this.tickerObserverTimeout = setInterval(this.extractTickers, tickerTimeout);
@@ -30,12 +30,12 @@ export class TickerController extends AbstractController {
     }
 
     protected extractTickers = async () => {
-        const {currentFiatKey = FiatSymbol.USDollar} = this.getState().Coin;
-        const requestOptions = {convert: currentFiatKey.toUpperCase()};
+        const { currentFiatKey = FiatSymbol.USDollar } = this.getState().Coin;
+        const requestOptions = { convert: currentFiatKey.toUpperCase() };
 
         const data: ITickerData[] = await this.coinMarkerCapClient.getTickers(requestOptions);
 
-        const payloadTickers: TickerInterface[] = [];
+        const payloadTickers: TickerData[] = [];
 
         each(coinList, (coin: CoinInterface) => {
             const coinTicker: ITickerData = find(data, ((tick: ITickerData) => tick.symbol === coin.getKey()) as any);
@@ -45,18 +45,18 @@ export class TickerController extends AbstractController {
                 key: coin.getKey(),
                 priceBtc: parseFloat(coinTicker.price_btc),
                 priceUsd: parseFloat(coinTicker.price_usd),
-                priceFiat: parseFloat(coinTicker[`price_${currentFiatKey.toLowerCase()}`])
-            } as TickerInterface);
+                priceFiat: parseFloat(coinTicker[`price_${currentFiatKey.toLowerCase()}`]),
+            } as TickerData);
         });
 
         this.dispatchStore(CoinAction.SetTickers, {
-            tickers: payloadTickers
+            tickers: payloadTickers,
         });
     };
 
     public changeCurrentFiat: EventHandlerType = (request: any): any => {
         this.dispatchStore(CoinAction.SetCurrentFiat, {
-            fiatKey: request.fiat
+            fiatKey: request.fiat,
         });
 
         this.extractTickers();

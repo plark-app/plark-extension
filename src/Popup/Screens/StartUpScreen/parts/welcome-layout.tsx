@@ -4,14 +4,14 @@ import TrackScreenView from 'Popup/Service/ScreenViewAnalitics';
 import { KeyboardHandler } from 'Popup/SystemComponent';
 import { Topic } from 'Popup/components/topic';
 
-interface IWelcomeLayoutProps extends React.HTMLProps<{}> {
+interface WelcomeLayoutProps extends React.HTMLProps<{}> {
     trackLabel: string;
     topicTitle: string;
     topicDescription?: string;
     onPressEnter?: () => void;
 }
 
-export const WelcomeLayout = (props: IWelcomeLayoutProps) => {
+export const WelcomeLayout = (props: WelcomeLayoutProps) => {
     const { topicTitle, topicDescription } = props;
 
     return (

@@ -7,9 +7,10 @@ import { ArrowRight, Tick } from 'svg';
 import { Coins } from 'Core';
 import { Controller } from 'Core/Actions';
 import { IStore } from 'Core/Declarations/Store';
+import { CoinIcon } from 'Popup/components/coin-icon';
 import { Selector } from 'Popup/Store';
 import { Background } from 'Popup/Service';
-import { Button, CoinIcon, Alert } from 'Popup/UI';
+import { Button, Alert } from 'Popup/UI';
 import { CoinCard } from './coin-card';
 
 import { ModalLayout } from '../../ModalLayout';
@@ -173,9 +174,9 @@ type TExchangeModalOwnProps = {
 
 type TReduxProps = {
     toWDProvider?: Wallet.Provider.WDProvider;
-    fromTicker: Coins.TickerInterface;
-    toTicker: Coins.TickerInterface;
-    fiat: Coins.FiatInterface;
+    fromTicker: Coins.TickerData;
+    toTicker: Coins.TickerData;
+    fiat: Coins.FiatData;
 };
 
 type TExchangeModalProps = TExchangeModalOwnProps & TReduxProps;

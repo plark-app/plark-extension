@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactSVG from 'react-svg';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import proxyStore from 'Popup/Store';
-import {Button} from 'Popup/UI';
-import {mapWelcomeDispatchers} from 'Popup/Store/KeyringConnector';
-import {WelcomeLink, WelcomeLayout} from './Parts';
+import { Button } from 'Popup/UI';
+import { mapWelcomeDispatchers } from 'Popup/Store/KeyringConnector';
+import { WelcomeLink, WelcomeLayout } from './parts';
 
 @connect(null, mapWelcomeDispatchers)
 export class PasscodeSuccessScreen extends React.Component {
@@ -17,7 +17,6 @@ export class PasscodeSuccessScreen extends React.Component {
     };
 
     render() {
-
         const eventProps = {
             className: "startup-passcode",
             trackLabel: "startup-passcode-success",
@@ -33,7 +32,7 @@ export class PasscodeSuccessScreen extends React.Component {
                 />
 
                 <div className="topic success-topic">
-                    <h1 className="topic__title">New Passcode<br/> Created Successfully</h1>
+                    <h1 className="topic__title">New Passcode<br /> Created Successfully</h1>
                 </div>
 
                 <Button onClick={this.onNext} className="btn startup-welcome-button">Process</Button>

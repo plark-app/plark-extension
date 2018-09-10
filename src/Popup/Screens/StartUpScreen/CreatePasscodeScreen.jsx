@@ -5,7 +5,7 @@ import proxyStore from 'Popup/Store';
 import {Button, Alert} from 'Popup/UI';
 import {MIN_PASSCODE_CHARS, validatePasscode} from 'Core/Passcode';
 import {mapWelcomeDispatchers} from 'Popup/Store/KeyringConnector';
-import {WelcomeLink, WelcomeLayout} from './Parts';
+import {WelcomeLink, WelcomeLayout} from './parts';
 
 const ScreenStates = {
     CREATE: 'create',

@@ -6,8 +6,8 @@ import { currentCoinSelector, currentFiatSelector, tickerSelector } from './Sele
 
 export interface IConnectedWalletCoinProps {
     coin: Coins.CoinInterface;
-    fiat: Coins.FiatInterface;
-    ticker?: Coins.TickerInterface;
+    fiat: Coins.FiatData;
+    ticker?: Coins.TickerData;
     walletData?: Wallet.Entity.WalletData;
     balance?: Wallet.Entity.Balance;
 }

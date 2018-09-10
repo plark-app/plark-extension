@@ -1,9 +1,9 @@
 import React from 'react';
-import classNames from 'classnames';
-import {connect} from 'react-redux';
-import {KeyboardHandler} from 'Popup/SystemComponent';
-import {mapWelcomeDispatchers} from "Popup/Store/KeyringConnector";
-import {Button} from "Popup/UI";
+import cn from 'classnames';
+import { connect } from 'react-redux';
+import { KeyboardHandler } from 'Popup/SystemComponent';
+import { mapWelcomeDispatchers } from "Popup/Store/KeyringConnector";
+import { Button } from "Popup/UI";
 
 @connect(null, mapWelcomeDispatchers)
 export default class CheckPart extends React.Component {
@@ -53,7 +53,7 @@ export default class CheckPart extends React.Component {
         };
 
         return (<div>
-            <KeyboardHandler onPressEnter={this.onNext}/>
+            <KeyboardHandler onPressEnter={this.onNext} />
             <div className="topic">
                 <h1 className="topic__title">Confirm Your Backup Phrase</h1>
                 <p className="topic__desc">Please enter your 12-word backup phrase</p>
@@ -61,8 +61,8 @@ export default class CheckPart extends React.Component {
 
             <div className="mnemonic">
                 <textarea {...textareaProps} />
-                <label className={classNames("mnemonic-correct", {'-show': this.state.correct})}>
-                    <img className="mnemonic-correct__tick" src="/images/icons/tick.svg"/> Correct!
+                <label className={cn("mnemonic-correct", {'-show': this.state.correct})}>
+                    <img className="mnemonic-correct__tick" src="/images/icons/tick.svg" /> Correct!
                 </label>
             </div>
 

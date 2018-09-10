@@ -3,7 +3,7 @@ import { includes } from 'lodash';
 import { Background } from 'Popup/Service';
 import { KeyringEvent } from 'Core/Actions/Controller';
 
-import EnterSeedStep from './EnterSeedStep';
+import { EnterSeedStep } from './enter-seed-step';
 import SuccessSeedStep from './SuccessSeedStep';
 import EnterPasscodeStep from './EnterPasscodeStep';
 import SuccessPasscodeStep from './SuccessPasscodeStep';

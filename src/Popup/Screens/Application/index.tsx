@@ -8,9 +8,9 @@ import { Wallet } from '@berrywallet/core';
 import { MenuLayout } from 'Popup/UI/Layouts';
 import { extractTicker } from 'Popup/Store/Helpers';
 import { IStore } from 'Core/Declarations/Store';
-import { FiatInterface, filterCoinList, findFiat } from 'Core/Coins';
+import { FiatData, filterCoinList, findFiat } from 'Core/Coins';
 
-import { WalletScreenComponent } from './WalletScreen';
+import { WalletScreenComponent } from './wallet-screen';
 import { ExchangeRouter } from './ExchangeScreen';
 import { OptionsScreen } from './OptionsScreen';
 import { HelpScreen } from './HelpScreen';
@@ -35,7 +35,7 @@ interface TApplicationOwnProps {
 
 interface TApplicationStoreProps {
     needPassword: boolean;
-    fiat: FiatInterface;
+    fiat: FiatData;
     balance: {
         bitcoin: number;
         fiat: number;
@@ -112,7 +112,7 @@ const mapStateToProps = (store: IStore) => {
 
         if (wallet.walletData) {
             const pwProvider = new Wallet.Provider.WDProvider(wallet.walletData);
-            const coinBalance = Wallet.Helper.calculateBalance(pwProvider.balance, true);
+            const coinBalance = Wallet.calculateBalance(pwProvider.balance, true);
 
             balance.bitcoin += coinBalance * ticker.priceBtc;
             balance.fiat += coinBalance * ticker.priceFiat;

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import Numeral from 'numeral';
 import classNames from 'classnames';
 import { Coins } from 'Core';
-import { CoinIcon } from 'Popup/UI';
+import { CoinIcon } from 'Popup/components/coin-icon';
 import { IStore } from 'Core/Declarations/Store';
 import { Selector } from 'Popup/Store';
 import { withCurrentFiat, WithCurrentFiatProps } from 'Popup/contexts/current-fiat';
