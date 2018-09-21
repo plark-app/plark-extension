@@ -9,7 +9,7 @@ import { Wallet, Coin } from '@berrywallet/core';
 
 import { Controller } from 'Core/Actions';
 import { Button, Alert } from 'Popup/UI';
-import { mapWalletCoinToProps } from 'Popup/Store/WalletCoinConnector';
+import { mapWalletCoinToProps } from 'Popup/Store/wallet-coin-connector';
 import TrackScreenView from 'Popup/Service/ScreenViewAnalitics';
 import { Background } from 'Popup/Service';
 

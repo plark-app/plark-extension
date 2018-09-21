@@ -8,7 +8,7 @@ import classNames from 'classnames';
 import { Wallet } from '@berrywallet/core';
 
 import { Helper, Coins } from 'Core';
-import { mapWalletCoinToProps } from 'Popup/Store/WalletCoinConnector';
+import { mapWalletCoinToProps } from 'Popup/Store/wallet-coin-connector';
 import TrackScreenView from 'Popup/Service/ScreenViewAnalitics';
 import { Badge, EmptyDummy } from 'Popup/UI';
 import { openModal } from 'Popup/Modals';

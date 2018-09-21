@@ -1,7 +1,7 @@
-import {Wallet} from '@berrywallet/core';
-import {Coins} from 'Core';
 import Extberry from 'extberry';
-import {AbstractNotification} from "./IBerryNotification";
+import { Wallet } from '@berrywallet/core';
+import { Coins } from 'Core';
+import { AbstractNotification } from './notification-types';
 
 export class TransactionNotification extends AbstractNotification {
     constructor(protected readonly coin: Coins.CoinInterface,
@@ -17,7 +17,7 @@ export class TransactionNotification extends AbstractNotification {
     getClickEvent(): () => void {
         return () => {
             Extberry.tabs.create({
-                url: this.coin.generateTxLink(this.tx.txid)
+                url: this.coin.generateTxLink(this.tx.txid),
             });
         };
     }
@@ -32,7 +32,7 @@ export class TransactionNotification extends AbstractNotification {
 
     protected generateOtherOptions(): chrome.notifications.NotificationOptions {
         return {
-            isClickable: true
+            isClickable: true,
         };
     }
 }

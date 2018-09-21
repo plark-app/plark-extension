@@ -1,26 +1,21 @@
 import React from 'react';
 import ReactSVG from 'react-svg';
+import { RouteComponentProps } from 'react-router-dom';
 import { connect } from 'react-redux';
 import proxyStore from 'Popup/Store';
 import { Button } from 'Popup/UI';
-import { mapWelcomeDispatchers } from 'Popup/Store/KeyringConnector';
+import { mapWelcomeDispatchers, IWelcomeDispatcher } from 'Popup/Store/keyring-connector';
 import { WelcomeLink, WelcomeLayout } from './parts';
 
-@connect(null, mapWelcomeDispatchers)
-export class PasscodeSuccessScreen extends React.Component {
-    onBack = () => {
-        proxyStore.dispatch({type: "WELCOME::CLEAR_PASSCODE"});
-    };
+type ScreenOuterProps = RouteComponentProps<{}>;
+type ScreenProps = ScreenOuterProps & IWelcomeDispatcher;
 
-    onNext = () => {
-        this.props.pushWelcomeLocation("/startup/coins");
-    };
-
-    render() {
+class PasscodeSuccessScreenComponent extends React.Component<ScreenProps> {
+    public render(): JSX.Element {
         const eventProps = {
-            className: "startup-passcode",
-            trackLabel: "startup-passcode-success",
-            onPressEnter: this.onNext
+            className: 'startup-passcode',
+            trackLabel: 'startup-passcode-success',
+            onPressEnter: this.onNext,
         };
 
         return (
@@ -45,4 +40,15 @@ export class PasscodeSuccessScreen extends React.Component {
             </WelcomeLayout>
         );
     }
+
+    protected onBack = (): void => {
+        proxyStore.dispatch({ type: "WELCOME::CLEAR_PASSCODE" });
+    };
+
+    protected onNext = (): void => {
+        this.props.pushWelcomeLocation("/startup/coins");
+    };
 }
+
+export const PasscodeSuccessScreen
+    = connect<ScreenOuterProps>(null, mapWelcomeDispatchers)(PasscodeSuccessScreenComponent);

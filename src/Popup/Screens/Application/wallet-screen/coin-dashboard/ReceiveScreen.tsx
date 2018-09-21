@@ -7,7 +7,7 @@ import Extberry from 'extberry';
 import q from 'querystring';
 
 import {Notice} from 'Popup/UI';
-import {mapWalletCoinToProps} from 'Popup/Store/WalletCoinConnector';
+import {mapWalletCoinToProps} from 'Popup/Store/wallet-coin-connector';
 import TrackScreenView from 'Popup/Service/ScreenViewAnalitics';
 import {copyToClipboard} from "Core/utils";
 

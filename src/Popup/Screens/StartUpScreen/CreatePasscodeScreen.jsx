@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import proxyStore from 'Popup/Store';
 import {Button, Alert} from 'Popup/UI';
 import {MIN_PASSCODE_CHARS, validatePasscode} from 'Core/Passcode';
-import {mapWelcomeDispatchers} from 'Popup/Store/KeyringConnector';
+import {mapWelcomeDispatchers} from 'Popup/Store/keyring-connector';
 import {WelcomeLink, WelcomeLayout} from './parts';
 
 const ScreenStates = {

@@ -5,7 +5,7 @@ import { Route, Switch } from 'react-router-dom';
 import { WelcomeAction } from 'Core/Actions/Reducer';
 
 import proxyStore from 'Popup/Store';
-import { mapWelcomeDispatchers } from 'Popup/Store/KeyringConnector';
+import { mapWelcomeDispatchers } from 'Popup/Store/keyring-connector';
 import { WelcomeLink, WelcomeLayout } from '../parts';
 import { NoticeScreen } from './notice-screen';
 import PhrasePart from './PhrasePart';

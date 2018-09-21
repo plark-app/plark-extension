@@ -6,7 +6,7 @@ import { ImportSeedScreen } from './import-seed-screen';
 import { CreateSeedScreen } from './CreateSeedScreen';
 import { ChooseCoinsScreen } from './ChooseCoinsScreen';
 import { CreatePasscodeScreen } from './CreatePasscodeScreen';
-import { PasscodeSuccessScreen } from './PasscodeSuccessScreen';
+import { PasscodeSuccessScreen } from './passcode-success-screen';
 import { PrepareWalletScreen } from './PrepareWalletScreen';
 
 type StartUpProps = RouteComponentProps<any>;

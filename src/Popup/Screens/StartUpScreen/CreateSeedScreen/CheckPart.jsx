@@ -2,7 +2,7 @@ import React from 'react';
 import cn from 'classnames';
 import { connect } from 'react-redux';
 import { KeyboardHandler } from 'Popup/SystemComponent';
-import { mapWelcomeDispatchers } from "Popup/Store/KeyringConnector";
+import { mapWelcomeDispatchers } from "Popup/Store/keyring-connector";
 import { Button } from "Popup/UI";
 
 @connect(null, mapWelcomeDispatchers)

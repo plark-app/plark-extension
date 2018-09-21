@@ -6,7 +6,7 @@ import { NavLink, Route, Switch, matchPath, withRouter } from 'react-router-dom'
 import { Wallet } from '@berrywallet/core';
 
 import { CoinIcon } from 'Popup/components/coin-icon';
-import { mapWalletCoinToProps } from 'Popup/Store/WalletCoinConnector';
+import { mapWalletCoinToProps } from 'Popup/Store/wallet-coin-connector';
 
 import { SeedScreenComponent } from './send-screen';
 import { ReceiveScreenComponent } from './ReceiveScreen';

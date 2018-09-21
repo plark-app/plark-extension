@@ -6,7 +6,9 @@ import { Topic } from 'Popup/components/topic';
 
 interface WelcomeLayoutProps extends React.HTMLProps<{}> {
     trackLabel: string;
-    topicTitle: string;
+    topicTitle?: string;
+
+    className?: string;
     topicDescription?: string;
     onPressEnter?: () => void;
 }

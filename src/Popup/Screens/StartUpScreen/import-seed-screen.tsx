@@ -4,7 +4,7 @@ import cn from 'classnames';
 import proxyStore from 'Popup/Store';
 import { Helper } from 'Core';
 import { Button } from 'Popup/UI';
-import { mapWelcomeDispatchers } from 'Popup/Store/KeyringConnector';
+import { mapWelcomeDispatchers } from 'Popup/Store/keyring-connector';
 import { SEED_WORD_COUNT } from 'Core/Constant';
 import { WelcomeLink, WelcomeLayout } from './parts';
 

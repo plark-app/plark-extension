@@ -1,8 +1,10 @@
 import Extberry from 'extberry';
-import {IBerryNotification} from "./IBerryNotification";
-import {TransactionNotification} from "./TransactionNotification";
+import { NotificationTypes } from './notification-types';
+import { TransactionNotification } from './transaction-notification';
 
-export function sendNotification(notifyObject: IBerryNotification): Promise<string> {
+export { TransactionNotification };
+
+export function sendNotification(notifyObject: NotificationTypes): Promise<string> {
 
     const extNotify = Extberry.notifications;
 
@@ -35,6 +37,3 @@ export function sendNotification(notifyObject: IBerryNotification): Promise<stri
 }
 
 
-export {
-    TransactionNotification
-}

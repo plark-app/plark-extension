@@ -18,11 +18,13 @@ const messaging = firebase.messaging();
 messaging.setBackgroundMessageHandler((payload) => {
     console.log('[firebase-messaging-sw.js] Received background message ', payload);
 
+    const {txid, coin} = payload;
+
     // Customize notification here
-    let notificationTitle = 'Background Message Title';
+    let notificationTitle = 'New transaction';
     let notificationOptions = {
-        body: 'Background Message body.',
-        icon: '/firebase-logo.png'
+        body: coin ? `${coin} - ${txid}` : 'You receive new transaction',
+        icon: '/images/berrywallet-256.png'
     };
 
     return self.registration.showNotification(notificationTitle, notificationOptions);

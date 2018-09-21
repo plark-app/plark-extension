@@ -1,9 +1,8 @@
-import {Wallet} from '@berrywallet/core';
-import {CoinSymbol} from "Core/Coins";
-import {WalletAction} from "Core/Actions/Reducer";
-import {IWalletStore} from "Core/Declarations/Store";
-import {ICoinWallet} from "Core/Declarations/Wallet";
-import {GlobalAction} from "../Actions/Reducer";
+import { CoinSymbol } from "Core/Coins";
+import { WalletAction } from "Core/Actions/Reducer";
+import { IWalletStore } from "Core/Declarations/Store";
+import { ICoinWallet } from "Core/Declarations/Wallet";
+import { GlobalAction } from "../Actions/Reducer";
 
 export const initialWalletState: IWalletStore = {};
 
@@ -29,8 +28,8 @@ export default function walletState(state: IWalletStore = initialWalletState, ac
                 [action.coinKey]: {
                     coinKey: action.coinKey,
                     loading: true,
-                    walletData: null
-                }
+                    walletData: null,
+                },
             };
         }
 
@@ -42,8 +41,8 @@ export default function walletState(state: IWalletStore = initialWalletState, ac
             return Object.assign({}, state, {
                 [coinKey]: {
                     ...wallet,
-                    loading: action.type == WalletAction.StartLoading
-                }
+                    loading: action.type == WalletAction.StartLoading,
+                },
             });
         }
 
@@ -54,8 +53,8 @@ export default function walletState(state: IWalletStore = initialWalletState, ac
             return Object.assign({}, state, {
                 [action.walletCoinKey]: {
                     ...wallet,
-                    walletData: action.walletData
-                }
+                    walletData: action.walletData,
+                },
             });
         }
     }

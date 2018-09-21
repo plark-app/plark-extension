@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import screenHistory from 'Popup/ScreenAddressHistory';
-import { mapWelcomeDispatchers, IWelcomeDispatcher } from 'Popup/Store/KeyringConnector';
+import { mapWelcomeDispatchers, IWelcomeDispatcher } from 'Popup/Store/keyring-connector';
 
 interface WelcomeLinkProps extends IWelcomeDispatcher, React.HTMLProps<{}> {
     to: string;

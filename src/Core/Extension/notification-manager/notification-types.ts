@@ -1,4 +1,4 @@
-export interface IBerryNotification {
+export interface NotificationTypes {
     getNotificationId(): string | null;
 
     getOption(): chrome.notifications.NotificationOptions;
@@ -8,7 +8,7 @@ export interface IBerryNotification {
     getClickEvent(): () => void;
 }
 
-export abstract class AbstractNotification implements IBerryNotification {
+export abstract class AbstractNotification implements NotificationTypes {
     /**
      * @returns {chrome.notifications.NotificationOptions}
      */
@@ -17,7 +17,7 @@ export abstract class AbstractNotification implements IBerryNotification {
             type: this.getType(),
             iconUrl: this.getIconUrl(),
             title: this.getTitle(),
-            message: this.getMessage()
+            message: this.getMessage(),
         }, this.generateOtherOptions());
     }
 

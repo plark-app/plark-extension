@@ -6,7 +6,7 @@ import classNames from 'classnames';
 
 import {Button, Alert} from "Popup/UI";
 import proxyStore from 'Popup/Store';
-import {mapWelcomeDispatchers} from 'Popup/Store/KeyringConnector';
+import {mapWelcomeDispatchers} from 'Popup/Store/keyring-connector';
 import {coinList, CoinSymbol} from 'Core/Coins';
 import {WelcomeLayout, WelcomeLink} from './parts';
 

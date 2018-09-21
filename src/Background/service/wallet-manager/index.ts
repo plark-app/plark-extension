@@ -3,7 +3,7 @@ import BigNumber from 'bignumber.js';
 import { Coin, Wallet } from '@berrywallet/core';
 import { Coins, createDebugger, Actions } from 'Core';
 import { WalletController } from 'Background/controllers';
-import { sendNotification, TransactionNotification } from 'Core/Extension/NotificationManager';
+import { sendNotification, TransactionNotification } from 'Core/Extension/notification-manager';
 
 const updateBlockTimeout = 20 * 60 * 1000;
 
@@ -17,11 +17,6 @@ export class WalletManager {
 
     protected lastConnectionCheck: Date;
 
-    /**
-     * @param {CoinInterface} coin
-     * @param {WDProvider} wdProvider
-     * @param {WalletController} walletController
-     */
     public constructor(wdProvider: Wallet.Provider.WDProvider,
                        coin: Coins.CoinInterface,
                        walletController: WalletController) {
@@ -138,12 +133,6 @@ export class WalletManager {
         }
     };
 
-    /**
-     * @param {string} address
-     * @param {number} value
-     * @param {FeeTypes} fee
-     * @returns {Promise<BigNumber>}
-     */
     public calculateFee = (address: string, value: number, fee: Coin.FeeTypes = Coin.FeeTypes.Medium) => {
         const bufferSeed = this.controller.getSeed();
 

@@ -1,4 +1,4 @@
-import { NeedPasswordError } from '../Errors';
+import { NeedPasswordError } from '../errors';
 
 import BIP39 from 'bip39';
 import { Store } from 'redux';

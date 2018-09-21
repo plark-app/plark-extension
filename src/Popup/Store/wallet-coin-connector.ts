@@ -1,7 +1,7 @@
 import { Wallet } from '@berrywallet/core';
 import { Coins } from 'Core';
 import { IStore } from 'Core/Declarations/Store';
-import { ICoinWallet } from "Core/Declarations/Wallet";
+import { ICoinWallet } from 'Core/Declarations/Wallet';
 import { currentCoinSelector, currentFiatSelector, tickerSelector } from './Selector';
 
 export interface IConnectedWalletCoinProps {

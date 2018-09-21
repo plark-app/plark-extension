@@ -1,11 +1,10 @@
 import { Wallet } from '@berrywallet/core';
 import { Coins, createDebugger, Actions, Wallet as CoreWallet } from 'Core';
-import { NeedPasswordError } from 'Background/Errors';
+import { NeedPasswordError } from 'Background/errors';
 import { WalletController } from 'Background/controllers';
 import { WalletManager } from './';
 
 export interface IWalletManagerGenerator {
-
     generate(): Promise<WalletManager>;
 }
 
@@ -15,10 +14,6 @@ export class WalletManagerGenerator implements IWalletManagerGenerator {
     protected controller: WalletController;
     protected debug;
 
-    /**
-     * @param {CoinInterface} coin
-     * @param {WalletController} controller
-     */
     public constructor(coin: Coins.CoinInterface, controller: WalletController) {
         this.coin = coin;
         this.controller = controller;
