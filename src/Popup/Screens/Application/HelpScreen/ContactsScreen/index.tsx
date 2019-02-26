@@ -8,7 +8,7 @@ const socialLinks = [
     {
         key: 'facebook',
         title: 'Facebook',
-        href: 'https://www.facebook.com/berrywallet.io/'
+        href: 'https://www.facebook.com/plark.io/'
     }, {
         key: 'twitter',
         title: 'Twitter',
@@ -16,11 +16,11 @@ const socialLinks = [
     }, {
         key: 'telegram',
         title: 'Telegram',
-        href: 'https://t.me/berrywallet'
+        href: 'https://t.me/plark-app'
     }, {
         key: 'github',
         title: 'Github',
-        href: 'https://github.com/BerryWallet'
+        href: 'https://github.com/plark'
     }, {
         key: 'bitcointalk',
         title: 'Bitcointalk',
@@ -31,19 +31,19 @@ const socialLinks = [
 const emails = [
     {
         title: 'General Questions',
-        email: 'info@berrywallet.io'
+        email: 'info@plark.io'
     }, {
         title: 'Collaboration & Joint Ventures',
-        email: 'collaboration@berrywallet.io'
+        email: 'collaboration@plark.io'
     }, {
         title: 'Marketing',
-        email: 'marketing@berrywallet.io'
+        email: 'marketing@plark.io'
     }, {
         title: 'Investor Relations',
-        email: 'ir@berrywallet.io'
+        email: 'ir@plark.io'
     }, {
         title: 'Press',
-        email: 'press@berrywallet.io'
+        email: 'press@plark.io'
     }
 ];
 

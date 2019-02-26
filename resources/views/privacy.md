@@ -1,20 +1,20 @@
 ## 1. Introduction
 
 Please, pay attention We don’t collect any personal identifying information. Any questions, comments or complaints that
-You might have should be emailed to info@berrywallet.io.
+You might have should be emailed to info@plark.io.
 
 
 ## 2. Registration/Login Not Required
 
-In order to use Our Software, We don’t require You to register or log in. When setting up an account within Berrywallet,
+In order to use Our Software, We don’t require You to register or log in. When setting up an account within Plark,
 You receive Your private key. We never send to Our servers Your Private Key Information, its stored locally in Your 
-device. Berrywallet doesn’t collect, process or store Your name, email address or other personal identifying 
+device. Plark doesn’t collect, process or store Your name, email address or other personal identifying 
 information. 
 
 
 ## 3. Third Party Services
 We have software integrations with third party services that You may choose to use, for example, Shapeshift. If You do 
-use third party services through Berrywallet then they will be clearly marked and there may be other terms or privacy 
+use third party services through Plark then they will be clearly marked and there may be other terms or privacy 
 policies that are applied to You while using such third party services.
 
 
@@ -30,7 +30,7 @@ privacy policies or statements of the other websites You visit.
 
 ## 5. Usage Statistic
 
-We may collect Berrywallet usage information in order to improve function or UI of Berrywallet. This information will
+We may collect Plark usage information in order to improve function or UI of Plark. This information will
 be only used in an anonymized fashion, and never in association with Your name, email, or other personally identifying 
 information. 
 
@@ -46,4 +46,4 @@ Please revisit this page to stay aware of any changes.
 
 ## 7. Contacting Us
 
-If You have any questions about this Privacy Policy, please contact Us by email address info@berrywallet.io
+If You have any questions about this Privacy Policy, please contact Us by email address info@plark.io

@@ -24,6 +24,6 @@ export default class DashTest extends AbstractUnit {
     }
 
     getExplorerOrigin(): string {
-        return 'https://testnet-insight.dashevo.org/insight';
+        return 'https://dasht.insight.plark.io';
     }
 }

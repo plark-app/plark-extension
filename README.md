@@ -1,5 +1,5 @@
 <p align="center">
-  <h3 align="center">BERRYWALLET Browser Extension</h3>
+  <h3 align="center">Plark crypto wallet Browser Extention</h3>
   <p align="center">
     Store you crypto assets save and secure.
     <br/>
@@ -8,11 +8,11 @@
     ·
     <a href="https://addons.mozilla.org/firefox/addon/berrywallet">Mozilla Add-on</a>
     ·
-    <a href="https://berrywallet.io">Website</a>
+    <a href="https://plark.io">Website</a>
     <br/>
     <br/>
     <a href="https://chrome.google.com/webstore/detail/berrywallet/boidgcdefidhoojfljngigkjffbodjmn" title="Chrome Web Store">
-        <img src="https://github.com/berrywallet/berrywallet-extension/raw/master/docs/extension-preview.gif" title="Berrywalet Extention" />
+        <img src="https://github.com/plark-app/plark-extension/raw/master/docs/extension-preview.gif" title="Plark Extention" />
     </a>
     <br/>
     <br/>
@@ -20,7 +20,7 @@
         <img src="https://developer.chrome.com/webstore/images/ChromeWebStore_BadgeWBorder_v2_206x58.png" />
     </a>
     <a href="https://addons.mozilla.org/firefox/addon/berrywallet" title="Mozilla Add-on">
-        <img src="https://github.com/berrywallet/berrywallet-extension/blob/master/docs/mozzila-addon-button.png?raw=true" />
+        <img src="https://github.com/plark-app/plark-extension/blob/master/docs/mozzila-addon-button.png?raw=true" />
     </a>
   </p>
 </p>
@@ -67,4 +67,4 @@ Security and convenience are the two cores of our ideology. To achieve this we w
 ---
 
 
-*Created with Love by [Berries](https://berrywallet.io)*
+*Created with ❤️ by [Plark Team](https://plark.io)*

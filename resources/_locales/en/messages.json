@@ -1,14 +1,14 @@
 {
     "name": {
-        "message": "Berrywallet"
+        "message": "Plark"
     },
     "short_name": {
-        "message": "Berrywallet"
+        "message": "Plark"
     },
     "description": {
         "message": "The safest multi-wallet that brings your crypto currency management and storage to the next level."
     },
     "default_title": {
-        "message": "Berrywallet - Multi assets wallet"
+        "message": "Plark - Multi currency wallet"
     }
 }

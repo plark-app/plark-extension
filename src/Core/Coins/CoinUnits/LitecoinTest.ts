@@ -24,6 +24,6 @@ export default class LitecoinTest extends AbstractUnit {
     }
 
     getExplorerOrigin(): string {
-        return 'https://test.ltc.explorer.berrywallet.io/';
+        return 'https://ltct.insight.plark.io/';
     }
 }

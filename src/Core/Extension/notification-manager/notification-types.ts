@@ -26,7 +26,7 @@ export abstract class AbstractNotification implements NotificationTypes {
     }
 
     protected getIconUrl(): string {
-        return '/images/berrywallet-256.png';
+        return '/images/plark-256.png';
     }
 
     getNotificationId(): string {

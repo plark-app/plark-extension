@@ -143,7 +143,7 @@ function zipTask(target, ext = 'zip') {
     return () => {
         return gulp
             .src(`./dist/${target}/**`)
-            .pipe(zip(`berrywallet-${target}-${packageJson.version}.${ext}`))
+            .pipe(zip(`plark-${target}-${packageJson.version}.${ext}`))
             .pipe(gulp.dest('./artifacts'));
     }
 }

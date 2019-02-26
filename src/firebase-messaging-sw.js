@@ -24,7 +24,7 @@ messaging.setBackgroundMessageHandler((payload) => {
     let notificationTitle = 'New transaction';
     let notificationOptions = {
         body: coin ? `${coin} - ${txid}` : 'You receive new transaction',
-        icon: '/images/berrywallet-256.png'
+        icon: '/images/plark-256.png'
     };
 
     return self.registration.showNotification(notificationTitle, notificationOptions);

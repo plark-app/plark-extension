@@ -24,6 +24,6 @@ export default class BitcoinTest extends AbstractUnit {
     }
 
     public getExplorerOrigin(): string {
-        return 'https://test.btc.explorer.berrywallet.io';
+        return 'https://btct.insight.plark.io/';
     }
 }

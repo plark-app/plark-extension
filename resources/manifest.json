@@ -4,7 +4,7 @@
     "short_name": "__MSG_short_name__",
     "description": "__MSG_description__",
     "default_locale": "en",
-    "author": "https://berrywallet.io",
+    "author": "https://plark.io",
     "content_security_policy": "script-src 'self' 'unsafe-eval' https://www.gstatic.com https://cdn.firebase.com https://*.firebaseio.com; object-src 'self'",
     "permissions": [
         "tabs",
@@ -28,14 +28,14 @@
         }
     },
     "icons": {
-        "16": "/images/berrywallet-16.png",
-        "32": "/images/berrywallet-32.png",
-        "64": "/images/berrywallet-64.png",
-        "128": "/images/berrywallet-128.png",
-        "144": "/images/berrywallet-144.png",
-        "196": "/images/berrywallet-196.png",
-        "256": "/images/berrywallet-256.png",
-        "512": "/images/berrywallet-512.png"
+        "16": "/images/plark-16.png",
+        "32": "/images/plark-32.png",
+        "64": "/images/plark-64.png",
+        "128": "/images/plark-128.png",
+        "144": "/images/plark-144.png",
+        "196": "/images/plark-196.png",
+        "256": "/images/plark-256.png",
+        "512": "/images/plark-512.png"
     },
     "background": {
         "persistent": true,
@@ -45,7 +45,7 @@
     },
     "applications": {
         "gecko": {
-            "id": "webextension@berrywallet.io",
+            "id": "webextension@plark.io",
             "strict_min_version": "43.0"
         }
     },
@@ -63,14 +63,14 @@
     "web_accessible_resources": [],
     "browser_action": {
         "default_icon": {
-            "256": "/images/berrywallet-256.png"
+            "256": "/images/plark-256.png"
         },
         "default_popup": "/views/popup.html",
         "default_title": "__MSG_default_title__"
     },
     "externally_connectable": {
         "matches": [
-            "https://berrywallet.io/*"
+            "https://plark.io/*"
         ]
     }
 }
