@@ -1,41 +1,38 @@
 import React from 'react';
-import {Router, Route, Switch} from 'react-router-dom';
+import { Router, Route, Switch } from 'react-router-dom';
+import { Location, Action } from 'history';
 import screenAddressHistory from 'Popup/ScreenAddressHistory';
+import proxyStore, { getState } from 'Popup/Store';
+import { ApplicationLayout } from 'Popup/UI/Layouts';
+import { HomeScreen, ApplicationRootScreen, StartUpScreen } from 'Popup/Screens';
+import { GlobalAction } from 'Core/Actions/Reducer';
 
-import proxyStore, {getState} from 'Popup/Store';
-
-import {ApplicationLayout} from 'Popup/UI/Layouts';
-import Application from 'Popup/Router/Screens/Application';
-import HomeScreen from 'Popup/Router/Screens/HomeScreen';
-import StartUpScreen from 'Popup/Router/Screens/StartUpScreen';
-import {GlobalAction} from "Core/Actions/Reducer";
-
-screenAddressHistory.listen((location, action) => {
-    const {Global} = getState();
+screenAddressHistory.listen((location: Location, action: Action) => {
+    const { Global } = getState();
 
     if (Global.walletReady) {
         proxyStore.dispatch({
             type: GlobalAction.SetLocation,
             path: location.pathname,
-            context: {}
+            context: {},
         });
     }
 });
 
 export class ApplicationRouter extends React.Component<any, any> {
-    componentWillMount() {
+    public componentWillMount(): void {
         this.trackRedirect();
     }
 
-    trackRedirect() {
-        const {Welcome, Global} = getState();
+    protected trackRedirect(): void {
+        const { Welcome, Global } = getState();
 
         if (!Global.walletReady) {
             screenAddressHistory.push(Welcome.location || '/startup');
             return;
         }
 
-        const {location} = Global;
+        const { location } = Global;
 
         if (location && location.path) {
             screenAddressHistory.push(location.path, location.context || {});
@@ -43,14 +40,14 @@ export class ApplicationRouter extends React.Component<any, any> {
         }
     }
 
-    render() {
+    public render(): JSX.Element {
         return (
             <ApplicationLayout>
                 <Router history={screenAddressHistory}>
                     <Switch>
-                        <Route exact={true} path='/' component={HomeScreen}/>
-                        <Route path='/app' component={Application}/>
-                        <Route path='/startup' component={StartUpScreen}/>
+                        <Route path='/' component={HomeScreen} exact={true} />
+                        <Route path='/app' component={ApplicationRootScreen} />
+                        <Route path='/startup' component={StartUpScreen} />
                     </Switch>
                 </Router>
             </ApplicationLayout>

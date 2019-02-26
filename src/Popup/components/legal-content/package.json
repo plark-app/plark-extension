@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "name": "legal-content",
+    "main": "legal-content.tsx",
+    "typings": "legal-content.tsx"
+}

@@ -1,5 +1,6 @@
 import Extberry from 'extberry';
-import {createDebugger} from "Core/Debugger";
+import { createDebugger } from 'Core';
+import { has } from 'lodash';
 
 const debug = createDebugger('SEND_REQUEST');
 
@@ -18,7 +19,6 @@ export interface IBackgroundRequestMessage {
 }
 
 export class BackgroundResponseError extends Error {
-
     protected _response: IBackgroundResponse;
     protected _request: IBackgroundRequestMessage;
 
@@ -38,34 +38,26 @@ export class BackgroundResponseError extends Error {
     }
 }
 
-export function sendRequest<C>(type: any | string, payload: any = null): Promise<C> {
+export function sendRequest<C = any>(type: any | string, payload: any = null): Promise<C> {
     const message: IBackgroundRequestMessage = {
         type: type,
-        payload: payload || null
+        payload: payload || null,
     };
 
-    /**
-     * @param resolve
-     * @param reject
-     */
     const promiseResolver = (resolve, reject) => {
-
-        /**
-         * @param response
-         */
         const responseHandler = (response?: IBackgroundResponse) => {
             // @TODO Have to check response data and something else
             if (!response) {
                 return;
             }
 
-            if ("error" in response) {
+            if (has(response, 'error')) {
                 const error = new BackgroundResponseError(response, message);
                 debug(`Error message: ${error.message}`, message, response);
                 reject(error);
             }
 
-            if ("data" in response) {
+            if (has(response, 'data')) {
                 resolve(response.data);
             }
         };

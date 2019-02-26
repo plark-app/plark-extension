@@ -1,4 +1,4 @@
-import {CoinSymbol} from "Core/Coins";
+import { CoinSymbol } from 'Core/Coins';
 
 export interface IWelcomeStore {
     location?: string

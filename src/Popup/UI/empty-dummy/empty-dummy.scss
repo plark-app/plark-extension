@@ -1,0 +1,36 @@
+.empty-dummy {
+  transition: all 0.4s;
+
+  position: absolute;
+  width: 225px;
+  top: 50%;
+  left: 50%;
+
+  transform: translateX(-50%) translateY(-50%) scale(1.1);
+  color: white;
+  font-weight: 500;
+  text-align: center;
+
+  opacity: 0;
+  visibility: hidden;
+
+  &.-active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(-50%) scale(1);
+  }
+
+  &__thinker {
+    font-size: 30px;
+    text-align: center;
+  }
+
+  &__title {
+    font-size: 18px;
+    margin: 8px 0;
+  }
+
+  &__desc {
+    font-size: 12px;
+  }
+}

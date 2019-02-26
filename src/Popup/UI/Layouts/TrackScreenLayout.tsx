@@ -1,13 +1,18 @@
 import React from 'react';
-import TrackScreenView from "Popup/Service/ScreenViewAnalitics";
+import TrackScreenView from 'Popup/Service/ScreenViewAnalitics';
 
-export class TrackScreenLayout extends React.Component<any, any> {
-    render() {
-        const {children, trackLabel, ...props} = this.props;
+type TrackScreenProps = {
+    trackLabel?: string;
+    [key: string]: any;
+};
 
-        return <div {...props}>
-            <TrackScreenView trackLabel={trackLabel}/>
+export const TrackScreenLayout = (props: TrackScreenProps) => {
+    const { children, trackLabel, ...elseProps } = props;
+
+    return (
+        <div {...elseProps}>
+            <TrackScreenView trackLabel={trackLabel} />
             {children}
         </div>
-    }
+    );
 }

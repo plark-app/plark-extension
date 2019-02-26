@@ -1,10 +1,10 @@
 import './polyfill';
-import 'Style/popup.scss';
+import 'style/popup.scss';
 
 import React from 'react';
-import {render} from 'react-dom';
-import {PopupApplication} from 'Popup/index.tsx';
-import {Analitics} from 'Popup/Service';
+import { render } from 'react-dom';
+import { PopupApplication } from 'Popup/index.tsx';
+import { Analitics } from 'Popup/Service';
 
 const trackException = (exception) => {
     try {
@@ -18,7 +18,7 @@ const onContentLoaded = () => {
     let ComponentElement = document.getElementById('popup-application');
 
     try {
-        render(<PopupApplication/>, ComponentElement);
+        render(<PopupApplication />, ComponentElement);
     } catch (exception) {
         ComponentElement.innerHTML = 'Something wrong!';
         console.error(

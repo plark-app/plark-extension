@@ -1,5 +1,3 @@
-@import "~Style/variable";
-
 .btn {
     display: inline-block;
     cursor: pointer;
@@ -46,6 +44,13 @@
         border: 1px solid $color-main;
         text-transform: none;
         padding: 4px 8px;
+
+        &:hover {
+            transform: none;
+            box-shadow: none;
+            color: white;
+            background: $color-main;
+        }
     }
 
     &.-light {

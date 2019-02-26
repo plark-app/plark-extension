@@ -1,0 +1,10 @@
+.coin-icon {
+    transition: all 0.2s;
+    display: block;
+
+    @each $coin, $color in $color-coins {
+        &.-#{$coin} {
+            fill: $color;
+        }
+    }
+}

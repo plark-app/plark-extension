@@ -1,0 +1,77 @@
+@import "./clear";
+@import "./variable";
+@import "./font";
+@import "./mixins";
+@import "./components/text";
+@import './components/input-check';
+@import "./components/form";
+@import "./components/mnemonic";
+@import "./components/coin";
+@import "./components/menu";
+@import "./components/row";
+@import "./components/phrase";
+@import "./components/passcode";
+@import './components/svg';
+@import './components/page';
+@import 'components/loader';
+
+body {
+    @include font-family;
+    width: $weight;
+    height: $height;
+    font-size: 12px;
+    font-weight: 500;
+    color: $color-grey;
+    line-height: 1.42;
+    margin: 0;
+    padding: 0;
+
+    background: linear-gradient(-46deg, $color-bg-start 0%, $color-bg-end 100%);
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: antialiased;
+    text-size-adjust: 100%;
+}
+
+.application {
+    width: $weight;
+    height: $height;
+    overflow: hidden;
+
+    &-body {
+        transition: all 0.4s;
+        opacity: 1;
+        transform: scale(1);
+
+        &.-hidden {
+            opacity: 0;
+            transform: scale(1.2);
+        }
+    }
+}
+
+.loading {
+    display: block;
+    height: 60px;
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    text-align: center;
+
+    &__logo {
+        display: block;
+        width: 60px;
+        height: 60px;
+        margin: 0 auto;
+    }
+
+    &__text {
+        margin-top: 10px;
+        display: block;
+        font-size: 14px;
+    }
+}
+
+@import './screens/index';
+@import "./modals/index";

@@ -1,5 +1,5 @@
-import {Coin} from "@berrywallet/core";
-import {CoinSymbol, FiatSymbol} from "./Symbols";
+import { Coin } from '@berrywallet/core';
+import { CoinSymbol, FiatSymbol } from './Symbols';
 
 export interface CoinInterface {
     getKey(): CoinSymbol;
@@ -20,24 +20,24 @@ export interface CoinInterface {
 
     isTest(): boolean;
 
-    getExplorerHost(): string;
+    getExplorerOrigin(): string;
 
     generateAddrLink(address: string): string;
 
     generateTxLink(txid: string): string;
 }
 
-export interface TickerInterface {
+export type TickerData = {
     key: CoinSymbol;
     priceBtc: number;
     priceUsd: number;
     priceFiat: number;
-}
+};
 
-export interface FiatInterface {
+export type FiatData = {
     key: FiatSymbol
     name: string;
     shortName: string;
     prefix?: string;
     format: string;
-}
+};

@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "name": "wallets-screen",
+    "main": "wallets-screen.tsx",
+    "typings": "wallets-screen.tsx"
+}

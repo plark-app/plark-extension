@@ -1,10 +1,10 @@
-import {Coin} from "@berrywallet/core";
-import {CoinSymbol} from "../Symbols";
-import {AbstractUnit} from "./AbstractUnit";
+import { Coin } from '@berrywallet/core';
+import { CoinSymbol } from '../Symbols';
+import { AbstractUnit } from './AbstractUnit';
 
 export default class Bitcoin extends AbstractUnit {
 
-    constructor() {
+    public constructor() {
         super();
 
         this.key = CoinSymbol.Bitcoin;
@@ -15,11 +15,11 @@ export default class Bitcoin extends AbstractUnit {
         this.decimal = 8;
     }
 
-    getFee(): number {
+    public getFee(): number {
         return 0.00085;
     }
 
-    getExplorerHost(): string {
+    public getExplorerOrigin(): string {
         return 'https://blockchain.info';
     }
 }

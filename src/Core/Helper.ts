@@ -1,7 +1,7 @@
-import {TransactionStatus} from "Core/Service/Wallet";
 import BigNumber from 'bignumber.js';
+import { TransactionStatus } from 'Core/Service/Wallet';
 import Numeral from 'numeral';
-import {Wallet} from '@berrywallet/core';
+import { Wallet } from '@berrywallet/core';
 
 /**
  * @param {string} seed
@@ -27,7 +27,6 @@ export function getTXStatus(tx: Wallet.Entity.WalletTransaction | Wallet.Entity.
 
     return TransactionStatus.Confirmed;
 }
-
 
 
 export function parseStrToBigN(value: string | number | BigNumber | null): BigNumber {

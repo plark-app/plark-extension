@@ -2,15 +2,12 @@
     "compilerOptions": {
         "target": "es5",
         "module": "es2015",
-        "allowJs": true,
-        "declaration": false,
         "moduleResolution": "node",
-        "allowSyntheticDefaultImports": true,
-        "noImplicitAny": false,
-        "sourceMap": true,
         "jsx": "react",
         "lib": [
-            "es2016",
+            "es5",
+            "es6",
+            "es2015",
             "dom"
         ],
         "rootDirs": [
@@ -18,9 +15,18 @@
         ],
         "baseUrl": "./src",
         "outDir": "./dist/typescript",
+        "allowJs": true,
+        "sourceMap": true,
+        "declaration": false,
         "skipLibCheck": true,
+        "noImplicitAny": false,
         "emitDecoratorMetadata": true,
-        "experimentalDecorators": true
+        "experimentalDecorators": true,
+        "allowSyntheticDefaultImports": true,
+        "typeRoots": [
+            "src/definitions",
+            "node_modules/@types"
+        ]
     },
     "include": [
         "./src/**/*"

@@ -1,7 +1,7 @@
-import {CoinSymbol} from "Core/Coins";
-import {Wallet} from "@berrywallet/core";
+import {CoinSymbol} from 'Core/Coins';
+import {Wallet} from '@berrywallet/core';
 
-interface ITransaction {
+export interface ITransaction {
     txid: string;
     amount: number;
     time: number;
@@ -9,14 +9,9 @@ interface ITransaction {
     confirmations: number;
 }
 
-interface ICoinWallet {
+export interface ICoinWallet {
     coinKey: CoinSymbol;
     walletData?: Wallet.Entity.WalletData;
     loading: boolean;
     blockHeight?: number;
-}
-
-export {
-    ITransaction,
-    ICoinWallet
 }

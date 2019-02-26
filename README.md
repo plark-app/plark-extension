@@ -1,10 +1,31 @@
-# BerryWallet Browser Extension
+<p align="center">
+  <h3 align="center">Plark crypto wallet Browser Extention</h3>
+  <p align="center">
+    Store you crypto assets save and secure.
+    <br/>
+    <br/>
+    <a href="https://chrome.google.com/webstore/detail/berrywallet/boidgcdefidhoojfljngigkjffbodjmn">Chrome Extension</a>
+    ·
+    <a href="https://addons.mozilla.org/firefox/addon/berrywallet">Mozilla Add-on</a>
+    ·
+    <a href="https://plark.io">Website</a>
+    <br/>
+    <br/>
+    <a href="https://chrome.google.com/webstore/detail/berrywallet/boidgcdefidhoojfljngigkjffbodjmn" title="Chrome Web Store">
+        <img src="https://github.com/plark-app/plark-extension/raw/master/docs/extension-preview.gif" title="Plark Extention" />
+    </a>
+    <br/>
+    <br/>
+    <a href="https://chrome.google.com/webstore/detail/berrywallet/boidgcdefidhoojfljngigkjffbodjmn" title="Chrome Web Store">
+        <img src="https://developer.chrome.com/webstore/images/ChromeWebStore_BadgeWBorder_v2_206x58.png" />
+    </a>
+    <a href="https://addons.mozilla.org/firefox/addon/berrywallet" title="Mozilla Add-on">
+        <img src="https://github.com/plark-app/plark-extension/blob/master/docs/mozzila-addon-button.png?raw=true" />
+    </a>
+  </p>
+</p>
 
-[![Chrome Web Store](https://developer.chrome.com/webstore/images/ChromeWebStore_Badge_v2_206x58.png)](https://chrome.google.com/webstore/detail/berrywallet/boidgcdefidhoojfljngigkjffbodjmn)
-
-[![Mozilla Add-ons](https://github.com/berrywallet/berrywallet-extension/blob/master/docs/mozzila-addon-button.png?raw=true)](https://addons.mozilla.org/firefox/addon/berrywallet)
-
----
+<hr />
 
 Security and convenience are the two cores of our ideology. To achieve this we worked hard on 2 crucial parts:
 
@@ -35,7 +56,8 @@ Security and convenience are the two cores of our ideology. To achieve this we w
  - PIN feature for extra security
  - Spendable balance display
  - Multi-currency
- - Instant conversion between BTC/ETH/DASH/LTC via shapeshift
+ - SegWit for Bitcoin and Litecoin
+ - Instant conversion between BTC/ETH/DASH/LTC via ShapeShift
  - Mining Fee selection
  - Real-time fees based on up-to-date network statistics
  - Single Screen Interface (you won’t need to switch between screens or wallets ever again)
@@ -45,4 +67,4 @@ Security and convenience are the two cores of our ideology. To achieve this we w
 ---
 
 
-*Created with Love by [Berries](https://berrywallet.io)*
+*Created with ❤️ by [Plark Team](https://plark.io)*

@@ -1,24 +1,24 @@
-import {each} from 'lodash';
-import {Coins, Actions} from "Core";
-import {ICoinStore} from "Core/Declarations/Store";
-import {GlobalAction} from "Core/Actions/Reducer";
+import { each, includes } from 'lodash';
+import { Coins, Actions } from 'Core';
+import { ICoinStore } from 'Core/Declarations/Store';
+import { GlobalAction } from 'Core/Actions/Reducer';
 
 const initialCoinState: ICoinStore = {
     coins: [],
     tickers: {},
     blockHeights: {},
     currentCoinKey: Coins.CoinSymbol.Bitcoin,
-    currentFiatKey: Coins.FiatSymbol.USDollar
+    currentFiatKey: Coins.FiatSymbol.USDollar,
 } as ICoinStore;
 
 
 const reduceSetCoinsState = (state: ICoinStore, coins: Coins.CoinSymbol[]) => {
     const data = {
         coins: coins,
-        currentCoinKey: state.currentCoinKey
+        currentCoinKey: state.currentCoinKey,
     };
 
-    if (!coins.includes(state.currentCoinKey)) {
+    if (!includes(coins, state.currentCoinKey)) {
         data.currentCoinKey = coins[0] || Coins.CoinSymbol.Bitcoin;
     }
 
@@ -27,7 +27,7 @@ const reduceSetCoinsState = (state: ICoinStore, coins: Coins.CoinSymbol[]) => {
 
 export default function coinState(state: ICoinStore = initialCoinState, action): ICoinStore {
 
-    const {type, ...payload} = action;
+    const { type, ...payload } = action;
 
     switch (type) {
         case GlobalAction.ClearAllData:
@@ -37,30 +37,30 @@ export default function coinState(state: ICoinStore = initialCoinState, action):
             return reduceSetCoinsState(state, payload.coins);
 
         case Actions.Reducer.CoinAction.ClearCoins:
-            return Object.assign({}, state, {coins: [], currentCoinKey: Coins.CoinSymbol.Bitcoin});
+            return Object.assign({}, state, { coins: [], currentCoinKey: Coins.CoinSymbol.Bitcoin });
 
         case Actions.Reducer.CoinAction.SetCurrentFiat:
-            return Object.assign({}, state, {currentFiatKey: payload.fiatKey});
+            return Object.assign({}, state, { currentFiatKey: payload.fiatKey });
 
         case Actions.Reducer.CoinAction.SetBlockHeight:
             return Object.assign({}, state, {
                 blockHeights: {
                     ...state.blockHeights,
-                    [payload.coinKey]: payload.blockHeight
-                }
+                    [payload.coinKey]: payload.blockHeight,
+                },
             });
 
         case Actions.Reducer.CoinAction.SetCurrentCoin:
-            return Object.assign({}, state, {currentCoinKey: payload.coinKey});
+            return Object.assign({}, state, { currentCoinKey: payload.coinKey });
 
         case Actions.Reducer.CoinAction.SetTickers: {
-            const tickers = {...state.tickers};
+            const tickers = { ...state.tickers };
 
-            each(payload.tickers, (coinTicker: Coins.TickerInterface) => {
+            each(payload.tickers, (coinTicker: Coins.TickerData) => {
                 tickers[coinTicker.key] = coinTicker;
             });
 
-            return Object.assign({}, state, {tickers: tickers});
+            return Object.assign({}, state, { tickers: tickers });
         }
     }
 
@@ -69,5 +69,5 @@ export default function coinState(state: ICoinStore = initialCoinState, action):
 
 
 export {
-    initialCoinState
-}
+    initialCoinState,
+};

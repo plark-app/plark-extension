@@ -3,13 +3,6 @@ import * as Wallet from './Wallet';
 import * as Helper from './Helper';
 import * as Actions from './Actions';
 
-import {createDebugger} from "./Debugger";
+export { createDebugger } from './app-debugger';
 
-export {
-    Coins,
-    Wallet,
-    Actions,
-    Helper,
-
-    createDebugger
-}
+export { Coins, Wallet, Actions, Helper };

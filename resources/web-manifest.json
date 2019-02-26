@@ -1,0 +1,7 @@
+{
+    "name": "Plark Crypto Wallet",
+    "short_name": "Plark",
+    "background_color": "#B224EF",
+    "display": "browser",
+    "gcm_sender_id": "103953800507"
+}

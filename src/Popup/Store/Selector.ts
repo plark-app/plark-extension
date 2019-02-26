@@ -1,23 +1,24 @@
-import {Dictionary, each} from 'lodash';
-import {createSelector} from 'reselect';
-import {Wallet} from '@berrywallet/core';
-import {IStore, IWalletStore, ICoinStore} from "Core/Declarations/Store";
-import {ICoinWallet} from "Core/Declarations/Wallet";
-import {findCoin, findFiat, TickerInterface, CoinSymbol} from 'Core/Coins';
+import { Dictionary, each } from 'lodash';
+import { createSelector } from 'reselect';
+import { Wallet } from '@berrywallet/core';
+import { IStore, IWalletStore, ICoinStore } from 'Core/Declarations/Store';
+import { ICoinWallet } from 'Core/Declarations/Wallet';
+import { findCoin, findFiat, TickerData, CoinSymbol } from 'Core/Coins';
 
 export const coinStateSelector = (state: IStore) => state.Coin;
 export const walletStateSelector = (state: IStore) => state.Wallet;
 export const activeCoinsSelector = (state: IStore) => coinStateSelector(state).coins;
 
+
 export const currentFiatSelector = createSelector(coinStateSelector, (coinStore: ICoinStore) => {
-    const {currentFiatKey} = coinStore;
+    const { currentFiatKey } = coinStore;
 
     return findFiat(currentFiatKey);
 });
 
 
 export const currentCoinSelector = createSelector(coinStateSelector, (coinStore: ICoinStore) => {
-    const {currentCoinKey} = coinStore;
+    const { currentCoinKey } = coinStore;
 
     return findCoin(currentCoinKey);
 });
@@ -30,10 +31,11 @@ export const tickerSelector = createSelector(
             key: coin,
             priceBtc: 0,
             priceUsd: 0,
-            priceFiat: 0
-        } as TickerInterface;
-    }
+            priceFiat: 0,
+        } as TickerData;
+    },
 );
+
 
 export const walletBalanceSelector = createSelector(
     walletStateSelector,
@@ -49,15 +51,15 @@ export const walletBalanceSelector = createSelector(
             }
 
             const wdProvider = new Wallet.Provider.WDProvider(wallet.walletData);
-            balances[coin] = Wallet.Helper.calculateBalance(wdProvider.balance);
+            balances[coin] = Wallet.calculateBalance(wdProvider.balance);
 
             return;
         });
 
         return (coin: CoinSymbol): number => {
             return balances[coin] || 0;
-        }
-    }
+        };
+    },
 );
 
 
@@ -81,6 +83,6 @@ export const walletProviderSelector = createSelector(
 
         return (coin: CoinSymbol): Wallet.Provider.WDProvider | null => {
             return wdProviders[coin] || null;
-        }
-    }
+        };
+    },
 );

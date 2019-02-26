@@ -1,10 +1,10 @@
-import {Coin} from "@berrywallet/core";
-import {CoinSymbol} from "../Symbols";
-import {AbstractUnit} from "./AbstractUnit";
+import { Coin } from '@berrywallet/core';
+import { CoinSymbol } from '../Symbols';
+import { AbstractUnit } from './AbstractUnit';
 
 export default class BitcoinTest extends AbstractUnit {
 
-    constructor() {
+    public constructor() {
         super();
 
         this.key = CoinSymbol.BitcoinTest;
@@ -15,15 +15,15 @@ export default class BitcoinTest extends AbstractUnit {
         this.decimal = 8;
     }
 
-    isTest(): boolean {
+    public isTest(): boolean {
         return true;
     }
 
-    getFee(): number {
+    public getFee(): number {
         return 0.00085;
     }
 
-    getExplorerHost(): string {
-        return 'https://test-insight.bitpay.com';
+    public getExplorerOrigin(): string {
+        return 'https://btct.insight.plark.io/';
     }
 }

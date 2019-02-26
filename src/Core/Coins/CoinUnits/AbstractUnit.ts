@@ -1,6 +1,6 @@
-import {Coin} from "@berrywallet/core";
-import {CoinSymbol} from "../Symbols";
-import {CoinInterface} from "../Interfaces";
+import { Coin } from '@berrywallet/core';
+import { CoinSymbol } from '../Symbols';
+import { CoinInterface } from '../Interfaces';
 
 
 export abstract class AbstractUnit implements CoinInterface {
@@ -11,47 +11,47 @@ export abstract class AbstractUnit implements CoinInterface {
     protected color: string;
     protected decimal: number;
 
-    abstract getFee(): number;
+    public abstract getFee(): number;
 
-    abstract getExplorerHost(): string;
+    public abstract getExplorerOrigin(): string;
 
-    getKey(): CoinSymbol {
+    public getKey(): CoinSymbol {
         return this.key;
     }
 
-    getCoreCoin(): Coin.CoinInterface {
+    public getCoreCoin(): Coin.CoinInterface {
         return Coin.makeCoin(this.getUnit());
     }
 
-    getUnit(): Coin.Unit {
+    public getUnit(): Coin.Unit {
         return this.unit;
     }
 
-    getName(): string {
+    public getName(): string {
         return this.name;
     }
 
-    getAlias(): string {
-        return this.alias
+    public getAlias(): string {
+        return this.alias;
     }
 
-    getColor(): string {
+    public getColor(): string {
         return this.color;
     }
 
-    getDecimal(): number {
+    public getDecimal(): number {
         return this.decimal;
     }
 
-    isTest(): boolean {
+    public isTest(): boolean {
         return false;
     }
 
-    generateAddrLink(addr: string): string {
-        return this.getExplorerHost() + '/address/' + addr;
+    public generateAddrLink(addr: string): string {
+        return this.getExplorerOrigin() + '/address/' + addr;
     }
 
-    generateTxLink(txid: string): string {
-        return this.getExplorerHost() + '/tx/' + txid;
+    public generateTxLink(txid: string): string {
+        return this.getExplorerOrigin() + '/tx/' + txid;
     }
 }

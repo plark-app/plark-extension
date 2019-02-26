@@ -1,0 +1,34 @@
+language: node_js
+
+branches:
+  only:
+    - /^v.*$/
+
+node_js:
+  - "8"
+
+before_install:
+  - npm i -g npm@5.6.0
+
+install:
+  - npm install
+  - npm run build:prod
+
+script:
+  - echo 'Successful installed!'
+
+before_deploy:
+  - echo 'ready to Deploy!'
+
+deploy:
+  provider: releases
+  strategy: git
+  api_key:
+    secure: qtOSFxBuWKF4pAFzou/XUxxL38riS3+yFlcB7y9aM1wJtlDXoWNMqj3if3X9Yuw1hnwa4vvRT6/L6bhu/wA55Ez4xt2jc1Op9QOREnhDqDKLhVcW4wFCjnuZTqpqc983VAb+Ucvlt41PiMswHfMxX23KzZnSWPFhfeSlNrYvGsahFZvx0L51WFSrhZqEvO/GOgFDJ1YSJcuAFIBaKK0/AS2KIrLT+J20NfR1Smq315QVCQ5eJyQCQiUrTW7DeUxh0ySznEbp8j0z2mSZtclaDH/xvyjvbxH/nWH4v43Ov+ogkbj4B3m1NSBEfaUGeZiAfy9Up+uB2OooS2if2H2ZecJvnsWpIAN3KLpqMvgd+kWS0OW+lFJ/v4wHuIQDnPqwYJPGyI4LwXNTo+6cZeM/2rHCEEqzsjF/R2EFOTY4fw4HIsWEZOCD7ptKL3lvD6jY7uhxZtqC3nguOJf467LHYDDK0r2cJytH8Wyek8Drl9y9BVDBQfgCYtKUV0XFinGIYCo8VQseuq2aV3gph8EERdXfpxT4mH7tkobH/oicPJiyhZ+TR7JyUJmcIsWBRa8u2lfeH69fJscQJiOf7JySLpQVQdwgpw66nbsL9vo7Ke5MfayVR+IDpLYiyNvsN6JwYDQD6KabmMylMtqJpFVwUu7hGHbCHrS512nw3zacpdk=
+  file_glob: true
+  file: artifacts/plark-*
+  skip_cleanup: true
+  node_js: "8"
+  on:
+    repo: plark-app/plark-extension
+    tags: true

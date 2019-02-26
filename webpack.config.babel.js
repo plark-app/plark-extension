@@ -27,6 +27,79 @@ const extractScss = new ExtractTextPlugin({
     disable: isBuild
 });
 
+function getJSLoader() {
+    return {
+        test: /\.jsx?$/,
+        loader: 'babel-loader',
+        exclude: /node_modules\/(?!(obs-store|etherscan-api))/,
+        options: {
+            presets: ['react', 'es2017', 'es2016', 'stage-0'],
+            plugins: ['transform-decorators-legacy', 'transform-class-properties']
+        }
+    };
+}
+
+function getTSLoader() {
+    return {
+        test: /\.tsx?$/,
+        loader: 'awesome-typescript-loader',
+        options: {
+            // silent: true,
+            configFile: Path.resolve(__dirname, 'tsconfig.json'),
+            plugins: ['transform-decorators-legacy', 'transform-class-properties']
+        }
+    };
+}
+
+function getSvgLoader() {
+    return {
+        test: /\.svg$/,
+        use: [
+            'react-svg-loader',
+            {
+                loader: 'svgo-loader',
+                options: {
+                    floatPrecision: 3,
+                    plugins: [
+                        {
+                            removeViewBox: false,
+                            removeEmptyAttrs: true,
+                        },
+                    ],
+                },
+            },
+        ]
+    };
+}
+
+function getScssLoader() {
+    return {
+        test: /\.scss$/,
+        use: extractScss.extract({
+            use: [{
+                loader: "css-loader"
+            }, {
+                loader: "sass-loader",
+                options: {
+                    data: `@import "common.scss";`,
+                    includePaths: [
+                        Path.resolve(__dirname, './src/style')
+                    ]
+                }
+            }],
+            // use style-loader in development
+            fallback: "style-loader"
+        })
+    };
+}
+
+function getMDLoader() {
+    return {
+        test: /\.md$/,
+        use: ['raw-loader', {loader: 'markdown-loader'}],
+    };
+}
+
 const Plugins = [
     new webpack.DefinePlugin({
         "process.env.NODE_ENV": JSON.stringify(NODE_ENV)
@@ -44,43 +117,8 @@ const Plugins = [
     extractScss
 ];
 
-const Loaders = [{
-    test: /\.tsx?$/,
-    loader: 'awesome-typescript-loader',
-    options: {
-        // silent: true,
-        configFile: Path.resolve(__dirname, 'tsconfig.json'),
-        plugins: ['transform-decorators-legacy', 'transform-class-properties']
-    }
-}, {
-    test: /\.jsx?$/,
-    loader: 'babel-loader',
-    exclude: /node_modules\/(?!(obs-store|etherscan-api))/,
-    options: {
-        presets: ['react', 'es2017', 'es2016', 'stage-0'],
-        plugins: ['transform-decorators-legacy', 'transform-class-properties']
-    }
-}, {
-    test: /\.scss$/,
-    use: extractScss.extract({
-        use: [{
-            loader: "css-loader"
-        }, {
-            loader: "sass-loader",
-            options: {
-                includePaths: [
-                    Path.resolve(__dirname, './src/Style')
-                ]
-            }
-        }],
-        // use style-loader in development
-        fallback: "style-loader"
-    })
-}];
-
-
 const OptimisationProps = {
-    minimizer: [
+    minimizer: isProd ? [
         new UglifyJsPlugin({
             cache: true,
             parallel: true,
@@ -91,7 +129,7 @@ const OptimisationProps = {
             },
             sourceMap: true
         })
-    ]
+    ] : undefined
 };
 
 const WebpackConfig = {
@@ -103,38 +141,48 @@ const WebpackConfig = {
     node: {fs: 'empty'},
 
     entry: {
-        popup: ["babel-polyfill", "popup"],
-        pageContent: ["babel-polyfill", "pageContent"],
-        background: ["babel-polyfill", "background"]
+        popup: ['babel-polyfill', 'popup'],
+        pageContent: ['babel-polyfill', 'page-content'],
+        background: ['babel-polyfill', 'background']
     },
 
     output: {
-        filename: "[name].js",
-        chunkFilename: "[name].js",
+        filename: '[name].js',
+        chunkFilename: '[name].js',
         path: Path.resolve(__dirname, './dist/chrome/js'),
         publicPath: '/js'
     },
 
     resolve: {
-        extensions: [".ts", ".tsx", ".js", ".jsx", ".json"],
+        extensions: ['.md', '.svg', '.ts', '.tsx', '.js', '.jsx', '.json'],
         modules: [
             PATH.SOURCE,
-            Path.resolve(__dirname, 'node_modules')
+            Path.resolve(__dirname, './node_modules')
         ],
         alias: {
             Core: Path.join(__dirname, 'src/Core'),
             Popup: Path.join(__dirname, 'src/Popup'),
             Background: Path.join(__dirname, 'src/Background'),
 
-            BeShapy: Path.join(__dirname, 'src/BeShapy'),
+            'be-shapy': Path.join(__dirname, 'src/be-shapy'),
 
-            Style: Path.join(__dirname, 'src/Style')
+            style: Path.join(__dirname, 'src/style'),
+            svg: Path.join(__dirname, 'src/svg'),
+            resources: Path.resolve(process.cwd(), 'resources'),
         }
     },
 
     plugins: Plugins,
 
-    module: {rules: Loaders},
+    module: {
+        rules: [
+            getJSLoader(),
+            getTSLoader(),
+            getMDLoader(),
+            getSvgLoader(),
+            getScssLoader()
+        ]
+    },
 
     devServer: {
         compress: true,
@@ -150,11 +198,12 @@ const WebpackConfig = {
     },
 
     stats: {
+        assets: !isProd,
         children: false,
         chunks: false
     },
 
-    optimization: isProd ? OptimisationProps : undefined,
+    optimization: OptimisationProps,
     mode: isProd ? 'production' : 'development'
 };
 
