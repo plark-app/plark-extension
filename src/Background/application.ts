@@ -63,7 +63,6 @@ async function registerFirebaseApp(): Promise<void> {
         const messaging = firebase.messaging();
         const currentToken: string = await messaging.getToken();
         console.log(currentToken);
-
     } catch (error) {
         console.error(error);
     }

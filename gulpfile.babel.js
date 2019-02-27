@@ -60,6 +60,7 @@ gulp.task('copy:builds:js', copyTask({
         './dist/firefox/js'
     ]
 }));
+
 gulp.task('copy:builds:css', copyTask({
     source: './dist/chrome/css',
     destinations: [
@@ -67,16 +68,16 @@ gulp.task('copy:builds:css', copyTask({
     ]
 }));
 
-gulp.task('copy:builds', ['copy:builds:css', 'copy:builds:js']);
+gulp.task('copy:builds', gulp.series('copy:builds:css', 'copy:builds:js'));
 
 
-gulp.task('manifest:firefox', () => {
+gulp.task('manifest:firefox', gulp.series(() => {
     return extractManifest()
         .pipe(gulp.dest('./dist/firefox', {overwrite: true}))
-});
+}));
 
 
-gulp.task('manifest:chrome', () => {
+gulp.task('manifest:chrome', gulp.series(() => {
     return extractManifest()
         .pipe(jsoneditor((json) => {
             delete json.applications;
@@ -84,40 +85,36 @@ gulp.task('manifest:chrome', () => {
             return json;
         }))
         .pipe(gulp.dest('./dist/chrome', {overwrite: true}))
-});
+}));
 
-gulp.task('manifest', ['manifest:chrome', 'manifest:firefox']);
+gulp.task('manifest', gulp.series('manifest:chrome', 'manifest:firefox'));
 
-gulp.task('web-manifest', () => {
+gulp.task('web-manifest', gulp.series(() => {
     return extractWebManifest()
         .pipe(gulp.dest('./dist/chrome', {overwrite: true}))
         .pipe(gulp.dest('./dist/firefox', {overwrite: true}));
-});
+}));
 
 const staticFiles = ['images', 'views', 'firebase-js', 'locales', 'builds'];
 let copyStrings = staticFiles.map(staticFile => `copy:${staticFile}`);
-gulp.task('copy', [
-    ...copyStrings,
-    'web-manifest',
-    'manifest'
-]);
+gulp.task('copy', gulp.series(...copyStrings, 'web-manifest', 'manifest'));
 
-gulp.task('clean', function clean() {
+gulp.task('clean', gulp.series(() => {
     return del(['./dist/*']);
-});
+}));
 
 
-gulp.task('build', ['copy']);
+gulp.task('build', gulp.series('copy'));
 
 
-gulp.task('copy:watch', function () {
+gulp.task('copy:watch', gulp.series(() => {
     gulp.watch(['./src/*.*'], 'build');
-});
+}));
 
 
 gulp.task('zip:chrome', zipTask('chrome'));
 gulp.task('zip:firefox', zipTask('firefox', 'xpi'));
-gulp.task('zip', ['zip:chrome', 'zip:firefox']);
+gulp.task('zip', gulp.series('zip:chrome', 'zip:firefox'));
 
 
 function copyTask(opts) {
@@ -128,24 +125,24 @@ function copyTask(opts) {
         pattern = '/**/*'
     } = opts;
 
-    return () => {
+    return gulp.series(() => {
         let stream = gulp.src(source + pattern, {base: source});
         destinations.forEach((destination) => {
             stream = stream.pipe(gulp.dest(destination))
         });
 
         return stream;
-    }
+    });
 }
 
 function zipTask(target, ext = 'zip') {
     const packageJson = require('./package.json');
-    return () => {
+    return gulp.series(() => {
         return gulp
             .src(`./dist/${target}/**`)
             .pipe(zip(`plark-${target}-${packageJson.version}.${ext}`))
             .pipe(gulp.dest('./artifacts'));
-    }
+    });
 }
 
 
