@@ -2,7 +2,7 @@ import React from 'react';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import BigNumber from 'bignumber.js';
-import { Wallet } from '@berrywallet/core';
+import { Wallet } from '@plark/wallet-core';
 import { ArrowRight, Tick } from 'svg';
 import { Coins } from 'Core';
 import { Controller } from 'Core/Actions';

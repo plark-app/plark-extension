@@ -1,4 +1,4 @@
-import { Wallet } from '@berrywallet/core';
+import { Wallet } from '@plark/wallet-core';
 import { Coins, createDebugger, Actions, Wallet as CoreWallet } from 'Core';
 import { NeedPasswordError } from 'Background/errors';
 import { WalletController } from 'Background/controllers';

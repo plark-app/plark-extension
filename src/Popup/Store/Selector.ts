@@ -1,6 +1,6 @@
 import { Dictionary, each } from 'lodash';
 import { createSelector } from 'reselect';
-import { Wallet } from '@berrywallet/core';
+import { Wallet } from '@plark/wallet-core';
 import { IStore, IWalletStore, ICoinStore } from 'Core/Declarations/Store';
 import { ICoinWallet } from 'Core/Declarations/Wallet';
 import { findCoin, findFiat, TickerData, CoinSymbol } from 'Core/Coins';

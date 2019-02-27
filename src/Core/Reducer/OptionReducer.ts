@@ -1,4 +1,4 @@
-import { Coin } from '@berrywallet/core';
+import { Coin } from '@plark/wallet-core';
 import { OptionAction, GlobalAction } from 'Core/Actions/Reducer';
 import { IOptionStore } from 'Core/Declarations/Store';
 

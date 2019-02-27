@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import cn from 'classnames';
 import Numeral from 'numeral';
 
-import { Wallet, Coin } from '@berrywallet/core';
+import { Wallet, Coin } from '@plark/wallet-core';
 
 import { Controller } from 'Core/Actions';
 import { Button, Alert } from 'Popup/UI';

@@ -1,5 +1,5 @@
 import {CoinSymbol} from 'Core/Coins';
-import {Wallet} from '@berrywallet/core';
+import {Wallet} from '@plark/wallet-core';
 
 export interface ITransaction {
     txid: string;

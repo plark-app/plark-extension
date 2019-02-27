@@ -1,6 +1,6 @@
 import { Store } from 'redux';
 import BigNumber from 'bignumber.js';
-import { HD, Wallet } from '@berrywallet/core';
+import { HD, Wallet } from '@plark/wallet-core';
 import { IStore } from 'Core/Declarations/Store';
 import { createBeShapy, BeShapyClient, BeShapyUnits } from 'be-shapy';
 import { Controller } from 'Core/Actions';

@@ -1,4 +1,4 @@
-// import * as BerryWalletCore from '@berrywallet/core';
+// import * as BerryWalletCore from '@plark/wallet-core';
 // const BIP39 = require('bip39');
 
 // let mnemonic = BIP39.generateMnemonic(128)

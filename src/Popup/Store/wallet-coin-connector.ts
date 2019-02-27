@@ -1,4 +1,4 @@
-import { Wallet } from '@berrywallet/core';
+import { Wallet } from '@plark/wallet-core';
 import { Coins } from 'Core';
 import { IStore } from 'Core/Declarations/Store';
 import { ICoinWallet } from 'Core/Declarations/Wallet';

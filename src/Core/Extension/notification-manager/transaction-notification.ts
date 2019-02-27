@@ -1,5 +1,5 @@
 import Extberry from 'extberry';
-import { Wallet } from '@berrywallet/core';
+import { Wallet } from '@plark/wallet-core';
 import { Coins } from 'Core';
 import { AbstractNotification } from './notification-types';
 

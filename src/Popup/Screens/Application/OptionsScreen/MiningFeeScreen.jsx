@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {map} from 'lodash';
-import {Coin} from '@berrywallet/core';
+import {Coin} from '@plark/wallet-core';
 import {InputCheck} from 'Popup/UI';
 import {Background, Analytics} from 'Popup/Service';
 import {OptionEvent} from 'Core/Actions/Controller';

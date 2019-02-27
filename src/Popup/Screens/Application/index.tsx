@@ -4,7 +4,7 @@ import cn from 'classnames';
 import { each } from 'lodash';
 import { connect } from 'react-redux';
 import { Route, Switch, Link } from 'react-router-dom';
-import { Wallet } from '@berrywallet/core';
+import { Wallet } from '@plark/wallet-core';
 import { MenuLayout } from 'Popup/UI/Layouts';
 import { extractTicker } from 'Popup/Store/Helpers';
 import { IStore } from 'Core/Declarations/Store';

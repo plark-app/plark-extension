@@ -1,5 +1,5 @@
 import { CoinInterface } from 'Core/Coins';
-import { Wallet, Coin } from '@berrywallet/core';
+import { Wallet, Coin } from '@plark/wallet-core';
 
 /**
  * @param {CoinSymbol} coinSymbol

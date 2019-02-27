@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {Wallet} from '@berrywallet/core';
+import {Wallet} from '@plark/wallet-core';
 
 import {Coins} from 'Core';
 import {IStore, IWalletStore} from 'Core/Declarations/Store';

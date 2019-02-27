@@ -6,7 +6,7 @@ import { parse as parseUrl } from 'url';
 import classNames from 'classnames';
 import ReactSVG from 'react-svg';
 
-import { Wallet } from '@berrywallet/core';
+import { Wallet } from '@plark/wallet-core';
 import { Helper } from 'Core';
 import { copyToClipboard, delay } from 'Core/utils';
 import { CoinInterface, findCoin, TxDirection } from 'Core/Coins';

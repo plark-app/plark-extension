@@ -5,7 +5,7 @@ import ReactSVG from 'react-svg';
 import numeral from 'numeral';
 import moment from 'moment';
 import classNames from 'classnames';
-import { Wallet } from '@berrywallet/core';
+import { Wallet } from '@plark/wallet-core';
 
 import { Helper, Coins } from 'Core';
 import { mapWalletCoinToProps } from 'Popup/Store/wallet-coin-connector';

@@ -1,7 +1,7 @@
 import React from 'react';
 import {Coins} from 'Core'
 import {map, orderBy} from 'lodash';
-import {Wallet} from '@berrywallet/core';
+import {Wallet} from '@plark/wallet-core';
 import BigNumber from 'bignumber.js';
 
 import {Controller} from 'Core/Actions';

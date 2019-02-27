@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {Wallet, HD} from '@berrywallet/core';
+import {Wallet, HD} from '@plark/wallet-core';
 import QRCode from 'qrcode-react';
 import ReactSVG from 'react-svg';
 import Extberry from 'extberry';

@@ -1,6 +1,6 @@
 import { each, debounce } from 'lodash';
 import BigNumber from 'bignumber.js';
-import { Coin, Wallet } from '@berrywallet/core';
+import { Coin, Wallet } from '@plark/wallet-core';
 import { Coins, createDebugger, Actions } from 'Core';
 import { WalletController } from 'Background/controllers';
 import { sendNotification, TransactionNotification } from 'Core/Extension/notification-manager';

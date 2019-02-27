@@ -3,7 +3,7 @@ import numeral from 'numeral';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import { NavLink, Route, Switch, matchPath, withRouter } from 'react-router-dom';
-import { Wallet } from '@berrywallet/core';
+import { Wallet } from '@plark/wallet-core';
 
 import { CoinIcon } from 'Popup/components/coin-icon';
 import { mapWalletCoinToProps } from 'Popup/Store/wallet-coin-connector';

@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import numeral from 'numeral';
 import ReactSVG from 'react-svg';
 
-import { Wallet } from '@berrywallet/core';
+import { Wallet } from '@plark/wallet-core';
 import { findFiat } from 'Core/Coins';
 import { CoinIcon } from 'Popup/components/coin-icon';
 import proxyStore from 'Popup/Store';

@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 import { TransactionStatus } from 'Core/Service/Wallet';
 import Numeral from 'numeral';
-import { Wallet } from '@berrywallet/core';
+import { Wallet } from '@plark/wallet-core';
 
 /**
  * @param {string} seed
