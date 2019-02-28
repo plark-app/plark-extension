@@ -96,7 +96,7 @@ export class WalletManager {
 
     /**
      * @param {string} address
-     * @param {number} value
+     * @param {BigNumber} value
      * @param {FeeTypes} fee
      *
      * @returns {Promise<WalletTransaction>}

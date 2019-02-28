@@ -18,7 +18,7 @@
         "@plark/wallet-core": "0.4.17",
         "axios": "0.18.0",
         "berrymarketcap": "1.4.0",
-        "bignumber.js": "7.2.1",
+        "bignumber.js": "8.0.1",
         "bip32": "^1.0.2",
         "bip39": "2.5.0",
         "circular-dependency-plugin": "4.4.0",

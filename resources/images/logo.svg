@@ -1,7 +1,22 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg viewBox="0 0 512 512" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <g transform="translate(27.000000, 23.000000)">
-        <path d="M205.5,405.35 C284.946161,405.35 349.35,340.946161 349.35,261.5 C349.35,182.053839 284.946161,117.65 205.5,117.65 C126.053839,117.65 61.65,182.053839 61.65,261.5 C61.65,340.946161 126.053839,405.35 205.5,405.35 Z M205.5,467 C92.0054839,467 0,374.994516 0,261.5 C0,148.005484 92.0054839,56 205.5,56 C318.994516,56 411,148.005484 411,261.5 C411,374.994516 318.994516,467 205.5,467 Z" fill="#FF3974" fill-rule="nonzero"></path>
-        <circle fill="#2AC062" cx="415" cy="44" r="44"></circle>
+<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+        <circle id="a" cx="198" cy="198" r="198"/>
+        <path id="c" d="M281 190l-131.5 14.5L185.1 0 0 322.5 131.5 308 95.9 512.5z"/>
+    </defs>
+    <g transform="translate(58 -.5)" fill="none" fill-rule="evenodd">
+        <circle fill="#630FCD" fill-rule="nonzero" cx="198" cy="256.5" r="198"/>
+        <g transform="translate(0 58.5)">
+            <mask id="b" fill="#fff">
+                <use xlink:href="#a"/>
+            </mask>
+            <path fill-opacity=".3" fill="#000" mask="url(#b)" d="M351.6 152.7l-131.4 14.5 35.6-204.4-185 322.4L202 270.7l-35.5 204.4z"/>
+        </g>
+        <g transform="translate(52.5)">
+            <mask id="d" fill="#fff">
+                <use xlink:href="#c"/>
+            </mask>
+            <use fill="#FFF" xlink:href="#c"/>
+            <path d="M86.8 258.7L185.8 0 150 204.2l-63.2 54.5zM0 323l86-61 107-11.8-61.4 58.3L0 323zm282.3-132.3L96.5 512.5l101-260.4 84.8-61.4z" fill="#D6D6D6" mask="url(#d)"/>
+        </g>
     </g>
 </svg>
