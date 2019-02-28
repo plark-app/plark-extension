@@ -16,11 +16,11 @@
         }
 
         &__button {
+            @include block-shadow;
             transition: all 0.2s;
             display: block;
             background: white;
             cursor: pointer;
-            @include block-shadow;
             width: 30px;
             height: 30px;
             border-radius: 30px;

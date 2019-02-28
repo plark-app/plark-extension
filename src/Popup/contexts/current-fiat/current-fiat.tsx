@@ -14,8 +14,11 @@ interface CurrentFiat {
     getTicker(coinSymbol: CoinSymbol): TickerData;
 }
 
-const { Provider, Consumer } = React.createContext<CurrentFiat>(null);
+const FiatContext = React.createContext<CurrentFiat>(null);
 
+export const useFiat = (): CurrentFiat => {
+    return React.useContext(FiatContext);
+};
 
 class CurrentFiatProviderComponent extends React.PureComponent<ProviderStoreProps> {
     public render(): JSX.Element {
@@ -28,7 +31,7 @@ class CurrentFiatProviderComponent extends React.PureComponent<ProviderStoreProp
             getTicker: this.getCoinTicker,
         };
 
-        return <Provider value={providerValue}>{children}</Provider>;
+        return <FiatContext.Provider value={providerValue}>{children}</FiatContext.Provider>;
     }
 
     protected getCoinTicker = (coinSymbol: CoinSymbol): TickerData => {
@@ -67,10 +70,10 @@ export function withCurrentFiat<P extends WithCurrentFiatProps>(
     type Props = Omit<P, WithCurrentFiatProps>;
 
     return (props: Props) => (
-        <Consumer>
+        <FiatContext.Consumer>
             {(currentFiat?: CurrentFiat) => (
-                <WrappedComponent currentFiat={currentFiat} {...props} />
+                <WrappedComponent currentFiat={currentFiat} {...props as any} />
             )}
-        </Consumer>
+        </FiatContext.Consumer>
     );
 }

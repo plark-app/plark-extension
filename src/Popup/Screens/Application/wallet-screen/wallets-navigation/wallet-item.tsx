@@ -32,7 +32,7 @@ export class WalletItemComponent extends React.PureComponent<any, any> {
         const { coin, ticker, fiat, balanceAmount = 0 } = this.props;
 
         const linkProps = {
-            className: classNames("dashboard-coin", { "-active": this.props.isActive }),
+            className: classNames("dashboard-coin", { '-active': this.props.isActive }),
             onClick: this.onChangeIt,
         };
 

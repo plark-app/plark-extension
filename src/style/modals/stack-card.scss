@@ -32,11 +32,11 @@
     }
 
     &.-black {
-      background: $color-dark;
-      color: $color-yellow;
-
-      &:after, &:before {
         background: $color-dark;
-      }
+        color: $color-yellow;
+
+        &:after, &:before {
+            background: $color-dark;
+        }
     }
 }

@@ -20,7 +20,7 @@ const socialLinks = [
     }, {
         key: 'github',
         title: 'Github',
-        href: 'https://github.com/plark'
+        href: 'https://github.com/plark-app'
     }, {
         key: 'bitcointalk',
         title: 'Bitcointalk',

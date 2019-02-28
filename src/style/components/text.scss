@@ -16,10 +16,12 @@
     &-link {
         color: $color-main;
         cursor: pointer;
+
         &:hover {
             text-decoration: underline;
         }
     }
+
     &-center {
         text-align: center;
     }

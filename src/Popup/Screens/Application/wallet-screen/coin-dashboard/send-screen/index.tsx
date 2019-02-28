@@ -103,9 +103,31 @@ class SendScreen extends React.PureComponent<any, SendScreenState> {
     };
 
     public render(): JSX.Element {
+        const { coin } = this.props;
+
+        return (
+            <div className={cn('wallet-wrapper', 'send')}>
+                <TrackScreenView trackLabel={`wallet-${coin.getKey()}-send`} />
+
+                {this.__renderInternalContent()}
+            </div>
+        );
+    }
+
+
+    protected __renderInternalContent() {
         const { coin, fiat, ticker } = this.props;
 
         const { address, activeInput, value = 0, sendingTransaction, loadingFee = false } = this.state;
+
+        if (sendingTransaction) {
+            return (
+                <div className={cn('send-process', sendingTransaction && '-sending')}>
+                    <div className="send-process__overlay" />
+                    <div className="send-process__info">Sending...</div>
+                </div>
+            );
+        }
 
         const fee = this.getFee();
         const coinValue = this.getCoinValue();
@@ -150,15 +172,9 @@ class SendScreen extends React.PureComponent<any, SendScreenState> {
             } as FooterRowProps);
         }
 
+
         return (
-            <div className={cn('wallet-wrapper', 'send')}>
-                <TrackScreenView trackLabel={`wallet-${coin.getKey()}-send`} />
-
-                <div className={cn('send-process', sendingTransaction && '-sending')}>
-                    <div className="send-process__overlay" />
-                    <div className="send-process__info">Sending...</div>
-                </div>
-
+            <>
                 <form onSubmit={this.createTransaction}>
                     <label>
                         <input type="text"
@@ -198,9 +214,10 @@ class SendScreen extends React.PureComponent<any, SendScreenState> {
                 </form>
 
                 <FooterComponent footerRows={reverse(footerRows)} />
-            </div>
+            </>
         );
     }
+
 
     protected getFee(): BigNumber | undefined {
         return this.state.fee ? new BigNumber(this.state.fee).decimalPlaces(8) : undefined;

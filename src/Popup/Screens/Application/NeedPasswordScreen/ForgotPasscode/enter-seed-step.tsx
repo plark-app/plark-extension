@@ -4,10 +4,10 @@ import { Background } from 'Popup/Service';
 import { KeyringEvent } from 'Core/Actions/Controller';
 import { Button } from 'Popup/UI';
 
-export class EnterSeedStep extends React.PureComponent<any, any> {
+export default class EnterSeedStep extends React.PureComponent<any, any> {
 
     public state = {
-        seed: ''
+        seed: '',
     };
 
     public componentDidMount(): void {
@@ -16,36 +16,30 @@ export class EnterSeedStep extends React.PureComponent<any, any> {
         }, 50);
     }
 
-    onTextareaChange = (event) => {
+    protected onTextareaChange = (event) => {
         const value = event.target.value.toLowerCase();
 
         this.setState(() => {
-            return {seed: value};
+            return { seed: value };
         });
     };
 
-    seedWordArray = () => {
+    protected seedWordArray = () => {
         return Helper.normalizeSeed(this.state.seed).split(' ');
     };
 
-    onSendSeed = (event) => {
+    protected onSendSeed = async (event) => {
         event.preventDefault();
         const seedWords = this.seedWordArray();
 
-        Background
-            .sendRequest(KeyringEvent.CheckSeed, {seed: seedWords})
-            .then(this.onPreparedResponse)
-            .catch(this.onPreparedError);
-    };
+        const { onSeedSuccess, onError = null } = this.props;
 
-    onPreparedResponse = (response) => {
-        const {onSeedSuccess} = this.props;
-        onSeedSuccess && onSeedSuccess(this.seedWordArray());
-    };
-
-    onPreparedError = (error) => {
-        const {onError = null} = this.props;
-        onError && onError(error.message);
+        try {
+            await Background.sendRequest(KeyringEvent.CheckSeed, { seed: seedWords });
+            onSeedSuccess && onSeedSuccess(this.seedWordArray());
+        } catch (error) {
+            onError && onError(error.message);
+        }
     };
 
     public render(): JSX.Element {
@@ -54,11 +48,11 @@ export class EnterSeedStep extends React.PureComponent<any, any> {
             placeholder: "Enter your backup phrase here",
             onChange: this.onTextareaChange,
             value: this.state.seed,
-            ref: 'seedTextarea'
+            ref: 'seedTextarea',
         };
 
         return (
-            <React.Fragment>
+            <>
                 <div className="topic">
                     <h1 className="topic__title">Enter your backup phrase to reset passcode</h1>
                 </div>
@@ -68,7 +62,7 @@ export class EnterSeedStep extends React.PureComponent<any, any> {
                         <Button disabled={!this.state.seed} type="submit">Reset passcode</Button>
                     </div>
                 </form>
-            </React.Fragment>
+            </>
         );
     }
 }

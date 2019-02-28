@@ -4,10 +4,12 @@
 
         &__direction {
             fill: white;
+
             &-wrapper {
                 &.-up {
                     background: $color-green;
                 }
+
                 &.-down {
                     background: $color-red;
                 }
