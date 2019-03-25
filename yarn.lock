@@ -158,9 +158,9 @@
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@nodelib/fs.stat/-/fs.stat-1.1.0.tgz#50c1e2260ac0ed9439a181de3725a0168d59c48a"
 
-"@plark/wallet-core@^0.4.21":
-  version "0.4.21"
-  resolved "https://registry.yarnpkg.com/@plark/wallet-core/-/wallet-core-0.4.21.tgz#1171bfddc842bd3036224ee7f5681491b98f7e9a"
+"@plark/wallet-core@0.4.24":
+  version "0.4.24"
+  resolved "https://registry.yarnpkg.com/@plark/wallet-core/-/wallet-core-0.4.24.tgz#4d98cccf022abe38d11803f3b4ed0e941f8784aa"
   dependencies:
     axios "0.18.0"
     babel-plugin-transform-runtime "6.23.0"
@@ -1911,7 +1911,7 @@ bindings@^1.2.1, bindings@^1.3.0:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/bindings/-/bindings-1.3.0.tgz#b346f6ecf6a95f5a815c5839fc7cdb22502f1ed7"
 
-bip32@1.0.2, bip32@^1.0.2:
+bip32@1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/bip32/-/bip32-1.0.2.tgz#982e2ad2cae6fc6a2f53dda3e6c3be9364674b28"
   dependencies:
@@ -2500,7 +2500,7 @@ cli@~1.0.0:
     exit "0.1.2"
     glob "^7.1.1"
 
-clipboard@^1.7.1:
+clipboard@1.7.1:
   version "1.7.1"
   resolved "https://registry.yarnpkg.com/clipboard/-/clipboard-1.7.1.tgz#360d6d6946e99a7a1fef395e42ba92b5e9b5a16b"
   dependencies:
@@ -3176,7 +3176,7 @@ defined@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/defined/-/defined-1.0.0.tgz#c98d9bcef75674188e110969151199e39b1fa693"
 
-del@^3.0.0:
+del@3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/del/-/del-3.0.0.tgz#53ecf699ffcbcb39637691ab13baf160819766e5"
   dependencies:
@@ -3749,7 +3749,7 @@ expand-tilde@^2.0.0, expand-tilde@^2.0.2:
   dependencies:
     homedir-polyfill "^1.0.1"
 
-extberry@^1.0.5:
+extberry@1.0.5:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/extberry/-/extberry-1.0.5.tgz#7eea108daeecd5222503c02dd3eae568bf07ef0d"
   dependencies:
@@ -4009,7 +4009,7 @@ fined@^1.0.1:
     object.pick "^1.2.0"
     parse-filepath "^1.0.1"
 
-firebase@^5.5.0:
+firebase@5.5.0:
   version "5.5.0"
   resolved "https://registry.yarnpkg.com/firebase/-/firebase-5.5.0.tgz#2ea18bb3f70f2b47fdb6fe380488e8c02a5c5d35"
   dependencies:
@@ -6427,7 +6427,7 @@ mkdirp@0.5.1, "mkdirp@>=0.5 0", mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@~0.5.0, mkd
   dependencies:
     minimist "0.0.8"
 
-moment@*, moment@^2.10.6, moment@^2.20.1, moment@^2.22.1:
+moment@*, moment@2.22.2, moment@^2.10.6, moment@^2.22.1:
   version "2.22.2"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.22.2.tgz#3c257f9839fc0e93ff53149632239eb90783ff66"
 
@@ -6522,7 +6522,7 @@ neo-async@^2.5.0:
   version "2.5.1"
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.5.1.tgz#acb909e327b1e87ec9ef15f41b8a269512ad41ee"
 
-net@^1.0.2:
+net@1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/net/-/net-1.0.2.tgz#d1757ec9a7fb2371d83cf4755ce3e27e10829388"
 
@@ -6758,7 +6758,7 @@ number-is-nan@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/number-is-nan/-/number-is-nan-1.0.1.tgz#097b602b53422a522c1afb8790318336941a011d"
 
-numeral@^2.0.6:
+numeral@2.0.6:
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/numeral/-/numeral-2.0.6.tgz#4ad080936d443c2561aed9f2197efffe25f4e506"
 
@@ -7165,7 +7165,7 @@ path-type@^3.0.0:
   dependencies:
     pify "^3.0.0"
 
-path@^0.12.7:
+path@0.12.7:
   version "0.12.7"
   resolved "https://registry.yarnpkg.com/path/-/path-0.12.7.tgz#d4dc2a506c4ce2197eb481ebfcd5b36c0140b10f"
   dependencies:
@@ -7663,7 +7663,7 @@ promise@^8.0.1:
   dependencies:
     asap "~2.0.3"
 
-prop-types@^15.5.4, prop-types@^15.5.6, prop-types@^15.6.0, prop-types@^15.6.1:
+prop-types@15.6.1, prop-types@^15.5.4, prop-types@^15.5.6, prop-types@^15.6.0, prop-types@^15.6.1:
   version "15.6.1"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.1.tgz#36644453564255ddda391191fb3a125cbdf654ca"
   dependencies:
@@ -7710,7 +7710,7 @@ public-encrypt@^4.0.0:
     parse-asn1 "^5.0.0"
     randombytes "^2.0.1"
 
-pump@^1.0.2:
+pump@1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/pump/-/pump-1.0.3.tgz#5dfe8311c33bbf6fc18261f9f34702c47c08a954"
   dependencies:
@@ -7758,7 +7758,7 @@ qr.js@0.0.0:
   version "0.0.0"
   resolved "https://registry.yarnpkg.com/qr.js/-/qr.js-0.0.0.tgz#cace86386f59a0db8050fa90d9b6b0e88a1e364f"
 
-qrcode-react@^0.1.15:
+qrcode-react@0.1.16:
   version "0.1.16"
   resolved "https://registry.yarnpkg.com/qrcode-react/-/qrcode-react-0.1.16.tgz#d064999d510ffc3e55a9ca3ffcf6c203c69f1517"
   dependencies:
@@ -7842,7 +7842,7 @@ raw-body@~2.1.5:
     iconv-lite "0.4.13"
     unpipe "1.0.0"
 
-raw-loader@^0.5.1:
+raw-loader@0.5.1:
   version "0.5.1"
   resolved "https://registry.yarnpkg.com/raw-loader/-/raw-loader-0.5.1.tgz#0c3d0beaed8a01c966d9787bf778281252a979aa"
 
