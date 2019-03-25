@@ -158,9 +158,9 @@
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@nodelib/fs.stat/-/fs.stat-1.1.0.tgz#50c1e2260ac0ed9439a181de3725a0168d59c48a"
 
-"@plark/wallet-core@0.4.24":
-  version "0.4.24"
-  resolved "https://registry.yarnpkg.com/@plark/wallet-core/-/wallet-core-0.4.24.tgz#4d98cccf022abe38d11803f3b4ed0e941f8784aa"
+"@plark/wallet-core@0.4.25":
+  version "0.4.25"
+  resolved "https://registry.yarnpkg.com/@plark/wallet-core/-/wallet-core-0.4.25.tgz#a6b1ea5ce250eedd540beb7be57f509f469391c1"
   dependencies:
     axios "0.18.0"
     babel-plugin-transform-runtime "6.23.0"

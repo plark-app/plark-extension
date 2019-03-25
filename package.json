@@ -1,7 +1,7 @@
 {
     "name": "plark",
     "description": "The safest multi-wallet that brings your crypto currency management and storage to the next level.",
-    "version": "1.8.0",
+    "version": "1.8.1",
     "repository": "https://github.com/plark-app/plark-extension",
     "homepage": "https://plark.io",
     "public": true,
@@ -15,7 +15,7 @@
         "tag:minor": "yarn version --new-version minor"
     },
     "dependencies": {
-        "@plark/wallet-core": "0.4.24",
+        "@plark/wallet-core": "0.4.25",
         "axios": "0.18.0",
         "berrymarketcap": "1.4.0",
         "bignumber.js": "8.0.1",
