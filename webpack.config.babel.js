@@ -2,7 +2,7 @@ import webpack from 'webpack';
 import Path from 'path';
 import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
 
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const noop = () => null;
 

@@ -15,10 +15,10 @@
         "tag:minor": "yarn version --new-version minor"
     },
     "dependencies": {
-        "@plark/wallet-core": "0.4.25",
+        "@plark/wallet-core": "^0.5.1",
         "axios": "0.18.0",
         "berrymarketcap": "1.4.0",
-        "bignumber.js": "8.0.1",
+        "bignumber.js": "9.0.0",
         "bip32": "1.0.2",
         "bip39": "2.5.0",
         "circular-dependency-plugin": "4.4.0",

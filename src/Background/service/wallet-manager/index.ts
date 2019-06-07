@@ -1,6 +1,6 @@
 import { each, debounce } from 'lodash';
 import BigNumber from 'bignumber.js';
-import { Coin, Wallet } from '@plark/wallet-core';
+import { Coin, Wallet, Constants } from '@plark/wallet-core';
 import { Coins, createDebugger, Actions } from 'Core';
 import { WalletController } from 'Background/controllers';
 import { sendNotification, TransactionNotification } from 'Core/Extension/notification-manager';
@@ -95,15 +95,15 @@ export class WalletManager {
     }
 
     /**
-     * @param {string} address
-     * @param {BigNumber} value
-     * @param {FeeTypes} fee
+     * @param {string}      address
+     * @param {BigNumber}   value
+     * @param {FeeTypes}    fee
      *
      * @returns {Promise<WalletTransaction>}
      */
     public sendTransaction = async (address: string,
                                     value: BigNumber,
-                                    fee: Coin.FeeTypes = Coin.FeeTypes.Medium): Promise<Wallet.Entity.WalletTransaction> => {
+                                    fee: Constants.FeeTypes = Constants.FeeTypes.Medium): Promise<Wallet.Entity.WalletTransaction> => {
 
         const bufferSeed = this.controller.getSeed();
 
@@ -133,7 +133,7 @@ export class WalletManager {
         }
     };
 
-    public calculateFee = (address: string, value: number, fee: Coin.FeeTypes = Coin.FeeTypes.Medium) => {
+    public calculateFee = (address: string, value: number, fee: Constants.FeeTypes = Constants.FeeTypes.Medium) => {
         const bufferSeed = this.controller.getSeed();
 
         if (!address) {

@@ -1,11 +1,11 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import {map, filter} from 'lodash';
-import {fiatList} from 'Core/Coins';
-import {TickerEvent} from 'Core/Actions/Controller';
-import {InputCheck, EmptyDummy} from 'Popup/UI';
-import {Analytics, Background} from 'Popup/Service';
-import {SearchInputComponent} from './components';
+import { connect } from 'react-redux';
+import { map, filter } from 'lodash';
+import { fiatList } from 'Core/Coins';
+import { TickerEvent } from 'Core/Actions/Controller';
+import { InputCheck, EmptyDummy } from 'Popup/UI';
+import { Analytics, Background } from 'Popup/Service';
+import { SearchInputComponent } from './components';
 
 export class FiatsScreenComponent extends React.Component {
 
@@ -72,7 +72,7 @@ export class FiatsScreenComponent extends React.Component {
                 <div className="currency-option-head">
                     <h1 className="title currency-option-head__title">Choose your currency</h1>
                     <SearchInputComponent onChangeSearch={this.onChangeSearch}
-                                          placeholder="Search Currency"/>
+                                          placeholder="Search Currency" />
                 </div>
 
                 <div className="currency-option-list">

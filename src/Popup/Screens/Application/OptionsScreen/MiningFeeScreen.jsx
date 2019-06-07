@@ -1,10 +1,10 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import {map} from 'lodash';
-import {Coin} from '@plark/wallet-core';
-import {InputCheck} from 'Popup/UI';
-import {Background, Analytics} from 'Popup/Service';
-import {OptionEvent} from 'Core/Actions/Controller';
+import { connect } from 'react-redux';
+import { map } from 'lodash';
+import { Constants } from '@plark/wallet-core';
+import { InputCheck } from 'Popup/UI';
+import { Background, Analytics } from 'Popup/Service';
+import { OptionEvent } from 'Core/Actions/Controller';
 
 const mapStateToProps = (store) => {
     return {
@@ -13,15 +13,15 @@ const mapStateToProps = (store) => {
 };
 
 const feesList = [{
-    key: Coin.FeeTypes.High,
+    key: Constants.FeeTypes.High,
     name: 'Fast',
     subname: 'Pricey Fees'
 }, {
-    key: Coin.FeeTypes.Medium,
+    key: Constants.FeeTypes.Medium,
     name: 'Average',
     subname: 'Average Fees'
 }, {
-    key: Coin.FeeTypes.Low,
+    key: Constants.FeeTypes.Low,
     name: 'Slow',
     subname: 'Cheap Fees'
 }];
@@ -64,7 +64,7 @@ export class MiningFeeScreen extends React.Component {
                 <div className="page-head">
                     <h1 className="title">Mining Fee Speed</h1>
                     <p className="text-center">
-                        You can choose the speed of your<br/>
+                        You can choose the speed of your<br />
                         wallet transactions
                     </p>
                 </div>

@@ -1,9 +1,9 @@
-import { Coin } from '@plark/wallet-core';
+import { Constants } from '@plark/wallet-core';
 import { OptionAction, GlobalAction } from 'Core/Actions/Reducer';
 import { IOptionStore } from 'Core/Declarations/Store';
 
 export const initialOptionState: IOptionStore = {
-    fee: Coin.FeeTypes.Medium,
+    fee: Constants.FeeTypes.Medium,
 };
 
 export default function coinState(state: IOptionStore = initialOptionState, action): IOptionStore {

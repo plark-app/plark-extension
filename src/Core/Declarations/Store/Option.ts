@@ -1,6 +1,5 @@
-import {Coin} from '@plark/wallet-core';
-
+import { Constants } from '@plark/wallet-core';
 
 export interface IOptionStore {
-    fee: Coin.FeeTypes;
+    fee: Constants.FeeTypes;
 }
