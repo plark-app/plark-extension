@@ -60,7 +60,7 @@
         "redux": "3.7.2",
         "reselect": "^3.0.1",
         "restify-clients": "^1.5.2",
-        "showdown": "^1.8.6",
+        "showdown": "^1.9.1",
         "sjcl": "^1.0.7",
         "sjcl-typescript-definitions": "^1.0.1-1",
         "stream-http": "^2.8.0",
