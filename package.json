@@ -35,7 +35,7 @@
         "lodash": "4.17.10",
         "markdown-loader": "3.0.0",
         "mkdirp": "0.5.1",
-        "moment": "2.22.2",
+        "moment": "2.29.2",
         "net": "1.0.2",
         "numeral": "2.0.6",
         "obs-store": "3.0.0",
