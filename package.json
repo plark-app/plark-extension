@@ -15,7 +15,7 @@
         "tag:minor": "yarn version --new-version minor"
     },
     "dependencies": {
-        "@plark/wallet-core": "^0.5.1",
+        "@plark/wallet-core": "^0.5.13",
         "axios": "0.18.0",
         "berrymarketcap": "1.4.0",
         "bignumber.js": "9.0.0",
